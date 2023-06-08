@@ -1,5 +1,10 @@
 class Api::User < ApplicationRecord
-    validates :username, presence: true, uniqueness: true
+    has_secure_password
+
+    validates :username, :email, uniqueness: true
+    validates :password_digest, presence: true
+    validates :session_token, presence: true, uniqueness: true
+    validates :password, length { in: 6..16 }, allow_nil: true
 
     has_many :posts,
         foreign_key: :user_id,
