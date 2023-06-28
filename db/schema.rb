@@ -10,35 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_26_214317) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_28_015352) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "comments", force: :cascade do |t|
-    t.text "body"
-    t.integer "author_id"
+  create_table "meetings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "category", null: false
+    t.string "student", null: false
+    t.string "problem"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "posts", force: :cascade do |t|
-    t.text "body"
-    t.integer "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "student_email", null: false
+    t.index ["category"], name: "index_meetings_on_category"
+    t.index ["student"], name: "index_meetings_on_student"
+    t.index ["student_email"], name: "index_meetings_on_student_email"
+    t.index ["user_id"], name: "index_meetings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
-    t.string "username", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.string "password_digest", null: false
     t.string "session_token", null: false
-    t.string "biography"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "meetings", "users"
 end
