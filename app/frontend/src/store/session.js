@@ -52,7 +52,8 @@ export const signup = (user) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   const response = await fetch("/api/session", {
-    method: "DELETE"
+    method: "DELETE",
+    headers: Util.headers()
   });
   storeCurrentUser(null);
   dispatch(removeCurrentUser());

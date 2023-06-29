@@ -1,11 +1,17 @@
-import React from 'react';
-
-import '/Splash.css';
+import React, { useState } from 'react';
+import './Splash.css';
+import LoginModal from './LoginModal';
+import SignupModal from './SignupModal';
 
 function Splash(){
     return (
-        <div className='splash'>
-            <h1>Welcome to my place</h1>
+        <div id='splash'>
+            <h1>Welcome to MeetingMinutes</h1>
+            
+            <div>
+                <LoginModal />
+                <SignupModal />
+            </div>
         </div>
     )
 }

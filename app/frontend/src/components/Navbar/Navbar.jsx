@@ -41,19 +41,19 @@ const navItems = ['Home', 'About', 'Contact'];
 function Navbar() {
   const sessionUser = useSelector(state => state.session.user);
 
-  let sessionLinks;
-  if (sessionUser) {
-    sessionLinks = (
-      <ProfileButton user={sessionUser} />
-    );
-  } else {
-    sessionLinks = (
-      <>
-        <NavLink to="/login">Log In</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
-      </>
-    );
-  }
+  // let sessionLinks;
+  // if (sessionUser) {
+  //   sessionLinks = (
+  //     <ProfileButton user={sessionUser} />
+  //   );
+  // } else {
+  //   sessionLinks = (
+  //     <>
+  //       <NavLink to="/login">Log In</NavLink>
+  //       <NavLink to="/signup">Sign Up</NavLink>
+  //     </>
+  //   );
+  // }
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -65,34 +65,20 @@ function Navbar() {
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <List>
         <ListItem sx={{ justifyContent: 'center' }}>
-          <Link to="/login" sx={{ textAlign: 'center', textDecoration: 'none' }}>Log In</Link>
+          {/* <Link to="/login" sx={{ textAlign: 'center', textDecoration: 'none' }}>Log In</Link> */}
+          <NavLink to="/login">Log In</NavLink>
         </ListItem>
         <ListItem sx={{ justifyContent: 'center' }}>
-          <Link to="/signup" sx={{ textAlign: 'center', textDecoration: 'none' }}>Sign Up</Link>
+          <NavLink to="/signup">Sign Up</NavLink>
         </ListItem>
-        {/* {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))} */}
       </List>
     </Box>
   );
-
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -109,7 +95,7 @@ function Navbar() {
               variant="h6"
               noWrap
               component="a"
-              href="/"
+              href="/home"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -120,9 +106,7 @@ function Navbar() {
                 textDecoration: 'none',
               }}
             >
-              <NavLink exact to="/">
-                <FunctionsIcon/>
-              </NavLink>
+              <FunctionsIcon/>
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -156,11 +140,12 @@ function Navbar() {
               >
               </Menu>
             </Box>
+
             <Typography
               variant="h5"
               noWrap
               component="a"
-              href=""
+              href="/home"
               sx={{
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
@@ -172,10 +157,9 @@ function Navbar() {
                 textDecoration: 'none',
               }}
             >
-              <NavLink exact to="/">
-                <FunctionsIcon/>
-              </NavLink>
+              <FunctionsIcon/>
             </Typography>
+            
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
@@ -224,18 +208,20 @@ function Navbar() {
               </Menu>
             </Box> */}
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              {/* <Tooltip title="Open settings"> */}
                 {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" sx={{display: { xs: 'none', md: 'flex' }}}/>
                 </IconButton>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <SearchIcon sx={{display: { xs: 'flex', md: 'none' }}}/>
                 </IconButton> */}
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="Demo" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
+                </IconButton> */}
+                <ProfileButton user={sessionUser}/>
+              {/* </Tooltip> */}
+              {/* <ProfileButton /> */}
+              {/* <Menu
                 sx={{ mt: '45px' }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
@@ -256,7 +242,7 @@ function Navbar() {
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
-              </Menu>
+              </Menu> */}
             </Box>
           </Toolbar>
         </Container>
