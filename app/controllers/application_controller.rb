@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    before_action :snake_case_params
+    before_action :snake_case_params, only: %i[create update]
 
     def current_user
       @current_user ||= User.find_by(session_token: session[:session_token])

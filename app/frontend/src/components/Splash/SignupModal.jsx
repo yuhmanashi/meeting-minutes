@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import * as sessionActions from '../../store/session';
 
 import Box from '@mui/material/Box';
@@ -25,24 +24,19 @@ export default function SignupModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const history = useHistory();
   const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.session.user);
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("demo@user.io");
+  const [firstName, setFirstName] = useState("Demo");
+  const [lastName, setLastName] = useState("User");
+  const [password, setPassword] = useState("password");
+  const [confirmPassword, setConfirmPassword] = useState("password");
   const [errors, setErrors] = useState([]);
-
-  // if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, password }))
-        .then(() => history.push('/home'))
+      return dispatch(sessionActions.signup({ email, firstName, lastName, password }))
         .catch(async (res) => {
         let data;
         try {

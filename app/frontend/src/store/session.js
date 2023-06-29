@@ -42,7 +42,8 @@ export const signup = (user) => async (dispatch) => {
       lastName,
       email,
       password
-    })
+    }),
+    headers: Util.headers()
   });
   const data = await response.json();
   storeCurrentUser(data.user);

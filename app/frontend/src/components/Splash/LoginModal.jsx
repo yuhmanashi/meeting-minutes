@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -25,20 +24,16 @@ export default function LoginModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   
-  const history = useHistory();
   const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.session.user);
+  
   const [email, setEmail] = useState('demo@user.io');
   const [password, setPassword] = useState('password');
   const [errors, setErrors] = useState([]);
-
-  if (sessionUser) return <Redirect to='/home' />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login({ email, password }))
-      .then(() => history.push("/home"))
       .catch(async (res) => {
             let data;
             try {
