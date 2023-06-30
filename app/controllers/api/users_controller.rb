@@ -13,7 +13,7 @@ class Api::UsersController < ApplicationController
         login!(@user)
         render :show
       else
-        render json: @user.errors.messages, status: :unprocessable_entity
+        render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
       end
     end
   

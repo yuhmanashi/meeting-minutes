@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as sessionActions from '../../store/session';
 
 import Box from '@mui/material/Box';
@@ -22,7 +22,12 @@ const style = {
 export default function SignupModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    dispatch(sessionActions.removeSessionErrors());
+  };
+
+  const errors = useSelector(state => state.errors);
 
   const dispatch = useDispatch();
   const [email, setEmail] = useState("demo@user.io");
@@ -30,27 +35,12 @@ export default function SignupModal() {
   const [lastName, setLastName] = useState("User");
   const [password, setPassword] = useState("password");
   const [confirmPassword, setConfirmPassword] = useState("password");
-  const [errors, setErrors] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-      setErrors([]);
       return dispatch(sessionActions.signup({ email, firstName, lastName, password }))
-        .catch(async (res) => {
-        let data;
-        try {
-          // .clone() essentially allows you to read the response body twice
-          data = await res.clone().json();
-        } catch {
-          data = await res.text(); // Will hit this case if the server is down
-        }
-        if (data?.errors) setErrors(data.errors);
-        else if (data) setErrors([data]);
-        else setErrors([res.statusText]);
-      });
     }
-    return setErrors(['Confirm Password field must be the same as the Password field']);
   };
 
   return (

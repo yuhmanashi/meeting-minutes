@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { logger } from 'redux-logger';
-import sessionReducer from './session';
+import { sessionReducer, sessionErrorReducer } from './session';
 
 const rootReducer = {
-    session: sessionReducer
+    session: sessionReducer,
+    errors: sessionErrorReducer
 };
 
 export const store = configureStore({

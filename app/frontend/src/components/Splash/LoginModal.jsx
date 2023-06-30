@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -22,26 +22,21 @@ const style = {
 export default function LoginModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    dispatch(sessionActions.removeSessionErrors());
+  };
   
   const dispatch = useDispatch();
-  
+  const errors = useSelector(state => state.errors)
   const [email, setEmail] = useState('demo3@user.io');
   const [password, setPassword] = useState('password');
-  const [errors, setErrors] = useState([]);
-  const [x, setX] = useState('')
-
-  console.log('errors', errors, x)
+  // const [errors, setErrors] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
+    // setErrors([]);
     return dispatch(sessionActions.login({ email, password }))
-      .catch(error => {
-        console.log('in catch', error)
-        setErrors(error)
-        setX('x')
-      })
       // .catch(async (res) => {
       //       let data;
       //       try {

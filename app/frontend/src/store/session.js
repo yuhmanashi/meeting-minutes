@@ -2,6 +2,8 @@ import * as Util from '../utils/util';
 
 const SET_CURRENT_USER = 'session/setCurrentUser';
 const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
+const SET_SESSION_ERRORS = 'session/setSessionErrors';
+const REMOVE_SESSION_ERRORS = 'session/removeSessionErrors';
 
 const setCurrentUser = (user) => {
   return {
@@ -13,6 +15,19 @@ const setCurrentUser = (user) => {
 const removeCurrentUser = () => {
   return {
     type: REMOVE_CURRENT_USER
+  };
+};
+
+const setSessionErrors = (errors) => {
+  return {
+    type: SET_SESSION_ERRORS,
+    payload: errors
+  };
+};
+
+export const removeSessionErrors = () => {
+  return {
+    type: REMOVE_SESSION_ERRORS
   };
 };
 
@@ -28,11 +43,10 @@ export const login = ({ email, password }) => async dispatch => {
     headers: Util.headers()
   });
   const data = await response.json();
-  console.log('in login', data);
   storeCurrentUser(data.user);
   dispatch(setCurrentUser(data.user))
-    .then(() => {return response});
-  // return response;
+  dispatch(setSessionErrors(data.errors))
+  return response
 };
 
 export const signup = (user) => async (dispatch) => {
@@ -50,6 +64,7 @@ export const signup = (user) => async (dispatch) => {
   const data = await response.json();
   storeCurrentUser(data.user);
   dispatch(setCurrentUser(data.user));
+  dispatch(setSessionErrors(data.errors))
   return response;
 };
 
@@ -64,10 +79,10 @@ export const logout = () => async (dispatch) => {
 };
 
 const initialState = { 
-  user: JSON.parse(sessionStorage.getItem("currentUser"))
+  user: JSON.parse(sessionStorage.getItem("currentUser")),
 };
 
-const sessionReducer = (state = initialState, action) => {
+export const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
       return { ...state, user: action.payload };
@@ -78,4 +93,13 @@ const sessionReducer = (state = initialState, action) => {
   }
 };
 
-export default sessionReducer;
+export const sessionErrorReducer = (state = [], action) => {
+  switch (action.type) {
+    case SET_SESSION_ERRORS:
+      return action.payload
+    case REMOVE_SESSION_ERRORS:
+      return []
+    default:
+      return state;
+  }
+};
