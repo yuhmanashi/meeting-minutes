@@ -28,9 +28,11 @@ export const login = ({ email, password }) => async dispatch => {
     headers: Util.headers()
   });
   const data = await response.json();
+  console.log('in login', data);
   storeCurrentUser(data.user);
-  dispatch(setCurrentUser(data.user));
-  return response;
+  dispatch(setCurrentUser(data.user))
+    .then(() => {return response});
+  // return response;
 };
 
 export const signup = (user) => async (dispatch) => {

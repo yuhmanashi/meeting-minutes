@@ -26,26 +26,34 @@ export default function LoginModal() {
   
   const dispatch = useDispatch();
   
-  const [email, setEmail] = useState('demo@user.io');
+  const [email, setEmail] = useState('demo3@user.io');
   const [password, setPassword] = useState('password');
   const [errors, setErrors] = useState([]);
+  const [x, setX] = useState('')
+
+  console.log('errors', errors, x)
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login({ email, password }))
-      .catch(async (res) => {
-            let data;
-            try {
-            // .clone() essentially allows you to read the response body twice
-            data = await res.clone().json();
-            } catch {
-            data = await res.text(); // Will hit this case if the server is down
-            }
-            if (data?.errors) setErrors(data.errors);
-            else if (data) setErrors([data]);
-            else setErrors([res.statusText]);
-      });
+      .catch(error => {
+        console.log('in catch', error)
+        setErrors(error)
+        setX('x')
+      })
+      // .catch(async (res) => {
+      //       let data;
+      //       try {
+      //       // .clone() essentially allows you to read the response body twice
+      //       data = await res.clone().json();
+      //       } catch {
+      //       data = await res.text(); // Will hit this case if the server is down
+      //       }
+      //       if (data?.errors) setErrors(data.errors);
+      //       else if (data) setErrors([data]);
+      //       else setErrors([res.statusText]);
+      // });
   }
   
   return (

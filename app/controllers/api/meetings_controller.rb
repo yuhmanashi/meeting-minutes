@@ -1,5 +1,5 @@
 class Api::MeetingsController < ApplicationController
-    wrap_parameters include: Item.attribute_names + ['imageUrl', 'userId']
+    wrap_parameters include: Meeting.attribute_names + ['studentEmail']
 
     def index
         @meetings = Meeting.all
