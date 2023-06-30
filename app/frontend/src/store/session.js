@@ -96,9 +96,9 @@ export const sessionReducer = (state = initialState, action) => {
 export const sessionErrorReducer = (state = [], action) => {
   switch (action.type) {
     case SET_SESSION_ERRORS:
-      return action.payload
+      return action.payload;
     case REMOVE_SESSION_ERRORS:
-      return []
+      return [];
     default:
       return state;
   }

@@ -25,5 +25,19 @@ ApplicationRecord.transaction do
   
     # More users
 
+    # Meetings for Demo User
+    puts 'Destroying meetings'
+    Meeting.destroy_all
+
+    puts 'Creating meetings'
+    10.times {
+      |n| Meeting.create!(
+        user_id: User.first.id,
+        category: 'test' + n.to_s,
+        student: 'student' + n.to_s,
+        student_email: 'student' + n.to_s + '@student.io'
+      )
+    }
+
     puts "Done!"
 end
