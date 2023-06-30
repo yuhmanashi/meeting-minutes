@@ -1,4 +1,4 @@
-import * as Util from '../utils/Util';
+import * as Util from '../utils/util';
 
 const SET_CURRENT_USER = 'session/setCurrentUser';
 const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
