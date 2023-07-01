@@ -45,7 +45,7 @@ export const login = ({ email, password }) => async dispatch => {
   const data = await response.json();
   storeCurrentUser(data.user);
   dispatch(setCurrentUser(data.user))
-  dispatch(setSessionErrors(data.errors))
+  if (data.errors) dispatch(setSessionErrors(data.errors))
   return response
 };
 
@@ -64,7 +64,7 @@ export const signup = (user) => async (dispatch) => {
   const data = await response.json();
   storeCurrentUser(data.user);
   dispatch(setCurrentUser(data.user));
-  dispatch(setSessionErrors(data.errors))
+  if (data.errors) dispatch(setSessionErrors(data.errors))
   return response;
 };
 

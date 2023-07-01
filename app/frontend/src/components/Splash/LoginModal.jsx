@@ -36,7 +36,7 @@ export default function LoginModal() {
     e.preventDefault();
     return dispatch(sessionActions.login({ email, password }))
   }
-  
+
   return (
     <div>
       <Button onClick={handleOpen}>Login</Button>
@@ -49,7 +49,7 @@ export default function LoginModal() {
         <Box sx={style}>
         <form onSubmit={handleSubmit}>
                 <ul>
-                    {errors.map(error => <li key={error}>{error}</li>)}
+                    { errors ? errors.map(error => <li key={error}>{error}</li>) : null }
                 </ul>
         
                 <label>

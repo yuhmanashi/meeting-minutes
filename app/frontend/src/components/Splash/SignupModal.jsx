@@ -55,7 +55,7 @@ export default function SignupModal() {
         <Box sx={style}>
         <form onSubmit={handleSubmit}>
       <ul>
-        {errors.map(error => <li key={error}>{error}</li>)}
+        { errors ? errors.map(error => <li key={error}>{error}</li>) : null }
       </ul>
       <label>
         First Name

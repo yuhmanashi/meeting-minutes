@@ -6,7 +6,7 @@ import meetingsReducer from './meetings';
 const rootReducer = {
     session: sessionReducer,
     errors: sessionErrorReducer,
-    meetings: meetingsReducer
+    // meetings: meetingsReducer
 };
 
 export const store = configureStore({
