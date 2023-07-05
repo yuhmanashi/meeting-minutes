@@ -38,8 +38,20 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const drawerWidth = 150;
 const navItems = ['Home', 'About', 'Contact'];
 
+interface RootState {
+  session: {
+    user: {
+      createdAt: string,
+      email: string,
+      firstName: string,
+      id: number,
+      lastName: string
+    }
+  }
+}
+
 function Navbar() {
-  const sessionUser = useSelector(state => state.session.user);
+  const selectSessionUser = (state: RootState) => state.session.user
 
   // let sessionLinks;
   // if (sessionUser) {
@@ -58,7 +70,7 @@ function Navbar() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
+    setMobileOpen(!mobileOpen);
   };
 
   const drawer = (
@@ -74,17 +86,9 @@ function Navbar() {
       </List>
     </Box>
   );
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-  
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
