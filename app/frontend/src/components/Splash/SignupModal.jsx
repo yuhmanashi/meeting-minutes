@@ -34,13 +34,10 @@ export default function SignupModal() {
   const [firstName, setFirstName] = useState("Demo");
   const [lastName, setLastName] = useState("User");
   const [password, setPassword] = useState("password");
-  const [confirmPassword, setConfirmPassword] = useState("password");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      return dispatch(sessionActions.signup({ email, firstName, lastName, password }))
-    }
+    return dispatch(sessionActions.signup({ email, firstName, lastName, password }))
   };
 
   return (
@@ -90,15 +87,6 @@ export default function SignupModal() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Confirm Password
-        <input
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
       </label>

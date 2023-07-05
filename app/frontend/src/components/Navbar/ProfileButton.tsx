@@ -3,6 +3,10 @@ import { useDispatch } from 'react-redux';
 
 import * as sessionActions from '../../store/session';
 
+interface ProfileButtonProps {
+  user: string;
+}
+
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   // const history = useHistory();

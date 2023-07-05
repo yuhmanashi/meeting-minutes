@@ -32,26 +32,16 @@ import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import Link from '@mui/material/Link';
 
+import type { RootState, AppDispatch } from '../../store';
+
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const drawerWidth = 150;
 const navItems = ['Home', 'About', 'Contact'];
 
-interface CurrState {
-  session: {
-    user: {
-      createdAt: string,
-      email: string,
-      firstName: string,
-      id: number,
-      lastName: string
-    }
-  }
-}
-
 function Navbar() {
-  const selectSessionUser = (state: CurrState) => state.session.user
+  const selectSessionUser = (state: RootState) => state.session.user
   const sessionUser = useSelector(selectSessionUser);
   
   // let sessionLinks;
