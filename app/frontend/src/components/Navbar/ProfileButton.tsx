@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
-
+import { useAppDispatch } from "../../utils/hooks";
 import * as sessionActions from '../../store/session';
 
 interface ProfileButtonProps {
@@ -8,11 +7,11 @@ interface ProfileButtonProps {
 }
 
 function ProfileButton({ user }) {
-  const dispatch = useDispatch();
-  // const history = useHistory();
+  const dispatch = useAppDispatch()
   const [showMenu, setShowMenu] = useState(false);
   
   const openMenu = () => {
+    console.log('menu button', showMenu)
     if (showMenu) return;
     setShowMenu(true);
   };
@@ -34,25 +33,28 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
     // history.push('/');
   };
-
+  
   return (
-    // <>
-    //   <button onClick={openMenu}>
-    //     <i className="fa-solid fa-user-circle" />
-    //   </button>
-    //   {showMenu && (
-    //     // <ul className="profile-dropdown">
-    //     //   <li>{user.first_name}</li>
-    //     //   <li>{user.last_name}</li>
-    //     //   <li>{user.email}</li>
-    //     //   <li>
-    //     //     <button onClick={logout}>Log Out</button>
-    //     //   </li>
-    //     // </ul>
-    //     <button onClick={logout}>Log Out</button>
-    //   )}
-    // </>
-    <button onClick={logout}>Log Out</button>
+    <>
+      {/* <button onClick={openMenu}>
+        <i className="fa-solid fa-user-circle" />
+      </button>
+      {showMenu && (
+        <ul className="profile-dropdown">
+          <li>{user.first_name}</li>
+          <li>{user.last_name}</li>
+          <li>{user.email}</li>
+          <li>Some</li>
+          <li>Filler</li>
+          <li>Shit</li>
+          <li>
+            <button onClick={logout}>Log Out</button>
+          </li>
+        </ul>
+        
+      )} */}
+      { user ? <button onClick={logout}>Log Out</button> : <div>no user</div>}    
+    </>
   );
 }
 

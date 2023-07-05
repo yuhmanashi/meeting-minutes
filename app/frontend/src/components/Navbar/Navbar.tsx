@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import Profile from './Profile';
 import './Navbar.css'
 
 import AppBar from '@mui/material/AppBar';
@@ -12,25 +13,16 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import FunctionsIcon from '@mui/icons-material/Functions';
-import SearchIcon from '@mui/icons-material/Search';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 
 import CssBaseline from '@mui/material/CssBaseline';
-import Link from '@mui/material/Link';
 
 import type { RootState, AppDispatch } from '../../store';
 
@@ -41,22 +33,8 @@ const drawerWidth = 150;
 const navItems = ['Home', 'About', 'Contact'];
 
 function Navbar() {
-  const selectSessionUser = (state: RootState) => state.session.user
+  const selectSessionUser = (state: RootState) => state.session.user;
   const sessionUser = useSelector(selectSessionUser);
-  
-  // let sessionLinks;
-  // if (sessionUser) {
-  //   sessionLinks = (
-  //     <ProfileButton user={sessionUser} />
-  //   );
-  // } else {
-  //   sessionLinks = (
-  //     <>
-  //       <NavLink to="/login">Log In</NavLink>
-  //       <NavLink to="/signup">Sign Up</NavLink>
-  //     </>
-  //   );
-  // }
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -64,11 +42,11 @@ function Navbar() {
     setMobileOpen(!mobileOpen);
   };
 
+  //sliding sidebar
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <List>
         <ListItem sx={{ justifyContent: 'center' }}>
-          {/* <Link to="/login" sx={{ textAlign: 'center', textDecoration: 'none' }}>Log In</Link> */}
           <NavLink to="/login">Log In</NavLink>
         </ListItem>
         <ListItem sx={{ justifyContent: 'center' }}>
@@ -77,6 +55,7 @@ function Navbar() {
       </List>
     </Box>
   );
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -86,6 +65,8 @@ function Navbar() {
       <AppBar component='nav' position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
+            
+            {/* Logo (desktop) */}
             <Typography
               variant="h6"
               noWrap
@@ -103,7 +84,8 @@ function Navbar() {
             >
               <FunctionsIcon/>
             </Typography>
-
+            
+            {/* Menu */}
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
@@ -135,7 +117,8 @@ function Navbar() {
               >
               </Menu>
             </Box>
-
+            
+            {/* Logo (mobile) */}
             <Typography
               variant="h5"
               noWrap
@@ -155,6 +138,7 @@ function Navbar() {
               <FunctionsIcon/>
             </Typography>
             
+            {/* Misc buttons for desktop */}
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
@@ -166,82 +150,16 @@ function Navbar() {
                 </Button>
               ))}
             </Box>
-            {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
-              >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box> */}
+            
+            {/* Profile */}
             <Box sx={{ flexGrow: 0 }}>
-              {/* <Tooltip title="Open settings"> */}
-                {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" sx={{display: { xs: 'none', md: 'flex' }}}/>
-                </IconButton>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <SearchIcon sx={{display: { xs: 'flex', md: 'none' }}}/>
-                </IconButton> */}
-                {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Demo" src="/static/images/avatar/2.jpg" />
-                </IconButton> */}
-                <ProfileButton user={sessionUser}/>
-              {/* </Tooltip> */}
-              {/* <ProfileButton /> */}
-              {/* <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu> */}
+              <Profile user={sessionUser} />
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
+
+      {/* Sidebar */}
       <Box component="nav">
         <Drawer
           variant="temporary"

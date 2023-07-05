@@ -73,7 +73,7 @@ export const signup = (user) => async (dispatch) => {
   return response;
 };
 
-export const logout = () => async (dispatch) => {
+export const logout = () => async dispatch => {
   const response = await fetch("/api/session", {
     method: "DELETE",
     headers: Util.headers()
