@@ -7,9 +7,21 @@
     "module": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "target": "es5",
-    "jsx": "react",
-    "noEmit": true
+    "target": "es2020",
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true
+  },
+  "exclude": [
+    "node_modules",
+    "vendor",
+    "public"
+  ],
+  "include": ["src"]
+}
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */
@@ -115,11 +127,3 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     // "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  },
-  "exclude": [
-    "node_modules",
-    "vendor",
-    "public"
-  ],
-  "compileOnSave": false
-}
