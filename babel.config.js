@@ -9,7 +9,7 @@ module.exports = function (api) {
   const changesOnDefault = {
     presets: [
       [
-        '@babel/preset-react',
+        "@babel/preset-react",
         {
           development: !isProductionEnv,
           useBuiltIns: true

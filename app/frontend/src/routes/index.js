@@ -1,17 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import Home from '../components/Home';
 import Splash from '../components/Splash';
 import { AuthRoute, ProtectedRoute } from "../utils/route_util";
 
-function Routes() {
+function AppRoutes() {
   return (
-    <Switch>
-      <AuthRoute path='/' exact component={Splash}/>
-      <ProtectedRoute path='/home' component={Home}/>
-    </Switch>
+    <Routes>
+      {/* <AuthRoute path='/' exact component={Splash}/>
+      <ProtectedRoute path='/home' component={Home}/> */}
+      <Route
+        path="/"
+        element={
+          <AuthRoute>
+            <Splash/>
+          </AuthRoute>
+        }
+      />
+      <Route
+        path="home"
+        element={
+          <ProtectedRoute>
+            <Home/>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
   
-export default Routes;
+export default AppRoutes;

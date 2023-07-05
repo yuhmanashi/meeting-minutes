@@ -38,7 +38,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const drawerWidth = 150;
 const navItems = ['Home', 'About', 'Contact'];
 
-interface RootState {
+interface CurrState {
   session: {
     user: {
       createdAt: string,
@@ -51,8 +51,9 @@ interface RootState {
 }
 
 function Navbar() {
-  const selectSessionUser = (state: RootState) => state.session.user
-
+  const selectSessionUser = (state: CurrState) => state.session.user
+  const sessionUser = useSelector(selectSessionUser);
+  
   // let sessionLinks;
   // if (sessionUser) {
   //   sessionLinks = (

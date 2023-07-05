@@ -1,27 +1,17 @@
 import React from 'react';
-import {Redirect, Route} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-export function AuthRoute({ component: Component, ...otherProps}) {
+export function AuthRoute({ children }) {
     const sessionUser = useSelector(state => state.session.user);
     return (
-        <Route 
-            {...otherProps}
-            render={props => (
-                !sessionUser ? <Component {...props} /> : <Redirect to="/home" />
-            )}
-        />
+        !sessionUser ? children : <Navigate to="/home" replace/>
     )
 };
 
-export function ProtectedRoute({ component: Component, ...otherProps}) {
+export function ProtectedRoute({ children }) {
     const sessionUser = useSelector(state => state.session.user);
     return (
-        <Route
-            {...otherProps}
-            render={props => (
-                sessionUser ? <Component {...props} /> : <Redirect to="/" />
-            )}
-        />
+        sessionUser ? children : <Navigate to="/" replace/>
     )
 };
