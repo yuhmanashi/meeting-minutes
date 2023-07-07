@@ -15,21 +15,6 @@ type IMeetings = {
 }
 
 function Meetings({ meetings }: IMeetings){
-    //holds all meetings
-    // const dispatch = useDispatch();
-    // const meetings = useSelector(state => Object.values(state.session.user.meetings));
-
-    // if (!meetings) return <div>No Meetings Can Be Found</div>
-
-    // console.log(meetings);
-
-    // return (
-    //     <div>
-    //         <div>meeting id, email, name, category, problem, notes</div>
-    //         {Object.values(meetings).map(meeting => <Meeting meeting={meeting}/>)}
-    //     </div>
-    // )
-    //         {id} {studentEmail} {student} {category} {problem} {notes}
     return (
         <TableContainer component={Paper}>
           <Table aria-label="simple table">

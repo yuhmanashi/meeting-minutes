@@ -12,16 +12,10 @@ import Meetings from '../Meetings/Meetings';
 function Home(){
     const selectSessionUser = (state: RootState) => state.session.user;
     const sessionUser = useSelector(selectSessionUser);
-    
-    // return (
-    //     <div id='home'>
-    //         <h1>Home</h1>
-    //         <Meetings meetings={sessionUser.meetings}/>
-    //     </div>
-    // )
+
     return (
-        <Box>
-            <Container>
+        <Box sx={{ display: 'flex', border: 1 }}>
+            <Container sx={{display: 'flex'}}>
                 <Typography>
                     Home
                 </Typography>

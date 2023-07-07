@@ -27,7 +27,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import type { RootState, AppDispatch } from '../../store';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const fillers = ['Filler', 'Something', 'Placehold', 'Stuff'];
 
 const drawerWidth = 150;
 const navItems = ['Home', 'About', 'Contact'];
@@ -46,12 +46,17 @@ function Navbar() {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <List>
-        <ListItem sx={{ justifyContent: 'center' }}>
+        {fillers.map((filler) => (
+          <ListItem sx={{ justifyContent: 'center' }}>
+            <Typography>{filler}</Typography>
+          </ListItem>
+        ))}
+        {/* <ListItem sx={{ justifyContent: 'center' }}>
           <NavLink to="/login">Log In</NavLink>
         </ListItem>
         <ListItem sx={{ justifyContent: 'center' }}>
           <NavLink to="/signup">Sign Up</NavLink>
-        </ListItem>
+        </ListItem> */}
       </List>
     </Box>
   );

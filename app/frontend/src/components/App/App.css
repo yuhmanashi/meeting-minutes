@@ -1,4 +1,4 @@
-#app {
-    display: flex;
-    justify-content: space-around;
+main, .app {
+    height: 100%;
+    width: 100%;
 }
