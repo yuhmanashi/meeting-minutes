@@ -17,6 +17,7 @@ import Button from '@mui/material/Button';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import FunctionsIcon from '@mui/icons-material/Functions';
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -87,7 +88,7 @@ function Navbar() {
                 textDecoration: 'none',
               }}
             >
-              <FunctionsIcon/>
+              <AccessTimeFilledIcon/>
             </Typography>
             
             {/* Menu */}
@@ -140,7 +141,7 @@ function Navbar() {
                 textDecoration: 'none',
               }}
             >
-              <FunctionsIcon/>
+              <AccessTimeFilledIcon/>
             </Typography>
             
             {/* Misc buttons for desktop */}
