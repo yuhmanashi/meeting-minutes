@@ -15,7 +15,7 @@ interface User {
     firstName: string
     id: number
     lastName: string
-    meetings: Meeting[]
+    meetings: Record<number, Meeting>
 }
 
 interface Session { 
