@@ -26,6 +26,7 @@ import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import type { RootState, AppDispatch } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const fillers = ['Filler', 'Something', 'Placehold', 'Stuff'];
@@ -34,8 +35,7 @@ const drawerWidth = 150;
 const navItems = ['Home', 'About', 'Contact'];
 
 function Navbar() {
-  const selectSessionUser = (state: RootState) => state.session.user;
-  const sessionUser = useSelector(selectSessionUser);
+  const sessionUser = useAppSelector(state => state.session.user);
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -88,7 +88,7 @@ function Navbar() {
                 textDecoration: 'none',
               }}
             >
-              <AccessTimeFilledIcon/>
+              <AccessTimeFilledIcon fontSize='large'/>
             </Typography>
             
             {/* Menu */}
@@ -141,7 +141,7 @@ function Navbar() {
                 textDecoration: 'none',
               }}
             >
-              <AccessTimeFilledIcon/>
+              <AccessTimeFilledIcon fontSize='large'/>
             </Typography>
             
             {/* Misc buttons for desktop */}

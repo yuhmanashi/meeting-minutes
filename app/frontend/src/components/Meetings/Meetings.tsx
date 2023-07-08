@@ -17,7 +17,7 @@ type IMeetings = {
 function Meetings({ meetings }: IMeetings){
     return (
         <TableContainer component={Paper}>
-          <Table aria-label="simple table">
+          <Table aria-label="simple table" sx={{maxHeight: 1/5, overflowY: 'scroll'}}>
             <TableHead>
               <TableRow>
                 <TableCell>Email</TableCell>

@@ -5,9 +5,18 @@ import SignupModal from './SignupModal';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
+import * as sessionActions from '../../store/session';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Splash(){
-    const imageURL = "https://cdn.pixabay.com/photo/2023/05/20/20/39/european-roller-8007340__340.jpg";
+    const dispatch = useDispatch();
+    function demoLogin(e){
+        e.preventDefault();
+        // return dispatch(sessionActions.login({ email, password }))
+    }
+
     return (
         <Box sx={{ 
                 border: 1, 
@@ -36,11 +45,11 @@ function Splash(){
                     mt: 10,
                 }}>
                 <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography sx={{ typography: 'h3' }}>
-                        Welcome to Splash!
+                    <Typography sx={{ typography: {xs: 'h4', sm: 'h2', md: 'h1'} }}>
+                        MeetingMinutes
                     </Typography>
-                    <Typography sx={{ typography: 'body1' }}>
-                        Description of App
+                    <Typography sx={{ typography: 'body1', m: 1 }}>
+                        Keep track of your meetings
                     </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -52,6 +61,9 @@ function Splash(){
                         <SignupModal/>
                     </Box> 
                 </Box>
+                <Button>
+                    Demo
+                </Button>
             </Container>
         </Box>
     )

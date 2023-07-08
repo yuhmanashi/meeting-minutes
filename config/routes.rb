@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resource :session, only: [:show, :create, :destroy]
   end
   get 'home', to: 'static_pages#root'
-
+  get 'meetings', to: 'static_pages#root'
+  
   root to: 'static_pages#root'
 end

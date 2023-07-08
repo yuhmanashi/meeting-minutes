@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import Home from '../components/Home';
 import Splash from '../components/Splash';
+import AllMeetings from "../components/Meetings";
 import { AuthRoute, ProtectedRoute } from "../utils/route_util";
 
 function AppRoutes() {
@@ -23,6 +24,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Home/>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="meetings"
+        element={
+          <ProtectedRoute>
+            <AllMeetings/>
           </ProtectedRoute>
         }
       />
