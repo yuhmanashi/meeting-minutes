@@ -41,6 +41,10 @@ export default function CreateMeetingModal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (email.match(emailFormat)){
+      handleClose();
+    }
     return dispatch(meetingActions.createMeeting({ userId, email, name, category, problems, notes }))
   };
 

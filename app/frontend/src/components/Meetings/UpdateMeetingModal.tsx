@@ -20,12 +20,16 @@ const style = {
   p: 4,
 };
 
-export default function CreateMeetingModal() {
+type IMeeting = {
+  meeting: Meeting
+}
+
+export default function UpdateMeetingModal({ meeting }: IMeeting) {
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
   const userId = useAppSelector(state => state.session.user.id)
   const [open, setOpen] = React.useState(false);
-  
+  const id = meeting.id;
   
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -33,20 +37,24 @@ export default function CreateMeetingModal() {
     dispatch(sessionErrorActions.removeSessionErrors());
   };
   
-  const [email, setEmail] = useState("demo@student.io");
-  const [name, setName] = useState("Demo Student");
-  const [category, setCategory] = useState("test");
-  const [problems, setProblems] = useState("");
-  const [notes, setNotes] = useState("");
+  const [email, setEmail] = useState(meeting.email);
+  const [name, setName] = useState(meeting.name);
+  const [category, setCategory] = useState(meeting.category);
+  const [problems, setProblems] = useState(meeting.problems);
+  const [notes, setNotes] = useState(meeting.notes);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    return dispatch(meetingActions.createMeeting({ userId, email, name, category, problems, notes }))
+    const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (email.match(emailFormat)){
+      handleClose();
+    }
+    return dispatch(meetingActions.updateMeeting({ id, userId, email, name, category, problems, notes }))
   };
 
   return (
     <div>
-      <Button onClick={handleOpen}>Add a new meeting</Button>
+      <Button onClick={handleOpen}>Edit</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -82,7 +90,6 @@ export default function CreateMeetingModal() {
           type="text"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          required
         />
       </label>
       <label>

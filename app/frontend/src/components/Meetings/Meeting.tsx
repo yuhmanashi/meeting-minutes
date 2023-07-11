@@ -11,6 +11,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 
+import UpdateMeetingModal from './UpdateMeetingModal';
+
 type IMeeting = {
     meeting: Meeting
     id: number
@@ -18,10 +20,6 @@ type IMeeting = {
 
 export default function Meeting({ meeting, id }: IMeeting){
     const dispatch = useAppDispatch();
-
-    function handleEdit() {
-
-    }
 
     function handleDelete(e) {
         e.preventDefault();
@@ -43,7 +41,7 @@ export default function Meeting({ meeting, id }: IMeeting){
             <TableCell align="center">{meeting.problems}</TableCell>
             <TableCell align="center">{meeting.notes}</TableCell>
             <TableCell>
-                <Button onClick={handleEdit}>Edit</Button>
+                <UpdateMeetingModal meeting={meeting}/>
                 <Button onClick={handleDelete}>Delete</Button>
             </TableCell>
         </TableRow>

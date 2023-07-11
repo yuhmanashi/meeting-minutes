@@ -3,7 +3,7 @@ interface Meeting {
     userId: number
     category: string
     name: string
-    problems: string[]
+    problems: string
     notes: string
     email: string
     createdAt: string
