@@ -6,6 +6,10 @@ import * as meetingActions from '../../store/meetings';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Input from '@mui/material/Input';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import Modal from '@mui/material/Modal';
 
 const style = {
@@ -58,54 +62,57 @@ export default function CreateMeetingModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <form onSubmit={handleSubmit}>
-      <ul>
-        { errors ? errors.map(error => <li key={error}>{error}</li>) : null }
-      </ul>
-      <label>
-        Email
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Name
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Category
-        <input
-          type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
-      </label>
-      <label>
-        Problems
-        <input
-          type="text"
-          value={problems}
-          onChange={(e) => setProblems(e.target.value)}
-        />
-      </label>
-      <label>
-        Notes
-        <input
-          type="text"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-        />
-      </label>
-      <button type="submit">Create</button>
-    </form>
+          <Box
+            component='form'
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <List>
+              { errors ? errors.map(error => 
+                <ListItem>
+                  <ListItemText primary={error} />
+                </ListItem>)
+                : null 
+              }
+            </List>
+            <Input 
+              placeholder='Email'
+              defaultValue={email}
+              onChange={e => setEmail(e.target.value)} 
+              inputProps={{'aria-label': 'description'}} 
+              required
+            />
+            <Input 
+              placeholder='Name'
+              defaultValue={name}
+              onChange={e => setName(e.target.value)} 
+              inputProps={{'aria-label': 'description'}} 
+              required
+            />
+            <Input 
+              placeholder='Category'
+              defaultValue={category}
+              onChange={e => setCategory(e.target.value)} 
+              inputProps={{'aria-label': 'description'}} 
+              required
+            />
+            <Input 
+              placeholder='Problems'
+              defaultValue={problems}
+              onChange={e => setProblems(e.target.value)} 
+              inputProps={{'aria-label': 'description'}} 
+              required
+            />
+            <Input 
+              placeholder='Notes'
+              defaultValue={notes}
+              onChange={e => setNotes(e.target.value)} 
+              inputProps={{'aria-label': 'description'}} 
+              required
+            />
+            <Button type='submit'>Create Meeting</Button>
+          </Box>
         </Box>
       </Modal>
     </div>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Splash.css';
 import LoginModal from './LoginModal';
 import SignupModal from './SignupModal';
 import Box from '@mui/material/Box';
