@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import * as sessionActions from '../../store/session';
+import * as sessionErrorActions from '../../store/session_errors';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -28,7 +29,7 @@ export default function SignupModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    dispatch(sessionActions.removeSessionErrors());
+    dispatch(sessionErrorActions.removeSessionErrors());
   };
 
   const [email, setEmail] = useState("demo@user.io");

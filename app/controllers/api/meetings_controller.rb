@@ -1,5 +1,5 @@
 class Api::MeetingsController < ApplicationController
-    wrap_parameters include: Meeting.attribute_names + ['studentEmail']
+    wrap_parameters include: Meeting.attribute_names + ['userId']
 
     def index
         @meetings = Meeting.all
@@ -17,7 +17,7 @@ class Api::MeetingsController < ApplicationController
         if @meeting.save
             render :show
         else
-            render json: @meeting.errors.messages, status: :unprocessable_entity
+            render json: {errors: @meeting.errors.full_messages}, status: :unprocessable_entity
         end
     end
 
@@ -27,7 +27,7 @@ class Api::MeetingsController < ApplicationController
         if @meeting.update(meeting_params)
             render :show
         else
-            render @meeting.errors.messages, status: :unprocessable_entity
+            render json: {errors: @meeting.errors.full_messages}, status: :unprocessable_entity
         end
     end
 
@@ -42,6 +42,6 @@ class Api::MeetingsController < ApplicationController
 
     private
     def meeting_params
-        params.require(:meeting).permit(:id, :category, :student, :problem, :notes, :student_email)
+        params.require(:meeting).permit(:user_id, :category, :name, :problems, :notes, :email)
     end
 end

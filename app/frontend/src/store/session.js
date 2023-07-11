@@ -1,4 +1,5 @@
 import * as Util from '../utils/util';
+import * as sessionErrorActions from './session_errors';
 
 const SET_CURRENT_USER = 'session/setCurrentUser';
 const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
@@ -18,19 +19,6 @@ const removeCurrentUser = () => {
   };
 };
 
-const setSessionErrors = (errors) => {
-  return {
-    type: SET_SESSION_ERRORS,
-    payload: errors
-  };
-};
-
-export const removeSessionErrors = () => {
-  return {
-    type: REMOVE_SESSION_ERRORS
-  };
-};
-
 const storeCurrentUser = user => {
   if (user) sessionStorage.setItem("currentUser", JSON.stringify(user));
   else sessionStorage.removeItem("currentUser");
@@ -45,7 +33,7 @@ export const login = ({ email, password }) => async dispatch => {
   const data = await response.json();
   storeCurrentUser(data.user);
   dispatch(setCurrentUser(data.user))
-  if (data.errors) dispatch(setSessionErrors(data.errors))
+  if (data.errors) dispatch(sessionErrorActions.setSessionErrors(data.errors))
   return response
 };
 
@@ -64,7 +52,7 @@ export const signup = (user) => async (dispatch) => {
   const data = await response.json();
   storeCurrentUser(data.user);
   dispatch(setCurrentUser(data.user));
-  if (data.errors) dispatch(setSessionErrors(data.errors))
+  if (data.errors) dispatch(sessionErrorActions.setSessionErrors(data.errors))
   return response;
 };
 
@@ -88,17 +76,6 @@ export const sessionReducer = (state = initialState, action) => {
       return { ...state, user: action.payload };
     case REMOVE_CURRENT_USER:
       return { ...state, user: null };
-    default:
-      return state;
-  }
-};
-
-export const sessionErrorReducer = (state = [], action) => {
-  switch (action.type) {
-    case SET_SESSION_ERRORS:
-      return action.payload;
-    case REMOVE_SESSION_ERRORS:
-      return [];
     default:
       return state;
   }

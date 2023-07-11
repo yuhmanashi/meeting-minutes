@@ -1,10 +1,11 @@
 interface Meeting {
     id: number
+    userId: number
     category: string
-    student: string
-    problem: string
+    name: string
+    problems: string[]
     notes: string
-    studentEmail: string
+    email: string
     createdAt: string
     updatedAt: string
 }

@@ -11,8 +11,21 @@ import Typography from '@mui/material/Typography';
 import Meetings from '../Meetings/Meetings';
 import Button from '@mui/material/Button';
 
+import * as meetingActions from '../../store/meetings';
+
+import CreateMeetingModal from '../Meetings/CreateMeetingModal';
+
 function Home(){
     const sessionUser = useAppSelector(state => state.session.user);
+    const sessionMeetings = useAppSelector((state) => state.meetings);
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(meetingActions.fetchMeetings());
+    }, [dispatch])
+
+    if (!sessionMeetings) return null;
 
     return (
         <Box sx={{ border: 1 }}>
@@ -22,11 +35,9 @@ function Home(){
                         <Typography>
                             Meetings
                         </Typography>
-                        <Button>
-                            Add a new Meeting
-                        </Button>
+                        <CreateMeetingModal />
                     </Box>
-                    <Meetings meetings={sessionUser.meetings}/>
+                    <Meetings meetings={sessionMeetings} user={sessionUser}/>
                 </Container>
             </Container>
         </Box>

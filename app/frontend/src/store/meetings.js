@@ -1,4 +1,6 @@
 import * as Util from '../utils/util';
+import * as sessionErrorActions from './session_errors';
+
 
 const RECEIVE_ALL_MEETINGS = 'RECEIVE_ALL_MEETINGS';
 const RECEIVE_MEETING = 'RECEIVE_MEETING';
@@ -40,30 +42,33 @@ export const fetchMeeting = (id) => async dispatch => {
 };
 
 export const createMeeting = (meeting) => async dispatch => {
-    const { category, student, problem, notes, studentEmail } = meeting;
+    const { userId, category, name, problems, notes, email } = meeting;
+    console.log(meeting);
     const response = await fetch("/api/meetings", {
         method: "POST",
         body: JSON.stringify({
-            category, student, problem, notes, studentEmail
+            userId, category, name, problems, notes, email
         }),
         headers: Util.headers()
     })
     const data = await response.json();
     dispatch(receiveMeeting(data.meeting));
+    if (data.errors) dispatch(sessionErrorActions.setSessionErrors(data.errors))
     return response;
 };
 
 export const updateMeeting = (meeting) => async dispatch => {
-    const { category, student, problem, notes, studentEmail } = meeting;
+    const { userId, category, name, problems, notes, email } = meeting;
     const response = await fetch(`/api/meeting/${meeting.id}`, {
         method: "PATCH",
         body: JSON.stringify({
-            category, student, problem, notes, studentEmail 
+            userId, category, name, problems, notes, email
         }),
         headers: Util.headers()
     })
     const data = await response.json();
     dispatch(receiveMeeting(data.meeting));
+    if (data.errors) dispatch(sessionErrorActions.setSessionErrors(data.errors))
     return response;
 };
 
@@ -76,15 +81,18 @@ export const deleteMeeting = (id) => async dispatch => {
     return response;
 };
 
-const initialState = '';
+const meetingsReducer = (state = {}, action) => {
+    Object.freeze(state);
+    const nextState = Object.assign({}, state);
 
-const meetingsReducer = (state = [], action) => {
     switch (action.type) {
         case RECEIVE_ALL_MEETINGS:
             return action.payload;
         case RECEIVE_MEETING:
+            nextState[action.payload.id] = action.payload.meeting
             return action.payload;
         case REMOVE_MEETING:
+            delete nextState[action.payload.meetingId]
             return [];
         default:
             return state;

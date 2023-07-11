@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { logger } from 'redux-logger';
-import { sessionReducer, sessionErrorReducer } from './session';
+import { sessionReducer } from './session';
+import { sessionErrorReducer } from './session_errors';
 import meetingsReducer from './meetings';
 
 const rootReducer = {
     session: sessionReducer,
     errors: sessionErrorReducer,
-    // meetings: meetingsReducer
+    meetings: meetingsReducer
 };
 
 export const store = configureStore({

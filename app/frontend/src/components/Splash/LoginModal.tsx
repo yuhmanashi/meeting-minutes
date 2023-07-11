@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
+import * as sessionErrorActions from '../../store/session_errors';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 import Box from '@mui/material/Box';
@@ -26,7 +27,7 @@ export default function LoginModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    dispatch(sessionActions.removeSessionErrors());
+    dispatch(sessionErrorActions.removeSessionErrors());
   };
   
   const [email, setEmail] = useState('demo3@user.io');

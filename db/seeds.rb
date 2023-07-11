@@ -27,9 +27,8 @@ ApplicationRecord.transaction do
     )
     5.times {
         |m| firstUser.meetings.create!(
-          category: 'test' + m.to_s,
-          student: 'student' + m.to_s,
-          student_email: 'student' + m.to_s + '@student.io'
+          name: 'student' + m.to_s,
+          email: 'student' + m.to_s + '@student.io'
         )
     }
 
@@ -44,9 +43,8 @@ ApplicationRecord.transaction do
       )
       rand(1..10).times {
         |m| user.meetings.create!(
-          category: 'test' + m.to_s,
-          student: 'student' + m.to_s,
-          student_email: 'student' + m.to_s + '@student.io'
+          name: 'student' + m.to_s,
+          email: 'student' + m.to_s + '@student.io'
         )
       }
     }
