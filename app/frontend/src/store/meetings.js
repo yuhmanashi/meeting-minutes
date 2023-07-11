@@ -32,7 +32,7 @@ export const fetchMeetings = () => async dispatch => {
 };
 
 export const fetchMeeting = (id) => async dispatch => {
-    const response = await fetch(`/api/meeting/${id}`, {
+    const response = await fetch(`/api/meetings/${id}`, {
         method: "GET",
         headers: Util.headers()
     })
@@ -43,7 +43,6 @@ export const fetchMeeting = (id) => async dispatch => {
 
 export const createMeeting = (meeting) => async dispatch => {
     const { userId, category, name, problems, notes, email } = meeting;
-    console.log(meeting);
     const response = await fetch("/api/meetings", {
         method: "POST",
         body: JSON.stringify({
@@ -52,14 +51,14 @@ export const createMeeting = (meeting) => async dispatch => {
         headers: Util.headers()
     })
     const data = await response.json();
-    dispatch(receiveMeeting(data.meeting));
     if (data.errors) dispatch(sessionErrorActions.setSessionErrors(data.errors))
+    dispatch(receiveMeeting(data.meeting));
     return response;
 };
 
 export const updateMeeting = (meeting) => async dispatch => {
     const { userId, category, name, problems, notes, email } = meeting;
-    const response = await fetch(`/api/meeting/${meeting.id}`, {
+    const response = await fetch(`/api/meetings/${meeting.id}`, {
         method: "PATCH",
         body: JSON.stringify({
             userId, category, name, problems, notes, email
@@ -73,11 +72,11 @@ export const updateMeeting = (meeting) => async dispatch => {
 };
 
 export const deleteMeeting = (id) => async dispatch => {
-    const response = await fetch(`/api/meeting/${id}`, {
+    const response = await fetch(`/api/meetings/${id}`, {
         method: "DELETE",
         headers: Util.headers()
     })
-    dispatch(removeMeeting());
+    dispatch(removeMeeting(id));
     return response;
 };
 
@@ -89,11 +88,11 @@ const meetingsReducer = (state = {}, action) => {
         case RECEIVE_ALL_MEETINGS:
             return action.payload;
         case RECEIVE_MEETING:
-            nextState[action.payload.id] = action.payload.meeting
-            return action.payload;
+            if (action.payload) nextState[action.payload.id] = action.payload
+            return nextState;
         case REMOVE_MEETING:
-            delete nextState[action.payload.meetingId]
-            return [];
+            delete nextState[action.payload]
+            return nextState;
         default:
             return state;
     }

@@ -35,7 +35,7 @@ export default function CreateMeetingModal() {
   
   const [email, setEmail] = useState("demo@student.io");
   const [name, setName] = useState("Demo Student");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("test");
   const [problems, setProblems] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -82,6 +82,7 @@ export default function CreateMeetingModal() {
           type="text"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
+          required
         />
       </label>
       <label>

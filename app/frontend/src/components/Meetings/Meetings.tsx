@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as meetingsActions from '../../store/meetings';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch } from '../../utils/hooks';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,6 +9,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+
+import Meeting from './Meeting';
 
 type IMeetings = {
     meetings: Meeting[]
@@ -17,6 +20,17 @@ type IMeetings = {
 
 function Meetings({ meetings, user }: IMeetings){
   const userMeetings = Object.values(meetings).filter((meeting: Meeting) => meeting.userId === user.id)
+  const dispatch = useAppDispatch();
+
+  if (!meetings) return null;
+
+  function handleEdit(){
+    
+  }
+
+  function handleDelete(){
+    
+  }
 
     return (
         <TableContainer component={Paper}>
@@ -32,18 +46,7 @@ function Meetings({ meetings, user }: IMeetings){
             </TableHead>
             <TableBody>
               {userMeetings.map((meeting) => (
-                <TableRow
-                  key={meeting.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {meeting.email}
-                  </TableCell>
-                  <TableCell align="center">{meeting.name}</TableCell>
-                  <TableCell align="center">{meeting.category}</TableCell>
-                  <TableCell align="center">{meeting.problems}</TableCell>
-                  <TableCell align="center">{meeting.notes}</TableCell>
-                </TableRow>
+                <Meeting id={meeting.id} meeting={meeting}/>
               ))}
             </TableBody>
           </Table>
