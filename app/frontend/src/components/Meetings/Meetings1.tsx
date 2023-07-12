@@ -64,17 +64,17 @@ const headCells: readonly HeadCell[] = [
   },
   {
     name: 'category',
-    disablePadding: false,
+    disablePadding: true,
     label: 'Category',
   },
   {
     name: 'problems',
-    disablePadding: false,
+    disablePadding: true,
     label: 'Problems',
   },
   {
     name: 'notes',
-    disablePadding: false,
+    disablePadding: true,
     label: 'Notes',
   },
 ];
@@ -146,7 +146,7 @@ export default function EnhancedTable({ meetings, user }: IMeetings) {
   if (!userMeetings || !visibleRows) return null;
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', border: 1 }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer>
           <Table

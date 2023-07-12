@@ -1,1 +1,1 @@
-json.extract! meeting, :id, :category, :name, :problems, :notes, :email, :user_id, :created_at, :updated_at
+json.extract! meeting, :id, :category, :problems, :notes, :student_id, :user_id, :created_at, :updated_at

@@ -1,0 +1,1 @@
+json.extract! student, :id, :email, :first_name, :last_name, :coach

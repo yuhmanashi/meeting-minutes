@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import Meetings from '../Meetings/Meetings1';
+import Meetings from '../Meetings/Meetings';
 import Button from '@mui/material/Button';
 
 import * as meetingActions from '../../store/meetings';
@@ -29,13 +29,13 @@ function Home(){
 
     return (
         <Box>
-            <Container sx={{/*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
-                <Typography sx={{my: 2}}>
+            <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
+                <Typography sx={{typography: 'h3', my: 2}}>
                     Dashboard
                 </Typography>
-                <Container sx={{}}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1}}>
-                        <Typography>
+                <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0} }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
+                        <Typography sx={{typography: 'h5'}}>
                             Meetings
                         </Typography>
                         <CreateMeetingModal />

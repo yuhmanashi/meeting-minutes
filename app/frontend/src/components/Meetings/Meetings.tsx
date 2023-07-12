@@ -97,7 +97,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell />
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.name}
@@ -118,6 +117,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell />
       </TableRow>
     </TableHead>
   );
@@ -146,8 +146,8 @@ export default function EnhancedTable({ meetings, user }: IMeetings) {
   if (!userMeetings || !visibleRows) return null;
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box sx={{ }}>
+      <Paper sx={{  mb: 2 }}>
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"

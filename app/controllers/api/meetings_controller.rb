@@ -1,5 +1,5 @@
 class Api::MeetingsController < ApplicationController
-    wrap_parameters include: Meeting.attribute_names + ['userId']
+    wrap_parameters include: Meeting.attribute_names + ['userId', 'studentId']
 
     def index
         @meetings = Meeting.all
@@ -42,6 +42,6 @@ class Api::MeetingsController < ApplicationController
 
     private
     def meeting_params
-        params.require(:meeting).permit(:user_id, :category, :name, :problems, :notes, :email)
+        params.require(:meeting).permit(:user_id, :student_id, :category, :problems, :notes)
     end
 end
