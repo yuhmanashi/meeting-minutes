@@ -12,12 +12,14 @@ import Meetings from '../Meetings/Meetings';
 import Button from '@mui/material/Button';
 
 import * as meetingActions from '../../store/meetings';
+import * as studentActions from '../../store/students';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 
 function Home(){
     const sessionUser = useAppSelector(state => state.session.user);
     const sessionMeetings = useAppSelector((state) => state.meetings);
+    const sessionStudents = useAppSelector((state) => state.students);
 
     const dispatch = useAppDispatch();
 
@@ -25,7 +27,11 @@ function Home(){
         dispatch(meetingActions.fetchMeetings());
     }, [dispatch])
 
-    if (!sessionMeetings) return null;
+    useEffect(() => {
+        dispatch(studentActions.fetchStudents());
+    }, [dispatch])
+
+    if (!sessionMeetings || !sessionStudents) return null;
 
     return (
         <Box>

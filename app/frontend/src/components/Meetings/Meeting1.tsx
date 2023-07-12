@@ -37,7 +37,7 @@ export default function Meeting({ meeting }: IMeeting){
     }
 
     function handleResponsiveness(){
-        
+
     }
 
     if (!meeting) return null;
@@ -47,6 +47,15 @@ export default function Meeting({ meeting }: IMeeting){
             <TableRow
                 key={meeting.id}
             >
+                <TableCell component="th" scope="row" sx={{px: {xs: 1/10}}}>{meeting.email}</TableCell>
+                <TableCell sx={{px: {xs: 1/10}}}>{meeting.name}</TableCell>
+                {/* <TableCell align="center">{meeting.category}</TableCell>
+                <TableCell align="center">{meeting.problems}</TableCell>
+                <TableCell align="center">{meeting.notes}</TableCell>
+                <TableCell>
+                    <UpdateMeetingModal meeting={meeting}/>
+                    <Button onClick={handleDelete}>Delete</Button>
+                </TableCell> */}
                 <TableCell padding='none'>
                     <IconButton
                         aria-label="expand row"
@@ -55,15 +64,6 @@ export default function Meeting({ meeting }: IMeeting){
                     >
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
-                </TableCell>
-                <TableCell component="th" scope="row" sx={{px: {xs: 1/10}}}>{meeting.email}</TableCell>
-                <TableCell sx={{px: {xs: 1/10}}}>{meeting.name}</TableCell>
-                <TableCell sx={{px: {xs: 1/10}}}>{meeting.category}</TableCell>
-                <TableCell sx={{px: {xs: 1/10}}}>{meeting.problems}</TableCell>
-                <TableCell sx={{px: {xs: 1/10}}}>{meeting.notes}</TableCell>
-                <TableCell sx={{px: {xs: 1/10}}}>
-                    <UpdateMeetingModal meeting={meeting}/>
-                    <Button size="small" onClick={handleDelete}>Delete</Button>
                 </TableCell>
             </TableRow>
             <TableRow>

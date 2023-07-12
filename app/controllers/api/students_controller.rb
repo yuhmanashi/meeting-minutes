@@ -1,4 +1,4 @@
-class Api::StudentsController < ApplicationRecord
+class Api::StudentsController < ApplicationController
     wrap_parameters include: Student.attribute_names + ['firstName', 'lastName']
 
     def index

@@ -14,7 +14,7 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 
-import Meeting from './Meeting1';
+import Meeting from './Meeting';
 
 type IMeetings = {
     meetings: Meeting[]
@@ -62,21 +62,21 @@ const headCells: readonly HeadCell[] = [
     disablePadding: true,
     label: 'Name',
   },
-  {
-    name: 'category',
-    disablePadding: true,
-    label: 'Category',
-  },
-  {
-    name: 'problems',
-    disablePadding: true,
-    label: 'Problems',
-  },
-  {
-    name: 'notes',
-    disablePadding: true,
-    label: 'Notes',
-  },
+  // {
+  //   name: 'category',
+  //   disablePadding: false,
+  //   label: 'Category',
+  // },
+  // {
+  //   name: 'problems',
+  //   disablePadding: false,
+  //   label: 'Problems',
+  // },
+  // {
+  //   name: 'notes',
+  //   disablePadding: false,
+  //   label: 'Notes',
+  // },
 ];
 
 interface EnhancedTableProps {
@@ -97,7 +97,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell />
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.name}
@@ -118,6 +117,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell />
       </TableRow>
     </TableHead>
   );
@@ -146,8 +146,8 @@ export default function EnhancedTable({ meetings, user }: IMeetings) {
   if (!userMeetings || !visibleRows) return null;
 
   return (
-    <Box sx={{ width: '100%', border: 1 }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box sx={{ }}>
+      <Paper sx={{  mb: 2 }}>
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
