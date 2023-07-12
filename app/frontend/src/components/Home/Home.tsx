@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import Meetings from '../Meetings/Meetings';
+import Meetings from '../Meetings/Meetings3';
 import Button from '@mui/material/Button';
 
 import * as meetingActions from '../../store/meetings';
@@ -28,10 +28,13 @@ function Home(){
     if (!sessionMeetings) return null;
 
     return (
-        <Box sx={{ border: 1 }}>
-            <Container sx={{}}>
-                <Container sx={{mt: 4}}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box>
+            <Container sx={{/*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
+                <Typography sx={{my: 2}}>
+                    Dashboard
+                </Typography>
+                <Container sx={{}}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1}}>
                         <Typography>
                             Meetings
                         </Typography>

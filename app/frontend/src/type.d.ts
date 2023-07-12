@@ -1,13 +1,13 @@
 interface Meeting {
-    id: number
-    userId: number
-    category: string
-    name: string
-    problems: string
-    notes: string
-    email: string
-    createdAt: string
-    updatedAt: string
+    id: string | number
+    userId: string | number
+    category: string | number
+    name: string | number
+    problems: string | number
+    notes: string | number
+    email: string | number
+    createdAt: string | number
+    updatedAt: string | number
 }
 
 interface User {

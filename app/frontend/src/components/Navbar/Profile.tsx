@@ -50,7 +50,7 @@ export default function Profile({user}: profileProps) {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>D</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -89,14 +89,14 @@ export default function Profile({user}: profileProps) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <Avatar /> Profile
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+          <Avatar /> Meetings
         </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>
+        <Divider /> */}
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <PersonAdd fontSize="small" />
           </ListItemIcon>
@@ -107,7 +107,7 @@ export default function Profile({user}: profileProps) {
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={logout}>
           <ListItemIcon>
             <Logout fontSize="small" />

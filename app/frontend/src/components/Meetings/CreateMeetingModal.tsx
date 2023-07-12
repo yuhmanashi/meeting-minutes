@@ -54,7 +54,7 @@ export default function CreateMeetingModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Add a new meeting</Button>
+      <Button onClick={handleOpen}>New meeting</Button>
       <Modal
         open={open}
         onClose={handleClose}

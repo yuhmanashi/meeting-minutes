@@ -28,7 +28,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import type { RootState, AppDispatch } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Filler', 'More Filler', 'Filled'];
 const fillers = ['Filler', 'Something', 'Placehold', 'Stuff'];
 
 const drawerWidth = 150;
@@ -46,19 +46,13 @@ function Navbar() {
   //sliding sidebar
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <List>
+      {/* <List>
         {fillers.map((filler) => (
           <ListItem sx={{ justifyContent: 'center' }}>
             <Typography>{filler}</Typography>
           </ListItem>
         ))}
-        {/* <ListItem sx={{ justifyContent: 'center' }}>
-          <NavLink to="/login">Log In</NavLink>
-        </ListItem>
-        <ListItem sx={{ justifyContent: 'center' }}>
-          <NavLink to="/signup">Sign Up</NavLink>
-        </ListItem> */}
-      </List>
+      </List> */}
     </Box>
   );
 
@@ -146,7 +140,7 @@ function Navbar() {
             
             {/* Misc buttons for desktop */}
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
+              {/* {pages.map((page) => (
                 <Button
                   key={page}
                   onClick={handleDrawerToggle}
@@ -154,7 +148,7 @@ function Navbar() {
                 >
                   {page}
                 </Button>
-              ))}
+              ))} */}
             </Box>
             
             {/* Profile */}
@@ -184,18 +178,6 @@ function Navbar() {
       </Box>
     </Box>
   );
-
-  // return (
-  //   <AppBar position='static'>
-  //     <Container>
-  //       <MenuIcon/>
-  //       <NavLink exact to="/">
-  //         <FunctionsIcon/>
-  //       </NavLink>
-  //       <SearchIcon/>
-  //     </Container>
-  //   </AppBar>
-  // );
 }
 
 export default Navbar;

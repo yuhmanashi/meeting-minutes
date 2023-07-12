@@ -7,13 +7,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 import * as sessionActions from '../../store/session';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch } from '../../utils/hooks';
 
 function Splash(){
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
+
     function demoLogin(e){
         e.preventDefault();
-        // return dispatch(sessionActions.login({ email, password }))
+        return dispatch(sessionActions.login({email:'demo@user.io', password:'password'}))
     }
 
     return (
@@ -60,7 +61,7 @@ function Splash(){
                         <SignupModal/>
                     </Box> 
                 </Box>
-                <Button>
+                <Button onClick={demoLogin}>
                     Demo
                 </Button>
             </Container>
