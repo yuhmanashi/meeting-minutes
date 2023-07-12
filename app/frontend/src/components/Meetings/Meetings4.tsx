@@ -24,7 +24,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
-import Meeting from './Meeting3';
+import Meeting from './Meeting';
 
 type IMeetings = {
     meetings: Meeting[]

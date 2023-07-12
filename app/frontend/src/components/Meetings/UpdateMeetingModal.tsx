@@ -17,7 +17,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  minWidth: 300,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -49,8 +49,8 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (email.match(emailFormat)){
+    const emailFormat = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+    if (emailFormat.test(email)){
       handleClose();
     }
     return dispatch(meetingActions.updateMeeting({ id, userId, email, name, category, problems, notes }))
@@ -58,7 +58,7 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Edit</Button>
+      <Button size="small" onClick={handleOpen}>Edit</Button>
       <Modal
         open={open}
         onClose={handleClose}

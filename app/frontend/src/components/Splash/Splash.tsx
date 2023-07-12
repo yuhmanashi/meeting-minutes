@@ -19,7 +19,6 @@ function Splash(){
 
     return (
         <Box sx={{ 
-                border: 1, 
                 height: 4/5,
                 position: 'relative', 
                 // "&::before": { 
@@ -38,7 +37,6 @@ function Splash(){
             }}>
             <Container sx={{ 
                     display: 'flex', 
-                    border: 1, 
                     flexDirection: 'column', 
                     alignItems: 'center', 
                     position: 'relative',

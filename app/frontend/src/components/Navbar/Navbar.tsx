@@ -95,7 +95,7 @@ function Navbar() {
                 onClick={handleDrawerToggle}
                 color="inherit"
               >
-                <MenuIcon />
+                <MenuIcon/>
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -124,8 +124,17 @@ function Navbar() {
               noWrap
               component="a"
               href="/home"
-              sx={{
-                mr: 2,
+              sx={sessionUser ? {
+                ml: 1,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              } : {
+                mr: 5,
                 display: { xs: 'flex', md: 'none' },
                 flexGrow: 1,
                 fontFamily: 'monospace',
