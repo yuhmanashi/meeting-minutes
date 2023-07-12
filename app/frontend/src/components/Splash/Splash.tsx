@@ -43,15 +43,15 @@ function Splash(){
                     mt: 10,
                 }}>
                 <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography sx={{ typography: {xs: 'h4', sm: 'h2', md: 'h1'} }}>
+                    <Typography sx={{ typography: {xs: 'h4', sm: 'h3', md: 'h1'} }}>
                         MeetingMinutes
                     </Typography>
-                    <Typography sx={{ typography: 'body1', m: 1 }}>
+                    <Typography sx={{ typography: {xs: 'h6', sm: 'h5', md: 'h4'}, m: 1 }}>
                         Keep track of your meetings
                     </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography sx={{ typography: 'body1' }}>
+                    <Typography sx={{ typography: {xs: 'body1', sm: 'h6', md: 'h5'} }}>
                         Log in or Sign Up to continue
                     </Typography>
                     <Box sx={{ display: 'flex' }}>

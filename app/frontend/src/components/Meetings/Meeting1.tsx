@@ -58,13 +58,13 @@ export default function Meeting({ meeting }: IMeeting){
                 </TableCell>
                 <TableCell component="th" scope="row" sx={{px: {xs: 1/10}}}>{meeting.email}</TableCell>
                 <TableCell sx={{px: {xs: 1/10}}}>{meeting.name}</TableCell>
-                {/* <TableCell align="center">{meeting.category}</TableCell>
+                <TableCell align="center">{meeting.category}</TableCell>
                 <TableCell align="center">{meeting.problems}</TableCell>
                 <TableCell align="center">{meeting.notes}</TableCell>
                 <TableCell>
                     <UpdateMeetingModal meeting={meeting}/>
                     <Button onClick={handleDelete}>Delete</Button>
-                </TableCell> */}
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>

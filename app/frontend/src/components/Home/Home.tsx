@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import Meetings from '../Meetings/Meetings';
+import Meetings from '../Meetings/Meetings1';
 import Button from '@mui/material/Button';
 
 import * as meetingActions from '../../store/meetings';
