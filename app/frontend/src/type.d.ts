@@ -1,42 +1,47 @@
 interface Meeting {
-    id: number
-    userId: number
-    studentId: number
-    category: string
-    problems: string | string[]
-    notes: string
-    createdAt: string
-    updatedAt: string
+    id: number;
+    userId: number;
+    studentId: number;
+    category: string;
+    problems: string;
+    notes: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 interface User {
-    email: string
-    firstName: string
-    id: number
-    lastName: string
-    meetings: Record<number, Meeting>
+    email: string;
+    firstName: string;
+    id: number;
+    lastName: string;
+    // meetings: Record<number, Meeting>
 }
 
 interface Student {
-    email: string
-    firstName: string
-    id: number
-    lastName: string
-    coach: string
-    meetings: Record<number, Meeting>
+    email: string;
+    firstName: string;
+    id: number;
+    lastName: string;
+    coach: string;
+    // meetings: Record<number, Meeting>
+}
+
+interface MeetingWithStudent extends Meeting {
+  studentName: string;
+  studentEmail: string;
 }
 
 interface Session { 
-    user: User
+    user: User;
 }
 
 type SessionState = {
-    session: Session
+    session: Session;
 }
 
 type SessionAction = {
-    type: string
-    payload: Session
+    type: string;
+    payload: Session;
 }
 
 type DispatchSessionType = (args: SessionAction) => SessionAction
@@ -44,16 +49,16 @@ type DispatchSessionType = (args: SessionAction) => SessionAction
 //
 
 interface Error {
-    messages: string
+    messages: string;
 }
 
 type SessionErrorsState = {
-    errors: Error[]
+    errors: Error[];
 }
 
 type SessionErrorsAction = {
-    type: string
-    errors: Error[]
+    type: string;
+    errors: Error[];
 }
 
 type DispatchSessionErrorType = (args: SessionErrorsAction) => SessionErrorsAction

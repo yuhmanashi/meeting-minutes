@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as meetingsActions from '../../store/meetings';
-import { useAppDispatch } from '../../utils/hooks';
+import * as studentActions from '../../store/students';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -24,20 +25,16 @@ import Divider from '@mui/material/Divider';
 import UpdateMeetingModal from './UpdateMeetingModal';
 
 type IMeeting = {
-    meeting: Meeting
+    meeting: MeetingWithStudent
 }
 
-export default function Meeting({ meeting }: IMeeting){
+export default function MeetingRow({ meeting }: IMeeting){
     const dispatch = useAppDispatch();
     const [open, setOpen] = useState(false);
 
     function handleDelete(e) {
         e.preventDefault();
         return dispatch(meetingsActions.deleteMeeting(meeting.id))
-    }
-
-    function handleResponsiveness(){
-
     }
 
     if (!meeting) return null;
@@ -47,8 +44,9 @@ export default function Meeting({ meeting }: IMeeting){
             <TableRow
                 key={meeting.id}
             >
-                <TableCell component="th" scope="row" sx={{px: {xs: 1/10}}}>{meeting.email}</TableCell>
-                <TableCell sx={{px: {xs: 1/10}}}>{meeting.name}</TableCell>
+                <TableCell component="th" scope="row" sx={{px: {xs: 1/10}}}>{meeting.studentName}</TableCell>
+                <TableCell sx={{px: {xs: 1/10}}}>{meeting.studentEmail}</TableCell>
+                <TableCell sx={{px: {xs: 1/10}}}>{meeting.category}</TableCell>
                 {/* <TableCell align="center">{meeting.category}</TableCell>
                 <TableCell align="center">{meeting.problems}</TableCell>
                 <TableCell align="center">{meeting.notes}</TableCell>
@@ -70,38 +68,8 @@ export default function Meeting({ meeting }: IMeeting){
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box>
-                            {/* <Table size="small">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell padding='none'>Category</TableCell>
-                                        <TableCell padding='none'>Problems</TableCell>
-                                        <TableCell padding='none'>Notes</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <TableCell sx={{px: {xs: 1/10}}}>{meeting.category}</TableCell>
-                                    <TableCell sx={{px: {xs: 1/10}}}>{meeting.problems}</TableCell>
-                                    <TableCell sx={{px: {xs: 1/10}}}>{meeting.notes}</TableCell>
-                                    <TableCell sx={{px: {xs: 1/10}, display: 'flex'}}>
-                                        <UpdateMeetingModal meeting={meeting}/>
-                                        <Button onClick={handleDelete}>Delete</Button>
-                                    </TableCell>
-                                </TableBody>
-                            </Table> */}
-                            {/* <Box>
-                                <Typography>
-                                    Category
-                                </Typography>
-                                <Box>
-
-                                </Box>
-                            </Box>
-                            <Box sx={{ display: 'flex' }}>
-                                <UpdateMeetingModal meeting={meeting}/>
-                                <Button onClick={handleDelete}>Delete</Button>
-                            </Box> */}
                             <List sx={{py: 0}}>
-                                <ListItem sx={{py: 0}}>
+                                {/* <ListItem sx={{py: 0}}>
                                     <ListItemText primaryTypographyProps={{variant: 'subtitle2'}}>
                                         Category
                                     </ListItemText>
@@ -109,7 +77,7 @@ export default function Meeting({ meeting }: IMeeting){
                                         {meeting.category}
                                     </ListItemText>
                                 </ListItem>
-                                <Divider/>
+                                <Divider/> */}
                                 <ListItem sx={{py: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
                                     <ListItemText primaryTypographyProps={{variant: 'subtitle2'}}>
                                         Problems

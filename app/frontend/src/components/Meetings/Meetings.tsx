@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as meetingsActions from '../../store/meetings';
-import { useAppDispatch } from '../../utils/hooks';
+import * as studentActions from '../../store/students';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -14,11 +15,11 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 
-import Meeting from './Meeting';
+import MeetingRow from './Meeting';
 
 type IMeetings = {
-    meetings: Meeting[]
-    user: User
+  meetings: MeetingWithStudent[]
+  user: User
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -33,12 +34,9 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 type Order = 'asc' | 'desc';
 
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key,
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
+function getComparator<Key extends keyof any>( order: Order, orderBy: Key): (
+  a: { [key in Key]: string | number },
+  b: { [key in Key]: string | number },
 ) => number {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -47,26 +45,36 @@ function getComparator<Key extends keyof any>(
 
 interface HeadCell {
   disablePadding: boolean;
-  name: keyof Meeting;
+  name: keyof MeetingWithStudent;
   label: string;
 }
 
 const headCells: readonly HeadCell[] = [
-  {
-    name: 'email',
+  // {
+  //   name: 'email',
+  //   disablePadding: true,
+  //   label: 'Email',
+  // },
+  // {
+  //   name: 'name',
+  //   disablePadding: true,
+  //   label: 'Name',
+  // },
+   {
+    name: 'studentName',
+    disablePadding: true,
+    label: 'Name',
+  },
+   {
+    name: 'studentEmail',
     disablePadding: true,
     label: 'Email',
   },
   {
-    name: 'name',
+    name: 'category',
     disablePadding: true,
-    label: 'Name',
+    label: 'Category',
   },
-  // {
-  //   name: 'category',
-  //   disablePadding: false,
-  //   label: 'Category',
-  // },
   // {
   //   name: 'problems',
   //   disablePadding: false,
@@ -80,17 +88,17 @@ const headCells: readonly HeadCell[] = [
 ];
 
 interface EnhancedTableProps {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Meeting) => void;
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof MeetingWithStudent) => void;
   order: Order;
   orderBy: string;
   rowCount: number;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, rowCount, onRequestSort } =
+  const { order, orderBy, onRequestSort } =
     props;
   const createSortHandler =
-    (property: keyof Meeting) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof MeetingWithStudent) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -124,26 +132,38 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 export default function EnhancedTable({ meetings, user }: IMeetings) {
-  const userMeetings = Object.values(meetings).filter((meeting: Meeting) => meeting.userId === user.id)
+  const userMeetings = Object.values(meetings).filter((meeting: MeetingWithStudent) => meeting.userId === user.id)
+  const dispatch = useAppDispatch();
+  const students = useAppSelector(state => state.students)
 
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Meeting>('email');
-  const [selected, setSelected] = React.useState<readonly string[]>([]);
+  const [orderBy, setOrderBy] = React.useState<keyof MeetingWithStudent>('category');
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  useEffect(() => {
+    dispatch(studentActions.fetchStudents())
+  }, [dispatch])
+
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Meeting,
+    property: keyof MeetingWithStudent,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
-  const visibleRows = userMeetings.slice().sort(getComparator(order, orderBy))
+  const updatedMeetings = userMeetings.map(meeting => {
+    const student = students[meeting.studentId];
+    meeting['studentName'] = `${student.firstName} ${student.lastName}`;
+    meeting['studentEmail'] = student.email;
+    return meeting;
+  })
+
+  const visibleRows = updatedMeetings.slice().sort(getComparator(order, orderBy))
   
-  if (!userMeetings || !visibleRows) return null;
+  if (!updatedMeetings || !visibleRows) return null;
 
   return (
     <Box sx={{ }}>
@@ -161,7 +181,7 @@ export default function EnhancedTable({ meetings, user }: IMeetings) {
             />
             <TableBody>
               {visibleRows.map((row) => (
-                <Meeting meeting={row}/>
+                <MeetingRow meeting={row}/>
               ))}
             </TableBody>
           </Table>
