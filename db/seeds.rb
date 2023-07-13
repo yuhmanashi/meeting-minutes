@@ -16,6 +16,7 @@ ApplicationRecord.transaction do
     # For easy testing, so that after seeding, the first `User` has `id` of 1
     ApplicationRecord.connection.reset_pk_sequence!('users')
     ApplicationRecord.connection.reset_pk_sequence!('meetings')
+    ApplicationRecord.connection.reset_pk_sequence!('students')
     
     puts "Creating coaches..."
     coaches = []
@@ -28,10 +29,11 @@ ApplicationRecord.transaction do
       |n| 
       idx = n % 10
       first_name = Faker::Name.first_name
+      last_name = Faker::Name.last_name
       Student.create!(
         first_name: first_name,
-        last_name: Faker::Name.last_name,
-        email: first_name + '@student.io',
+        last_name: last_name,
+        email: first_name + last_name + '@student.io',
         coach: coaches[idx]
       )
     }
@@ -47,7 +49,7 @@ ApplicationRecord.transaction do
     ]
 
 
-    puts "Creating users..."
+    puts "Creating first user..."
     # Create one user with an easy to remember username, email, and password:
     firstUser = User.create!(
       first_name: 'Demo',
@@ -55,10 +57,12 @@ ApplicationRecord.transaction do
       email: 'demo@user.io', 
       password: 'password'
     )
+
+    puts "Creating meetings for first user..."
     10.times do
       firstUser.meetings.create!(
         category: categories[rand(0..categories.length - 1)],
-        student_id: rand(1..50)
+        student_id: rand(1..49)
       )
     end
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
 import Profile from './Profile';
 import './Navbar.css'
 
@@ -25,8 +24,8 @@ import Drawer from '@mui/material/Drawer';
 
 import CssBaseline from '@mui/material/CssBaseline';
 
-import type { RootState, AppDispatch } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { useNavigate } from "react-router-dom";
 
 const pages = ['Filler', 'More Filler', 'Filled'];
 const fillers = ['Filler', 'Something', 'Placehold', 'Stuff'];
@@ -36,23 +35,36 @@ const navItems = ['Home', 'About', 'Contact'];
 
 function Navbar() {
   const sessionUser = useAppSelector(state => state.session.user);
-
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  function navToStudents(e){
+    e.preventDefault();
+    navigate('/students');
+  };
+
+  function navToHome(e){
+    e.preventDefault();
+    navigate('/home');
+  };
+
   //sliding sidebar
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      {/* <List>
-        {fillers.map((filler) => (
-          <ListItem sx={{ justifyContent: 'center' }}>
-            <Typography>{filler}</Typography>
-          </ListItem>
-        ))}
-      </List> */}
+      <List>
+
+        <ListItem sx={{ justifyContent: 'center' }}>
+          <Button onClick={navToHome}>Home</Button>
+        </ListItem>
+        <ListItem sx={{ justifyContent: 'center' }}>
+          <Button onClick={navToStudents}>Students</Button>
+        </ListItem>
+
+      </List>
     </Box>
   );
 

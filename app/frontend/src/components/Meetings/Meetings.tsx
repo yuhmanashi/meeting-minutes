@@ -18,8 +18,9 @@ import { visuallyHidden } from '@mui/utils';
 import MeetingRow from './Meeting';
 
 type IMeetings = {
-  meetings: MeetingWithStudent[]
-  user: User
+  meetings: MeetingWithStudent[];
+  students: Student[];
+  user: User;
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -131,19 +132,13 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export default function EnhancedTable({ meetings, user }: IMeetings) {
-  const userMeetings = Object.values(meetings).filter((meeting: MeetingWithStudent) => meeting.userId === user.id)
-  const dispatch = useAppDispatch();
-  const students = useAppSelector(state => state.students)
-
+export default function Meetings({ meetings, user, students }: IMeetings) {
+  const userMeetings = Object.values(meetings).filter((meeting: MeetingWithStudent) => meeting.userId === user.id);
+  
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof MeetingWithStudent>('category');
+  const [orderBy, setOrderBy] = React.useState<keyof MeetingWithStudent>('studentName');
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  useEffect(() => {
-    dispatch(studentActions.fetchStudents())
-  }, [dispatch])
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -156,15 +151,14 @@ export default function EnhancedTable({ meetings, user }: IMeetings) {
 
   const updatedMeetings = userMeetings.map(meeting => {
     const student = students[meeting.studentId];
-    meeting['studentName'] = `${student.firstName} ${student.lastName}`;
-    meeting['studentEmail'] = student.email;
-    return meeting;
+    const newMeeting = { ...meeting }
+    newMeeting['studentName'] = `${student.firstName} ${student.lastName}`;
+    newMeeting['studentEmail'] = student.email;
+    return newMeeting;
   })
 
   const visibleRows = updatedMeetings.slice().sort(getComparator(order, orderBy))
   
-  if (!updatedMeetings || !visibleRows) return null;
-
   return (
     <Box sx={{ }}>
       <Paper sx={{  mb: 2 }}>
@@ -177,11 +171,11 @@ export default function EnhancedTable({ meetings, user }: IMeetings) {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={userMeetings.length}
+              rowCount={visibleRows.length}
             />
             <TableBody>
               {visibleRows.map((row) => (
-                <MeetingRow meeting={row}/>
+                <MeetingRow key={row.id} meeting={row}/>
               ))}
             </TableBody>
           </Table>

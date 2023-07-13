@@ -25,18 +25,15 @@ function Home(){
 
     useEffect(() => {
         dispatch(meetingActions.fetchMeetings());
-    }, [dispatch])
-
-    useEffect(() => {
         dispatch(studentActions.fetchStudents());
     }, [dispatch])
 
-    if (!sessionMeetings || !sessionStudents) return null;
+    if (Object.keys(sessionMeetings).length < 1 || Object.keys(sessionStudents).length < 1) return null;
 
     return (
         <Box>
             <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
-                <Typography sx={{typography: 'h3', my: 2}}>
+                <Typography sx={{typography: 'h4', my: 2}}>
                     Dashboard
                 </Typography>
                 <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0} }}>
@@ -46,7 +43,7 @@ function Home(){
                         </Typography>
                         <CreateMeetingModal />
                     </Box>
-                    <Meetings meetings={sessionMeetings} user={sessionUser}/>
+                    <Meetings meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
                 </Container>
             </Container>
         </Box>

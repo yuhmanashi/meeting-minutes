@@ -26,6 +26,7 @@ import UpdateMeetingModal from './UpdateMeetingModal';
 
 type IMeeting = {
     meeting: MeetingWithStudent
+
 }
 
 export default function MeetingRow({ meeting }: IMeeting){
@@ -40,10 +41,8 @@ export default function MeetingRow({ meeting }: IMeeting){
     if (!meeting) return null;
 
     return (
-        <>
-            <TableRow
-                key={meeting.id}
-            >
+        <React.Fragment>
+            <TableRow>
                 <TableCell component="th" scope="row" sx={{px: {xs: 1/10}}}>{meeting.studentName}</TableCell>
                 <TableCell sx={{px: {xs: 1/10}}}>{meeting.studentEmail}</TableCell>
                 <TableCell sx={{px: {xs: 1/10}}}>{meeting.category}</TableCell>
@@ -68,6 +67,9 @@ export default function MeetingRow({ meeting }: IMeeting){
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box>
+                            <Typography variant="h6" gutterBottom component="div">
+                                Details
+                            </Typography>
                             <List sx={{py: 0}}>
                                 {/* <ListItem sx={{py: 0}}>
                                     <ListItemText primaryTypographyProps={{variant: 'subtitle2'}}>
@@ -105,6 +107,6 @@ export default function MeetingRow({ meeting }: IMeeting){
                     </Collapse>
                 </TableCell>
             </TableRow>
-        </>
+        </React.Fragment>
     );
 }
