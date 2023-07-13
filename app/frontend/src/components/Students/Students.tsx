@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import Meetings from '../Meetings/Meetings';
+import SelectMenu from './SelectMenu';
 
 import * as meetingActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
@@ -15,31 +15,34 @@ export default function Students() {
     const meetings = useAppSelector(state => state.meetings)
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(meetingActions.fetchMeetings())
-    }, [dispatch])
+    const [coachIdx, setCoachIdx] = useState(-1);
 
     useEffect(() => {
         dispatch(studentActions.fetchStudents())
+        dispatch(meetingActions.fetchMeetings())
     }, [dispatch])
 
-    if (!students || !meetings) return null;
+    if (Object.keys(students).length < 1 || Object.keys(meetings).length < 1) return null;
 
-    const coachList = Object.values(students).map(student => student.coach)
-    const coaches = Array.from(new Set(coachList)); //turn into menu?
+    const coachList = Object.values(students).map((student: Student) => student.coach)
+    const coachesObj = {...[...new Set(coachList)]}; //turn into menu?
+    const coachesArr = Array.from(new Set(coachList));
 
-    const currCoach = coaches[0];
 
-    function filterStudentsByCoach(coach){
-        return Object.values(students).slice().filter(student => student.coach === coach)
+    function filterStudentsByCoach(){
+        if (coachIdx < 0) return students;
+        return Object.values(students).slice().filter((student: Student) => student.coach === coachesObj[coachIdx]);
     }
-    
-    const filtered = filterStudentsByCoach(currCoach);
-    console.log(filtered);
+
+    const filtered = filterStudentsByCoach();
+    //coaches into a 
 
     return (
         <Box>
-            Students
+            <Container>
+                <Typography>Students</Typography>
+                <SelectMenu name={'Coaches'} options={coachesArr}/>
+            </Container>
         </Box>
     )
 }
