@@ -1,12 +1,20 @@
+//React Redux
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
+//MUI
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 
+//Components
 import SelectMenu from './SelectMenu';
+import GenericTable from './Table';
 
+//Misc
 import * as meetingActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
 
@@ -15,7 +23,7 @@ export default function Students() {
     const meetings = useAppSelector(state => state.meetings)
     const dispatch = useAppDispatch();
 
-    const [coachIdx, setCoachIdx] = useState(-1);
+    const [coach, setCoach] = useState('All')
 
     useEffect(() => {
         dispatch(studentActions.fetchStudents())
@@ -30,18 +38,41 @@ export default function Students() {
 
 
     function filterStudentsByCoach(){
-        if (coachIdx < 0) return students;
-        return Object.values(students).slice().filter((student: Student) => student.coach === coachesObj[coachIdx]);
+        if (coach === 'All') return students;
+        return Object.values(students).slice().filter((student: Student) => student.coach === coach);
     }
 
-    const filtered = filterStudentsByCoach();
-    //coaches into a 
+    const filteredStudents = filterStudentsByCoach();
 
     return (
         <Box>
             <Container>
-                <Typography>Students</Typography>
-                <SelectMenu name={'Coaches'} options={coachesArr}/>
+                <Container sx={{py: 4}}>
+                    <Typography>Students</Typography>
+                </Container>
+                <Container>
+                    <SelectMenu name={'Coaches'} options={coachesArr} onChange={setCoach}/>
+                </Container>
+                <Container>
+                    <GenericTable students={filteredStudents} details={[['Name', 'fullName'], ['Email', 'email']]}/>
+                    {/* <List>
+                        {Object.values(filteredStudents).map((student: Student) => {
+                            return (
+                                <ListItem key={student.id}>
+                                    <ListItemText>
+                                        {student.coach}
+                                    </ListItemText>
+                                    <ListItemText>
+                                        {student.email}
+                                    </ListItemText>
+                                    <ListItemText>
+                                        {`${student.firstName} ${student.lastName}`}
+                                    </ListItemText>
+                                </ListItem>
+                            )
+                        })}
+                    </List> */}
+                </Container>
             </Container>
         </Box>
     )

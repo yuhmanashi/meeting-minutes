@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,10 +8,15 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 type SelectProps = {
   name: string;
   options: string[];
+  onChange: (option: string) => void;
 }
 
-export default function SelectMenu({ name, options }: SelectProps){
+export default function SelectMenu({ name, options, onChange }: SelectProps){
   const [option, setOption] = React.useState('All');
+
+  useEffect(() => {
+    onChange(option);
+  }, [option])
 
   const handleChange = (event: SelectChangeEvent) => {
     setOption(event.target.value as string);

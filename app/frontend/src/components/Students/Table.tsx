@@ -1,9 +1,7 @@
+//React
 import React, { useState, useEffect } from 'react';
-import * as meetingsActions from '../../store/meetings';
-import * as studentActions from '../../store/students';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
-import { alpha } from '@mui/material/styles';
+//MUI
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -15,14 +13,10 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 
-import MeetingRow from './Meeting';
+//Components
+import GenericTableRow from './TableRow';
 
-type IMeetings = {
-  meetings: MeetingWithStudent[];
-  students: Student[];
-  user: User;
-}
-
+//Sorting Functions
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -44,81 +38,78 @@ function getComparator<Key extends keyof any>( order: Order, orderBy: Key): (
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-interface HeadCell {
+// TableHead
+interface GenericHeadCell<T>{
   disablePadding: boolean;
-  name: keyof MeetingWithStudent;
   label: string;
+  id: keyof T;
 }
 
-const headCells: readonly HeadCell[] = [
-  // {
-  //   name: 'email',
-  //   disablePadding: true,
-  //   label: 'Email',
-  // },
-  // {
-  //   name: 'name',
-  //   disablePadding: true,
-  //   label: 'Name',
-  // },
-   {
-    name: 'studentName',
-    disablePadding: true,
-    label: 'Name',
-  },
-   {
-    name: 'studentEmail',
-    disablePadding: true,
-    label: 'Email',
-  },
-  {
-    name: 'category',
-    disablePadding: true,
-    label: 'Category',
-  },
-  // {
-  //   name: 'problems',
-  //   disablePadding: false,
-  //   label: 'Problems',
-  // },
-  // {
-  //   name: 'notes',
-  //   disablePadding: false,
-  //   label: 'Notes',
-  // },
-];
+function getHeadCells<T>(arr: T[]): T {
+  return arr.map((detail) => {
+    const [label, id] = detail;
+    return {
+      disablePadding: true,
+      label: label,
+      id: id
+    }
+  });
+}
+
+// interface HeadCell {
+//   disablePadding: boolean;
+//   label: string;
+//   id: keyof Student;
+// }
+
+// const headCells: readonly HeadCell[] = [
+//   {
+//     disablePadding: false,
+//     label: 'Name',
+//     id: 'fullName',
+//   },
+//   {
+//     disablePadding: false,
+//     label: 'Email',
+//     id: 'email',
+//   }
+// ];
 
 interface EnhancedTableProps {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof MeetingWithStudent) => void;
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Student) => void;
   order: Order;
   orderBy: string;
   rowCount: number;
+  arr: [];
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
   const { order, orderBy, onRequestSort } =
     props;
   const createSortHandler =
-    (property: keyof MeetingWithStudent) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof Student) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
+  
+  const headCells = getHeadCells(props.arr);
+  console.log(headCells);
 
   return (
     <TableHead>
       <TableRow>
         {headCells.map((headCell) => (
           <TableCell
-            key={headCell.name}
+            key={headCell.id}
             padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.name ? order : false}
+            sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
-              active={orderBy === headCell.name}
-              direction={orderBy === headCell.name ? order : 'asc'}
-              onClick={createSortHandler(headCell.name)}
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
-              {orderBy === headCell.name ? (
+              {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </Box>
@@ -132,33 +123,31 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export default function Meetings({ meetings, user, students }: IMeetings) {
-  const userMeetings = Object.values(meetings).filter((meeting: MeetingWithStudent) => meeting.userId === user.id);
-  
+//TableProps Typing
+interface GenericTableProps {
+  props: {};
+}
+
+export default function GenericTable(props: GenericTableProps) {
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof MeetingWithStudent>('studentName');
+  const [orderBy, setOrderBy] = React.useState<keyof Student>('fullName');
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof MeetingWithStudent,
+    property: keyof Student,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
-  const updatedMeetings = userMeetings.map(meeting => {
-    const student = students[meeting.studentId];
-    const newMeeting = { ...meeting }
-    newMeeting['studentName'] = `${student.fullName}`;
-    newMeeting['studentEmail'] = student.email;
-    return newMeeting;
-  })
-
-  const visibleRows = updatedMeetings.slice().sort(getComparator(order, orderBy))
   
+  const students = Object.values(props.students)
+  const visibleRows = students.sort(getComparator(order, orderBy))
+  
+  console.log(props);
+
   return (
     <Box sx={{ }}>
       <Paper sx={{  mb: 2 }}>
@@ -172,10 +161,11 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={visibleRows.length}
+              arr={props.details}
             />
             <TableBody>
               {visibleRows.map((row) => (
-                <MeetingRow key={row.id} meeting={row}/>
+                <GenericTableRow key={row.id} props={row}/>
               ))}
             </TableBody>
           </Table>

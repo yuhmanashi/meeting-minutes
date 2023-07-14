@@ -5,6 +5,24 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+#Destroy all tables without seeding
+# ApplicationRecord.transaction do
+#    puts "Destroying tables..."
+#    # Unnecessary if using `rails db:seed:replant`
+#    User.destroy_all
+#    Student.destroy_all
+#    Meeting.destroy_all
+
+#    puts "Resetting primary keys..."
+#    # For easy testing, so that after seeding, the first `User` has `id` of 1
+#    ApplicationRecord.connection.reset_pk_sequence!('users')
+#    ApplicationRecord.connection.reset_pk_sequence!('meetings')
+#    ApplicationRecord.connection.reset_pk_sequence!('students')
+
+#    puts "Done!"
+# end
+
 ApplicationRecord.transaction do 
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
@@ -21,7 +39,7 @@ ApplicationRecord.transaction do
     puts "Creating coaches..."
     coaches = []
     10.times do
-      coaches.push(Faker::Name.first_name)
+      coaches.push(Faker::Name.name)
     end
 
     puts "Creating students..."
@@ -30,23 +48,21 @@ ApplicationRecord.transaction do
       idx = n % 10
       first_name = Faker::Name.first_name
       last_name = Faker::Name.last_name
+      
       Student.create!(
         first_name: first_name,
         last_name: last_name,
-        email: first_name + last_name + '@student.io',
+        full_name: first_name + ' ' + last_name,
+        email: Faker::Verb.base + n.to_s + '@student.io',
         coach: coaches[idx]
       )
     }
 
     puts "Creating categories..."
-    categories = [
-      'Cat',
-      'Dog',
-      'Fish',
-      'Bird',
-      'Reptile',
-      'Other'
-    ]
+    categories = []
+    10.times do
+      categories.push(Faker::Creature::Animal.name)
+    end
 
 
     puts "Creating first user..."

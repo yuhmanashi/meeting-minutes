@@ -1,9 +1,7 @@
+//React
 import React, { useState, useEffect } from 'react';
-import * as meetingsActions from '../../store/meetings';
-import * as studentActions from '../../store/students';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
-import { alpha } from '@mui/material/styles';
+//MUI
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -15,14 +13,10 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 
-import MeetingRow from './Meeting';
+//Components
+import GenericTableRow from './TableRow';
 
-type IMeetings = {
-  meetings: MeetingWithStudent[];
-  students: Student[];
-  user: User;
-}
-
+//Sorting Functions
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -44,48 +38,20 @@ function getComparator<Key extends keyof any>( order: Order, orderBy: Key): (
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-interface HeadCell {
+// TableHead
+interface GenericHeadCell {
   disablePadding: boolean;
-  name: keyof MeetingWithStudent;
+  // key from respective data type
+  // name: keyof MeetingWithStudent;
   label: string;
 }
 
-const headCells: readonly HeadCell[] = [
+const headCells: readonly GenericHeadCell[] = [
   // {
-  //   name: 'email',
-  //   disablePadding: true,
-  //   label: 'Email',
-  // },
-  // {
-  //   name: 'name',
-  //   disablePadding: true,
-  //   label: 'Name',
-  // },
-   {
-    name: 'studentName',
-    disablePadding: true,
-    label: 'Name',
-  },
-   {
-    name: 'studentEmail',
-    disablePadding: true,
-    label: 'Email',
-  },
-  {
-    name: 'category',
-    disablePadding: true,
-    label: 'Category',
-  },
-  // {
-  //   name: 'problems',
-  //   disablePadding: false,
-  //   label: 'Problems',
-  // },
-  // {
-  //   name: 'notes',
-  //   disablePadding: false,
-  //   label: 'Notes',
-  // },
+  //   padding: t/f
+  //   name: key from some type
+  //   label: text
+  // }
 ];
 
 interface EnhancedTableProps {
@@ -106,7 +72,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
+        {/* {headCells.map((headCell) => (
           <TableCell
             key={headCell.name}
             padding={headCell.disablePadding ? 'none' : 'normal'}
@@ -125,15 +91,19 @@ function EnhancedTableHead(props: EnhancedTableProps) {
               ) : null}
             </TableSortLabel>
           </TableCell>
-        ))}
+        ))} */}
         <TableCell />
       </TableRow>
     </TableHead>
   );
 }
 
-export default function Meetings({ meetings, user, students }: IMeetings) {
-  const userMeetings = Object.values(meetings).filter((meeting: MeetingWithStudent) => meeting.userId === user.id);
+//TableProps Typing
+interface GenericTableProps {
+  props: {}
+}
+
+export default function GenericTable({ props }: GenericTableProps) {
   
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof MeetingWithStudent>('studentName');
@@ -149,15 +119,7 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
     setOrderBy(property);
   };
 
-  const updatedMeetings = userMeetings.map(meeting => {
-    const student = students[meeting.studentId];
-    const newMeeting = { ...meeting }
-    newMeeting['studentName'] = `${student.fullName}`;
-    newMeeting['studentEmail'] = student.email;
-    return newMeeting;
-  })
-
-  const visibleRows = updatedMeetings.slice().sort(getComparator(order, orderBy))
+  const visibleRows = [].sort(getComparator(order, orderBy))
   
   return (
     <Box sx={{ }}>
@@ -175,7 +137,7 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
             />
             <TableBody>
               {visibleRows.map((row) => (
-                <MeetingRow key={row.id} meeting={row}/>
+                <GenericTableRow key={row.id} props={row}/>
               ))}
             </TableBody>
           </Table>

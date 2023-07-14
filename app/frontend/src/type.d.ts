@@ -23,6 +23,7 @@ interface Student {
     id: number;
     lastName: string;
     coach: string;
+    fullName: string;
     // meetings: Record<number, Meeting>
 }
 

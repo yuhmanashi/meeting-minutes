@@ -1,5 +1,5 @@
 class Api::StudentsController < ApplicationController
-    wrap_parameters include: Student.attribute_names + ['firstName', 'lastName']
+    wrap_parameters include: Student.attribute_names + ['firstName', 'lastName', 'fullName']
 
     def index
         @students = Student.all
@@ -42,6 +42,6 @@ class Api::StudentsController < ApplicationController
 
     private
     def student_params
-        params.require(:Student).permit(:email, :first_name, :last_name, :coach)
+        params.require(:Student).permit(:email, :first_name, :last_name, :full_name, :coach)
     end
 end
