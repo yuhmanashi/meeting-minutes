@@ -1,27 +1,16 @@
 //React
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 
 //MUI
-import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
 //Components
@@ -121,32 +110,8 @@ export default function GenericTable({list, values, details, buttons}: GenericTa
     setOrderBy(property);
   };
   
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number,
-  ) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement| HTMLTextAreaElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   const visibleRows = list.slice().sort(getComparator(order, orderBy))
-
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - visibleRows.length) : 0;
-
-  // const visibleRows1 = React.useMemo(
-  //   () =>
-  //     sorted.slice(
-  //       page * rowsPerPage,
-  //       page * rowsPerPage + rowsPerPage,
-  //     ),
-  //   [order, orderBy, page, rowsPerPage],
-  // );
-
+  
   const rowValues = values.map(value => {
     return value.id
   })
@@ -167,33 +132,12 @@ export default function GenericTable({list, values, details, buttons}: GenericTa
               values={values}
             />
             <TableBody>
-              {(rowsPerPage > 0 
-                ? visibleRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : visibleRows
-              ).map((row) => (
+              {visibleRows.map((row) => (
                 <GenericTableRow key={row.id} row={row} values={rowValues} details={details} buttons={buttons}/>
               ))}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: 33 * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={visibleRows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
       </Paper>
     </Box>
   );

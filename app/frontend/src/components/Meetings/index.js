@@ -1,2 +1,2 @@
-import AllMeetings from "./AllMeetings";
-export default AllMeetings;
+import Meetings from "./Meetings";
+export default Meetings;

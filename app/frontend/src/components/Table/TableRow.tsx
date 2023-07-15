@@ -31,7 +31,7 @@ export default function GenericTableRow(props){
     const [open, setOpen] = useState(false);
     const collapse = details.length !== 0;
 
-    const rowButtons = buttons(row);
+    const rowButtons = buttons.length > 0 ? buttons(row) : null;
     
     return (
         <React.Fragment>
@@ -61,7 +61,7 @@ export default function GenericTableRow(props){
                             <List sx={{py: 0}}>
                                 {details.map(detail => {
                                     return (
-                                        <ListItem sx={{py: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                                        <ListItem key={detail.id} sx={{py: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
                                             <ListItemText primaryTypographyProps={{variant: 'subtitle2'}}>
                                                 {detail.label}
                                             </ListItemText>
