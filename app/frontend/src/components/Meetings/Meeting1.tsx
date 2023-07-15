@@ -1,7 +1,8 @@
-//React
 import React, { useEffect, useState } from 'react';
+import * as meetingsActions from '../../store/meetings';
+import * as studentActions from '../../store/students';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
-//MUI
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -21,25 +22,30 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
-//TableRow Interface
-interface GenericTableRowProps{
-    row: {};
+import UpdateMeetingModal from './UpdateMeetingModal';
+
+type IMeeting = {
+    meeting: MeetingWithStudent
+
 }
 
-export default function GenericTableRow({ row, details }){
+export default function MeetingRow({ meeting }: IMeeting){
+    const dispatch = useAppDispatch();
     const [open, setOpen] = useState(false);
+
+    function handleDelete(e) {
+        e.preventDefault();
+        return dispatch(meetingsActions.deleteMeeting(meeting.id))
+    }
+
+    if (!meeting) return null;
 
     return (
         <React.Fragment>
             <TableRow>
-                {details.map(detail => {
-                    return (
-                        <TableCell sx={{px: {xs: 1/10}}}>{row[detail]}</TableCell>
-                    )
-                })}
-                {/* <TableCell component="th" scope="row" sx={{px: {xs: 1/10}}}>{meeting.studentName}</TableCell>
+                <TableCell component="th" scope="row" sx={{px: {xs: 1/10}}}>{meeting.studentName}</TableCell>
                 <TableCell sx={{px: {xs: 1/10}}}>{meeting.studentEmail}</TableCell>
-                <TableCell sx={{px: {xs: 1/10}}}>{meeting.category}</TableCell> */}
+                <TableCell sx={{px: {xs: 1/10}}}>{meeting.category}</TableCell>
                 {/* <TableCell align="center">{meeting.category}</TableCell>
                 <TableCell align="center">{meeting.problems}</TableCell>
                 <TableCell align="center">{meeting.notes}</TableCell>
@@ -74,7 +80,7 @@ export default function GenericTableRow({ row, details }){
                                     </ListItemText>
                                 </ListItem>
                                 <Divider/> */}
-                                {/* <ListItem sx={{py: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                                <ListItem sx={{py: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
                                     <ListItemText primaryTypographyProps={{variant: 'subtitle2'}}>
                                         Problems
                                     </ListItemText>
@@ -90,11 +96,11 @@ export default function GenericTableRow({ row, details }){
                                     <ListItemText primaryTypographyProps={{variant: 'body2'}}>
                                         {meeting.notes}
                                     </ListItemText>
-                                </ListItem> */}
+                                </ListItem>
                                 <Divider/>
                                 <ListItem sx={{py: 0}}>
-                                    {/* <UpdateMeetingModal meeting={meeting}/>
-                                    <Button size="small" onClick={handleDelete}>Delete</Button> */}
+                                    <UpdateMeetingModal meeting={meeting}/>
+                                    <Button size="small" onClick={handleDelete}>Delete</Button>
                                 </ListItem>
                             </List>
                         </Box>

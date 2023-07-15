@@ -12,7 +12,7 @@ type SelectProps = {
 }
 
 export default function SelectMenu({ name, options, onChange }: SelectProps){
-  const [option, setOption] = React.useState('All');
+  const [option, setOption] = React.useState('Magda Wolf');
 
   useEffect(() => {
     onChange(option);

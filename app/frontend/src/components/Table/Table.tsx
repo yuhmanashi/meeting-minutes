@@ -40,87 +40,79 @@ function getComparator<Key extends keyof any>( order: Order, orderBy: Key): (
 
 // TableHead
 interface GenericHeadCell {
-  disablePadding: boolean;
-  // key from respective data type
-  // name: keyof MeetingWithStudent;
   label: string;
+  id: string;
 }
 
-const headCells: readonly GenericHeadCell[] = [
-  // {
-  //   padding: t/f
-  //   name: key from some type
-  //   label: text
-  // }
-];
-
-interface EnhancedTableProps {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof MeetingWithStudent) => void;
+interface GenericTableHeadProps {
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof any) => void;
   order: Order;
-  orderBy: string;
+  orderBy: keyof any;
   rowCount: number;
+  values: GenericHeadCell[];
 }
 
-function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, onRequestSort } =
-    props;
+function GenericTableHead(props: GenericTableHeadProps){
+  const { order, orderBy, onRequestSort, values } = props;
   const createSortHandler =
-    (property: keyof MeetingWithStudent) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof any) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
   return (
     <TableHead>
       <TableRow>
-        {/* {headCells.map((headCell) => (
+        {values.map((value: GenericHeadCell) => (
           <TableCell
-            key={headCell.name}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.name ? order : false}
+            key={value.id}
+            padding='none'
+            sortDirection={orderBy === value.id ? order : false}
           >
             <TableSortLabel
-              active={orderBy === headCell.name}
-              direction={orderBy === headCell.name ? order : 'asc'}
-              onClick={createSortHandler(headCell.name)}
+              active={orderBy === value.id}
+              direction={orderBy === value.id ? order : 'asc'}
+              onClick={createSortHandler(value.id)}
             >
-              {headCell.label}
-              {orderBy === headCell.name ? (
+              {value.label}
+              {orderBy === value.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </Box>
               ) : null}
             </TableSortLabel>
           </TableCell>
-        ))} */}
+        ))}
         <TableCell />
       </TableRow>
     </TableHead>
   );
 }
 
-//TableProps Typing
 interface GenericTableProps {
-  props: {}
+  list: any;
+  values: GenericHeadCell[];
+  details: any;
+  buttons: any;
 }
 
-export default function GenericTable({ props }: GenericTableProps) {
-  
+export default function GenericTable({list, values, details, buttons}: GenericTableProps) {
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof MeetingWithStudent>('studentName');
+  const [orderBy, setOrderBy] = React.useState<keyof any>(values[0].id);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof MeetingWithStudent,
+    property: keyof any,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
-  const visibleRows = [].sort(getComparator(order, orderBy))
   
+  const visibleRows = list.slice().sort(getComparator(order, orderBy))
+  const rowValues = values.map(value => {return value.id})
+
   return (
     <Box sx={{ }}>
       <Paper sx={{  mb: 2 }}>
@@ -129,15 +121,16 @@ export default function GenericTable({ props }: GenericTableProps) {
             aria-labelledby="tableTitle"
             size={'medium'}
           >
-            <EnhancedTableHead
+            <GenericTableHead
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={visibleRows.length}
+              values={values}
             />
             <TableBody>
               {visibleRows.map((row) => (
-                <GenericTableRow key={row.id} props={row}/>
+                <GenericTableRow key={row.id} row={row} values={rowValues} details={details} buttons={buttons}/>
               ))}
             </TableBody>
           </Table>

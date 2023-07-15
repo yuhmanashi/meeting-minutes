@@ -22,32 +22,32 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
 //TableRow Interface
-interface GenericTableRowProps {
-    props: {};
+interface GenericTableRowProps{
+    row: {};
 }
 
-export default function GenericTableRow(props: GenericTableRowProps){
+export default function GenericTableRow(props){
+    const { row, values, details, buttons } = props
     const [open, setOpen] = useState(false);
+    const collapse = details.length !== 0;
+
+    const rowButtons = buttons(row);
+    
     return (
         <React.Fragment>
             <TableRow>
-                {/* <TableCell component="th" scope="row" sx={{px: {xs: 1/10}}}>{meeting.studentName}</TableCell>
-                <TableCell sx={{px: {xs: 1/10}}}>{meeting.studentEmail}</TableCell>
-                <TableCell sx={{px: {xs: 1/10}}}>{meeting.category}</TableCell> */}
-                {/* <TableCell align="center">{meeting.category}</TableCell>
-                <TableCell align="center">{meeting.problems}</TableCell>
-                <TableCell align="center">{meeting.notes}</TableCell>
-                <TableCell>
-                    <UpdateMeetingModal meeting={meeting}/>
-                    <Button onClick={handleDelete}>Delete</Button>
-                </TableCell> */}
+                {values.map(value => {
+                    return (
+                        <TableCell key={row[value]}sx={{px: {xs: 1/10}}}>{row[value]}</TableCell>
+                    )
+                })}
                 <TableCell padding='none'>
                     <IconButton
                         aria-label="expand row"
                         size="small"
                         onClick={() => setOpen(!open)}
                     >
-                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        { collapse ? open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon /> : null }
                     </IconButton>
                 </TableCell>
             </TableRow>
@@ -59,36 +59,21 @@ export default function GenericTableRow(props: GenericTableRowProps){
                                 Details
                             </Typography>
                             <List sx={{py: 0}}>
-                                {/* <ListItem sx={{py: 0}}>
-                                    <ListItemText primaryTypographyProps={{variant: 'subtitle2'}}>
-                                        Category
-                                    </ListItemText>
-                                    <ListItemText primaryTypographyProps={{variant: 'body2'}}>
-                                        {meeting.category}
-                                    </ListItemText>
-                                </ListItem>
-                                <Divider/> */}
-                                {/* <ListItem sx={{py: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
-                                    <ListItemText primaryTypographyProps={{variant: 'subtitle2'}}>
-                                        Problems
-                                    </ListItemText>
-                                    <ListItemText primaryTypographyProps={{variant: 'body2'}}>
-                                        {meeting.problems}
-                                    </ListItemText>
-                                </ListItem>
-                                <Divider/>
-                                <ListItem sx={{py: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
-                                    <ListItemText primaryTypographyProps={{variant: 'subtitle2'}}>
-                                        Notes
-                                    </ListItemText>
-                                    <ListItemText primaryTypographyProps={{variant: 'body2'}}>
-                                        {meeting.notes}
-                                    </ListItemText>
-                                </ListItem> */}
+                                {details.map(detail => {
+                                    return (
+                                        <ListItem sx={{py: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                                            <ListItemText primaryTypographyProps={{variant: 'subtitle2'}}>
+                                                {detail.label}
+                                            </ListItemText>
+                                            <ListItemText primaryTypographyProps={{variant: 'body2'}}>
+                                                {detail.id}
+                                            </ListItemText>
+                                        </ListItem>
+                                    )
+                                })}
                                 <Divider/>
                                 <ListItem sx={{py: 0}}>
-                                    {/* <UpdateMeetingModal meeting={meeting}/>
-                                    <Button size="small" onClick={handleDelete}>Delete</Button> */}
+                                    {rowButtons}
                                 </ListItem>
                             </List>
                         </Box>

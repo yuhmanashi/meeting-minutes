@@ -25,7 +25,7 @@ const style = {
 };
 
 type IMeeting = {
-  meeting: Meeting
+  meeting: MeetingWithStudent;
 }
 
 export default function UpdateMeetingModal({ meeting }: IMeeting) {
@@ -34,26 +34,26 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
   const userId = useAppSelector(state => state.session.user.id)
   const [open, setOpen] = React.useState(false);
   const id = meeting.id;
-  
+  const studentId = meeting.studentId;
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     dispatch(sessionErrorActions.removeSessionErrors());
   };
   
-  const [email, setEmail] = useState(meeting.email);
-  const [name, setName] = useState(meeting.name);
+  // const [email, setEmail] = useState(meeting.studentEmail);
+  // const [name, setName] = useState(meeting.studentName);
   const [category, setCategory] = useState(meeting.category);
   const [problems, setProblems] = useState(meeting.problems);
   const [notes, setNotes] = useState(meeting.notes);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const emailFormat = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
-    if (emailFormat.test(email)){
-      handleClose();
-    }
-    return dispatch(meetingActions.updateMeeting({ id, userId, email, name, category, problems, notes }))
+    // const emailFormat = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+    // if (emailFormat.test(email)){
+    //   handleClose();
+    // }
+    return dispatch(meetingActions.updateMeeting({ id, userId, studentId, category, problems, notes }))
   };
 
   return (
@@ -80,7 +80,7 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
                 : null 
               }
             </List>
-            <Input 
+            {/* <Input 
               placeholder='Email'
               defaultValue={email}
               onChange={e => setEmail(e.target.value)} 
@@ -93,7 +93,7 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
               onChange={e => setName(e.target.value)} 
               inputProps={{'aria-label': 'description'}} 
               required
-            />
+            /> */}
             <Input 
               placeholder='Category'
               defaultValue={category}
@@ -115,7 +115,7 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
               inputProps={{'aria-label': 'description'}} 
               required
             />
-            <Button type='submit'>Create</Button>
+            <Button type='submit'>Update Meeting</Button>
           </Box>
         </Box>
       </Modal>

@@ -9,10 +9,11 @@ import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import Button from '@mui/material/Button';
 
 //Components
 import SelectMenu from './SelectMenu';
-import GenericTable from './Table';
+import GenericTable from '../Table';
 
 //Misc
 import * as meetingActions from '../../store/meetings';
@@ -36,14 +37,15 @@ export default function Students() {
     const coachesObj = {...[...new Set(coachList)]}; //turn into menu?
     const coachesArr = Array.from(new Set(coachList));
 
-
     function filterStudentsByCoach(){
         if (coach === 'All') return Object.values(students);
         return Object.values(students).slice().filter((student: Student) => student.coach === coach);
     }
 
+    const buttons = []
+
     const filteredStudents = filterStudentsByCoach();
-    const details = [
+    const values = [
         {
             label: 'Name', 
             id: 'fullName'
@@ -64,24 +66,7 @@ export default function Students() {
                     <SelectMenu name={'Coaches'} options={coachesArr} onChange={setCoach}/>
                 </Container>
                 <Container>
-                    <GenericTable list={filteredStudents} details={details}/>
-                    {/* <List>
-                        {Object.values(filteredStudents).map((student: Student) => {
-                            return (
-                                <ListItem key={student.id}>
-                                    <ListItemText>
-                                        {student.coach}
-                                    </ListItemText>
-                                    <ListItemText>
-                                        {student.email}
-                                    </ListItemText>
-                                    <ListItemText>
-                                        {`${student.firstName} ${student.lastName}`}
-                                    </ListItemText>
-                                </ListItem>
-                            )
-                        })}
-                    </List> */}
+                    <GenericTable list={filteredStudents} values={values} details={[]} buttons={[]}/>
                 </Container>
             </Container>
         </Box>
