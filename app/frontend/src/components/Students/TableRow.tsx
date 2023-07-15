@@ -22,15 +22,21 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
 //TableRow Interface
-interface GenericTableRowProps {
-    props: {};
+interface GenericTableRowProps{
+    row: {};
 }
 
-export default function GenericTableRow({ props }: GenericTableRowProps){
+export default function GenericTableRow({ row, details }){
     const [open, setOpen] = useState(false);
+
     return (
         <React.Fragment>
             <TableRow>
+                {details.map(detail => {
+                    return (
+                        <TableCell sx={{px: {xs: 1/10}}}>{row[detail]}</TableCell>
+                    )
+                })}
                 {/* <TableCell component="th" scope="row" sx={{px: {xs: 1/10}}}>{meeting.studentName}</TableCell>
                 <TableCell sx={{px: {xs: 1/10}}}>{meeting.studentEmail}</TableCell>
                 <TableCell sx={{px: {xs: 1/10}}}>{meeting.category}</TableCell> */}

@@ -27,6 +27,8 @@ interface Student {
     // meetings: Record<number, Meeting>
 }
 
+type Students = Student[];
+
 interface MeetingWithStudent extends Meeting {
   studentName: string;
   studentEmail: string;

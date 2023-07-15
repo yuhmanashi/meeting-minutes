@@ -19,7 +19,7 @@ import * as meetingActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
 
 export default function Students() {
-    const students = useAppSelector(state => state.students)
+    const students: Student[] = useAppSelector(state => state.students)
     const meetings = useAppSelector(state => state.meetings)
     const dispatch = useAppDispatch();
 
@@ -38,11 +38,21 @@ export default function Students() {
 
 
     function filterStudentsByCoach(){
-        if (coach === 'All') return students;
+        if (coach === 'All') return Object.values(students);
         return Object.values(students).slice().filter((student: Student) => student.coach === coach);
     }
 
     const filteredStudents = filterStudentsByCoach();
+    const details = [
+        {
+            label: 'Name', 
+            id: 'fullName'
+        }, 
+        {
+            label: 'Email', 
+            id: 'email'
+        }
+    ]
 
     return (
         <Box>
@@ -54,7 +64,7 @@ export default function Students() {
                     <SelectMenu name={'Coaches'} options={coachesArr} onChange={setCoach}/>
                 </Container>
                 <Container>
-                    <GenericTable students={filteredStudents} details={[['Name', 'fullName'], ['Email', 'email']]}/>
+                    <GenericTable list={filteredStudents} details={details}/>
                     {/* <List>
                         {Object.values(filteredStudents).map((student: Student) => {
                             return (

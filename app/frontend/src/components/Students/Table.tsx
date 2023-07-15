@@ -39,21 +39,9 @@ function getComparator<Key extends keyof any>( order: Order, orderBy: Key): (
 }
 
 // TableHead
-interface GenericHeadCell<T>{
-  disablePadding: boolean;
+interface GenericHeadCell {
   label: string;
-  id: keyof T;
-}
-
-function getHeadCells<T>(arr: T[]): T {
-  return arr.map((detail) => {
-    const [label, id] = detail;
-    return {
-      disablePadding: true,
-      label: label,
-      id: id
-    }
-  });
+  id: string;
 }
 
 // interface HeadCell {
@@ -75,32 +63,28 @@ function getHeadCells<T>(arr: T[]): T {
 //   }
 // ];
 
-interface EnhancedTableProps {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Student) => void;
+interface GenericTableHeadProps {
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof any) => void;
   order: Order;
-  orderBy: string;
+  orderBy: keyof any;
   rowCount: number;
-  arr: [];
+  details: GenericHeadCell[];
 }
 
-function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, onRequestSort } =
-    props;
+function GenericTableHead(props: GenericTableHeadProps){
+  const { order, orderBy, onRequestSort, details } = props;
   const createSortHandler =
-    (property: keyof Student) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof any) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
-  
-  const headCells = getHeadCells(props.arr);
-  console.log(headCells);
 
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
+        {details.map((headCell: GenericHeadCell) => (
           <TableCell
             key={headCell.id}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            padding='none'
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -123,31 +107,28 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-//TableProps Typing
 interface GenericTableProps {
-  props: {};
+  list: any;
+  details: GenericHeadCell[];
 }
 
-export default function GenericTable(props: GenericTableProps) {
+export default function GenericTable({list, details}: GenericTableProps) {
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Student>('fullName');
+  const [orderBy, setOrderBy] = React.useState<keyof any>(details[0].id);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Student,
+    property: keyof any,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
   
-  const students = Object.values(props.students)
-  const visibleRows = students.sort(getComparator(order, orderBy))
-  
-  console.log(props);
-
+  const visibleRows = list.slice().sort(getComparator(order, orderBy))
+  const rowDetails = details.map(detail => {return detail.id})
   return (
     <Box sx={{ }}>
       <Paper sx={{  mb: 2 }}>
@@ -156,16 +137,16 @@ export default function GenericTable(props: GenericTableProps) {
             aria-labelledby="tableTitle"
             size={'medium'}
           >
-            <EnhancedTableHead
+            <GenericTableHead
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={visibleRows.length}
-              arr={props.details}
+              details={details}
             />
             <TableBody>
               {visibleRows.map((row) => (
-                <GenericTableRow key={row.id} props={row}/>
+                <GenericTableRow key={row.id} row={row} details={rowDetails}/>
               ))}
             </TableBody>
           </Table>
