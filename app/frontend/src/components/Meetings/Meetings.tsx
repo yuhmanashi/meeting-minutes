@@ -23,6 +23,7 @@ type IMeetings = {
 export default function Meetings({ meetings, user, students }: IMeetings) {
   const userMeetings = Object.values(meetings).filter((meeting: MeetingWithStudent) => meeting.userId === user.id);
   const dispatch = useAppDispatch();
+  const [page, setPage] = useState(0);
 
   const updatedMeetings = userMeetings.map(meeting => {
     const student = students[meeting.studentId];
@@ -68,6 +69,6 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
   ];
 
   return (
-    <GenericTable list={updatedMeetings} values={values} details={details} buttons={meetingButtons} />
+    <GenericTable list={updatedMeetings} values={values} details={details} buttons={meetingButtons} page={page} setPage={setPage} />
   );
 }

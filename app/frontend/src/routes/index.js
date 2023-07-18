@@ -5,6 +5,7 @@ import Home from '../components/Home';
 import Splash from '../components/Splash';
 import AllMeetings from "../components/Meetings";
 import Students from "../components/Students";
+import Test from "../components/Test";
 import { AuthRoute, ProtectedRoute } from "../utils/route_util";
 
 function AppRoutes() {
@@ -41,6 +42,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Students/>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="test"
+        element={
+          <ProtectedRoute>
+            <Test/>
           </ProtectedRoute>
         }
       />

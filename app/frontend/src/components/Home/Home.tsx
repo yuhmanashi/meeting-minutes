@@ -15,6 +15,7 @@ import * as meetingActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
+import GenericChart from '../Chart';
 
 function Home(){
     const sessionUser = useAppSelector(state => state.session.user);
@@ -36,6 +37,9 @@ function Home(){
                 <Typography sx={{typography: 'h4', my: 2}}>
                     Dashboard
                 </Typography>
+                <Container sx={{ maxWidth: 300, minWidth: 320 }}>
+                    <GenericChart />
+                </Container>
                 <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0} }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                         <Typography sx={{typography: 'h5'}}>

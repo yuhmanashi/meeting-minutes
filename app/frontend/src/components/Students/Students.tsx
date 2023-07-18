@@ -25,6 +25,7 @@ export default function Students() {
     const dispatch = useAppDispatch();
 
     const [coach, setCoach] = useState('All')
+    const [page, setPage] = useState(0);
 
     useEffect(() => {
         dispatch(studentActions.fetchStudents())
@@ -40,6 +41,11 @@ export default function Students() {
     function filterStudentsByCoach(){
         if (coach === 'All') return Object.values(students);
         return Object.values(students).slice().filter((student: Student) => student.coach === coach);
+    }
+
+    function handleChange(option){
+        setPage(0);
+        setCoach(option);
     }
 
     const buttons = []
@@ -63,10 +69,10 @@ export default function Students() {
                     <Typography>Students</Typography>
                 </Container>
                 <Container>
-                    <SelectMenu name={'Coaches'} options={coachesArr} onChange={setCoach}/>
+                    <SelectMenu name={'Coaches'} options={coachesArr} onChange={handleChange}/>
                 </Container>
                 <Container>
-                    <GenericTable list={filteredStudents} values={values} details={[]} buttons={[]}/>
+                    <GenericTable list={filteredStudents} values={values} details={[]} buttons={[]} page={page} setPage={setPage}/>
                 </Container>
             </Container>
         </Box>
