@@ -31,6 +31,26 @@ function Home(){
 
     if (Object.keys(sessionMeetings).length < 1 || Object.keys(sessionStudents).length < 1) return null;
 
+    
+    //data for graph
+    const meetings = Object.values(sessionMeetings);
+    const data = {
+        labels: meetings.map((meeting: Meeting) => meeting.category),
+        datasets: [{
+            label: 'Category',
+            data: meetings.map((meeting: Meeting) => meeting.category),
+        }],
+        backgroundColor: [
+            "rgba(75,192,192,1)",
+            "#50AF95",
+            "#f3ba2f",
+            "#2a71d0"
+        ],
+        borderColor: "black",
+        borderWidth: 2
+    }
+    
+    console.log(data);
     return (
         <Box>
             <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
@@ -38,7 +58,7 @@ function Home(){
                     Dashboard
                 </Typography>
                 <Container sx={{ maxWidth: 300, minWidth: 320 }}>
-                    <GenericChart />
+                    <GenericChart data={data} type={'donut'} title={'Category'} />
                 </Container>
                 <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0} }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
