@@ -1,7 +1,7 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 
-export default function PieChart({ chartData, title }) {
+export default function PieChart({ chartData }) {
   return (
     <Pie
       data={chartData}
@@ -10,7 +10,7 @@ export default function PieChart({ chartData, title }) {
         plugins: {
           title: {
             display: true,
-            text: {title}
+            text: 'title'
           }
         }
       }}

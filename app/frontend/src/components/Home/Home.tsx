@@ -33,24 +33,33 @@ function Home(){
 
     
     //data for graph
-    const meetings = Object.values(sessionMeetings);
+    const meetings = Object.values(sessionMeetings)
+    const categoryCount = {}
+    const categoryData = meetings.map((meeting: Meeting) => meeting.category);
+    
+    for (let category of categoryData){
+        if (!categoryCount[category]) categoryCount[category] = 0;
+        categoryCount[category] += 1;
+    }
+
     const data = {
-        labels: meetings.map((meeting: Meeting) => meeting.category),
+        labels: Object.keys(categoryCount),
         datasets: [{
             label: 'Category',
-            data: meetings.map((meeting: Meeting) => meeting.category),
-        }],
-        backgroundColor: [
-            "rgba(75,192,192,1)",
-            "#50AF95",
-            "#f3ba2f",
-            "#2a71d0"
-        ],
-        borderColor: "black",
-        borderWidth: 2
+            data: Object.values(categoryCount),
+            backgroundColor: [
+                "rgba(75,192,192,1)",
+                "#50AF95",
+                "#f3ba2f",
+                "#2a71d0"
+            ],
+            borderColor: "black",
+            borderWidth: 2
+        }]
     }
     
     console.log(data);
+
     return (
         <Box>
             <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
