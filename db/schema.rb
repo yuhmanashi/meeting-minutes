@@ -53,9 +53,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_18_192210) do
 
   create_table "watchlists", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "student_id"
+    t.bigint "student_id", null: false
     t.text "note"
-    t.string "title"
+    t.string "tag", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_watchlists_on_student_id"

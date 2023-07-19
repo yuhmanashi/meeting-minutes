@@ -1,4 +1,6 @@
 class Api::WatchlistsController < ApplicationController
+    wrap_parameters include: Watchlist.attribute_names + ['userId', 'studentId']
+
     def index
         @watchlists = Watchlist.all
         render :index
@@ -40,6 +42,6 @@ class Api::WatchlistsController < ApplicationController
 
     private
     def watchlist_params
-        params.require(:watchlist).permit(:user_id, :student_id, :note, :title)
+        params.require(:watchlist).permit(:user_id, :student_id, :note, :tag)
     end
 end

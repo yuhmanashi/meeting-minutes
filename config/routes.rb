@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :create]
     resources :students, only: [:index, :show, :create, :update, :destroy]
     resources :meetings, only: [:index, :show, :create, :update, :destroy]
+    resources :watchlists, only: [:index, :show, :create, :update, :destroy]
     resource :session, only: [:show, :create, :destroy]
   end
   get 'test', to: 'static_pages#root'

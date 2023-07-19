@@ -13,12 +13,14 @@
 #    User.destroy_all
 #    Student.destroy_all
 #    Meeting.destroy_all
+#    Watchlist.destroy_all
 
 #    puts "Resetting primary keys..."
 #    # For easy testing, so that after seeding, the first `User` has `id` of 1
 #    ApplicationRecord.connection.reset_pk_sequence!('users')
 #    ApplicationRecord.connection.reset_pk_sequence!('meetings')
 #    ApplicationRecord.connection.reset_pk_sequence!('students')
+#    ApplicationRecord.connection.reset_pk_sequence!('watchlists')
 
 #    puts "Done!"
 # end
@@ -29,13 +31,15 @@ ApplicationRecord.transaction do
     User.destroy_all
     Student.destroy_all
     Meeting.destroy_all
+    Watchlist.destroy_all
 
     puts "Resetting primary keys..."
     # For easy testing, so that after seeding, the first `User` has `id` of 1
     ApplicationRecord.connection.reset_pk_sequence!('users')
     ApplicationRecord.connection.reset_pk_sequence!('meetings')
     ApplicationRecord.connection.reset_pk_sequence!('students')
-    
+    ApplicationRecord.connection.reset_pk_sequence!('watchlists')
+
     puts "Creating coaches..."
     coaches = []
     10.times do
@@ -78,6 +82,21 @@ ApplicationRecord.transaction do
       firstUser.meetings.create!(
         category: categories[rand(0..categories.length - 1)],
         student_id: rand(1..49)
+      )
+    end
+
+    puts "Creating watchlist for first user..."
+    2.times do
+      firstUser.watchlists.create!(
+        student_id: rand(1..49),
+        tag: 'brrrrrr'
+      )
+    end
+
+    3.times do
+      firstUser.watchlists.create!(
+        student_id: rand(1..49),
+        tag: 'pssssssst'
       )
     end
 

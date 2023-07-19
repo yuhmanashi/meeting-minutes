@@ -9,6 +9,13 @@ interface Meeting {
     updatedAt: string;
 }
 
+interface Watchlist {
+    userId: number;
+    studentId: number;
+    note: string;
+    tag: string | number;
+}
+
 interface User {
     email: string;
     firstName: string;

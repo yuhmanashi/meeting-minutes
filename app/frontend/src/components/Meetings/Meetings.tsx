@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import Button from '@mui/material/Button';
 
 //Components
-import GenericTable from '../Table';
+import GenericTable from '../CommonComponents/Table';
 import UpdateMeetingModal from './UpdateMeetingModal';
 import DeleteMeetingButton from './DeleteMeetingButton';
 

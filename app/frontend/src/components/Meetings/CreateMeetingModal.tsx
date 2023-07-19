@@ -12,7 +12,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Modal from '@mui/material/Modal';
 
-import SelectMenu from "../SelectMenu/";
+import SelectMenu from "../CommonComponents/SelectMenu";
 
 const style = {
   position: 'absolute',

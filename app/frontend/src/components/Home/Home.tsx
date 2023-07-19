@@ -13,23 +13,26 @@ import Button from '@mui/material/Button';
 
 import * as meetingActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
+import * as watchlistActions from '../../store/watchlists';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
-import GenericChart from '../Chart';
+import GenericChart from '../CommonComponents/Chart';
 
 function Home(){
     const sessionUser = useAppSelector(state => state.session.user);
     const sessionMeetings = useAppSelector((state) => state.meetings);
     const sessionStudents = useAppSelector((state) => state.students);
+    const sessionWatchlists = useAppSelector(state => state.watchlists);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(meetingActions.fetchMeetings());
         dispatch(studentActions.fetchStudents());
+        dispatch(watchlistActions.fetchWatchlists());
     }, [dispatch])
 
-    if (Object.keys(sessionMeetings).length < 1 || Object.keys(sessionStudents).length < 1) return null;
+    if (Object.keys(sessionMeetings).length < 1 || Object.keys(sessionStudents).length < 1 || Object.keys(sessionWatchlists).length < 1) return null;
 
     
     //data for graph

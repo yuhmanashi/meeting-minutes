@@ -12,8 +12,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Button from '@mui/material/Button';
 
 //Components
-import SelectMenu from '../SelectMenu/SelectMenu';
-import GenericTable from '../Table';
+import SelectMenu from '../CommonComponents/SelectMenu/SelectMenu';
+import GenericTable from '../CommonComponents/Table';
 
 //Misc
 import * as meetingActions from '../../store/meetings';

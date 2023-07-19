@@ -4,12 +4,14 @@ import { sessionReducer } from './session';
 import { sessionErrorReducer } from './session_errors';
 import meetingsReducer from './meetings';
 import studentsReducer from './students';
+import watchlistsReducer from './watchlists';
 
 const rootReducer = {
     session: sessionReducer,
     errors: sessionErrorReducer,
     meetings: meetingsReducer,
-    students: studentsReducer
+    students: studentsReducer,
+    watchlists: watchlistsReducer
 };
 
 export const store = configureStore({
