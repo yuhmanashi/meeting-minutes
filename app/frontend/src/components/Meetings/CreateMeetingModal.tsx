@@ -12,6 +12,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Modal from '@mui/material/Modal';
 
+import SelectMenu from "../SelectMenu/";
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -37,8 +39,8 @@ export default function CreateMeetingModal() {
     dispatch(sessionErrorActions.removeSessionErrors());
   };
   
-  const [email, setEmail] = useState("demo@student.io");
-  const [name, setName] = useState("Demo Student");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [problems, setProblems] = useState("");
   const [notes, setNotes] = useState("");
@@ -68,6 +70,7 @@ export default function CreateMeetingModal() {
             autoComplete="off"
             onSubmit={handleSubmit}
           >
+            <SelectMenu name={'students'} options={[]} onChange={() => {}}/>
             <List>
               { errors ? errors.map(error => 
                 <ListItem>

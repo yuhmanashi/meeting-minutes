@@ -64,7 +64,6 @@ ApplicationRecord.transaction do
       categories.push(Faker::Creature::Animal.name)
     end
 
-
     puts "Creating first user..."
     # Create one user with an easy to remember username, email, and password:
     firstUser = User.create!(

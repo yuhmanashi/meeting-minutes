@@ -3,4 +3,5 @@ class Student < ApplicationRecord
     validates :email, length: { in: 3..255 }, format: { with: URI::MailTo::EMAIL_REGEXP }
 
     has_many :meetings, dependent: :destroy
+    belongs_to :watchlist
 end

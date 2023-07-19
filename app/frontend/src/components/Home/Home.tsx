@@ -33,9 +33,8 @@ function Home(){
 
     
     //data for graph
-    const meetings = Object.values(sessionMeetings)
     const categoryCount = {}
-    const categoryData = meetings.map((meeting: Meeting) => meeting.category);
+    const categoryData = Object.values(sessionMeetings).map((meeting: Meeting) => meeting.category);
     
     for (let category of categoryData){
         if (!categoryCount[category]) categoryCount[category] = 0;
@@ -57,8 +56,6 @@ function Home(){
             borderWidth: 2
         }]
     }
-    
-    console.log(data);
 
     return (
         <Box>
@@ -67,7 +64,7 @@ function Home(){
                     Dashboard
                 </Typography>
                 <Container sx={{ maxWidth: 300, minWidth: 320 }}>
-                    <GenericChart data={data} type={'donut'} title={'Category'} />
+                    <GenericChart data={data} type={'donut'} />
                 </Container>
                 <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0} }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>

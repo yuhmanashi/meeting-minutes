@@ -12,7 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Button from '@mui/material/Button';
 
 //Components
-import SelectMenu from './SelectMenu';
+import SelectMenu from '../SelectMenu/SelectMenu';
 import GenericTable from '../Table';
 
 //Misc

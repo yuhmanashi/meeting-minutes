@@ -30,6 +30,7 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
     const newMeeting = { ...meeting }
     newMeeting['studentName'] = `${student.fullName}`;
     newMeeting['studentEmail'] = student.email;
+    newMeeting['createdAt'] = new Date(meeting.createdAt).toLocaleDateString()
     return newMeeting;
   });
   
@@ -54,6 +55,10 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
     {
       label: 'Category',
       id: 'category'
+    },
+    {
+      label: 'Date',
+      id: 'createdAt'
     }
   ];
 
