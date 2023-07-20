@@ -6,6 +6,18 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
-export default function Watchlists(){
+import Watchlist from './Watchlist';
 
+interface IWatchlists {
+    watchlists: any
+}
+
+export default function Watchlists({watchlists} : IWatchlists){
+    return (
+        <Box>
+            {watchlists.map((watchlist) => {
+                return <Watchlist items={watchlist} label={'watchlist'} />
+            })}
+        </Box>
+    )
 };
