@@ -17,6 +17,8 @@ import * as watchlistActions from '../../store/watchlists';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 import GenericChart from '../CommonComponents/Chart';
+import Watchlists from '../Watchlists';
+
 
 function Home(){
     const sessionUser = useAppSelector(state => state.session.user);
@@ -60,6 +62,8 @@ function Home(){
         }]
     }
 
+    const userWatchlists = Object.values(sessionWatchlists).filter((watchlist: Watchlist) => watchlist.userId === sessionUser.id)
+
     return (
         <Box>
             <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
@@ -68,6 +72,9 @@ function Home(){
                 </Typography>
                 <Container sx={{ maxWidth: 300, minWidth: 320 }}>
                     <GenericChart data={data} type={'donut'} />
+                </Container>
+                <Container>
+                    <Watchlists watchlists={userWatchlists} />
                 </Container>
                 <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0} }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>

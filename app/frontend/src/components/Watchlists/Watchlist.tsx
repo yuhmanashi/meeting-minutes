@@ -4,11 +4,10 @@ import GenericList from '../CommonComponents/List';
 
 interface IWatchlist {
     items: string[];
-    label: string | number;
 }
 
-export default function Watchlist({ items, label }: IWatchlist) {
+export default function Watchlist({ items }: IWatchlist) {
     return (
-        <GenericList items={items} label={label}/>
+        <GenericList items={items} />
     )
 }

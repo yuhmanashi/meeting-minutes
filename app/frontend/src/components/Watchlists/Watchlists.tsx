@@ -9,14 +9,27 @@ import Typography from '@mui/material/Typography';
 import Watchlist from './Watchlist';
 
 interface IWatchlists {
-    watchlists: any
+    watchlists: any;
 }
 
 export default function Watchlists({watchlists} : IWatchlists){
+    const hash = {}
+    
+    for (let watchlist of watchlists){
+        const tag = watchlist.tag;
+        if (!hash[tag]) hash[tag] = [];
+        hash[tag].push(watchlist);
+    }
+
+    console.log(hash);
+    
     return (
         <Box>
+            <Typography>
+                Watchlists
+            </Typography>
             {watchlists.map((watchlist) => {
-                return <Watchlist items={watchlist} label={'watchlist'} />
+                return <Watchlist items={watchlist} />
             })}
         </Box>
     )
