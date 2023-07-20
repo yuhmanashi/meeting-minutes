@@ -14,7 +14,7 @@ import Modal from '@mui/material/Modal';
 import AddIcon from '@mui/icons-material/Add';
 import Divider from "@mui/material/Divider";
 
-import SelectMenu from "../CommonComponents/SelectMenu";
+import GenericAutocomplete from "../CommonComponents/AutoComplete";
 
 const style = {
   position: 'absolute',
@@ -38,6 +38,8 @@ export default function CreateWatchlistModal({ watchlists, students }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
+    setTag('');
+    setStudentEmail('');
     dispatch(sessionErrorActions.removeSessionErrors());
   };
   
@@ -58,9 +60,12 @@ export default function CreateWatchlistModal({ watchlists, students }) {
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    if (tag.length === 0) return;
+
     const studentId = getStudentId();
     const pair = `${studentId}${tag}`
-    console.log(set, pair);
+
     if (studentId !== 0 && !set.has(pair)){
       set.add(pair);
       handleClose();
@@ -104,14 +109,7 @@ export default function CreateWatchlistModal({ watchlists, students }) {
               }
             </List>
             <Box>
-              <SelectMenu name={'watchlists'} options={tags} defaultOption={''} onChange={setTag}/>
-              <Input 
-                placeholder='Watchlist Name'
-                defaultValue={tag}
-                onChange={e => setTag(e.target.value)} 
-                inputProps={{'aria-label': 'description'}} 
-                required
-              />
+              <GenericAutocomplete options={tags} label={'watchlist'} onChange={setTag}/>
             </Box>
             <Box>
               <Input 
