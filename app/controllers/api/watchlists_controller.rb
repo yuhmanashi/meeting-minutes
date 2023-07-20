@@ -42,6 +42,6 @@ class Api::WatchlistsController < ApplicationController
 
     private
     def watchlist_params
-        params.require(:watchlist).permit(:user_id, :student_id, :note, :tag)
+        params.require(:watchlist).permit(:user_id, :student_id, :tag)
     end
 end

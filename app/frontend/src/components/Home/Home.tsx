@@ -16,6 +16,7 @@ import * as studentActions from '../../store/students';
 import * as watchlistActions from '../../store/watchlists';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
+import CreateWatchlistModal from '../Watchlists/Modal';
 import GenericChart from '../CommonComponents/Chart';
 import Watchlists from '../Watchlists';
 
@@ -64,19 +65,29 @@ function Home(){
 
     const userWatchlists = Object.values(sessionWatchlists).filter((watchlist: Watchlist) => watchlist.userId === sessionUser.id)
 
+
     return (
         <Box>
             <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
                 <Typography sx={{typography: 'h4', my: 2}}>
                     Dashboard
                 </Typography>
-                <Container sx={{ maxWidth: 300, minWidth: 320 }}>
+                <Container sx={{ maxWidth: 300, minWidth: 320, border: 1, my: 1, p: 2 }}>
+                    <Typography sx={{typography: 'h5'}}>
+                        Charts
+                    </Typography>
                     <GenericChart data={data} type={'donut'} />
                 </Container>
-                <Container>
-                    <Watchlists watchlists={userWatchlists} />
+                <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0}, border: 1, my: 2 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
+                        <Typography sx={{typography: 'h5'}}>
+                            Watchlists
+                        </Typography>
+                        <CreateWatchlistModal watchlists={userWatchlists} students={sessionStudents} />
+                    </Box>
+                    <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
                 </Container>
-                <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0} }}>
+                <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0}, border: 1, my: 2 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                         <Typography sx={{typography: 'h5'}}>
                             Meetings

@@ -49,8 +49,8 @@ export default function Students() {
     }
 
     const buttons = []
-
     const filteredStudents = filterStudentsByCoach();
+
     const values = [
         {
             label: 'Name', 
@@ -69,7 +69,7 @@ export default function Students() {
                     <Typography>Students</Typography>
                 </Container>
                 <Container>
-                    <SelectMenu name={'Coaches'} options={coachesArr} onChange={handleChange}/>
+                    <SelectMenu name={'Coaches'} options={['All', ...coachesArr]} defaultOption={'All'} onChange={handleChange}/>
                 </Container>
                 <Container>
                     <GenericTable list={filteredStudents} values={values} details={[]} buttons={[]} page={page} setPage={setPage}/>

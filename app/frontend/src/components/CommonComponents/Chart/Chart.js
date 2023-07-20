@@ -70,8 +70,6 @@ const data2 = {
     }]
 }
 
-console.log(data2);
-
 export default function GenericChart({ data, type }){
     const [chartData, setChartData] = useState(data)
     if (data.length < 1) return null;

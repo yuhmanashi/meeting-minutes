@@ -10,26 +10,45 @@ import Watchlist from './Watchlist';
 
 interface IWatchlists {
     watchlists: any;
+    students: any;
 }
 
-export default function Watchlists({watchlists} : IWatchlists){
-    const hash = {}
-    
-    for (let watchlist of watchlists){
-        const tag = watchlist.tag;
-        if (!hash[tag]) hash[tag] = [];
-        hash[tag].push(watchlist);
-    }
+export default function Watchlists({ watchlists, students } : IWatchlists){
+    function handleWatchlist(){
+        const tags = {};
+        
+        for (let watchlist of watchlists){
+            const tag = watchlist.tag;
+            if (!tags[tag]) tags[tag] = [];
+            tags[tag].push(watchlist);
+        }
+        
+        const res = []
+        const keys = Object.keys(tags);
+        const values = Object.values(tags);
+        
+        const watchlist = values.map((value) => {
+            return value.map((watchlist) => {
+                return [students[watchlist.studentId].fullName, watchlist.id]
+            })
+        })
 
-    console.log(hash);
+        // const studentNames = values.map(value => students[value.studentId].fullName);
+
+        for (let i = 0; i < keys.length; i++){
+            res[i] = [keys[i], watchlist[i]]
+        }
+
+        
+        return res
+    }
     
+    const watchlistItems = handleWatchlist()
+
     return (
-        <Box>
-            <Typography>
-                Watchlists
-            </Typography>
-            {watchlists.map((watchlist) => {
-                return <Watchlist items={watchlist} />
+        <Box sx={{ my: 1 }}>
+            {watchlistItems.map((item) => {
+                return <Watchlist key={item} item={item} />
             })}
         </Box>
     )

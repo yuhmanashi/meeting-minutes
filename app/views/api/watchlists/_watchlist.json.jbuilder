@@ -1,1 +1,1 @@
-json.extract! watchlist, :id, :user_id, :student_id, :note, :tag
+json.extract! watchlist, :id, :user_id, :student_id, :tag

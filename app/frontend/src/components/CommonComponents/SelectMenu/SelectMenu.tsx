@@ -8,11 +8,12 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 type SelectProps = {
   name: string;
   options: string[];
+  defaultOption: any;
   onChange: (option: string) => void;
 }
 
-export default function SelectMenu({ name, options, onChange }: SelectProps){
-  const [option, setOption] = React.useState('All');
+export default function SelectMenu({ name, options, defaultOption, onChange }: SelectProps){
+  const [option, setOption] = React.useState(defaultOption);
 
   useEffect(() => {
     onChange(option);
@@ -33,7 +34,6 @@ export default function SelectMenu({ name, options, onChange }: SelectProps){
           label={name}
           onChange={handleChange}
         >
-          <MenuItem value={'All'}>All</MenuItem>
           {options.map(option => {
             return (
               <MenuItem key={option} value={option}>{option}</MenuItem>

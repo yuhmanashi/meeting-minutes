@@ -42,11 +42,11 @@ export const fetchWatchlist = (id) => async dispatch => {
 };
 
 export const createWatchlist = (watchlist) => async dispatch => {
-    const { userId, category, name, problems, notes, email } = watchlist;
+    const { userId, studentId, tag } = watchlist;
     const response = await fetch("/api/watchlists", {
         method: "POST",
         body: JSON.stringify({
-            userId, category, name, problems, notes, email
+            userId, studentId, tag
         }),
         headers: Util.headers()
     })
@@ -57,11 +57,11 @@ export const createWatchlist = (watchlist) => async dispatch => {
 };
 
 export const updateWatchlist = (watchlist) => async dispatch => {
-    const { userId, category, name, problems, notes, email } = watchlist;
+    const { userId, studentId, tag } = watchlist;
     const response = await fetch(`/api/watchlists/${watchlist.id}`, {
         method: "PATCH",
         body: JSON.stringify({
-            userId, category, name, problems, notes, email
+            userId, studentId, tag
         }),
         headers: Util.headers()
     })
