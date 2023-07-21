@@ -43,13 +43,14 @@ ApplicationRecord.transaction do
     puts "Creating coaches..."
     coaches = []
     10.times do
-      coaches.push(Faker::Name.name)
+      coaches.push(Faker::Name.first_name + Faker::Name.last_name)
     end
 
     puts "Creating students..."
-    50.times {
+    num_students = 100
+    
+    num_students.times {
       |n| 
-      idx = n % 10
       first_name = Faker::Name.first_name
       last_name = Faker::Name.last_name
       
@@ -58,7 +59,7 @@ ApplicationRecord.transaction do
         last_name: last_name,
         full_name: first_name + ' ' + last_name,
         email: Faker::Verb.base + n.to_s + '@student.io',
-        coach: coaches[idx]
+        coach: coaches[rand(0..9)]
       )
     }
 
@@ -78,45 +79,44 @@ ApplicationRecord.transaction do
     )
 
     puts "Creating meetings for first user..."
-    10.times do
+    rand(10..20).times do
       firstUser.meetings.create!(
-        category: categories[rand(0..categories.length - 1)],
-        student_id: rand(1..49)
+        category: categories[rand(0..(categories.length - 1))],
+        student_id: rand(1..num_students)
       )
     end
 
     puts "Creating watchlist for first user..."
-    2.times do
+    tags = ['a', 'b', 'c', 'd', 'e']
+    
+    rand(10..20).times do
       firstUser.watchlists.create!(
-        student_id: rand(1..49),
-        tag: 'brrrrrr'
+        student_id: rand(1..num_students),
+        tag: tags[rand(0..(tags.length - 1))]
       )
     end
 
-    3.times do
-      firstUser.watchlists.create!(
-        student_id: rand(1..49),
-        tag: 'pssssssst'
-      )
-    end
-
+    puts "Creating more users..."
     # More users
-    # 10.times {
-    #   |n| 
-    #   user = User.create!(
-    #     first_name: 'Demo',
-    #     last_name: 'User' + (n+1).to_s,
-    #     email: 'demo' + (n+1).to_s + '@user.io', 
-    #     password: 'password'
-    #   )
-    #   rand(1..10).times {
-    #     |m| user.meetings.create!(
-    #       name: 'student' + m.to_s,
-    #       email: 'student' + m.to_s + '@student.io'
-    #     )
-    #   }
-    # }
-    # Meetings for Demo User
+    10.times {
+      |n| 
+      user = User.create!(
+        first_name: 'Demo',
+        last_name: 'User' + (n+1).to_s,
+        email: 'demo' + (n+1).to_s + '@user.io', 
+        password: 'password'
+      )
+      rand(1..10).times do
+        user.meetings.create!(
+          category: categories[rand(0..(categories.length - 1))],
+          student_id: rand(1..num_students)
+        )
+        user.watchlists.create!(
+          student_id: rand(1..num_students),
+          tag: tags[rand(0..(tags.length - 1))]
+        )
+      end
+    }
 
     puts "Done!"
 end
