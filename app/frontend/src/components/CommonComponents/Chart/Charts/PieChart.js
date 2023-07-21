@@ -11,6 +11,9 @@ export default function PieChart({ chartData, text }) {
           title: {
             display: true,
             text: text
+          },
+          legend: {
+            display: false
           }
         }
       }}

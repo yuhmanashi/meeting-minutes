@@ -103,11 +103,11 @@ function Home(){
     }
 
     
-    function createData(obj, label, color){
+    function createData(obj, color, title = 'count'){
         return ({
             labels: Object.keys(obj),
             datasets: [{
-                label: {label},
+                label: title,
                 data: Object.values(obj),
                 backgroundColor: color,
                 borderColor: "black",
@@ -116,8 +116,8 @@ function Home(){
         })
     }
 
-    const categoriesData = createData(categoryCount, 'Category', greens);
-
+    const categoriesData = createData(categoryCount, greens);
+ 
     // const categoriesData = {
     //     labels: Object.keys(categoryCount),
     //     datasets: [{
@@ -152,34 +152,23 @@ function Home(){
     
     const userMeetings = userFilter(sessionMeetings)
     const studentsCount = getCount(userMeetings, value => sessionStudents[value.studentId].fullName)
-    const studentsData = createData(studentsCount, 'Students', blues);
-    
-    // const studentsData = {
+    const studentsData = createData(studentsCount, blues, '#meetings');
+
+    // const timeData = {
     //     labels: Object.keys(categoryCount),
     //     datasets: [{
     //         label: 'Category',
     //         data: Object.values(categoryCount),
-    //         backgroundColor: pinks,
+    //         backgroundColor: [
+    //             "rgba(75,192,192,1)",
+    //             "#50AF95",
+    //             "#f3ba2f",
+    //             "#2a71d0"
+    //         ],
     //         borderColor: "black",
     //         borderWidth: 2
     //     }]
     // }
-
-    const timeData = {
-        labels: Object.keys(categoryCount),
-        datasets: [{
-            label: 'Category',
-            data: Object.values(categoryCount),
-            backgroundColor: [
-                "rgba(75,192,192,1)",
-                "#50AF95",
-                "#f3ba2f",
-                "#2a71d0"
-            ],
-            borderColor: "black",
-            borderWidth: 2
-        }]
-    }
 
     const userWatchlists = Object.values(sessionWatchlists).filter((watchlist: Watchlist) => watchlist.userId === sessionUser.id)
 
@@ -189,21 +178,20 @@ function Home(){
                 <Typography sx={{typography: 'h4', my: 2}}>
                     Dashboard
                 </Typography>
-                <Container sx={{ maxWidth: 300, minWidth: 320, border: 1, my: 1, p: 2 }}>
+                <Box sx={{ border: 1, my: 1, p: 2 }}>
                     <Typography sx={{typography: 'h5'}}>
                         Charts
                     </Typography>
-                    {/* <Container>
-                        <GenericChart data={categoriesData} type={'donut'} text={'test'}/>
-                    </Container>
                     <Container>
-                        <GenericChart data={categoriesData} type={'donut'} text={'category'}/>
-                    </Container> */}
-                    <Container>
-                        <GenericChart data={studentsData} type={'donut'} text={'student'}/>
+                        <Container sx={{ border: 1, p: 2 }}>
+                            <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'}/>
+                        </Container>
+                        <Container sx={{ border: 1, p: 2 }}>
+                            <GenericChart data={studentsData} type={'bar'} title={'#meetings w/ students'}/>
+                        </Container>
                     </Container>
                     {/* <GenericChart data={data} type={'donut'} /> */}
-                </Container>
+                </Box>
                 <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0}, border: 1, my: 2 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                         <Typography sx={{typography: 'h5'}}>
