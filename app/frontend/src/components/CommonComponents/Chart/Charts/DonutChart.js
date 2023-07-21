@@ -1,7 +1,7 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 
-export default function DonutChart({ chartData }) {
+export default function DonutChart({ chartData, text }) {
   return (
     <Doughnut
       data={chartData}
@@ -10,7 +10,7 @@ export default function DonutChart({ chartData }) {
         plugins: {
           title: {
             display: true,
-            text: 'title'
+            text: text
           }
         }
       }}

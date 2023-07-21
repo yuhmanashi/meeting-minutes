@@ -10,6 +10,7 @@ import Input from '@mui/material/Input';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import AddIcon from '@mui/icons-material/Add';
 import Modal from '@mui/material/Modal';
 
 import SelectMenu from "../CommonComponents/SelectMenu";
@@ -56,7 +57,9 @@ export default function CreateMeetingModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>New meeting</Button>
+      <Button onClick={handleOpen}>
+        <AddIcon/>
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

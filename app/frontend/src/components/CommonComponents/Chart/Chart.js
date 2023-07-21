@@ -70,20 +70,20 @@ const data2 = {
     }]
 }
 
-export default function GenericChart({ data, type }){
+export default function GenericChart({ data, type, text }){
     const [chartData, setChartData] = useState(data)
     if (data.length < 1) return null;
-
+    console.log(data, type, text)
     switch(type) {
       case 'pie':
-        return <PieChart chartData={chartData} />
+        return <PieChart chartData={chartData} text={text} />
       case 'bar':
-        return <BarChart chartData={chartData} />
+        return <BarChart chartData={chartData} text={text} />
       case 'donut':
-        return <DonutChart chartData={chartData} />
+        return <DonutChart chartData={chartData} text={text} />
       case 'line':
-        return <LineChart chartData={chartData} />
+        return <LineChart chartData={chartData} text={text} />
       default: 
-        return <BarChart chartData={chartData} />
+        return <BarChart chartData={chartData} text={text} />
     }
 }

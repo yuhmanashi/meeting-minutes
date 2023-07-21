@@ -74,8 +74,6 @@ export default function CreateWatchlistModal({ watchlists, students }) {
     // if (email.match(emailFormat)){
     //   handleClose();
     // }
-    //1 check
-    //student 
     return dispatch(watchlistActions.createWatchlist({ userId, studentId, tag }))
   };
 
