@@ -154,14 +154,14 @@ function Home(){
                 <Typography sx={{typography: 'h4', my: 2}}>
                     Dashboard
                 </Typography>
-                <Container sx={{ my: 1, maxWidth: 700 }}>
-                    <Container sx={{ p: 1, display: {xs: 'block', md: 'none'} }}>
+                <Container sx={{ my: 1, maxWidth: {xs: 300, sm: 500, md: 700} }}>
+                    <Container sx={{ p: 1, display: {xs: 'block', sm:'none', md: 'none'} }}>
                         <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'} ratio={1} />
                     </Container>
-                    <Container sx={{ p: 1, display: {xs: 'none', md: 'block'} }}>
+                    <Container sx={{ p: 1, display: {xs: 'none', sm:'block', md: 'block'} }}>
                         <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'}/>
                     </Container>
-                    <Container sx={{ p: 1, display: {xs: 'none', md: 'block'} }}>
+                    <Container sx={{ p: 1, display: {xs: 'none', sm:'block', md: 'block'} }}>
                         <GenericChart data={studentsData} type={'bar'} title={'#meetings w/ students'}/>
                     </Container>
                     {/* <Typography sx={{typography: 'h5', p: 2}}>
@@ -180,24 +180,26 @@ function Home(){
                     </Container> */}
                     {/* <GenericChart data={data} type={'donut'} /> */}
                 </Container>
-                <Container sx={{ maxWidth: 600, minWidth: 320, maxHeight: {xs: 320}, p: {xs: 0}, border: 1, my: 2 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                        <Typography sx={{typography: 'h5', px: 2}}>
-                            Watchlists
-                        </Typography>
-                        <CreateWatchlistModal watchlists={userWatchlists} students={sessionStudents} />
-                    </Box>
-                    <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
-                </Container>
-                <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0}, my: 2 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                        <Typography sx={{typography: 'h5', px: 2}}>
-                            Meetings
-                        </Typography>
-                        <CreateMeetingModal />
-                    </Box>
-                    <Meetings meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
-                </Container>
+                <Box sx={{display: { xs:'block', md:'flex' }}}>
+                    <Container sx={{ maxWidth: 600, minWidth: 320, maxHeight: {xs: 320}, p: {xs: 0}, border: 1, my: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
+                            <Typography sx={{typography: 'h5', px: 2}}>
+                                Watchlists
+                            </Typography>
+                            <CreateWatchlistModal watchlists={userWatchlists} students={sessionStudents} />
+                        </Box>
+                        <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
+                    </Container>
+                    <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0}, border: 1, my: 4 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
+                            <Typography sx={{typography: 'h5', px: 2}}>
+                                Meetings
+                            </Typography>
+                            <CreateMeetingModal />
+                        </Box>
+                        <Meetings meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
+                    </Container>
+                </Box>
             </Container>
         </Box>
     )

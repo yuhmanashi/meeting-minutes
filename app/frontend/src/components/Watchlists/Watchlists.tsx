@@ -47,7 +47,7 @@ export default function Watchlists({ watchlists, students } : IWatchlists){
     const watchlistItems = handleWatchlist()
 
     return (
-        <Container sx={{maxHeight: {xs: 260}, overflow: 'auto', }}>
+        <Container sx={{maxHeight: {xs: 260}, display: {sm: 'flex' }, flexWrap: 'wrap', overflow: 'auto', }}>
             {watchlistItems.map((item) => {
                 return <Watchlist key={item} item={item} />
             })}

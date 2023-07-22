@@ -28,15 +28,15 @@ export default function Watchlist({ item }: IWatchlist) {
     }
 
     return (
-        <Box sx={{ border: 1 }}>
-            <Typography sx={{ typography: 'h6'}}>
+        <Box sx={{ border: 1, m: {xs: 1}, width: {sm: '45%'} }}>
+            <Typography sx={{ typography: 'h6', px: 1 }}>
                 {label}
             </Typography>
             <Divider/>
-            <List>
+            <List sx={{py: {xs: 0}}}>
                 {watchlist.map(([student, id]) => {
                     return (
-                        <ListItem key={student}>
+                        <ListItem key={student} sx={{py: {xs: 0}}}>
                             <ListItemText>
                                 {student}
                             </ListItemText>

@@ -78,7 +78,7 @@ function GenericTableHead(props: GenericTableHeadProps){
             key={value.id}
             colSpan={6}
             sortDirection={orderBy === value.id ? order : false}
-            
+            sx={{width: '100%'}}
           >
             <TableSortLabel
               active={orderBy === value.id}
@@ -154,13 +154,13 @@ export default function GenericTable({list, values, rValues, details, buttons, p
   }
 
   return (
-    <Box sx={{ }}>
+    <Box sx={{}}>
       <Paper sx={{  mb: 2 }}>
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
             size={'medium'}
-            sx={{ display: { xs: 'none', md: 'block' } }}
+            sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             <GenericTableHead
               order={order}
@@ -182,7 +182,7 @@ export default function GenericTable({list, values, rValues, details, buttons, p
                     height: 33 * emptyRows,
                   }}
                 >
-                  <TableCell colSpan={6} />
+                  <TableCell/>
                 </TableRow>
               )}
             </TableBody>
@@ -190,7 +190,7 @@ export default function GenericTable({list, values, rValues, details, buttons, p
           <Table
             aria-labelledby="tableTitle"
             size={'small'}
-            sx={{ display: { xs: 'block', md: 'none' } }}
+            sx={{ display: { xs: 'block', sm: 'none' } }}
           >
             <GenericTableHead
               order={order}

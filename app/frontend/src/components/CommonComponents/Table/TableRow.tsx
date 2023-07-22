@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 //MUI
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import MuiTableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -20,7 +20,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-
+import { styled } from "@mui/material/styles";
 //TableRow Interface
 interface GenericTableRowProps{
     row: {};
@@ -32,19 +32,26 @@ export default function GenericTableRow(props){
     const collapse = details.length !== 0;
     console.log(collapse)
     const rowButtons = buttons.length > 0 ? buttons(row) : null;
-    
+    const TableCell = styled(MuiTableCell)`
+        :last-of-type {
+            width: 100;
+            max-width: 100;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    `;
     return (
         <React.Fragment>
             <TableRow>
-                <TableCell colSpan={6}>
+                {/* <TableCell sx={{width: '100%'}} colSpan={6}>
                     {row[values[0]]}
-                </TableCell>
-                {values.slice(1).map(value => {
+                </TableCell> */}
+                {values.map(value => {
                     return (
-                        <TableCell key={row[value]} colSpan={6}>{row[value]}</TableCell>
+                        <TableCell key={row[value]} sx={{width: '100%'}} colSpan={6}>{row[value]}</TableCell>
                     )
                 })}
-                <TableCell sx={ collapse ? { display: 'block' } : { display: 'none' } } colSpan={6}>
+                <TableCell sx={ collapse ? { display: 'block' } : { display: 'none' } } >
                     <IconButton
                         aria-label="expand row"
                         size="small"
