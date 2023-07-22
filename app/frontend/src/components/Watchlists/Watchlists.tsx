@@ -5,6 +5,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 
 import Watchlist from './Watchlist';
 
@@ -46,10 +47,10 @@ export default function Watchlists({ watchlists, students } : IWatchlists){
     const watchlistItems = handleWatchlist()
 
     return (
-        <Box sx={{ my: 1 }}>
+        <Container sx={{maxHeight: {xs: 260}, overflow: 'auto', }}>
             {watchlistItems.map((item) => {
                 return <Watchlist key={item} item={item} />
             })}
-        </Box>
+        </Container>
     )
 };

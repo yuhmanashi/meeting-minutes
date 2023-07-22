@@ -161,6 +161,8 @@ function Navbar() {
             
             {/* Misc buttons for desktop */}
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToHome}>Home</Button>
+              <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToStudents}>Students</Button>
               {/* {pages.map((page) => (
                 <Button
                   key={page}

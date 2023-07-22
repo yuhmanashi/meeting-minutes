@@ -1,13 +1,13 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 
-export default function DonutChart({ chartData, title }) {
+export default function DonutChart({ chartData, title, ratio }) {
   return (
     <Doughnut
       data={chartData}
       options={{
         responsive: true,
-        aspectRatio: 2,
+        aspectRatio: ratio,
         plugins: {
           title: {
             display: true,

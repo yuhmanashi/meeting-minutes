@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 //MUI
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 
 //Components
 import GenericTable from '../CommonComponents/Table';
@@ -62,18 +63,31 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
     }
   ];
 
-  const details = [
+  const responsiveValues = [
     {
-      label: 'Problems',
-      id: 'problems'
+      label: 'Name',
+      id: 'studentName'
     },
     {
-      label: 'Notes',
-      id: 'notes'
-    }
-  ];
+      label: 'Category',
+      id: 'category'
+    },
+  ]
+  // const details = [
+  //   {
+  //     label: 'Problems',
+  //     id: 'problems'
+  //   },
+  //   {
+  //     label: 'Notes',
+  //     id: 'notes'
+  //   }
+  // ];
 
+  const details = [];
   return (
-    <GenericTable list={updatedMeetings} values={values} details={details} buttons={meetingButtons} page={page} setPage={setPage} />
+    <Container>
+      <GenericTable list={updatedMeetings} values={values} rValues={responsiveValues} details={details} buttons={meetingButtons} page={page} setPage={setPage} />
+    </Container>
   );
 }

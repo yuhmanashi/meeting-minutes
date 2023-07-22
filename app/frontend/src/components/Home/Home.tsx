@@ -90,19 +90,12 @@ function Home(){
 
     if (Object.keys(sessionMeetings).length < 1 || Object.keys(sessionStudents).length < 1 || Object.keys(sessionWatchlists).length < 1) return null;
 
-    
     //data for graph
-
-    //how many times a category shows up
-    const categoryCount = {}
-    const categoryData = Object.values(sessionMeetings).map((meeting: Meeting) => meeting.category);
-    
-    for (let category of categoryData){
-        if (!categoryCount[category]) categoryCount[category] = 0;
-        categoryCount[category] += 1;
+    function userFilter(obj){
+        const userId = sessionUser.id
+        return Object.values(obj).filter((value: any) => value.userId === userId)
     }
 
-    
     function createData(obj, color, title = 'count'){
         return ({
             labels: Object.keys(obj),
@@ -114,27 +107,6 @@ function Home(){
                 borderWidth: 2
             }]
         })
-    }
-
-    const categoriesData = createData(categoryCount, greens);
- 
-    // const categoriesData = {
-    //     labels: Object.keys(categoryCount),
-    //     datasets: [{
-    //         label: 'Category',
-    //         data: Object.values(categoryCount),
-    //         backgroundColor: blues,
-    //         borderColor: "black",
-    //         borderWidth: 2
-    //     }]
-    // }
-
-
-    //filter for objs involving user
-    //returns array with objects from data that include user's id
-    function userFilter(obj){
-        const userId = sessionUser.id
-        return Object.values(obj).filter((value: any) => value.userId === userId)
     }
 
     //how many times a student has had a meeting w u
@@ -149,9 +121,13 @@ function Home(){
 
         return count;
     }
-    
-    const userMeetings = userFilter(sessionMeetings)
-    const studentsCount = getCount(userMeetings, value => sessionStudents[value.studentId].fullName)
+    //how many times a category shows up
+    const userMeetings = userFilter(sessionMeetings);
+
+    const categoryCount = getCount(userMeetings, value => value.category);
+    const categoriesData = createData(categoryCount, greens);
+ 
+    const studentsCount = getCount(userMeetings, value => sessionStudents[value.studentId].fullName);
     const studentsData = createData(studentsCount, blues, '#meetings');
 
     // const timeData = {
@@ -178,32 +154,44 @@ function Home(){
                 <Typography sx={{typography: 'h4', my: 2}}>
                     Dashboard
                 </Typography>
-                <Box sx={{ border: 1, my: 1, p: 2 }}>
-                    <Typography sx={{typography: 'h5'}}>
+                <Container sx={{ my: 1, maxWidth: 700 }}>
+                    <Container sx={{ p: 1, display: {xs: 'block', md: 'none'} }}>
+                        <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'} ratio={1} />
+                    </Container>
+                    <Container sx={{ p: 1, display: {xs: 'none', md: 'block'} }}>
+                        <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'}/>
+                    </Container>
+                    <Container sx={{ p: 1, display: {xs: 'none', md: 'block'} }}>
+                        <GenericChart data={studentsData} type={'bar'} title={'#meetings w/ students'}/>
+                    </Container>
+                    {/* <Typography sx={{typography: 'h5', p: 2}}>
                         Charts
-                    </Typography>
-                    <Container>
-                        <Container sx={{ border: 1, p: 2 }}>
+                    </Typography> */}
+                    {/* <Container sx={{ my: 1 }}>
+                        <Container sx={{ p: 0, display: {xs: 'block', md: 'none'} }}>
+                            <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'} ratio={1} />
+                        </Container>
+                        <Container sx={{ p: 0, display: {xs: 'none', md: 'block'} }}>
                             <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'}/>
                         </Container>
-                        <Container sx={{ border: 1, p: 2 }}>
+                        <Container sx={{ p: 0, display: {xs: 'none', md: 'block'} }}>
                             <GenericChart data={studentsData} type={'bar'} title={'#meetings w/ students'}/>
                         </Container>
-                    </Container>
+                    </Container> */}
                     {/* <GenericChart data={data} type={'donut'} /> */}
-                </Box>
-                <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0}, border: 1, my: 2 }}>
+                </Container>
+                <Container sx={{ maxWidth: 600, minWidth: 320, maxHeight: {xs: 320}, p: {xs: 0}, border: 1, my: 2 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                        <Typography sx={{typography: 'h5'}}>
+                        <Typography sx={{typography: 'h5', px: 2}}>
                             Watchlists
                         </Typography>
                         <CreateWatchlistModal watchlists={userWatchlists} students={sessionStudents} />
                     </Box>
                     <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
                 </Container>
-                <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0}, border: 1, my: 2 }}>
+                <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0}, my: 2 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                        <Typography sx={{typography: 'h5'}}>
+                        <Typography sx={{typography: 'h5', px: 2}}>
                             Meetings
                         </Typography>
                         <CreateMeetingModal />

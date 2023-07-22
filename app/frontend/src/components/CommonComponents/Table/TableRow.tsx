@@ -30,24 +30,27 @@ export default function GenericTableRow(props){
     const { row, values, details, buttons } = props
     const [open, setOpen] = useState(false);
     const collapse = details.length !== 0;
-
+    console.log(collapse)
     const rowButtons = buttons.length > 0 ? buttons(row) : null;
     
     return (
         <React.Fragment>
             <TableRow>
-                {values.map(value => {
+                <TableCell colSpan={6}>
+                    {row[values[0]]}
+                </TableCell>
+                {values.slice(1).map(value => {
                     return (
-                        <TableCell key={row[value]}sx={{px: {xs: 1/10}}}>{row[value]}</TableCell>
+                        <TableCell key={row[value]} colSpan={6}>{row[value]}</TableCell>
                     )
                 })}
-                <TableCell padding='none'>
+                <TableCell sx={ collapse ? { display: 'block' } : { display: 'none' } } colSpan={6}>
                     <IconButton
                         aria-label="expand row"
                         size="small"
                         onClick={() => setOpen(!open)}
                     >
-                        { collapse ? open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon /> : null }
+                        { open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon /> }
                     </IconButton>
                 </TableCell>
             </TableRow>

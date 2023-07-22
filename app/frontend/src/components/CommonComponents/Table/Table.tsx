@@ -76,8 +76,9 @@ function GenericTableHead(props: GenericTableHeadProps){
         {values.map((value: GenericHeadCell) => (
           <TableCell
             key={value.id}
-            padding='none'
+            colSpan={6}
             sortDirection={orderBy === value.id ? order : false}
+            
           >
             <TableSortLabel
               active={orderBy === value.id}
@@ -93,7 +94,6 @@ function GenericTableHead(props: GenericTableHeadProps){
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell />
       </TableRow>
     </TableHead>
   );
@@ -102,13 +102,14 @@ function GenericTableHead(props: GenericTableHeadProps){
 interface GenericTableProps {
   list: any;
   values: GenericHeadCell[];
+  rValues: GenericHeadCell[];
   details: any;
   buttons: any;
   page: number;
   setPage: any;
 }
 
-export default function GenericTable({list, values, details, buttons, page, setPage}: GenericTableProps) {
+export default function GenericTable({list, values, rValues, details, buttons, page, setPage}: GenericTableProps) {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof any>(values[0].id);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -148,9 +149,9 @@ export default function GenericTable({list, values, details, buttons, page, setP
   //   [order, orderBy, page, rowsPerPage],
   // );
 
-  const rowValues = values.map(value => {
-    return value.id
-  })
+  function getRowValues(values) {
+    return values.map(value => value.id)
+  }
 
   return (
     <Box sx={{ }}>
@@ -159,6 +160,7 @@ export default function GenericTable({list, values, details, buttons, page, setP
           <Table
             aria-labelledby="tableTitle"
             size={'medium'}
+            sx={{ display: { xs: 'none', md: 'block' } }}
           >
             <GenericTableHead
               order={order}
@@ -172,7 +174,37 @@ export default function GenericTable({list, values, details, buttons, page, setP
                 ? visibleRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : visibleRows
               ).map((row) => (
-                <GenericTableRow key={row.id} row={row} values={rowValues} details={details} buttons={buttons}/>
+                <GenericTableRow key={row.id} row={row} values={getRowValues(values)} details={details} buttons={buttons}/>
+              ))}
+              {emptyRows > 0 && (
+                <TableRow
+                  style={{
+                    height: 33 * emptyRows,
+                  }}
+                >
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          <Table
+            aria-labelledby="tableTitle"
+            size={'small'}
+            sx={{ display: { xs: 'block', md: 'none' } }}
+          >
+            <GenericTableHead
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort}
+              rowCount={visibleRows.length}
+              values={rValues}
+            />
+            <TableBody>
+              {(rowsPerPage > 0 
+                ? visibleRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : visibleRows
+              ).map((row) => (
+                <GenericTableRow key={row.id} row={row} values={getRowValues(rValues)} details={details} buttons={buttons}/>
               ))}
               {emptyRows > 0 && (
                 <TableRow
@@ -194,6 +226,7 @@ export default function GenericTable({list, values, details, buttons, page, setP
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage="Rows"
         />
       </Paper>
     </Box>
