@@ -28,7 +28,7 @@ export default function Watchlist({ item }: IWatchlist) {
     }
 
     return (
-        <Box sx={{ border: 1, m: {xs: 1}, width: {sm: '45%'} }}>
+        <Box sx={{ border: 1, m: {xs: 1}, width: {sm: '45%', md: '95%'} }}>
             <Typography sx={{ typography: 'h6', px: 1 }}>
                 {label}
             </Typography>

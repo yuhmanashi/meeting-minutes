@@ -47,7 +47,7 @@ ApplicationRecord.transaction do
     end
 
     puts "Creating students..."
-    num_students = 100
+    num_students = 30
     
     num_students.times {
       |n| 
@@ -79,7 +79,7 @@ ApplicationRecord.transaction do
     )
 
     puts "Creating meetings for first user..."
-    rand(10..20).times do
+    30.times do
       firstUser.meetings.create!(
         category: categories[rand(0..(categories.length - 1))],
         student_id: rand(1..num_students)
@@ -89,10 +89,24 @@ ApplicationRecord.transaction do
     puts "Creating watchlist for first user..."
     tags = ['a', 'b', 'c', 'd', 'e']
     
+    set = Set.new
+
     rand(10..20).times do
+      student_id = rand(1..num_students);
+      tag = tags[rand(0..(tags.length - 1))];
+      val = student_id.to_s + tag;
+
+      while set.include?(val) do
+        student_id = rand(1..num_students);
+        tag = tags[rand(0..(tags.length - 1))];
+        val = student_id.to_s + tag;
+      end
+
+      set.add(val)
+
       firstUser.watchlists.create!(
-        student_id: rand(1..num_students),
-        tag: tags[rand(0..(tags.length - 1))]
+        student_id: student_id,
+        tag: tag
       )
     end
 
@@ -106,14 +120,29 @@ ApplicationRecord.transaction do
         email: 'demo' + (n+1).to_s + '@user.io', 
         password: 'password'
       )
+      
+      set = Set.new
       rand(1..10).times do
         user.meetings.create!(
           category: categories[rand(0..(categories.length - 1))],
           student_id: rand(1..num_students)
         )
+        
+        student_id = rand(1..num_students);
+        tag = tags[rand(0..(tags.length - 1))];
+        val = student_id.to_s + tag;
+
+        while set.include?(val) do
+          student_id = rand(1..num_students);
+          tag = tags[rand(0..(tags.length - 1))];
+          val = student_id.to_s + tag;
+        end
+
+        set.add(val)
+
         user.watchlists.create!(
-          student_id: rand(1..num_students),
-          tag: tags[rand(0..(tags.length - 1))]
+          student_id: student_id,
+          tag: tag
         )
       end
     }

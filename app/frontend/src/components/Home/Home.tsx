@@ -154,14 +154,14 @@ function Home(){
                 <Typography sx={{typography: 'h4', my: 2}}>
                     Dashboard
                 </Typography>
-                <Container sx={{ my: 1, maxWidth: {xs: 300, sm: 500, md: 700} }}>
-                    <Container sx={{ p: 1, display: {xs: 'block', sm:'none', md: 'none'} }}>
+                <Container sx={{ my: 1, maxWidth: {xs: 300, sm: 500, md: 700}, display: {md:'flex', lg: 'flex'}, mx: {md: 0, lg: 0} }}>
+                    <Container sx={{ p: 1, display: {xs: 'block', sm:'none', md: 'none', lg: 'none'} }}>
                         <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'} ratio={1} />
                     </Container>
-                    <Container sx={{ p: 1, display: {xs: 'none', sm:'block', md: 'block'} }}>
+                    <Container sx={{ p: 1, display: {xs: 'none', sm:'block', md: 'block', lg: 'block'} }}>
                         <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'}/>
                     </Container>
-                    <Container sx={{ p: 1, display: {xs: 'none', sm:'block', md: 'block'} }}>
+                    <Container sx={{ p: 1, display: {xs: 'none', sm:'block', md: 'block', lg: 'block'} }}>
                         <GenericChart data={studentsData} type={'bar'} title={'#meetings w/ students'}/>
                     </Container>
                     {/* <Typography sx={{typography: 'h5', p: 2}}>
@@ -181,7 +181,7 @@ function Home(){
                     {/* <GenericChart data={data} type={'donut'} /> */}
                 </Container>
                 <Box sx={{display: { xs:'block', md:'flex' }}}>
-                    <Container sx={{ maxWidth: 600, minWidth: 320, maxHeight: {xs: 320}, p: {xs: 0}, border: 1, my: 2 }}>
+                    <Container sx={{ maxWidth: {xs: 600, md: 320}, minWidth: {xs: 320, md: 280, lg: 340}, maxHeight: {xs: 320, md: 490.48}, p: {xs: 0}, border: 1, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography sx={{typography: 'h5', px: 2}}>
                                 Watchlists
@@ -190,7 +190,7 @@ function Home(){
                         </Box>
                         <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
                     </Container>
-                    <Container sx={{ maxWidth: 600, minWidth: 320, p: {xs: 0}, border: 1, my: 4 }}>
+                    <Container sx={{ maxWidth: {xs: 600, md: 650, lg: 700}, minWidth: 320, p: {xs: 0}, border: 1, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography sx={{typography: 'h5', px: 2}}>
                                 Meetings
