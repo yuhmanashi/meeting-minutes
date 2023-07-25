@@ -154,7 +154,7 @@ function Home(){
                 <Typography sx={{typography: 'h4', my: 2}}>
                     Dashboard
                 </Typography>
-                <Container sx={{ my: 1, maxWidth: {xs: 300, sm: 500, md: 700}, display: {md:'flex', lg: 'flex'}, mx: {md: 0, lg: 0} }}>
+                <Container sx={{ my: 1, maxWidth: {xs: 300, sm: 500, md: 700}, display: {md:'flex', lg: 'flex'}, mx: {md: 0, lg: 0}, justifyContent: 'center' }}>
                     <Container sx={{ p: 1, display: {xs: 'block', sm:'none', md: 'none', lg: 'none'} }}>
                         <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'} ratio={1} />
                     </Container>
@@ -181,7 +181,7 @@ function Home(){
                     {/* <GenericChart data={data} type={'donut'} /> */}
                 </Container>
                 <Box sx={{display: { xs:'block', md:'flex' }}}>
-                    <Container sx={{ maxWidth: {xs: 600, md: 320}, minWidth: {xs: 320, md: 280, lg: 340}, maxHeight: {xs: 320, md: 490.48}, p: {xs: 0}, border: 1, my: 2 }}>
+                    <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, maxHeight: {xs: 320, md: 490.48}, p: {xs: 0}, border: 1, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography sx={{typography: 'h5', px: 2}}>
                                 Watchlists
