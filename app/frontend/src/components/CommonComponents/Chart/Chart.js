@@ -9,70 +9,89 @@ import LineChart from "./Charts/LineChart";
 
 Chart.register(CategoryScale);
 
-const sampleData = [
-    {
-      id: 1,
-      year: 2016,
-      userGain: 80000,
-      userLost: 823
-    },
-    {
-      id: 2,
-      year: 2017,
-      userGain: 45677,
-      userLost: 345
-    },
-    {
-      id: 3,
-      year: 2018,
-      userGain: 78888,
-      userLost: 555
-    },
-    {
-      id: 4,
-      year: 2019,
-      userGain: 90000,
-      userLost: 4555
-    },
-];
+const pinks = [
+  "#FFC0CB",
+  "#FFB6C1",
+  "#FF69B4",
+  "#FF1493",
+  "#DB7093",
+  "#C71585"
+]
 
-// const sampleData = {
-//     labels: ['Red', 'Orange', 'Blue'],
-//     // datasets is an array of objects where each object represents a set of data to display corresponding to the labels above. for brevity, we'll keep it at one object
-//     datasets: [
-//         {
-//           label: 'Popularity of colours',
-//           data: [55, 23, 96],
-//           // you can set indiviual colors for each bar
-//           backgroundColor: [
-//             'rgba(255, 255, 255, 0.6)',
-//             'rgba(255, 255, 255, 0.6)',
-//             'rgba(255, 255, 255, 0.6)'
-//           ],
-//           borderWidth: 1,
-//         }
-//     ]
-// }
+const purples = [
+  "#D8BFD8",
+  "#DDA0DD",
+  "#DA70D6",
+  "#EE82EE",
+  "#FF00FF",
+  "#BA55D3",
+  "#9932CC",
+  "#9400D3"
+]
 
-const data2 = {
-    labels: sampleData.map((data) => data.year), 
-    datasets: [{
-        label: "Users Gained ",
-        data: sampleData.map((data) => data.userGain),
-        backgroundColor: [
-        "rgba(75,192,192,1)",
-        "#50AF95",
-        "#f3ba2f",
-        "#2a71d0"
-        ],
-        borderColor: "black",
-        borderWidth: 2
-    }]
-}
+const blues = [
+  "#00FFFF",
+  "#AFEEEE",
+  "#7FFFD4",
+  "#40E0D0",
+  "#48D1CC",
+  "#00CED1",
+  "#ADD8E6",
+  "#B0E0E6",
+  "#87CEFA",
+  "#87CEEB"
+]
+
+const reds = [
+  "#FFA07A",
+  "#FA8072",
+  "#E9967A",
+  "#F08080",
+  "#CD5C5C",
+  "#DC143C"
+]
+
+const greens = [
+  "#ADFF2F",
+  "#7FFF00",
+  "#7CFC00",
+  "#00FF00",
+  "#32CD32",
+  "#98FB98",
+  "#90EE90",
+  "#00FA9A",
+  "#00FF7F"
+]
 
 export default function GenericChart({ data, type, title, ratio = 2 }){
     const [chartData, setChartData] = useState(data)
     if (data.length < 1) return null;
+
+    function createData(obj, color, title = 'count'){
+      return ({
+          labels: Object.keys(obj),
+          datasets: [{
+              label: title,
+              data: Object.values(obj),
+              backgroundColor: color,
+              borderColor: "black",
+              borderWidth: 2
+          }]
+      })
+    }
+
+    //how many times a student has had a meeting w u
+    function getCount(obj, callback){ 
+      const count = {};
+      const filtered = obj.map(callback);
+        
+      for (let data of filtered){
+        if (!count[data]) count[data] = 0;
+        count[data] += 1;
+      }
+
+      return count;
+    }
 
     switch(type) {
       case 'pie':

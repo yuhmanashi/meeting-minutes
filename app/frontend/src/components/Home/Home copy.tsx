@@ -154,16 +154,31 @@ function Home(){
                 <Typography sx={{typography: 'h4', my: 2}}>
                     Dashboard
                 </Typography>
-                <Container sx={{ my: 1, width: '90%', display: {md:'flex', lg: 'flex'}, mx: {md: 0, lg: 0}, justifyContent: 'center' }}>
+                <Container sx={{ my: 1, maxWidth: {xs: 300, sm: 500, md: 700}, display: {md:'flex', lg: 'flex'}, mx: {md: 0, lg: 0}, justifyContent: 'center' }}>
                     <Container sx={{ p: 1, display: {xs: 'block', sm:'none', md: 'none', lg: 'none'} }}>
                         <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'} ratio={1} />
                     </Container>
-                    <Container sx={{ display: {xs: 'none', sm:'block', md: 'block', lg: 'block'} }}>
+                    <Container sx={{ p: 1, display: {xs: 'none', sm:'block', md: 'block', lg: 'block'} }}>
                         <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'}/>
                     </Container>
-                    <Container sx={{ display: {xs: 'none', sm:'block', md: 'block', lg: 'block'} }}>
+                    <Container sx={{ p: 1, display: {xs: 'none', sm:'block', md: 'block', lg: 'block'} }}>
                         <GenericChart data={studentsData} type={'bar'} title={'#meetings w/ students'}/>
                     </Container>
+                    {/* <Typography sx={{typography: 'h5', p: 2}}>
+                        Charts
+                    </Typography> */}
+                    {/* <Container sx={{ my: 1 }}>
+                        <Container sx={{ p: 0, display: {xs: 'block', md: 'none'} }}>
+                            <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'} ratio={1} />
+                        </Container>
+                        <Container sx={{ p: 0, display: {xs: 'none', md: 'block'} }}>
+                            <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'}/>
+                        </Container>
+                        <Container sx={{ p: 0, display: {xs: 'none', md: 'block'} }}>
+                            <GenericChart data={studentsData} type={'bar'} title={'#meetings w/ students'}/>
+                        </Container>
+                    </Container> */}
+                    {/* <GenericChart data={data} type={'donut'} /> */}
                 </Container>
                 <Box sx={{display: { xs:'block', md:'flex' }}}>
                     <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, maxHeight: {xs: 320, md: 490.48}, p: {xs: 0}, border: 1, my: 2 }}>

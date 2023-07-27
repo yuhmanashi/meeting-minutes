@@ -8,6 +8,7 @@ export default function BarChart({ chartData, title }) {
       data={chartData}
       options={{
         responsive: true,
+
         plugins: {
           title: {
             display: true,
