@@ -165,8 +165,8 @@ function Home(){
                         <GenericChart data={studentsData} type={'bar'} title={'#meetings w/ students'}/>
                     </Container>
                 </Container>
-                <Box sx={{display: { xs:'block', md:'flex' }}}>
-                    <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, maxHeight: {xs: 320, md: 490.48}, p: {xs: 0}, border: 1, my: 2 }}>
+                <Box sx={{ display: { xs:'block', md:'flex' }, my: 2 }}>
+                    <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography sx={{typography: 'h5', px: 2}}>
                                 Watchlists
@@ -175,7 +175,7 @@ function Home(){
                         </Box>
                         <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
                     </Container>
-                    <Container sx={{ maxWidth: {xs: 600, md: 650, lg: 700}, minWidth: 320, p: {xs: 0}, border: 1, my: 2 }}>
+                    <Container sx={{ maxWidth: {xs: 600, md: 650, lg: 700}, minWidth: {xs: 320, md: 570}, p: {xs: 0}, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography sx={{typography: 'h5', px: 2}}>
                                 Meetings
@@ -186,6 +186,9 @@ function Home(){
                     </Container>
                 </Box>
             </Container>
+            <Box>
+                Footer
+            </Box>
         </Box>
     )
 }
