@@ -72,7 +72,7 @@ export default function Students() {
                     <SelectMenu name={'Coaches'} options={['All', ...coachesArr]} defaultOption={'All'} onChange={handleChange}/>
                 </Container>
                 <Container>
-                    <GenericTable list={filteredStudents} values={values} details={[]} buttons={[]} page={page} setPage={setPage}/>
+                    <GenericTable list={filteredStudents} values={values} rValues={[]} details={[]} buttons={[]} page={page} setPage={setPage}/>
                 </Container>
             </Container>
         </Box>

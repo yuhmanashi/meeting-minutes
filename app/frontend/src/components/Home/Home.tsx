@@ -151,17 +151,17 @@ function Home(){
     return (
         <Box>
             <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
-                <Typography sx={{typography: 'h4', my: 2}}>
+                <Typography sx={{typography: 'h4', my: 3}}>
                     Dashboard
                 </Typography>
                 <Container sx={{ my: 1, width: '90%', display: {md:'flex', lg: 'flex'}, mx: {md: 0, lg: 0}, justifyContent: 'center' }}>
                     <Container sx={{ p: 1, display: {xs: 'block', sm:'none', md: 'none', lg: 'none'} }}>
                         <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'} ratio={1} />
                     </Container>
-                    <Container sx={{ display: {xs: 'none', sm:'block', md: 'block', lg: 'block'} }}>
+                    <Container sx={{ display: {xs: 'none', sm:'block', md: 'block', lg: 'block'}, my: 3 }}>
                         <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'}/>
                     </Container>
-                    <Container sx={{ display: {xs: 'none', sm:'block', md: 'block', lg: 'block'} }}>
+                    <Container sx={{ display: {xs: 'none', sm:'block', md: 'block', lg: 'block'}, my: 3 }}>
                         <GenericChart data={studentsData} type={'bar'} title={'#meetings w/ students'}/>
                     </Container>
                 </Container>
