@@ -187,8 +187,6 @@ function createYearCount(dates){
         const month = monthes[i]
         count[month] = 0;
     }
-    
-    console.log(count);
 
     const filtered = dates.map(date => toDateString(date).split(' ')[1]);
     for (let date of filtered){
@@ -278,9 +276,6 @@ export default function HistoryChart({dates, selected, user}){
     }, [selected]);
 
     return (
-        <Box>
-            <LineChart chartData={data} title={'test'} max={max}/>
-            {/* <GenericChart obj={test} callback={testFn} color={'blue'} type={'line'} title={'meetings'}/> */}
-        </Box>
+        <LineChart chartData={data} title={'test'} max={max}/>
     )
 }

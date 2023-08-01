@@ -17,7 +17,9 @@ import GenericChart from '../CommonComponents/Chart';
 import GenericAutocomplete from '../CommonComponents/AutoComplete';
 import GenericTable from '../CommonComponents/Table/Table';
 import SelectMenu from '../CommonComponents/SelectMenu';
+
 import HistoryChart from './HistoryChart';
+import HistoryTable from './HistoryTable';
 
 export default function History(){
     const sessionUser = useAppSelector(state => state.session.user);
@@ -41,7 +43,20 @@ export default function History(){
     }
 
     const userMeetings = userFilter(sessionMeetings);
-    const dates = userMeetings.map(meeting => meeting.date)
+    const dates = userMeetings.map(meeting => meeting.date);
+
+    const updatedMeetings = userMeetings.map(meeting => {
+        const student = sessionStudents[meeting.studentId];
+        const newMeeting = { ...meeting }
+        newMeeting['studentName'] = `${student.fullName}`;
+        newMeeting['studentEmail'] = student.email;
+        newMeeting['createdAt'] = new Date(meeting.createdAt).toLocaleDateString()
+        return newMeeting;
+    });
+
+    const userMeetingsByDate = updatedMeetings.sort((a, b) => 
+        a.date < b.date ? -1 : a.date > b.date ? 1 : 0
+    )
 
     return (
         <Box>
@@ -69,6 +84,7 @@ export default function History(){
                 </Container>
                 {/* Table */}
                 <Container>
+                    <HistoryTable meetings={userMeetingsByDate} selected={selected}/>
                     {/* <GenericTable list={} values={} rValues={} details={} buttons={} page={} setPage={}/> */}
                     {/* <GenericTable/> */}
                 </Container>
