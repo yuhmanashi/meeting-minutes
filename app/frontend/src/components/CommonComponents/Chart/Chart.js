@@ -73,7 +73,7 @@ const colors = {
 
 export default function GenericChart({ obj, callback, color, type, title, ratio = 2 }){
     if (obj.length < 1) return null;
-
+    
     function createData(obj, color, title = 'count'){
       return ({
           labels: Object.keys(obj),
@@ -86,7 +86,7 @@ export default function GenericChart({ obj, callback, color, type, title, ratio 
           }]
       })
     }
-
+    
     //how many times a student has had a meeting w u
     function getCount(obj, callback){ 
       const count = {};
