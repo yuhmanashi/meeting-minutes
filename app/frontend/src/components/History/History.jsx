@@ -24,32 +24,70 @@ export default function History(){
 
     const dispatch = useAppDispatch();
 
-    if (Object.keys(sessionMeetings).length < 1 || Object.keys(sessionStudents).length < 1) return null;
-
     useEffect(() => {
         dispatch(meetingActions.fetchMeetings());
         dispatch(studentActions.fetchStudents());
     }, [dispatch])
 
+    if (Object.keys(sessionMeetings).length < 1 || Object.keys(sessionStudents).length < 1) return null;
+
+    function userFilter(obj){
+        const userId = sessionUser.id
+        return Object.values(obj).filter(value => value.userId === userId)
+    }
+
+    const userMeetings = userFilter(sessionMeetings);
+    const dates = userMeetings.map(meeting => meeting.date)
+    
+    function toDate(date) {
+        return new Date(date);
+    }
+
+    function toDateString(date) {
+        return new Date(date).toDateString()
+    }
+
+    function sortDate(a, b) {
+        return a < b ? -1 : a > b ? 1 : 0
+    }
+
+    const sortedDates = dates.sort(sortDate);
+    
+    //filters
+    function filterDates(dates, callback) {
+        return dates.map(toDate).filter(callback);
+    }
+    /* This Month */
+    function byThisMonth(date){
+        const currentMonth = new Date().getMonth() + 1; //+1 accounts for end of this month
+        return date.getMonth() === currentMonth
+    }
+    /* This Year */
+    function byThisYear(date){
+        const currentYear = new Date().getYear();
+        return date.getYear() === currentYear
+    }
+    const test = filterDates(sortedDates, byThisYear).map(toDateString)
+    console.log(test)
     return (
         <Box>
             {/* Charts */}
             <Container>
                 {/* Charts go here */}
                 {/* <GenericChart obj={} callback={} color={} type={} title={} ratio={}/> */}
-                <GenericChart/>
+                <GenericChart obj={userMeetings} callback={() => {}} color={'blue'} type={'line'} title={'meetings'}/>
             </Container>
             {/* Data */}
             <Container>
                 {/* AutoComplete for toggle */}
                 <Container>
                     {/* <GenericAutocomplete options={} label={} onChange={}/> */}
-                    <GenericAutocomplete/>
+                    {/* <GenericAutocomplete/> */}
                 </Container>
                 {/* Table */}
                 <Container>
                     {/* <GenericTable list={} values={} rValues={} details={} buttons={} page={} setPage={}/> */}
-                    <GenericTable/>
+                    {/* <GenericTable/> */}
                 </Container>
             </Container>
         </Box>

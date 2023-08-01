@@ -43,7 +43,7 @@ ApplicationRecord.transaction do
     puts "Creating coaches..."
     coaches = []
     10.times do
-      coaches.push(Faker::Name.first_name + Faker::Name.last_name)
+      coaches.push(Faker::Name.first_name + ' ' + Faker::Name.last_name)
     end
 
     puts "Creating students..."
@@ -127,7 +127,7 @@ ApplicationRecord.transaction do
         user.meetings.create!(
           category: categories[rand(0..(categories.length - 1))],
           student_id: rand(1..num_students),
-          date: Date.new(2023, rand(8..12), rand(1..30))
+          date: Date.new(2023, rand(8..12), rand(2..30))
         )
         
         student_id = rand(1..num_students);

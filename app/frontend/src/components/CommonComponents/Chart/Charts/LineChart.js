@@ -1,7 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 
-export default function LineChart({ chartData, text }) {
+export default function LineChart({ chartData, title }) {
   return (
     <Line
       data={chartData}
@@ -10,10 +10,18 @@ export default function LineChart({ chartData, text }) {
         plugins: {
           title: {
             display: true,
-            text: text
+            text: title
           },
           legend: {
             display: false
+          }
+        },
+        scales: {
+          y: {
+            ticks: {
+              beginAtZero: true,
+              callback: function(value) {if (value % 1 === 0) {return value;}}
+            }
           }
         }
       }}
