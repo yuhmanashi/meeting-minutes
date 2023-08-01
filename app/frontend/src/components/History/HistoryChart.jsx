@@ -103,12 +103,13 @@ function byMonthes(date){
 
 function createMonthCount(dates){ 
     const count = {};
-    
-    for (let i = 1; i++; i <= days[month]){
-      count[i] = 0;
+    const month = new Date().getMonth();
+
+    for (let i = 1; i <= days[month]; i++){
+      count[`${month+1}/${i}`] = 0;
     }
 
-    const filtered = obj.map(byDays);
+    const filtered = dates.map(date => toLocaleDateString(date).split('/').slice(0, 2).join('/'));
       
     for (let data of filtered){
       count[data] += 1;
@@ -118,51 +119,19 @@ function createMonthCount(dates){
 }
 
 const monthes = [
-    'January', 
-    'Febuary', 
-    'March', 
-    'April', 
+    'Jan', 
+    'Feb', 
+    'Mar', 
+    'Apr', 
     'May', 
-    'June', 
-    'July', 
-    'August', 
-    'September', 
-    'October', 
-    'November', 
-    'December'
+    'Jun', 
+    'Jul', 
+    'Aug', 
+    'Sep', 
+    'Oct', 
+    'Nov', 
+    'Dec'
 ]
-
-// function createThisWeekCount(dates){
-//     const today = new Date();
-//     const day = today.getDay(); //0-6
-//     const monthDay = today.getDate();//1-31
-//     const month = today.getMonth();//0-11
-
-//     let max = monthDay + (6 - day);
-//     let min = monthDay - day;
-//     let maxMonth = month;
-//     let minMonth = month;
-
-//     if (max > days[month]){
-//         maxMonth += 1;
-//         max = max - days[month];
-//     }
-
-//     if (min < 1){
-//         minMonth -= 1;
-//         min = days[minMonth] + min;
-//     }
-
-//     const count = {};
-
-//     for (let i = min; i <= days[minMonth]; i++){
-//         count[`${minMonth+1}/${i}`] = 0;
-//     }
-
-//     count[`${month}/${monthDay}`] = 0
-//     // week 0 - 6
-    
-// }
 
 function createThisWeekCount(dates){
     const count = {};
@@ -212,6 +181,57 @@ function createThisWeekCount(dates){
     return count;
 }
 
+function createYearCount(dates){
+    const count = {};
+    for (let i = 0; i <= 11; i++){
+        const month = monthes[i]
+        count[month] = 0;
+    }
+    
+    console.log(count);
+
+    const filtered = dates.map(date => toDateString(date).split(' ')[1]);
+    for (let date of filtered){
+        count[date] += 1;
+    }
+
+    return count;
+}
+
+function createAllCount(dates, user){
+    const startDate = new Date(user.createdAt)
+    const startYr = startDate.getYear() - 100;
+    const startMo = startDate.getMonth();
+    const endDate = new Date(dates[dates.length - 1]);
+    const endYr = endDate.getYear() - 100;
+    const endMo = endDate.getMonth() + 1;
+
+    const count = {}
+
+    let currMo = startMo;
+    let currYr = startYr;
+
+    while (currMo !== endMo || currYr !== endYr){
+        if (currMo > 11){
+            currMo = 0;
+            currYr += 1;
+        }
+        const date = `${currMo + 1}-${currYr}`
+        count[date] = 0;
+        currMo += 1;
+    }
+
+    const filtered = dates.map(date => new Date(date))
+    for (let data of filtered){
+        const mo = data.getMonth();
+        const yr = data.getYear() - 100;
+        const date = `${mo + 1}-${yr}`;
+        count[date] += 1;
+    }
+
+    return count;
+}
+
 function createData(obj){
     return ({
         labels: Object.keys(obj),
@@ -219,41 +239,43 @@ function createData(obj){
             label: '#meetings',
             data: Object.values(obj),
             borderColor: "black",
-            tension: 0.1
+            tension: .1
         }]
     })
 }
 
 function getMax(count){
-    return Math.ceil(Math.max(...Object.values(count)) * 1.5)
+    let max = Math.ceil(Math.max(...Object.values(count)) * 1.5)
+    return max % 2 === 0 ? max : max + 1;
 }
 
-export default function HistoryChart({dates, selected}){
+function handleCount(dates, selected, user){
+    switch(selected) {
+      case 'Week':
+        return createThisWeekCount(filterDates(dates, byThisWeek))
+      case 'Month':
+        return createMonthCount(filterDates(dates, byThisMonth))
+      case 'Year':
+        return createYearCount(filterDates(dates, byThisYear))
+      case 'All':
+        return createAllCount(dates.map(toDate), user)
+      default: 
+        return createThisWeekCount(filterDates(dates, byThisWeek))
+    }
+}
+
+export default function HistoryChart({dates, selected, user}){
     const sortedDates = dates.sort(sortDate);
-    const thisWeek = createData(createThisWeekCount(filterDates(sortedDates, byThisWeek)));
-    const [count, setCount] = useState(createThisWeekCount(filterDates(sortedDates, byThisWeek)))
+    const [count, setCount] = useState(handleCount(sortedDates, selected, user))
     const [data, setData] = useState(createData(count));
     const [max, setMax] = useState(getMax(count));
 
     useEffect(() => {
-        if (selected === 'Week') {
-            setCount(createThisWeekCount(filterDates(sortedDates, byThisWeek)))
-        }
-        if (selected === 'Month') {
-            setCount(filterDates(sortedDates, byThisMonth));
-        }
-        if (selected === 'Year') {
-            setCount(filterDates(sortedDates, byThisYear));
-        }
-        if (selected === 'All') {
-            setCount(sortedDates.map(toDate));
-        }
-        
-        setData(createData(count));
-        setMax(getMax(count));
-    }, [selected])
-
-    console.log(data, max);
+        let currCount = handleCount(sortedDates, selected, user)
+        setCount(currCount);
+        setData(createData(currCount));
+        setMax(getMax(currCount));
+    }, [selected]);
 
     return (
         <Box>

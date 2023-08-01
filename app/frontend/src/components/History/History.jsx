@@ -49,7 +49,8 @@ export default function History(){
             <Container>
                 {/* Charts go here */}
                 {/* <GenericChart obj={} callback={} color={} type={} title={} ratio={}/> */}
-                <HistoryChart dates={dates} selected={selected}/>
+                <Typography>{selected}</Typography>
+                <HistoryChart dates={dates} selected={selected} user={sessionUser}/>
             </Container>
             {/* Data */}
             <Container>
