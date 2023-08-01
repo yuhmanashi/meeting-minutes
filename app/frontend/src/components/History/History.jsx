@@ -16,6 +16,7 @@ import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 import GenericChart from '../CommonComponents/Chart';
 import GenericAutocomplete from '../CommonComponents/AutoComplete';
 import GenericTable from '../CommonComponents/Table/Table';
+import { miniSerializeError } from '@reduxjs/toolkit';
 
 export default function History(){
     const sessionUser = useAppSelector(state => state.session.user);
@@ -67,8 +68,36 @@ export default function History(){
         const currentYear = new Date().getYear();
         return date.getYear() === currentYear
     }
-    const test = filterDates(sortedDates, byThisYear).map(toDateString)
-    console.log(test)
+
+    function byThisWeek(date){
+        const today = new Date();
+        const day = today.getDay();
+        const max = 6 - day;
+        const monthDay = today.getDate();
+        const maxDay = monthDay + max;
+        const minDay = monthDay - day;
+
+        const tDay = date.getDate()
+        const minCheck = tDay >= minDay;
+        const maxCheck = tDay <= maxDay;
+
+        return date.getMonth() === (today.getMonth() + 1) && date.getDate() >= minDay && date.getDate() <= maxDay
+    }
+
+    const test = filterDates(sortedDates, byThisWeek).map(toDateString)
+    function testFn(){
+        const today = new Date();
+        const day = today.getDay();
+        const max = 6 - day;
+        const monthDay = today.getDate();
+        const maxDay = monthDay + max;
+        const minDay = monthDay - day;
+        //if week overlaps into other months...
+        console.log(today, day, maxDay, minDay);
+    }
+
+    testFn();
+
     return (
         <Box>
             {/* Charts */}
