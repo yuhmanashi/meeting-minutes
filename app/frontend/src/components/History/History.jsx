@@ -70,33 +70,47 @@ export default function History(){
     }
 
     function byThisWeek(date){
+        const days = {
+            0: 31,
+            1: 28,
+            2: 31,
+            3: 30,
+            4: 31,
+            5: 30,
+            6: 31,
+            7: 31,
+            8: 30,
+            9: 31,
+            10: 30,
+            11: 31
+        }
+        
         const today = new Date();
         const day = today.getDay();
-        const max = 6 - day;
         const monthDay = today.getDate();
-        const maxDay = monthDay + max;
-        const minDay = monthDay - day;
+        const month = today.getMonth();
 
-        const tDay = date.getDate()
-        const minCheck = tDay >= minDay;
-        const maxCheck = tDay <= maxDay;
+        const max = 6 - day;
+        let maxDay = monthDay + max;
+        let minDay = monthDay - day;
 
-        return date.getMonth() === (today.getMonth() + 1) && date.getDate() >= minDay && date.getDate() <= maxDay
+        const tDay = date.getDate();
+        const tMonth = date.getMonth();
+
+        if (tMonth === month && tDay >= minDay && tDay <= maxDay) return true;
+
+        if (maxDay > days[month]){
+            maxDay = maxDay - days[month];
+            return tMonth === month + 1 && tDay <= maxDay
+        }
+
+        if (minDay < 0){
+            minDay = days[month - 1] + minDay;
+            return tMonth === month - 1 && tDay >= minDay
+        }
     }
 
-    const test = filterDates(sortedDates, byThisWeek).map(toDateString)
-    function testFn(){
-        const today = new Date();
-        const day = today.getDay();
-        const max = 6 - day;
-        const monthDay = today.getDate();
-        const maxDay = monthDay + max;
-        const minDay = monthDay - day;
-        //if week overlaps into other months...
-        console.log(today, day, maxDay, minDay);
-    }
-
-    testFn();
+    const test = filterDates(sortedDates, byThisWeek).map(toDateString);
 
     return (
         <Box>
