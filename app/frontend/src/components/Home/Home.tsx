@@ -20,60 +20,6 @@ import CreateWatchlistModal from '../Watchlists/Modal';
 import GenericChart from '../CommonComponents/Chart';
 import Watchlists from '../Watchlists';
 
-const pinks = [
-    "#FFC0CB",
-    "#FFB6C1",
-    "#FF69B4",
-    "#FF1493",
-    "#DB7093",
-    "#C71585"
-]
-
-const purples = [
-    "#D8BFD8",
-    "#DDA0DD",
-    "#DA70D6",
-    "#EE82EE",
-    "#FF00FF",
-    "#BA55D3",
-    "#9932CC",
-    "#9400D3"
-]
-
-const blues = [
-    "#00FFFF",
-    "#AFEEEE",
-    "#7FFFD4",
-    "#40E0D0",
-    "#48D1CC",
-    "#00CED1",
-    "#ADD8E6",
-    "#B0E0E6",
-    "#87CEFA",
-    "#87CEEB"
-]
-
-const reds = [
-    "#FFA07A",
-    "#FA8072",
-    "#E9967A",
-    "#F08080",
-    "#CD5C5C",
-    "#DC143C"
-]
-
-const greens = [
-    "#ADFF2F",
-    "#7FFF00",
-    "#7CFC00",
-    "#00FF00",
-    "#32CD32",
-    "#98FB98",
-    "#90EE90",
-    "#00FA9A",
-    "#00FF7F"
-]
-
 function Home(){
     const sessionUser = useAppSelector(state => state.session.user);
     const sessionMeetings = useAppSelector((state) => state.meetings);
@@ -96,56 +42,8 @@ function Home(){
         return Object.values(obj).filter((value: any) => value.userId === userId)
     }
 
-    function createData(obj, color, title = 'count'){
-        return ({
-            labels: Object.keys(obj),
-            datasets: [{
-                label: title,
-                data: Object.values(obj),
-                backgroundColor: color,
-                borderColor: "black",
-                borderWidth: 2
-            }]
-        })
-    }
-
-    //how many times a student has had a meeting w u
-    function getCount(obj, callback){ 
-        const count = {};
-        const filtered = obj.map(callback);
-        
-        for (let data of filtered){
-            if (!count[data]) count[data] = 0;
-            count[data] += 1;
-        }
-
-        return count;
-    }
     //how many times a category shows up
     const userMeetings = userFilter(sessionMeetings);
-
-    const categoryCount = getCount(userMeetings, value => value.category);
-    const categoriesData = createData(categoryCount, greens);
- 
-    const studentsCount = getCount(userMeetings, value => sessionStudents[value.studentId].fullName);
-    const studentsData = createData(studentsCount, blues, '#meetings');
-
-    // const timeData = {
-    //     labels: Object.keys(categoryCount),
-    //     datasets: [{
-    //         label: 'Category',
-    //         data: Object.values(categoryCount),
-    //         backgroundColor: [
-    //             "rgba(75,192,192,1)",
-    //             "#50AF95",
-    //             "#f3ba2f",
-    //             "#2a71d0"
-    //         ],
-    //         borderColor: "black",
-    //         borderWidth: 2
-    //     }]
-    // }
-
     const userWatchlists = Object.values(sessionWatchlists).filter((watchlist: Watchlist) => watchlist.userId === sessionUser.id)
 
     return (
@@ -156,13 +54,13 @@ function Home(){
                 </Typography>
                 <Container sx={{ my: 1, width: '90%', display: {md:'flex', lg: 'flex'}, mx: {md: 0, lg: 0}, justifyContent: 'center' }}>
                     <Container sx={{ p: 1, display: {xs: 'block', sm:'none', md: 'none', lg: 'none'} }}>
-                        <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'} ratio={1} />
+                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} ratio={1} />
                     </Container>
                     <Container sx={{ display: {xs: 'none', sm:'block', md: 'block', lg: 'block'}, my: 3 }}>
-                        <GenericChart data={categoriesData} type={'donut'} title={'categories frequency'}/>
+                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} />
                     </Container>
                     <Container sx={{ display: {xs: 'none', sm:'block', md: 'block', lg: 'block'}, my: 3 }}>
-                        <GenericChart data={studentsData} type={'bar'} title={'#meetings w/ students'}/>
+                        <GenericChart obj={userMeetings} callback={value => sessionStudents[value.studentId].fullName} color={'blue'} type={'bar'} title={'#meetings w/ students'}/>
                     </Container>
                 </Container>
                 <Box sx={{ display: { xs:'block', md:'flex' }, my: 2 }}>

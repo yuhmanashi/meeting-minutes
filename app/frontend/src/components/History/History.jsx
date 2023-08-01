@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import './Home.css';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 import Box from '@mui/material/Box';
@@ -15,6 +14,8 @@ import * as studentActions from '../../store/students';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 import GenericChart from '../CommonComponents/Chart';
+import GenericAutocomplete from '../CommonComponents/AutoComplete';
+import GenericTable from '../CommonComponents/Table/Table';
 
 export default function History(){
     const sessionUser = useAppSelector(state => state.session.user);
@@ -35,11 +36,21 @@ export default function History(){
             {/* Charts */}
             <Container>
                 {/* Charts go here */}
+                {/* <GenericChart obj={} callback={} color={} type={} title={} ratio={}/> */}
+                <GenericChart/>
             </Container>
             {/* Data */}
             <Container>
                 {/* AutoComplete for toggle */}
+                <Container>
+                    {/* <GenericAutocomplete options={} label={} onChange={}/> */}
+                    <GenericAutocomplete/>
+                </Container>
                 {/* Table */}
+                <Container>
+                    {/* <GenericTable list={} values={} rValues={} details={} buttons={} page={} setPage={}/> */}
+                    <GenericTable/>
+                </Container>
             </Container>
         </Box>
     )

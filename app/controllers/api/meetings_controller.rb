@@ -42,6 +42,6 @@ class Api::MeetingsController < ApplicationController
 
     private
     def meeting_params
-        params.require(:meeting).permit(:user_id, :student_id, :category, :problems, :notes)
+        params.require(:meeting).permit(:user_id, :student_id, :category, :problems, :notes, :date)
     end
 end

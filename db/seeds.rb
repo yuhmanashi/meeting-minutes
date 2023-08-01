@@ -82,7 +82,8 @@ ApplicationRecord.transaction do
     30.times do
       firstUser.meetings.create!(
         category: categories[rand(0..(categories.length - 1))],
-        student_id: rand(1..num_students)
+        student_id: rand(1..num_students),
+        date: Date.new(2023, rand(8..12), rand(1..30))
       )
     end
 
@@ -125,7 +126,8 @@ ApplicationRecord.transaction do
       rand(1..10).times do
         user.meetings.create!(
           category: categories[rand(0..(categories.length - 1))],
-          student_id: rand(1..num_students)
+          student_id: rand(1..num_students),
+          date: Date.new(2023, rand(8..12), rand(1..30))
         )
         
         student_id = rand(1..num_students);

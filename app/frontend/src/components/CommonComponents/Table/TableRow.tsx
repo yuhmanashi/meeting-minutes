@@ -30,7 +30,6 @@ export default function GenericTableRow(props){
     const { row, values, details, buttons } = props
     const [open, setOpen] = useState(false);
     const collapse = details.length !== 0;
-    console.log(collapse)
     const rowButtons = buttons.length > 0 ? buttons(row) : null;
     const TableCell = styled(MuiTableCell)`
         :last-of-type {

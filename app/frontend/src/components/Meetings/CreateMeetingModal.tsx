@@ -73,7 +73,7 @@ export default function CreateMeetingModal() {
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <SelectMenu name={'students'} options={[]} onChange={() => {}}/>
+            {/* <SelectMenu name={'students'} options={[]} onChange={() => {}}/> */}
             <List>
               { errors ? errors.map(error => 
                 <ListItem>

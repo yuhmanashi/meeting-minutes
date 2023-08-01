@@ -15,6 +15,8 @@ type SelectProps = {
 export default function SelectMenu({ name, options, defaultOption, onChange }: SelectProps){
   const [option, setOption] = React.useState(defaultOption);
 
+  console.log(options);
+
   useEffect(() => {
     onChange(option);
   }, [option])
