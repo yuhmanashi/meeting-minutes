@@ -57,6 +57,11 @@ function Navbar() {
     navigate('/history');
   };
 
+  function navToCalendar(e){
+    e.preventDefault();
+    navigate('/calendar');
+  }
+
   //sliding sidebar
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -70,6 +75,9 @@ function Navbar() {
         </ListItem>
         <ListItem sx={{ justifyContent: 'center' }}>
           <Button onClick={navToHistory}>History</Button>
+        </ListItem>
+        <ListItem sx={{ justifyContent: 'center' }}>
+          <Button onClick={navToCalendar}>Calendar</Button>
         </ListItem>
 
       </List>
@@ -172,6 +180,7 @@ function Navbar() {
               <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToHome}>Home</Button>
               <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToStudents}>Students</Button>
               <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToHistory}>History</Button>
+              <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToCalendar}>Calendar</Button>
               {/* {pages.map((page) => (
                 <Button
                   key={page}

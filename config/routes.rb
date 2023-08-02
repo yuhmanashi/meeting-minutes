@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   get 'meetings', to: 'static_pages#root'
   get 'students', to: 'static_pages#root'
   get 'history', to: 'static_pages#root'
-
+  get 'calendar', to: 'static_pages#root'
   root to: 'static_pages#root'
 end

@@ -7,6 +7,7 @@ import AllMeetings from "../components/Meetings";
 import Students from "../components/Students";
 import History from "../components/History";
 import Test from "../components/Test";
+import Calendar from "../components/Calendar";
 import { AuthRoute, ProtectedRoute } from "../utils/route_util";
 
 function AppRoutes() {
@@ -51,6 +52,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Students/>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="calendar"
+        element={
+          <ProtectedRoute>
+            <Calendar/>
           </ProtectedRoute>
         }
       />
