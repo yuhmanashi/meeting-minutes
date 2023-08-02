@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './Home.css';
-import type { RootState, AppDispatch } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 import Box from '@mui/material/Box';
