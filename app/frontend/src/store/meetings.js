@@ -28,7 +28,7 @@ export const fetchMeetings = () => async dispatch => {
     })
     const data = await response.json();
     dispatch(receiveAllMeetings(data.meetings));
-    return response;
+    return data;
 };
 
 export const fetchMeeting = (id) => async dispatch => {

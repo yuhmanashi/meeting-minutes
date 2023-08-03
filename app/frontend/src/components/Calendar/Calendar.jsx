@@ -37,34 +37,54 @@ const ServerDay = (props) => {
 };
 
 const dummyDates = [
-    "2023-08-01",
-    "2023-08-09",
-    "2023-08-21",
-    "2024-08-12"
-  ]
+  '2023-08-18T00:00:00.000Z', 
+  '2023-09-05T00:00:00.000Z', 
+  '2023-08-16T00:00:00.000Z', 
+  '2023-10-17T00:00:00.000Z', 
+  '2023-11-29T00:00:00.000Z', 
+  '2023-08-12T00:00:00.000Z', 
+  '2023-12-09T00:00:00.000Z', 
+  '2023-11-24T00:00:00.000Z', 
+  '2023-08-26T00:00:00.000Z', 
+  '2023-09-30T00:00:00.000Z', 
+  '2023-10-05T00:00:00.000Z'
+]
 
 export default function Calendar() {
   const [value, setValue] = useState(dayjs());
-  const [highlightedDays, setHighlitedDays] = useState(dummyDates);
+  const [highlightedDays, setHighlitedDays] = useState([]);
 
   const sessionUser = useAppSelector(state => state.session.user);
   const sessionMeetings = useAppSelector((state) => state.meetings);
   
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(meetingActions.fetchMeetings());
-  }, [dispatch])
-
-  if (Object.keys(sessionMeetings).length < 1) return null;
-
   function userFilter(obj){
     const userId = sessionUser.id
     return Object.values(obj).filter((value) => value.userId === userId)
   }
 
-  const userMeetings = userFilter(sessionMeetings);
-  const dates = userMeetings.map(meeting => meeting.date.slice(0, 10));
+  function sortDate(a, b) {
+    return a < b ? -1 : a > b ? 1 : 0
+  }
+
+  function handleDates(meetings) {
+    return userFilter(meetings).map(meeting => meeting.date.slice(0, 10)).sort(sortDate);
+  }
+
+  function fetchHighlightedDays(){
+    dispatch(meetingActions.fetchMeetings())
+    .then(({meetings})=> {
+      const meetingDates = handleDates(meetings)
+      setHighlitedDays(meetingDates)
+    });
+  }
+
+  useEffect(() => {
+    fetchHighlightedDays()
+  }, [dispatch])
+
+  if (Object.keys(sessionMeetings).length < 1) return null;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -76,7 +96,7 @@ export default function Calendar() {
         }}
         slotProps={{
           day: {
-            dummyDates,
+            highlightedDays,
           },
         }}
       />
