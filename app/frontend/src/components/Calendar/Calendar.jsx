@@ -12,6 +12,8 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
 import * as meetingActions from '../../store/meetings';
 
+import CalendarDetails from './CalendarDetails';
+
 const HighlightedDay = styled(PickersDay)(({ theme }) => ({
   "&.Mui-selected": {
     backgroundColor: theme.palette.primary.main,
@@ -35,20 +37,6 @@ const ServerDay = (props) => {
     />
   );
 };
-
-const dummyDates = [
-  '2023-08-18T00:00:00.000Z', 
-  '2023-09-05T00:00:00.000Z', 
-  '2023-08-16T00:00:00.000Z', 
-  '2023-10-17T00:00:00.000Z', 
-  '2023-11-29T00:00:00.000Z', 
-  '2023-08-12T00:00:00.000Z', 
-  '2023-12-09T00:00:00.000Z', 
-  '2023-11-24T00:00:00.000Z', 
-  '2023-08-26T00:00:00.000Z', 
-  '2023-09-30T00:00:00.000Z', 
-  '2023-10-05T00:00:00.000Z'
-]
 
 export default function Calendar() {
   const [value, setValue] = useState(dayjs());
@@ -84,13 +72,19 @@ export default function Calendar() {
     fetchHighlightedDays()
   }, [dispatch])
 
+  function handleChange(newValue){
+    console.log(newValue)
+    setValue(newValue)
+  }
+
   if (Object.keys(sessionMeetings).length < 1) return null;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <CalendarDetails date={value} meetings={userFilter(sessionMeetings)}/>
       <DateCalendar
         value={value} 
-        onChange={(newValue) => setValue(newValue)}
+        onChange={newValue => handleChange(newValue)}
         slots={{
           day: ServerDay,
         }}
