@@ -2,6 +2,10 @@ import React, {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+
 import dayjs from "dayjs";
 import { styled } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -81,19 +85,21 @@ export default function Calendar() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <CalendarDetails date={value} meetings={userFilter(sessionMeetings)}/>
-      <DateCalendar
-        value={value} 
-        onChange={newValue => handleChange(newValue)}
-        slots={{
-          day: ServerDay,
-        }}
-        slotProps={{
-          day: {
-            highlightedDays,
-          },
-        }}
-      />
+      <Box sx={{display: 'flex'}}>
+        <CalendarDetails date={value} meetings={userFilter(sessionMeetings)}/>
+        <DateCalendar
+          value={value} 
+          onChange={newValue => handleChange(newValue)}
+          slots={{
+            day: ServerDay,
+          }}
+          slotProps={{
+            day: {
+              highlightedDays,
+            },
+          }}
+        />
+      </Box>
     </LocalizationProvider>
   );
 }
