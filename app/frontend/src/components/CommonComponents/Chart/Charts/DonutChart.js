@@ -7,7 +7,7 @@ export default function DonutChart({ chartData, title, ratio }) {
       data={chartData}
       options={{
         responsive: true,
-
+        
         aspectRatio: ratio,
         plugins: {
           title: {

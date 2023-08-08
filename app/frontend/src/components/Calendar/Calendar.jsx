@@ -15,6 +15,7 @@ import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
 import * as meetingActions from '../../store/meetings';
+import * as studentActions from '../../store/students';
 
 import CalendarDetails from './CalendarDetails';
 
@@ -42,17 +43,14 @@ const ServerDay = (props) => {
   );
 };
 
-export default function Calendar() {
+export default function Calendar({meetings, user, students}) {
   const [value, setValue] = useState(dayjs());
-  const [highlightedDays, setHighlitedDays] = useState([]);
+  const [highlightedDays, setHighlitedDays] = useState(handleDates(meetings));
 
-  const sessionUser = useAppSelector(state => state.session.user);
-  const sessionMeetings = useAppSelector((state) => state.meetings);
-  
   const dispatch = useAppDispatch();
 
   function userFilter(obj){
-    const userId = sessionUser.id
+    const userId = user.id
     return Object.values(obj).filter((value) => value.userId === userId)
   }
 
@@ -64,29 +62,29 @@ export default function Calendar() {
     return userFilter(meetings).map(meeting => meeting.date.slice(0, 10)).sort(sortDate);
   }
 
-  function fetchHighlightedDays(){
-    dispatch(meetingActions.fetchMeetings())
-    .then(({meetings})=> {
-      const meetingDates = handleDates(meetings)
-      setHighlitedDays(meetingDates)
-    });
-  }
+  // function fetchHighlightedDays(){
+  //   dispatch(meetingActions.fetchMeetings())
+  //   .then(({meetings})=> {
+  //     const meetingDates = handleDates(meetings)
+  //     setHighlitedDays(meetingDates)
+  //   });
+  // }
 
-  useEffect(() => {
-    fetchHighlightedDays()
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(studentActions.fetchStudents());
+  //   fetchHighlightedDays();
+  // }, [dispatch])
 
   function handleChange(newValue){
-    console.log(newValue)
     setValue(newValue)
   }
 
-  if (Object.keys(sessionMeetings).length < 1) return null;
+  if (Object.keys(meetings).length < 1 || Object.keys(students).length < 1) return null;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box sx={{display: 'flex'}}>
-        <CalendarDetails date={value} meetings={userFilter(sessionMeetings)}/>
+      <Box sx={{display: 'flex', justifyContent:'space-evenly'}}>
+        <CalendarDetails date={value} meetings={userFilter(meetings)} students={students}/>
         <DateCalendar
           value={value} 
           onChange={newValue => handleChange(newValue)}

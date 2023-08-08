@@ -18,6 +18,7 @@ import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 import CreateWatchlistModal from '../Watchlists/Modal';
 import GenericChart from '../CommonComponents/Chart';
 import Watchlists from '../Watchlists';
+import Calendar from '../Calendar';
 
 function Home(){
     const sessionUser = useAppSelector(state => state.session.user);
@@ -51,7 +52,21 @@ function Home(){
                 <Typography sx={{typography: 'h4', my: 3}}>
                     Dashboard
                 </Typography>
-                <Container sx={{ my: 1, width: '90%', display: {md:'flex', lg: 'flex'}, mx: {md: 0, lg: 0}, justifyContent: 'center' }}>
+                {/* Calendar */}
+                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'column', md: 'row'}, justifyContent: 'space-evenly', my: 2 }}>
+                    <Calendar meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
+                    {/* <Container sx={{ display: {xs: 'block', sm:'block', md: 'none', lg: 'none'} }}>
+                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} />
+                    </Container>
+                    <Box sx={{ display: {xs: 'none', sm:'none', md: 'block', lg: 'block'}}}>
+                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} ratio={1} />
+                    </Box> */}
+                    <Box sx={{}} position='relative'>
+                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} />
+                    </Box>
+                </Box>
+                {/* Chart */}
+                {/* <Container sx={{ my: 1, width: '90%', display: {md:'flex', lg: 'flex'}, mx: {md: 0, lg: 0}, justifyContent: 'center' }}>
                     <Container sx={{ p: 1, display: {xs: 'block', sm:'none', md: 'none', lg: 'none'} }}>
                         <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} ratio={1} />
                     </Container>
@@ -61,8 +76,9 @@ function Home(){
                     <Container sx={{ display: {xs: 'none', sm:'block', md: 'block', lg: 'block'}, my: 3 }}>
                         <GenericChart obj={userMeetings} callback={value => sessionStudents[value.studentId].fullName} color={'blue'} type={'bar'} title={'#meetings w/ students'}/>
                     </Container>
-                </Container>
+                </Container> */}
                 <Box sx={{ display: { xs:'block', md:'flex' }, my: 2 }}>
+                    {/* Watchlist */}
                     <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography sx={{typography: 'h5', px: 2}}>
@@ -72,6 +88,8 @@ function Home(){
                         </Box>
                         <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
                     </Container>
+
+                    {/* Meetings */}
                     <Container sx={{ maxWidth: {xs: 600, md: 650, lg: 700}, minWidth: {xs: 320, md: 570}, p: {xs: 0}, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography sx={{typography: 'h5', px: 2}}>
