@@ -24,7 +24,9 @@ export default function CalendarDetails({date, meetings, students}){
     };
 
     const adjustedDate = convertDate(date);
-    const dateString = adjustedDate.toDateString();
+    let dateArr = adjustedDate.toDateString().split(' ');
+    const dateString = dateArr[0] + ', ' + dateArr.slice(1).join(' ');
+
     
     const dateISOString = convertDate(date).toISOString().slice(0, 10);
     // const dateString = date.toISOString().slice(0, 10)
@@ -32,11 +34,11 @@ export default function CalendarDetails({date, meetings, students}){
     const dateMeetings = updatedMeetings.filter(meeting => meeting.date.slice(0, 10) === dateISOString);
 
     return (
-        <Box sx={{ display: {xs: 'none', sm:'block'}, p: 3, minWidth: 200, border: 1 }}>
-                <Typography>
+        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: 200, border: 1, mx: 4 }}>
+                <Typography variant='h6' sx={{fontWeight:'bold', p: 2, pb: 0}}>
                     {dateString}
                 </Typography>
-                <Box sx={{my: 2}}>
+                <Box sx={{p: 1}}>
                     {
                         dateMeetings.length > 0 ? 
                             <List sx={{py: 0}}>

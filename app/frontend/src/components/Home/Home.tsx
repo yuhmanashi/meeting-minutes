@@ -56,8 +56,8 @@ function Home(){
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'column', md: 'row'}, justifyContent: 'space-evenly', my: 2 }}>
                     <Calendar meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
                     {/* Chart */}
-                    <Box sx={{height: '50%' }} position='relative'>
-                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} />
+                    <Box sx={{display: 'flex', justifyContent: 'center', maxHeight: '50%'}} position='relative'>
+                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} ratio={1}/>
                     </Box>
                 </Box>
                 {/* Chart */}

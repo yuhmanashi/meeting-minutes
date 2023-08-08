@@ -105,10 +105,10 @@ ApplicationRecord.transaction do
 
       set.add(val)
 
-      firstUser.watchlists.create!(
-        student_id: student_id,
-        tag: tag
-      )
+      # firstUser.watchlists.create!(
+      #   student_id: student_id,
+      #   tag: tag
+      # )
     end
 
     puts "Creating more users..."
@@ -142,10 +142,10 @@ ApplicationRecord.transaction do
 
         set.add(val)
 
-        user.watchlists.create!(
-          student_id: student_id,
-          tag: tag
-        )
+        # user.watchlists.create!(
+        #   student_id: student_id,
+        #   tag: tag
+        # )
       end
     }
 
