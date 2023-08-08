@@ -32,6 +32,7 @@ ApplicationRecord.transaction do
     Student.destroy_all
     Meeting.destroy_all
     Watchlist.destroy_all
+    Pin.destroy_all
 
     puts "Resetting primary keys..."
     # For easy testing, so that after seeding, the first `User` has `id` of 1
@@ -39,6 +40,7 @@ ApplicationRecord.transaction do
     ApplicationRecord.connection.reset_pk_sequence!('meetings')
     ApplicationRecord.connection.reset_pk_sequence!('students')
     ApplicationRecord.connection.reset_pk_sequence!('watchlists')
+    ApplicationRecord.connection.reset_pk_sequence!('pins')
 
     puts "Creating coaches..."
     coaches = []
@@ -105,11 +107,16 @@ ApplicationRecord.transaction do
 
       set.add(val)
 
-      # firstUser.watchlists.create!(
-      #   student_id: student_id,
-      #   tag: tag
-      # )
+      firstUser.watchlists.create!(
+        student_id: student_id,
+        tag: tag
+      )
     end
+
+    firstUser.pins.create!(
+      title: 'first',
+      body: 'body body body'
+    )
 
     puts "Creating more users..."
     # More users
@@ -142,11 +149,17 @@ ApplicationRecord.transaction do
 
         set.add(val)
 
-        # user.watchlists.create!(
-        #   student_id: student_id,
-        #   tag: tag
-        # )
+        user.watchlists.create!(
+          student_id: student_id,
+          tag: tag
+        )
       end
+
+      Pin.create!(
+        author_id: user.id,
+        title: user.first_name,
+        body: user.last_name
+      )
     }
 
     puts "Done!"

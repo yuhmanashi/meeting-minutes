@@ -5,13 +5,15 @@ import { sessionErrorReducer } from './session_errors';
 import meetingsReducer from './meetings';
 import studentsReducer from './students';
 import watchlistsReducer from './watchlists';
+import pinsReducer from './pins';
 
 const rootReducer = {
     session: sessionReducer,
     errors: sessionErrorReducer,
     meetings: meetingsReducer,
     students: studentsReducer,
-    watchlists: watchlistsReducer
+    watchlists: watchlistsReducer,
+    pins: pinsReducer,
 };
 
 export const store = configureStore({

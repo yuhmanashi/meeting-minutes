@@ -1,12 +1,11 @@
 import * as Util from '../utils/util';
 import * as sessionErrorActions from './session_errors';
 
-
 const RECEIVE_ALL_PINS = 'RECEIVE_ALL_PINS';
 const RECEIVE_PIN = 'RECEIVE_PIN';
 const REMOVE_PIN = 'REMOVE_PIN';
 
-const receiveAllPins = pins => ({
+const receiveAllPins = (pins = {}) => ({
     type: RECEIVE_ALL_PINS,
     payload: pins
 })
@@ -42,7 +41,7 @@ export const fetchPin = (id) => async dispatch => {
 };
 
 export const createPin = (pin) => async dispatch => {
-    const { userId, studentId, tag } = pin;
+    const { userId, title, body } = pin;
     const response = await fetch("/api/pins", {
         method: "POST",
         body: JSON.stringify({
@@ -80,7 +79,7 @@ export const deletePin = (id) => async dispatch => {
     return response;
 };
 
-const PinsReducer = (state = {}, action) => {
+const pinsReducer = (state = {}, action) => {
     Object.freeze(state);
     const nextState = Object.assign({}, state);
 
@@ -98,4 +97,4 @@ const PinsReducer = (state = {}, action) => {
     }
 };
 
-export default PinsReducer;
+export default pinsReducer;

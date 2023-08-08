@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import * as sessionErrorActions from '../../store/session_errors';
-import * as watchlistActions from '../../store/watchlists';
+import * as PinActions from '../../store/Pins';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -28,7 +28,7 @@ const style = {
   p: 4,
 };
 
-export default function CreateWatchlistModal({ watchlists, students }) {
+export default function CreatePinModal({ Pins, students }) {
   const studentsArr = Object.values(students);
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
@@ -47,8 +47,8 @@ export default function CreateWatchlistModal({ watchlists, students }) {
   const [tag, setTag] = useState("");
 
   const set = new Set(
-    Object.values(watchlists.map(watchlist => {
-      return `${watchlist.studentId}${watchlist.tag}`
+    Object.values(pins.map(pin => {
+      return `${pin.studentId}${pin.tag}`
     }))
   )
 
@@ -74,10 +74,10 @@ export default function CreateWatchlistModal({ watchlists, students }) {
     // if (email.match(emailFormat)){
     //   handleClose();
     // }
-    return dispatch(watchlistActions.createWatchlist({ userId, studentId, tag }))
+    return dispatch(pinActions.createPin({ userId, studentId, tag }))
   };
 
-  const tags = Array.from(new Set(watchlists.map(watchlist => watchlist.tag)))
+  const tags = Array.from(new Set(pins.map(pin => pin.tag)))
   const studentNames = Object.values(students).map(student => student.fullName)
 
   return (
@@ -107,7 +107,7 @@ export default function CreateWatchlistModal({ watchlists, students }) {
               }
             </List>
             <Box>
-              <GenericAutocomplete options={tags} label={'watchlist'} onChange={setTag}/>
+              <GenericAutocomplete options={tags} label={'pin'} onChange={setTag}/>
             </Box>
             <Box>
               <Input 

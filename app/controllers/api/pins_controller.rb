@@ -1,5 +1,5 @@
 class Api::PinsController < ApplicationController
-    wrap_parameters include: Pin.attribute_names + ['userId']
+    wrap_parameters include: Pin.attribute_names + ['authorId']
 
     def index
         @pins = Pin.all
@@ -42,6 +42,6 @@ class Api::PinsController < ApplicationController
 
     private
     def pin_params
-        params.require(:pin).permit(:user_id, :title, :body)
+        params.require(:pin).permit(:author_id, :title, :body)
     end
 end

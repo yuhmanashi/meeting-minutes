@@ -6,7 +6,7 @@ const RECEIVE_ALL_WATCHLISTS = 'RECEIVE_ALL_WATCHLISTS';
 const RECEIVE_WATCHLIST = 'RECEIVE_WATCHLIST';
 const REMOVE_WATCHLIST = 'REMOVE_WATCHLIST';
 
-const receiveAllWatchlists = watchlists => ({
+const receiveAllWatchlists = (watchlists = {}) => ({
     type: RECEIVE_ALL_WATCHLISTS,
     payload: watchlists
 })

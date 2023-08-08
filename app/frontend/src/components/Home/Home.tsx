@@ -12,11 +12,14 @@ import Button from '@mui/material/Button';
 
 import * as meetingActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
+import * as pinActions from '../../store/pins';
 import * as watchlistActions from '../../store/watchlists';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 import CreateWatchlistModal from '../Watchlists/Modal';
+import CreatePinModal from '../Pins/Modal';
 import GenericChart from '../CommonComponents/Chart';
+import Pins from '../Pins';
 import Watchlists from '../Watchlists';
 import Calendar from '../Calendar';
 
@@ -25,13 +28,14 @@ function Home(){
     const sessionMeetings = useAppSelector((state) => state.meetings);
     const sessionStudents = useAppSelector((state) => state.students);
     const sessionWatchlists = useAppSelector(state => state.watchlists);
-
+    const sessionPins = useAppSelector(state => state.pins);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(meetingActions.fetchMeetings());
         dispatch(studentActions.fetchStudents());
         dispatch(watchlistActions.fetchWatchlists());
+        dispatch(pinActions.fetchPins());
     }, [dispatch])
 
     if (Object.keys(sessionMeetings).length < 1 || Object.keys(sessionStudents).length < 1 || Object.keys(sessionWatchlists).length < 1) return null;
@@ -45,7 +49,8 @@ function Home(){
     //how many times a category shows up
     const userMeetings = userFilter(sessionMeetings);
     const userWatchlists = Object.values(sessionWatchlists).filter((watchlist: Watchlist) => watchlist.userId === sessionUser.id)
-
+    const userPins = Object.values(sessionPins).filter((pin: Pin) => pin.userId === sessionUser.id);
+    
     return (
         <Box>
             <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
@@ -74,7 +79,7 @@ function Home(){
                 </Container> */}
                 <Box sx={{ display: { xs:'block', md:'flex' }, my: 2 }}>
                     {/* Watchlist */}
-                    <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
+                    {/* <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography sx={{typography: 'h5', px: 2}}>
                                 Watchlists
@@ -82,7 +87,16 @@ function Home(){
                             <CreateWatchlistModal watchlists={userWatchlists} students={sessionStudents} />
                         </Box>
                         <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
-                    </Container>
+                    </Container> */}
+                    {/* <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
+                            <Typography sx={{typography: 'h5', px: 2}}>
+                                Pinboard
+                            </Typography>
+                            <CreatePinModal pins={userPins} students={sessionStudents} />
+                        </Box>
+                        <Pins pins={userPins} students={sessionStudents}/>
+                    </Container> */}
 
                     {/* Meetings */}
                     <Container sx={{ maxWidth: {xs: 600, md: 650, lg: 700}, minWidth: {xs: 320, md: 570}, p: {xs: 0}, my: 2 }}>

@@ -16,6 +16,12 @@ interface Watchlist {
     tag: string | number;
 }
 
+interface Pin {
+    userId: number;
+    title: string;
+    body: string;
+}
+
 interface User {
     email: string;
     firstName: string;
