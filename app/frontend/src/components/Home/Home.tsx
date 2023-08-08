@@ -55,13 +55,8 @@ function Home(){
                 {/* Calendar */}
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'column', md: 'row'}, justifyContent: 'space-evenly', my: 2 }}>
                     <Calendar meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
-                    {/* <Container sx={{ display: {xs: 'block', sm:'block', md: 'none', lg: 'none'} }}>
-                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} />
-                    </Container>
-                    <Box sx={{ display: {xs: 'none', sm:'none', md: 'block', lg: 'block'}}}>
-                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} ratio={1} />
-                    </Box> */}
-                    <Box sx={{}} position='relative'>
+                    {/* Chart */}
+                    <Box sx={{height: '50%' }} position='relative'>
                         <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} />
                     </Box>
                 </Box>
