@@ -32,34 +32,49 @@ export default function CalendarDetails({date, meetings, students}){
     // const dateString = date.toISOString().slice(0, 10)
     
     const dateMeetings = updatedMeetings.filter(meeting => meeting.date.slice(0, 10) === dateISOString);
+    
+    function timeString(date){
+        const time = new Date(date).toLocaleTimeString();
+        return time.slice(0, 4) + time.slice(7)
+    }
 
     return (
         <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: 200, border: 1, mx: 4 }}>
                 <Typography variant='h6' sx={{fontWeight:'bold', p: 2, pb: 0}}>
+                    Meetings for
+                </Typography>
+                <Typography variant='h6' sx={{fontWeight:'bold', px: 2, py: 0}}>
                     {dateString}
                 </Typography>
                 <Box sx={{p: 1}}>
                     {
                         dateMeetings.length > 0 ? 
                             <List sx={{py: 0}}>
-                                {dateMeetings.map(meeting => 
-                                    <ListItem key={`${meeting.id}`} sx={{py: 0}}>
-                                        <ListItemText
-                                            primary={meeting.studentName}
-                                            secondary={
-                                                <React.Fragment>
-                                                    <Typography component='span'>
-                                                        {meeting.category}
-                                                    </Typography>
-                                                    {' - xx:xx'}
-                                                </React.Fragment>
-                                            }
-                                        />
-                                    </ListItem>
+                                {dateMeetings.map(meeting =>
+                                    <React.Fragment>
+                                        
+                                        <ListItem key={`${meeting.id}`} sx={{ py: 0}}>
+                                            {/* <ListItemText
+                                                primary={meeting.studentName}
+                                                secondary={
+                                                    <React.Fragment>
+                                                        <Typography component='span'>
+                                                            {meeting.category}
+                                                        </Typography>
+                                                        {timeString(meeting.date)}
+                                                    </React.Fragment>
+                                                }
+                                            /> */}
+                                            <ListItemText
+                                                primary={meeting.studentName}
+                                                secondary={`${meeting.category} | ${timeString(meeting.date)}`}
+                                            />
+                                        </ListItem>
+                                    </React.Fragment> 
                                 )}
                             </List>
                         : 
-                            <Typography>
+                            <Typography textAlign='center'>
                                 {'No meetings on this day'}
                             </Typography>
                     }

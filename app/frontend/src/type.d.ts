@@ -17,9 +17,10 @@ interface Watchlist {
 }
 
 interface Pin {
-    userId: number;
+    authorId: number;
     title: string;
     body: string;
+    createdAt: string;
 }
 
 interface User {

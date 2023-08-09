@@ -34,12 +34,12 @@ const blues = [
   "#AFEEEE",
   "#7FFFD4",
   "#40E0D0",
-  "#48D1CC",
+  "#87CEEB",
   "#00CED1",
   "#ADD8E6",
   "#B0E0E6",
   "#87CEFA",
-  "#87CEEB"
+  "#48D1CC",
 ]
 
 const reds = [

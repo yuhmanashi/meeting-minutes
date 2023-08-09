@@ -70,15 +70,15 @@ function Navbar() {
         <ListItem sx={{ justifyContent: 'center' }}>
           <Button onClick={navToHome}>Home</Button>
         </ListItem>
-        <ListItem sx={{ justifyContent: 'center' }}>
+        {/* <ListItem sx={{ justifyContent: 'center' }}>
           <Button onClick={navToStudents}>Students</Button>
-        </ListItem>
+        </ListItem> */}
         <ListItem sx={{ justifyContent: 'center' }}>
           <Button onClick={navToHistory}>History</Button>
         </ListItem>
-        <ListItem sx={{ justifyContent: 'center' }}>
+        {/* <ListItem sx={{ justifyContent: 'center' }}>
           <Button onClick={navToCalendar}>Calendar</Button>
-        </ListItem>
+        </ListItem> */}
 
       </List>
     </Box>
@@ -178,9 +178,9 @@ function Navbar() {
             {/* Misc buttons for desktop */}
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToHome}>Home</Button>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToStudents}>Students</Button>
+              {/* <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToStudents}>Students</Button> */}
               <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToHistory}>History</Button>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToCalendar}>Calendar</Button>
+              {/* <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToCalendar}>Calendar</Button> */}
               {/* {pages.map((page) => (
                 <Button
                   key={page}

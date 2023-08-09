@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 
 import Meetings from '../Meetings/Meetings';
 import Button from '@mui/material/Button';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 import * as meetingActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
@@ -17,8 +18,9 @@ import * as watchlistActions from '../../store/watchlists';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 import CreateWatchlistModal from '../Watchlists/Modal';
-import CreatePinModal from '../Pins/Modal';
+import CreatePinModal from '../Pins/CreatePinModal';
 import GenericChart from '../CommonComponents/Chart';
+import GenericMenu from '../CommonComponents/Menu';
 import Pins from '../Pins';
 import Watchlists from '../Watchlists';
 import Calendar from '../Calendar';
@@ -49,7 +51,7 @@ function Home(){
     //how many times a category shows up
     const userMeetings = userFilter(sessionMeetings);
     const userWatchlists = Object.values(sessionWatchlists).filter((watchlist: Watchlist) => watchlist.userId === sessionUser.id)
-    const userPins = Object.values(sessionPins).filter((pin: Pin) => pin.userId === sessionUser.id);
+    const userPins = Object.values(sessionPins).filter((pin: Pin) => pin.authorId === sessionUser.id);
     
     return (
         <Box>
@@ -62,7 +64,7 @@ function Home(){
                     <Calendar meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
                     {/* Chart */}
                     <Box sx={{display: 'flex', justifyContent: 'center', maxHeight: '50%'}} position='relative'>
-                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} ratio={1}/>
+                        <GenericChart obj={userMeetings} callback={value => value.category} color={'blue'} type={'donut'} title={'categories frequency'} ratio={1}/>
                     </Box>
                 </Box>
                 {/* Chart */}
@@ -88,15 +90,15 @@ function Home(){
                         </Box>
                         <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
                     </Container> */}
-                    {/* <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
+                    <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography sx={{typography: 'h5', px: 2}}>
                                 Pinboard
                             </Typography>
-                            <CreatePinModal pins={userPins} students={sessionStudents} />
+                            <CreatePinModal authorId={sessionUser.id}/>
                         </Box>
-                        <Pins pins={userPins} students={sessionStudents}/>
-                    </Container> */}
+                        <Pins pins={userPins}/>
+                    </Container>
 
                     {/* Meetings */}
                     <Container sx={{ maxWidth: {xs: 600, md: 650, lg: 700}, minWidth: {xs: 320, md: 570}, p: {xs: 0}, my: 2 }}>
