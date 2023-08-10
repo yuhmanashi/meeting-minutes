@@ -83,7 +83,7 @@ export default function Calendar({meetings, user, students}) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+      <Box sx={{display: 'flex', justifyContent: 'space-evenly', width: {sm: .9, md: '55%'}}}>
         <CalendarDetails date={value} meetings={userFilter(meetings)} students={students}/>
         <DateCalendar
           value={value} 
@@ -96,7 +96,7 @@ export default function Calendar({meetings, user, students}) {
               highlightedDays,
             },
           }}
-          sx={{mx: 2}}
+          sx={{width: 320}}
         />
       </Box>
     </LocalizationProvider>

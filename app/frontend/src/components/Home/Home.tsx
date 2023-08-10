@@ -67,7 +67,7 @@ function Home(){
                     {/* <Box sx={{display: 'flex', justifyContent: 'center', maxHeight: '50%'}} position='relative'>
                         <GenericChart obj={userMeetings} callback={value => value.category} color={'blue'} type={'donut'} title={'categories frequency'} ratio={1}/>
                     </Box> */}
-                    <Box sx={{display: {sm: 'none', md: 'flex'}, alignSelf: 'stretch', width: '40%', border: 1}}>
+                    <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, alignSelf: 'stretch', width: .35, border: 1}}>
                         <Box position='relative' sx={{display: 'flex', alignItems: 'center', width: 1, border: 1}}>
                             <HistoryChart meetings={userMeetings} selected={'Week'} user={sessionUser}/>
                         </Box>
