@@ -7,6 +7,7 @@ export default function LineChart({ chartData, title, max }) {
       data={chartData}
       options={{
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           title: {
             display: true,

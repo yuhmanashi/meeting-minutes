@@ -43,7 +43,6 @@ export default function History(){
     }
 
     const userMeetings = userFilter(sessionMeetings);
-    const dates = userMeetings.map(meeting => meeting.date);
 
     const updatedMeetings = userMeetings.map(meeting => {
         const student = sessionStudents[meeting.studentId];
@@ -65,7 +64,7 @@ export default function History(){
                 {/* Charts go here */}
                 {/* <GenericChart obj={} callback={} color={} type={} title={} ratio={}/> */}
                 <Typography>{selected}</Typography>
-                <HistoryChart dates={dates} selected={selected} user={sessionUser}/>
+                <HistoryChart meetings={userMeetings} selected={selected} user={sessionUser}/>
             </Container>
             {/* Data */}
             <Container>

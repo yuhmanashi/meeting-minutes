@@ -39,14 +39,14 @@ export default function CalendarDetails({date, meetings, students}){
     }
 
     return (
-        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: 200, border: 1, mx: 4 }}>
-                <Typography variant='h6' sx={{fontWeight:'bold', p: 2, pb: 0}}>
+        <Box sx={{ display: {xs: 'none', sm:'block'}, width: 210, border: 1, px: 2, py: 1 }}>
+                <Typography variant='subtitle1' sx={{fontWeight:'bold'}}>
                     Meetings for
                 </Typography>
-                <Typography variant='h6' sx={{fontWeight:'bold', px: 2, py: 0}}>
+                <Typography variant='h6' sx={{fontWeight:'bold'}}>
                     {dateString}
                 </Typography>
-                <Box sx={{p: 1}}>
+                <Box sx={{}}>
                     {
                         dateMeetings.length > 0 ? 
                             <List sx={{py: 0}}>

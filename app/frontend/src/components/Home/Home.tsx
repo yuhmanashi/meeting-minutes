@@ -24,6 +24,7 @@ import GenericMenu from '../CommonComponents/Menu';
 import Pins from '../Pins';
 import Watchlists from '../Watchlists';
 import Calendar from '../Calendar';
+import HistoryChart from '../History/HistoryChart';
 
 function Home(){
     const sessionUser = useAppSelector(state => state.session.user);
@@ -60,12 +61,18 @@ function Home(){
                     Dashboard
                 </Typography>
                 {/* Calendar */}
-                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'column', md: 'row'}, justifyContent: 'space-evenly', my: 2 }}>
+                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'column', md: 'row'}, justifyContent: 'center', alignItems: "center", my: 2 }}>
                     <Calendar meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
                     {/* Chart */}
-                    <Box sx={{display: 'flex', justifyContent: 'center', maxHeight: '50%'}} position='relative'>
+                    {/* <Box sx={{display: 'flex', justifyContent: 'center', maxHeight: '50%'}} position='relative'>
                         <GenericChart obj={userMeetings} callback={value => value.category} color={'blue'} type={'donut'} title={'categories frequency'} ratio={1}/>
+                    </Box> */}
+                    <Box sx={{display: {sm: 'none', md: 'block'}, width: '40%'}}>
+                        <Box position='relative' sx={{height: .5, width: 1}}>
+                            <HistoryChart meetings={userMeetings} selected={'Week'} user={sessionUser}/>
+                        </Box>
                     </Box>
+                    
                 </Box>
                 {/* Chart */}
                 {/* <Container sx={{ my: 1, width: '90%', display: {md:'flex', lg: 'flex'}, mx: {md: 0, lg: 0}, justifyContent: 'center' }}>

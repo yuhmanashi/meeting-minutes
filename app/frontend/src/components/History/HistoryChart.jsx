@@ -262,8 +262,8 @@ function handleCount(dates, selected, user){
     }
 }
 
-export default function HistoryChart({dates, selected, user}){
-    const sortedDates = dates.sort(sortDate);
+export default function HistoryChart({meetings, selected, user}){
+    const sortedDates = meetings.map(meeting => meeting.date).sort(sortDate);
     const [count, setCount] = useState(handleCount(sortedDates, selected, user))
     const [data, setData] = useState(createData(count));
     const [max, setMax] = useState(getMax(count));
