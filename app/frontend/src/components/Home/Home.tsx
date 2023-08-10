@@ -61,14 +61,14 @@ function Home(){
                     Dashboard
                 </Typography>
                 {/* Calendar */}
-                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'column', md: 'row'}, justifyContent: 'center', alignItems: "center", my: 2 }}>
+                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', alignItems: "center", my: 2 }}>
                     <Calendar meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
                     {/* Chart */}
                     {/* <Box sx={{display: 'flex', justifyContent: 'center', maxHeight: '50%'}} position='relative'>
                         <GenericChart obj={userMeetings} callback={value => value.category} color={'blue'} type={'donut'} title={'categories frequency'} ratio={1}/>
                     </Box> */}
-                    <Box sx={{display: {sm: 'none', md: 'block'}, width: '40%'}}>
-                        <Box position='relative' sx={{height: .5, width: 1}}>
+                    <Box sx={{display: {sm: 'none', md: 'flex'}, alignSelf: 'stretch', width: '40%', border: 1}}>
+                        <Box position='relative' sx={{display: 'flex', alignItems: 'center', width: 1, border: 1}}>
                             <HistoryChart meetings={userMeetings} selected={'Week'} user={sessionUser}/>
                         </Box>
                     </Box>
