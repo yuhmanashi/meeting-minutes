@@ -6,16 +6,9 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import Meetings from '../Meetings/Meetings';
-import Button from '@mui/material/Button';
-
 import * as meetingActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
 
-import CreateMeetingModal from '../Meetings/CreateMeetingModal';
-import GenericChart from '../CommonComponents/Chart';
-import GenericAutocomplete from '../CommonComponents/AutoComplete';
-import GenericTable from '../CommonComponents/Table/Table';
 import SelectMenu from '../CommonComponents/SelectMenu';
 
 import HistoryChart from './HistoryChart';

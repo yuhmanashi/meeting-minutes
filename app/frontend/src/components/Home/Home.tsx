@@ -8,8 +8,6 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import Meetings from '../Meetings/Meetings';
-import Button from '@mui/material/Button';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 import * as meetingActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
@@ -17,12 +15,8 @@ import * as pinActions from '../../store/pins';
 import * as watchlistActions from '../../store/watchlists';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
-import CreateWatchlistModal from '../Watchlists/Modal';
 import CreatePinModal from '../Pins/CreatePinModal';
-import GenericChart from '../CommonComponents/Chart';
-import GenericMenu from '../CommonComponents/Menu';
 import Pins from '../Pins';
-import Watchlists from '../Watchlists';
 import Calendar from '../Calendar';
 import HistoryChart from '../History/HistoryChart';
 
@@ -53,7 +47,6 @@ function Home(){
 
     const userMeetings = userFilter(sessionMeetings);
     const userPins = Object.values(sessionPins).filter((pin: Pin) => pin.authorId === sessionUser.id);
-    // const userWatchlists = Object.values(sessionWatchlists).filter((watchlist: Watchlist) => watchlist.userId === sessionUser.id)
     
     function byWeek(meeting){
         const days = {
@@ -145,9 +138,6 @@ function Home(){
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', alignItems: "center", my: 2 }}>
                     <Calendar meetings={userMeetings} user={sessionUser} students={sessionStudents} setSelected={setSelectedDay}/>
                     {/* Chart */}
-                    {/* <Box sx={{display: 'flex', justifyContent: 'center', maxHeight: '50%'}} position='relative'>
-                        <GenericChart obj={userMeetings} callback={value => value.category} color={'blue'} type={'donut'} title={'categories frequency'} ratio={1}/>
-                    </Box> */}
                     <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35, border: 1}}>
                         <Typography sx={{alignSelf: 'center', p: 1, width: 270}}>
                             {getDates()}

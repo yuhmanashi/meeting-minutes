@@ -1,23 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-
-import Meetings from '../Meetings/Meetings';
-import Button from '@mui/material/Button';
-
-import * as meetingActions from '../../store/meetings';
-import * as studentActions from '../../store/students';
-
-import CreateMeetingModal from '../Meetings/CreateMeetingModal';
-import GenericChart from '../CommonComponents/Chart';
 import LineChart from '../CommonComponents/Chart/Charts/LineChart';
-import GenericAutocomplete from '../CommonComponents/AutoComplete';
-import GenericTable from '../CommonComponents/Table/Table';
-import SelectMenu from '../CommonComponents/SelectMenu';
 
 function toDate(date) {
     return new Date(date);
