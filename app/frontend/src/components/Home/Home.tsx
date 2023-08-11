@@ -18,7 +18,7 @@ import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 import CreatePinModal from '../Pins/CreatePinModal';
 import Pins from '../Pins';
 import Calendar from '../Calendar';
-import HistoryChart from '../History/HistoryChart';
+import CategoriesChart from './CategoriesChart';
 
 function Home(){
     const [selectedDay, setSelectedDay] = useState(null);
@@ -127,7 +127,8 @@ function Home(){
     }
 
     const meetingsForWeek = userMeetings.filter(byWeek)
-
+    const allCategories = Array.from(new Set(Object.values(sessionMeetings).map(meeting => meeting.category)));
+    
     return (
         <Box>
             <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
@@ -143,7 +144,7 @@ function Home(){
                             {getDates()}
                         </Typography>
                         <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1, border: 1}}>
-                            <HistoryChart meetings={meetingsForWeek} selected={'Week'} user={sessionUser} selectedDay={selectedDay} />
+                            <CategoriesChart categories={allCategories} meetings={meetingsForWeek} selected={'Week'} user={sessionUser} selectedDay={selectedDay} />
                         </Box>
                     </Box>
                 </Box>

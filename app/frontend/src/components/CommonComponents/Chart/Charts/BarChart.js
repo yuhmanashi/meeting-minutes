@@ -1,8 +1,7 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 
-export default function BarChart({ chartData, title }) {
-  
+export default function BarChart({ chartData, max }) {  
   return (
     <Bar
       data={chartData}
@@ -11,31 +10,21 @@ export default function BarChart({ chartData, title }) {
 
         plugins: {
           title: {
-            display: true,
-            text: title
+            display: false,
           },
           legend: {
             display: false
           }
         },
         scales: {
-          x: {
-            ticks: {
-              callback: function(value, index, ticks) {
-                let label = this.getLabelForValue(value);
-                const split = label.split(' ');
-                split[1] = split[1][0] + '.';
-
-                return split.join(' ');
-              }
-            }
-          },
           y: {
+            max: max <= 10 ? max += 1 : max,
             ticks: {
               beginAtZero: true,
-              callback: function(value) {if (value % 1 === 0) {return value;}}
+              callback: function(value) {
+                  if (value % 1 === 0) return value;
             }
-          }
+          }}
         }
       }}
     />
