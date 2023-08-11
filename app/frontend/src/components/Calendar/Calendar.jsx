@@ -29,9 +29,11 @@ const HighlightedDay = styled(PickersDay)(({ theme }) => ({
 const ServerDay = (props) => {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
   
+  const formattedDay = day.format("M/D/YYYY")
+  
   const isSelected =
     !props.outsideCurrentMonth &&
-    highlightedDays.includes(day.format("YYYY-MM-DD"));
+    highlightedDays.includes(formattedDay);
 
   return (
     <HighlightedDay
@@ -43,10 +45,9 @@ const ServerDay = (props) => {
   );
 };
 
-export default function Calendar({meetings, user, students}) {
+export default function Calendar({meetings, user, students, setSelected}) {
   const [value, setValue] = useState(dayjs());
   const [highlightedDays, setHighlitedDays] = useState(handleDates(meetings));
-
   const dispatch = useAppDispatch();
 
   function userFilter(obj){
@@ -59,24 +60,12 @@ export default function Calendar({meetings, user, students}) {
   }
 
   function handleDates(meetings) {
-    return userFilter(meetings).map(meeting => meeting.date.slice(0, 10)).sort(sortDate);
+    return meetings.map(meeting => new Date(meeting.date).toLocaleDateString().slice(0, 10)).sort(sortDate);
   }
-
-  // function fetchHighlightedDays(){
-  //   dispatch(meetingActions.fetchMeetings())
-  //   .then(({meetings})=> {
-  //     const meetingDates = handleDates(meetings)
-  //     setHighlitedDays(meetingDates)
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   dispatch(studentActions.fetchStudents());
-  //   fetchHighlightedDays();
-  // }, [dispatch])
 
   function handleChange(newValue){
     setValue(newValue)
+    setSelected(newValue)
   }
 
   if (Object.keys(meetings).length < 1 || Object.keys(students).length < 1) return null;
@@ -84,7 +73,7 @@ export default function Calendar({meetings, user, students}) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box sx={{display: 'flex', justifyContent: 'space-evenly', width: {sm: .9, md: '55%'}}}>
-        <CalendarDetails date={value} meetings={userFilter(meetings)} students={students}/>
+        <CalendarDetails date={value} meetings={meetings} students={students}/>
         <DateCalendar
           value={value} 
           onChange={newValue => handleChange(newValue)}

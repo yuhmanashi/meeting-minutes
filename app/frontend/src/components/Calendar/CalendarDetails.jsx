@@ -8,13 +8,11 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
 export default function CalendarDetails({date, meetings, students}){
-    
     const updatedMeetings = meetings.map(meeting => {
         const student = students[meeting.studentId];
         const newMeeting = { ...meeting }
         newMeeting['studentName'] = `${student.fullName}`;
         newMeeting['studentEmail'] = student.email;
-        newMeeting['createdAt'] = new Date(meeting.createdAt).toLocaleDateString()
         return newMeeting;
     });
 
@@ -27,19 +25,15 @@ export default function CalendarDetails({date, meetings, students}){
     let dateArr = adjustedDate.toDateString().split(' ');
     const dateString = dateArr[0] + ', ' + dateArr.slice(1).join(' ');
 
-    
-    const dateISOString = convertDate(date).toISOString().slice(0, 10);
-    // const dateString = date.toISOString().slice(0, 10)
-    
-    const dateMeetings = updatedMeetings.filter(meeting => meeting.date.slice(0, 10) === dateISOString);
-    
+    const dateMeetings = updatedMeetings.filter(meeting => new Date(meeting.date).toLocaleDateString() === adjustedDate.toLocaleDateString());
+
     function timeString(date){
         const time = new Date(date).toLocaleTimeString();
         return time.slice(0, 4) + time.slice(7)
     }
 
     return (
-        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: 210, width: .3, border: 1, px: 2, py: 1 }}>
+        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: {xs: 240, sm: 200, md: 160}, width: {sm: .3, md: .35}, border: 1, px: 1, py: 1 }}>
                 <Typography variant='subtitle1' sx={{fontWeight:'bold'}}>
                     Meetings for
                 </Typography>
@@ -51,9 +45,9 @@ export default function CalendarDetails({date, meetings, students}){
                         dateMeetings.length > 0 ? 
                             <List sx={{py: 0}}>
                                 {dateMeetings.map(meeting =>
-                                    <React.Fragment>
+                                    <React.Fragment key={`${meeting.id}`}>
                                         
-                                        <ListItem key={`${meeting.id}`} sx={{ py: 0}}>
+                                        <ListItem sx={{ py: 0}}>
                                             {/* <ListItemText
                                                 primary={meeting.studentName}
                                                 secondary={

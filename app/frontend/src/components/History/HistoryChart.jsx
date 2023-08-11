@@ -37,7 +37,10 @@ function sortDate(a, b) {
 
 //filters
 function filterDates(dates, callback) {
-    return dates.map(toDate).filter(callback);
+
+    const filteredDates = dates.map(toDate).filter(callback);
+
+    return filteredDates;
 }
 /* This Month */
 function byThisMonth(date){
@@ -75,6 +78,7 @@ function byThisWeek(date){
     let maxDay = monthDay + max;
     let minDay = monthDay - day;
 
+    const tDate = date;
     const tDay = date.getDate();
     const tMonth = date.getMonth();
 
@@ -135,7 +139,13 @@ const monthes = [
 
 function createThisWeekCount(dates){
     const count = {};
-    const filtered = dates.map(date => toLocaleDateString(date).split('/').slice(0, 2).join('/'));
+    
+    const filtered = dates.map(date => {
+
+        const dateString = toLocaleDateString(date).split('/').slice(0, 2).join('/')
+
+        return dateString;
+    });
 
     const today = new Date();
     const day = today.getDay(); //0-6
@@ -231,6 +241,7 @@ function createAllCount(dates, user){
 }
 
 function createData(obj){
+
     return ({
         labels: Object.keys(obj),
         datasets: [{
@@ -248,6 +259,7 @@ function getMax(count){
 }
 
 function handleCount(dates, selected, user){
+
     switch(selected) {
       case 'Week':
         return createThisWeekCount(filterDates(dates, byThisWeek))
@@ -275,7 +287,23 @@ export default function HistoryChart({meetings, selected, user}){
         setMax(getMax(currCount));
     }, [selected]);
 
+    function handleTitle(){
+        const date = new Date();
+        switch(selected) {
+            case 'Week':
+              return 'Week of ' + ''
+            case 'Month':
+              return createMonthCount(filterDates(dates, byThisMonth))
+            case 'Year':
+              return createYearCount(filterDates(dates, byThisYear))
+            case 'All':
+              return createAllCount(dates.map(toDate), user)
+            default: 
+              return createThisWeekCount(filterDates(dates, byThisWeek))
+        }
+    }
+
     return (
-        <LineChart chartData={data} title={'test'} max={max}/>
+        <LineChart chartData={data} title={''} max={max}/>
     )
 }

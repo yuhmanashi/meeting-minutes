@@ -27,6 +27,8 @@ import Calendar from '../Calendar';
 import HistoryChart from '../History/HistoryChart';
 
 function Home(){
+    const [selectedDay, setSelectedDay] = useState(null);
+
     const sessionUser = useAppSelector(state => state.session.user);
     const sessionMeetings = useAppSelector((state) => state.meetings);
     const sessionStudents = useAppSelector((state) => state.students);
@@ -54,6 +56,46 @@ function Home(){
     const userWatchlists = Object.values(sessionWatchlists).filter((watchlist: Watchlist) => watchlist.userId === sessionUser.id)
     const userPins = Object.values(sessionPins).filter((pin: Pin) => pin.authorId === sessionUser.id);
     
+    function byWeek(meeting){
+        const days = {
+            0: 31,
+            1: 28,
+            2: 31,
+            3: 30,
+            4: 31,
+            5: 30,
+            6: 31,
+            7: 31,
+            8: 30,
+            9: 31,
+            10: 30,
+            11: 31
+        }
+        
+        function convertDate(date) {
+            const newDate = new Date(date.valueOf() + date.utcOffset()*60*1000);
+            return newDate;
+        };
+
+        const today = selectedDay ? convertDate(selectedDay) : new Date();
+        const day = today.getDay();
+        const monthDay = today.getDate();
+        const month = today.getMonth();
+    
+        const max = 6 - day;
+        let maxDay = monthDay + max;
+        let minDay = monthDay - day;
+    
+        const tDay = new Date(meeting.date).getDate();
+        const tMonth = new Date(meeting.date).getMonth();
+    
+        if (tMonth === month && tDay >= minDay && tDay <= maxDay) return true;
+    
+        if (maxDay > days[month]) return tMonth === month + 1 && tDay <= maxDay - days[month];
+    
+        if (minDay < 0) return tMonth === month - 1 && tDay >= days[month - 1] + minDay;
+    }
+
     return (
         <Box>
             <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
@@ -62,30 +104,21 @@ function Home(){
                 </Typography>
                 {/* Calendar */}
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', alignItems: "center", my: 2 }}>
-                    <Calendar meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
+                    <Calendar meetings={userMeetings} user={sessionUser} students={sessionStudents} setSelected={setSelectedDay}/>
                     {/* Chart */}
                     {/* <Box sx={{display: 'flex', justifyContent: 'center', maxHeight: '50%'}} position='relative'>
                         <GenericChart obj={userMeetings} callback={value => value.category} color={'blue'} type={'donut'} title={'categories frequency'} ratio={1}/>
                     </Box> */}
-                    <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, alignSelf: 'stretch', width: .35, border: 1}}>
+                    <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', justifyContent: 'space-evenly', width: .35, border: 1}}>
+                        <Typography sx={{alignSelf: 'center'}}>
+                            Meetings for week of xx/xx - xx/xx
+                        </Typography>
                         <Box position='relative' sx={{display: 'flex', alignItems: 'center', width: 1, border: 1}}>
-                            <HistoryChart meetings={userMeetings} selected={'Week'} user={sessionUser}/>
+                            <HistoryChart meetings={userMeetings.filter(byWeek)} selected={'Week'} user={sessionUser}/>
                         </Box>
                     </Box>
                     
                 </Box>
-                {/* Chart */}
-                {/* <Container sx={{ my: 1, width: '90%', display: {md:'flex', lg: 'flex'}, mx: {md: 0, lg: 0}, justifyContent: 'center' }}>
-                    <Container sx={{ p: 1, display: {xs: 'block', sm:'none', md: 'none', lg: 'none'} }}>
-                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} ratio={1} />
-                    </Container>
-                    <Container sx={{ display: {xs: 'none', sm:'block', md: 'block', lg: 'block'}, my: 3 }}>
-                        <GenericChart obj={userMeetings} callback={value => value.category} color={'green'} type={'donut'} title={'categories frequency'} />
-                    </Container>
-                    <Container sx={{ display: {xs: 'none', sm:'block', md: 'block', lg: 'block'}, my: 3 }}>
-                        <GenericChart obj={userMeetings} callback={value => sessionStudents[value.studentId].fullName} color={'blue'} type={'bar'} title={'#meetings w/ students'}/>
-                    </Container>
-                </Container> */}
                 <Box sx={{ display: { xs:'block', md:'flex' }, my: 2 }}>
                     {/* Watchlist */}
                     {/* <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>

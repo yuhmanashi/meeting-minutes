@@ -9,7 +9,7 @@ export default function LineChart({ chartData, title, max }) {
         responsive: true,
         plugins: {
           title: {
-            display: true,
+            display: false,
             text: title
           },
           legend: {
@@ -18,7 +18,7 @@ export default function LineChart({ chartData, title, max }) {
         },
         scales: {
           y: {
-            max: max,
+            max: max <= 10 ? max += 1 : max,
             ticks: {
               beginAtZero: true,
               callback: function(value) {
