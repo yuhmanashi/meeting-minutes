@@ -51,10 +51,9 @@ function Home(){
         return Object.values(obj).filter((value: any) => value.userId === userId)
     }
 
-    //how many times a category shows up
     const userMeetings = userFilter(sessionMeetings);
-    const userWatchlists = Object.values(sessionWatchlists).filter((watchlist: Watchlist) => watchlist.userId === sessionUser.id)
     const userPins = Object.values(sessionPins).filter((pin: Pin) => pin.authorId === sessionUser.id);
+    // const userWatchlists = Object.values(sessionWatchlists).filter((watchlist: Watchlist) => watchlist.userId === sessionUser.id)
     
     function byWeek(meeting){
         const days = {
@@ -71,13 +70,8 @@ function Home(){
             10: 30,
             11: 31
         }
-        
-        function convertDate(date) {
-            const newDate = new Date(date.valueOf() + date.utcOffset()*60*1000);
-            return newDate;
-        };
 
-        const today = selectedDay ? convertDate(selectedDay) : new Date();
+        const today = selectedDay ? selectedDay : new Date();
         const day = today.getDay();
         const monthDay = today.getDate();
         const month = today.getMonth();
@@ -88,13 +82,58 @@ function Home(){
     
         const tDay = new Date(meeting.date).getDate();
         const tMonth = new Date(meeting.date).getMonth();
-    
+
         if (tMonth === month && tDay >= minDay && tDay <= maxDay) return true;
     
         if (maxDay > days[month]) return tMonth === month + 1 && tDay <= maxDay - days[month];
     
         if (minDay < 0) return tMonth === month - 1 && tDay >= days[month - 1] + minDay;
     }
+
+    function getDates(){
+        const days = {
+            0: 31,
+            1: 28,
+            2: 31,
+            3: 30,
+            4: 31,
+            5: 30,
+            6: 31,
+            7: 31,
+            8: 30,
+            9: 31,
+            10: 30,
+            11: 31
+        }
+
+        const selected = selectedDay ? selectedDay : new Date();
+        const day = selected.getDay();
+        const monthDay = selected.getDate();
+        const month = selected.getMonth();
+    
+        const max = 6 - day;
+        const maxDay = monthDay + max;
+        const minDay = monthDay - day;
+
+        let minDate;
+        let maxDate;
+    
+        if (minDay < 0){
+            minDate = [month, days[month - 1] + minDay]
+        } else {
+            minDate = [month + 1, minDay]
+        }
+
+        if (maxDay > days[month]){
+            maxDate = [month + 2, maxDay - days[month]];
+        } else {
+            maxDate = [month + 1, maxDay]
+        }
+
+        return 'Meetings for week of ' + minDate.join('/') + ' - ' + maxDate.join('/')
+    }
+
+    const meetingsForWeek = userMeetings.filter(byWeek)
 
     return (
         <Box>
@@ -109,15 +148,14 @@ function Home(){
                     {/* <Box sx={{display: 'flex', justifyContent: 'center', maxHeight: '50%'}} position='relative'>
                         <GenericChart obj={userMeetings} callback={value => value.category} color={'blue'} type={'donut'} title={'categories frequency'} ratio={1}/>
                     </Box> */}
-                    <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', justifyContent: 'space-evenly', width: .35, border: 1}}>
-                        <Typography sx={{alignSelf: 'center'}}>
-                            Meetings for week of xx/xx - xx/xx
+                    <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35, border: 1}}>
+                        <Typography sx={{alignSelf: 'center', p: 1, width: 270}}>
+                            {getDates()}
                         </Typography>
-                        <Box position='relative' sx={{display: 'flex', alignItems: 'center', width: 1, border: 1}}>
-                            <HistoryChart meetings={userMeetings.filter(byWeek)} selected={'Week'} user={sessionUser}/>
+                        <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1, border: 1}}>
+                            <HistoryChart meetings={meetingsForWeek} selected={'Week'} user={sessionUser} selectedDay={selectedDay} />
                         </Box>
                     </Box>
-                    
                 </Box>
                 <Box sx={{ display: { xs:'block', md:'flex' }, my: 2 }}>
                     {/* Watchlist */}

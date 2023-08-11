@@ -37,9 +37,7 @@ function sortDate(a, b) {
 
 //filters
 function filterDates(dates, callback) {
-
     const filteredDates = dates.map(toDate).filter(callback);
-
     return filteredDates;
 }
 /* This Month */
@@ -66,27 +64,6 @@ const days = {
     9: 31,
     10: 30,
     11: 31
-}
-
-function byThisWeek(date){
-    const today = new Date();
-    const day = today.getDay();
-    const monthDay = today.getDate();
-    const month = today.getMonth();
-
-    const max = 6 - day;
-    let maxDay = monthDay + max;
-    let minDay = monthDay - day;
-
-    const tDate = date;
-    const tDay = date.getDate();
-    const tMonth = date.getMonth();
-
-    if (tMonth === month && tDay >= minDay && tDay <= maxDay) return true;
-
-    if (maxDay > days[month]) return tMonth === month + 1 && tDay <= maxDay - days[month];
-
-    if (minDay < 0) return tMonth === month - 1 && tDay >= days[month - 1] + minDay;
 }
 
 /* 3 Monthes */
@@ -137,17 +114,16 @@ const monthes = [
     'Dec'
 ]
 
-function createThisWeekCount(dates){
+function createThisWeekCount(dates, selectedDay){
     const count = {};
     
-    const filtered = dates.map(date => {
-
+    const dateStrings = dates.map(date => {
         const dateString = toLocaleDateString(date).split('/').slice(0, 2).join('/')
-
         return dateString;
     });
 
-    const today = new Date();
+    const today = selectedDay ? selectedDay : new Date();
+
     const day = today.getDay(); //0-6
     const monthDay = today.getDate();//1-31
     const month = today.getMonth();//0-11
@@ -184,7 +160,7 @@ function createThisWeekCount(dates){
         i++;
     }
 
-    for (let date of filtered){
+    for (let date of dateStrings){
       count[date] += 1;
     }
 
@@ -258,50 +234,53 @@ function getMax(count){
     return max % 2 === 0 ? max : max + 1;
 }
 
-function handleCount(dates, selected, user){
-
-    switch(selected) {
-      case 'Week':
-        return createThisWeekCount(filterDates(dates, byThisWeek))
-      case 'Month':
-        return createMonthCount(filterDates(dates, byThisMonth))
-      case 'Year':
-        return createYearCount(filterDates(dates, byThisYear))
-      case 'All':
-        return createAllCount(dates.map(toDate), user)
-      default: 
-        return createThisWeekCount(filterDates(dates, byThisWeek))
-    }
-}
-
-export default function HistoryChart({meetings, selected, user}){
+export default function HistoryChart({meetings, selected, user, selectedDay = null}){
     const sortedDates = meetings.map(meeting => meeting.date).sort(sortDate);
-    const [count, setCount] = useState(handleCount(sortedDates, selected, user))
+    const [count, setCount] = useState(handleCount(sortedDates, selected, user, selectedDay))
     const [data, setData] = useState(createData(count));
     const [max, setMax] = useState(getMax(count));
 
+    function handleCount(dates){
+        switch(selected) {
+          case 'Week':
+            return createThisWeekCount(filterDates(dates, byThisWeek), selectedDay)
+          case 'Month':
+            return createMonthCount(filterDates(dates, byThisMonth))
+          case 'Year':
+            return createYearCount(filterDates(dates, byThisYear))
+          case 'All':
+            return createAllCount(dates.map(toDate), user)
+          default: 
+            return createThisWeekCount(filterDates(dates, byThisWeek), selectedDay)
+        }
+    }
+
+    function byThisWeek(date){
+        const today = selectedDay ? selectedDay : new Date();
+        const day = today.getDay();
+        const monthDay = today.getDate();
+        const month = today.getMonth();
+    
+        const max = 6 - day;
+        let maxDay = monthDay + max;
+        let minDay = monthDay - day;
+    
+        const tDay = date.getDate();
+        const tMonth = date.getMonth();
+    
+        if (tMonth === month && tDay >= minDay && tDay <= maxDay) return true;
+    
+        if (maxDay > days[month]) return tMonth === month + 1 && tDay <= maxDay - days[month];
+    
+        if (minDay < 0) return tMonth === month - 1 && tDay >= days[month - 1] + minDay;
+    }
+
     useEffect(() => {
-        let currCount = handleCount(sortedDates, selected, user)
+        let currCount = handleCount(sortedDates)
         setCount(currCount);
         setData(createData(currCount));
         setMax(getMax(currCount));
-    }, [selected]);
-
-    function handleTitle(){
-        const date = new Date();
-        switch(selected) {
-            case 'Week':
-              return 'Week of ' + ''
-            case 'Month':
-              return createMonthCount(filterDates(dates, byThisMonth))
-            case 'Year':
-              return createYearCount(filterDates(dates, byThisYear))
-            case 'All':
-              return createAllCount(dates.map(toDate), user)
-            default: 
-              return createThisWeekCount(filterDates(dates, byThisWeek))
-        }
-    }
+    }, [meetings, selected]);
 
     return (
         <LineChart chartData={data} title={''} max={max}/>
