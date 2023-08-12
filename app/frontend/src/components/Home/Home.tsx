@@ -123,7 +123,7 @@ function Home(){
             maxDate = [month + 1, maxDay]
         }
 
-        return 'Meetings for week of ' + minDate.join('/') + ' - ' + maxDate.join('/')
+        return 'Categories for Week of ' + minDate.join('/') + ' - ' + maxDate.join('/')
     }
 
     const meetingsForWeek = userMeetings.filter(byWeek)
@@ -139,11 +139,11 @@ function Home(){
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', alignItems: "center", my: 2 }}>
                     <Calendar meetings={userMeetings} user={sessionUser} students={sessionStudents} setSelected={setSelectedDay}/>
                     {/* Chart */}
-                    <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35, border: 1}}>
+                    <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35}}>
                         <Typography sx={{alignSelf: 'center', p: 1, width: 270}}>
                             {getDates()}
                         </Typography>
-                        <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1, border: 1}}>
+                        <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1}}>
                             <CategoriesChart categories={allCategories} meetings={meetingsForWeek} selected={'Week'} user={sessionUser} selectedDay={selectedDay} />
                         </Box>
                     </Box>
