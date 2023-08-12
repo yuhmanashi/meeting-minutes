@@ -61,17 +61,15 @@ export default function Pin({ pin }) {
         //         </ListItem>
         //     </List>
         // </Box>
-        <Card sx={{ m: {xs: 1}, width: {sm: '45%', md: '95%', backgroundColor: 'yellow'} }}>
+        <Card sx={{ m: {xs: 1}, width: {sm: '45%', md: '95%', backgroundColor: 'lightyellow'} }}>
             <CardHeader
                 action={<GenericMenu props={pinModals()}/>}
                 title={title}
+                subheader={`${createdAt.slice(5, 10)}-${createdAt.slice(2, 4)}`}
             />
-            <CardContent>
+            <CardContent >
                 <Typography>
                     {body}
-                </Typography>
-                <Typography>
-                    {`${createdAt.slice(5, 10)}-${createdAt.slice(2, 4)}`}
                 </Typography>
             </CardContent>
         </Card>
