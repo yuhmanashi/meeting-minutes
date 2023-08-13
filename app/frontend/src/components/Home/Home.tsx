@@ -127,16 +127,16 @@ function Home(){
     }
 
     const meetingsForWeek = userMeetings.filter(byWeek)
-    const allCategories = Array.from(new Set(Object.values(sessionMeetings).map(meeting => meeting.category)));
+    const allCategories = Array.from(new Set(Object.values(sessionMeetings).map((meeting: Meeting) => meeting.category)));
     
     return (
         <Box>
             <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
-                <Typography sx={{typography: 'h4', my: 3}}>
+                <Typography sx={{typography: 'h4', m: 3}}>
                     Dashboard
                 </Typography>
                 {/* Calendar */}
-                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', alignItems: "center", my: 2 }}>
+                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', alignItems: "center", m: 2,  }}>
                     <Calendar meetings={userMeetings} user={sessionUser} students={sessionStudents} setSelected={setSelectedDay}/>
                     {/* Chart */}
                     <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35}}>
@@ -148,7 +148,7 @@ function Home(){
                         </Box>
                     </Box>
                 </Box>
-                <Box sx={{ display: { xs:'block', md:'flex' }, my: 2 }}>
+                <Box sx={{ display: { xs:'block', md:'flex' }, m: 2 }}>
                     {/* Watchlist */}
                     {/* <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>

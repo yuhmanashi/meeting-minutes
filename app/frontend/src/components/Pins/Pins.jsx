@@ -6,17 +6,24 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
+import Masonry from '@mui/lab/Masonry';
 import Pin from './Pin';
 import corkboard from './corkboard.jpg';
 
 export default function Pins({ pins }){
 
     return (
+        // <Box sx={{p: 2, minHeight: {xs: 320}, maxHeight: {xs: 260, md: 380 }, display: {sm: 'flex', md: 'block' }, flexWrap: 'wrap', overflowX: 'hidden', overflowY: 'auto', backgroundImage: `url(${corkboard})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", border: 5, borderColor: '#EFD0B5'}}>
+        //     {pins.map((pin) => {
+        //         return <Pin key={pin.id} pin={pin} />
+        //     })}
+        // </Box>
         <Box sx={{p: 2, minHeight: {xs: 320}, maxHeight: {xs: 260, md: 380 }, display: {sm: 'flex', md: 'block' }, flexWrap: 'wrap', overflowX: 'hidden', overflowY: 'auto', backgroundImage: `url(${corkboard})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", border: 5, borderColor: '#EFD0B5'}}>
-            {pins.map((pin) => {
-                return <Pin key={pin.id} pin={pin} />
-            })}
+            <Masonry sx={{m: 'auto'}} columns={{xs: 1, sm: 2, md: 1}} spacing={2}>
+                {pins.map((pin) => {
+                    return <Pin key={pin.id} pin={pin} />
+                })}
+            </Masonry>
         </Box>
     )
 };

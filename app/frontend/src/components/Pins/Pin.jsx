@@ -3,13 +3,8 @@ import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import Button from '@mui/material/Button';
 
 import Card from '@mui/material/Card';
@@ -61,7 +56,7 @@ export default function Pin({ pin }) {
         //         </ListItem>
         //     </List>
         // </Box>
-        <Card sx={{ m: {xs: 1}, width: {sm: '45%', md: '95%', backgroundColor: 'lightyellow'} }}>
+        <Card sx={{ m: {xs: 1}, width: {sm: '45%', md: '95%'}, backgroundColor: 'lightyellow' }}>
             <CardHeader
                 action={<GenericMenu props={pinModals()}/>}
                 title={title}

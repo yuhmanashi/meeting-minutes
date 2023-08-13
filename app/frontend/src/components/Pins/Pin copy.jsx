@@ -11,6 +11,12 @@ import Divider from '@mui/material/Divider';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Button from '@mui/material/Button';
+
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+
 import GenericList from '../CommonComponents/List';
 import GenericMenu from '../CommonComponents/Menu';
 
@@ -36,24 +42,36 @@ export default function Pin({ pin }) {
     };
 
     return (
-        <Box sx={{ border: 1, m: {xs: 1}, width: {sm: '45%', md: '95%', backgroundColor: 'yellow'} }}>
-            <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-                <Typography sx={{ typography: 'h6', px: 2 }}>
-                    {title}
+        // <Box sx={{ m: {xs: 1}, width: {sm: '45%', md: '95%', backgroundColor: 'yellow'} }}>
+        //     <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+        //         <Typography sx={{ typography: 'h6', px: 2 }}>
+        //             {title}
+        //         </Typography>
+        //         <GenericMenu props={pinModals()}/>
+        //     </Box>
+        //     <Divider/>
+        //     <List sx={{py: {xs: 0}}}>
+        //         <ListItem sx={{display: 'flex', flexDirection: 'column', py: {xs: 0}}}>
+        //             <ListItemText sx={{alignSelf: 'flex-start', px: 1}}>
+        //                 {body}
+        //             </ListItemText>
+        //             <ListItemText sx={{alignSelf: 'flex-end'}}>
+        //                 {`${createdAt.slice(5, 10)}-${createdAt.slice(2, 4)}`}
+        //             </ListItemText>
+        //         </ListItem>
+        //     </List>
+        // </Box>
+        <Card sx={{ m: {xs: 1}, width: {sm: '45%', md: '95%'}, backgroundColor: 'lightyellow' }}>
+            <CardHeader
+                action={<GenericMenu props={pinModals()}/>}
+                title={title}
+                subheader={`${createdAt.slice(5, 10)}-${createdAt.slice(2, 4)}`}
+            />
+            <CardContent >
+                <Typography>
+                    {body}
                 </Typography>
-                <GenericMenu props={pinModals()}/>
-            </Box>
-            <Divider/>
-            <List sx={{py: {xs: 0}}}>
-                <ListItem sx={{display: 'flex', flexDirection: 'column', py: {xs: 0}}}>
-                    <ListItemText sx={{alignSelf: 'flex-start', px: 1}}>
-                        {body}
-                    </ListItemText>
-                    <ListItemText sx={{alignSelf: 'flex-end'}}>
-                        {`${createdAt.slice(5, 10)}-${createdAt.slice(2, 4)}`}
-                    </ListItemText>
-                </ListItem>
-            </List>
-        </Box>
+            </CardContent>
+        </Card>
     )
 }
