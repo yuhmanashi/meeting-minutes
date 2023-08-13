@@ -88,10 +88,10 @@ function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex'}}>
       <CssBaseline />
       <AppBar component='nav' position="static">
-        <Container maxWidth="xl">
+        <Box sx={{px: 2, maxWidth: .99}}>
           <Toolbar disableGutters>
             
             {/* Logo (desktop) */}
@@ -197,7 +197,7 @@ function Navbar() {
               <Profile user={sessionUser} />
             </Box>
           </Toolbar>
-        </Container>
+        </Box>
       </AppBar>
 
       {/* Sidebar */}

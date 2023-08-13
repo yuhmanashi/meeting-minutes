@@ -61,10 +61,11 @@ interface GenericTableHeadProps {
   orderBy: keyof any;
   rowCount: number;
   values: GenericHeadCell[];
+  buttons: any;
 }
 
 function GenericTableHead(props: GenericTableHeadProps){
-  const { order, orderBy, onRequestSort, values } = props;
+  const { order, orderBy, onRequestSort, values, buttons } = props;
   const createSortHandler =
     (property: keyof any) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
@@ -94,6 +95,9 @@ function GenericTableHead(props: GenericTableHeadProps){
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell sx={ buttons ? { display: 'block'} : { display: 'none' } }>
+          <Box sx={{height: {xs: 25, md: 25.5}}}/>
+        </TableCell>
       </TableRow>
     </TableHead>
   );
@@ -168,6 +172,7 @@ export default function GenericTable({list, values, rValues, details, buttons, p
               onRequestSort={handleRequestSort}
               rowCount={visibleRows.length}
               values={values}
+              buttons={buttons}
             />
             <TableBody>
               {(rowsPerPage > 0 
@@ -198,6 +203,7 @@ export default function GenericTable({list, values, rValues, details, buttons, p
               onRequestSort={handleRequestSort}
               rowCount={visibleRows.length}
               values={rValues}
+              buttons={buttons}
             />
             <TableBody>
               {(rowsPerPage > 0 

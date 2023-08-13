@@ -27,7 +27,7 @@ export default function Pin({ pin }) {
         return dispatch(pinsActions.deletePin(id))
     }
 
-    const pinModals = () => {
+    const pinButtons = () => {
         return [
             <UpdatePinModal pin={pin}/>,
             <Button onClick={() => {handleDelete(id)}}>
@@ -58,7 +58,7 @@ export default function Pin({ pin }) {
         // </Box>
         <Card sx={{ m: {xs: 1}, width: {sm: '45%', md: '95%'}, backgroundColor: 'lightyellow' }}>
             <CardHeader
-                action={<GenericMenu props={pinModals()}/>}
+                action={<GenericMenu props={pinButtons()}/>}
                 title={title}
                 subheader={new Date(createdAt).toLocaleDateString()}
                 subheaderTypographyProps={{variant: 'subtitle2'}}

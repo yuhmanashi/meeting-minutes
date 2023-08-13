@@ -68,7 +68,7 @@ export default function CalendarDetails({date, meetings, students}){
                                 )}
                             </List>
                         : 
-                            <Typography textAlign='center'>
+                            <Typography textAlign='center' sx={{mt: 1}}>
                                 {'No meetings on this day'}
                             </Typography>
                     }

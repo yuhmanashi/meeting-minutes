@@ -18,8 +18,31 @@ export default function Pins({ pins }){
         //         return <Pin key={pin.id} pin={pin} />
         //     })}
         // </Box>
-        <Box sx={{p: 2, minHeight: {xs: 320}, maxHeight: {xs: 260, md: 380 }, display: {sm: 'flex', md: 'block' }, flexWrap: 'wrap', overflowX: 'hidden', overflowY: 'auto', backgroundImage: `url(${corkboard})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", border: 5, borderColor: '#EFD0B5'}}>
-            <Masonry sx={{m: 'auto'}} columns={{xs: 1, sm: 2, md: 1}} spacing={2}>
+        <Box sx={{
+            p: 2, 
+            minHeight: {xs: 370}, 
+            maxHeight: {xs: 300, md: 490 }, 
+            display: {sm: 'flex', md: 'block' }, 
+            flexWrap: 'wrap', 
+            overflowX: 'hidden', 
+            overflowY: 'auto', 
+            backgroundImage: `url(${corkboard})`, 
+            backgroundSize: "cover", 
+            backgroundRepeat: "no-repeat", 
+            border: 5, 
+            borderColor: '#EFD0B5',
+            "&::-webkit-scrollbar": {
+                    width: "3px",
+                },
+            "&::-webkit-scrollbar-thumb": {
+                    background: 'darkgray',
+                    borderRadius: "10px",
+                },
+            "&::-webkit-scrollbar-thumb:hover": {
+                    background: "grey",
+                },
+            }}>
+            <Masonry sx={{m: 'auto'}} columns={{xs: 1, sm: 2, md: 1, lg: 1, xl: 2}} spacing={2}>
                 {pins.map((pin) => {
                     return <Pin key={pin.id} pin={pin} />
                 })}

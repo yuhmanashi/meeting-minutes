@@ -140,7 +140,7 @@ function Home(){
                     <Calendar meetings={userMeetings} user={sessionUser} students={sessionStudents} setSelected={setSelectedDay}/>
                     {/* Chart */}
                     <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35}}>
-                        <Typography sx={{fontWeight: 'bold', alignSelf: 'center', p: 1, width: 270}}>
+                        <Typography sx={{fontWeight: 'bold', alignSelf: 'center', p: 1, width: 280}}>
                             {getDates()}
                         </Typography>
                         <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1}}>
@@ -160,7 +160,7 @@ function Home(){
                         <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
                     </Container> */}
                     {/* <Container sx={{ maxWidth: {xs: 600, md: 330, lg: 400}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, m: 2 }}> */}
-                    <Container sx={{width: {md: .35}}}>
+                    <Container sx={{maxWidth: {md: .35}}}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography variant='h5' sx={{fontWeight: 'bold', px: 2}}>
                                 Pinboard
@@ -172,7 +172,7 @@ function Home(){
 
                     {/* Meetings */}
                     {/* <Container sx={{ maxWidth: {xs: 600, md: 700, lg: 800}, minWidth: {xs: 320, md: 570}, p: {xs: 0}, m: 2 }}> */}
-                    <Container sx={{my: {xs: 2, sm: 0}}}>
+                    <Container sx={{my: {sm: 2, md: 0}}}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography variant='h5' sx={{fontWeight: 'bold', px: 2}}>
                                 Meetings

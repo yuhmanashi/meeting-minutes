@@ -37,13 +37,13 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
   
   const meetingButtons = (meeting) => {
     return (
-      <React.Fragment>
-        <UpdateMeetingModal meeting={meeting}/>
+      [
+        <UpdateMeetingModal meeting={meeting}/>,
         <DeleteMeetingButton meeting={meeting}/>
-      </React.Fragment>
+      ]
     )
   };
-
+  
   const values = [
     {
       label: 'Name',

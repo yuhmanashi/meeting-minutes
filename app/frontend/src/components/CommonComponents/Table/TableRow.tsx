@@ -21,6 +21,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { styled } from "@mui/material/styles";
+import GenericMenu from '../Menu';
+
 //TableRow Interface
 interface GenericTableRowProps{
     row: {};
@@ -39,6 +41,7 @@ export default function GenericTableRow(props){
             text-overflow: ellipsis;
         }
     `;
+        
     return (
         <React.Fragment>
             <TableRow>
@@ -47,9 +50,12 @@ export default function GenericTableRow(props){
                 </TableCell> */}
                 {values.map(value => {
                     return (
-                        <TableCell key={row[value]} sx={{width: '100%'}} colSpan={6}>{row[value]}</TableCell>
+                        <TableCell key={row[value]} sx={{width: '100%'}} colSpan={6}>{row[value]}</TableCell> 
                     )
                 })}
+                <TableCell sx={ buttons ? { display: 'block', height: {sm: 74, md: 74} } : { display: 'none' } }>
+                    <GenericMenu props={buttons(row)}/>
+                </TableCell>
                 <TableCell sx={ collapse ? { display: 'block' } : { display: 'none' } } >
                     <IconButton
                         aria-label="expand row"
