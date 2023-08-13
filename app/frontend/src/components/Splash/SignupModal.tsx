@@ -6,7 +6,7 @@ import * as sessionErrorActions from '../../store/session_errors';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Input from '@mui/material/Input';
+import TextField from '@mui/material/TextField';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -19,9 +19,9 @@ const style = {
   transform: 'translate(-50%, -50%)',
   minWidth: 300,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  borderRadius: 3,
   boxShadow: 24,
-  p: 4,
+  p: 3,
 };
 
 export default function SignupModal() {
@@ -61,6 +61,7 @@ export default function SignupModal() {
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
+            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 300}}
           >
             <List>
               { errors ? errors.map(error => 
@@ -70,33 +71,32 @@ export default function SignupModal() {
                 : null 
               }
             </List>
-            <Input 
-              placeholder='First Name'
+            <TextField 
+              label='First Name'
               defaultValue={firstName}
               onChange={e => setFirstName(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
+              variant='standard' 
               required
             />
-            <Input 
-              placeholder='Last Name'
+            <TextField 
+              label='Last Name'
               defaultValue={lastName}
               onChange={e => setLastName(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
+              variant='standard' 
               required
             />
-            <Input 
-              placeholder='Email'
+            <TextField 
+              label='Email'
               defaultValue={email}
               onChange={e => setEmail(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
+              variant='standard' 
               required
             />
-            <Input 
-              placeholder='Password'
+            <TextField 
+              label='Password'
               defaultValue={password}
               type='password' 
-              onChange={e => setPassword(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
+              variant='standard'
               required
             />
             <Button type='submit'>Sign Up</Button>
