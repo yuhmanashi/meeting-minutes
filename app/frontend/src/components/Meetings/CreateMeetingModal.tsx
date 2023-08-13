@@ -22,9 +22,9 @@ const style = {
   transform: 'translate(-50%, -50%)',
   minWidth: 300,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  borderRadius: 2,
   boxShadow: 24,
-  p: 4,
+  p: 3,
 };
 
 export default function CreateMeetingModal() {
@@ -72,6 +72,7 @@ export default function CreateMeetingModal() {
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
+            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 300}}
           >
             {/* <SelectMenu name={'students'} options={[]} onChange={() => {}}/> */}
             <List>

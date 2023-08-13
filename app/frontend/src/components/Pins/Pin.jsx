@@ -60,7 +60,8 @@ export default function Pin({ pin }) {
             <CardHeader
                 action={<GenericMenu props={pinModals()}/>}
                 title={title}
-                subheader={`${createdAt.slice(5, 10)}-${createdAt.slice(2, 4)}`}
+                subheader={new Date(createdAt).toLocaleDateString()}
+                subheaderTypographyProps={{variant: 'subtitle2'}}
             />
             <CardContent >
                 <Typography>

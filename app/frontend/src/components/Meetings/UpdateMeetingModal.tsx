@@ -71,6 +71,7 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
+            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 300}}
           >
             <List>
               { errors ? errors.map(error => 

@@ -131,8 +131,8 @@ function Home(){
     
     return (
         <Box>
-            <Container sx={{ /*display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'*/}}>
-                <Typography sx={{typography: 'h4', m: 3}}>
+            <Box sx={{ m: 2 }}>
+                <Typography variant='h4' sx={{ m: 3, fontWeight: 'bold' }}>
                     Dashboard
                 </Typography>
                 {/* Calendar */}
@@ -140,7 +140,7 @@ function Home(){
                     <Calendar meetings={userMeetings} user={sessionUser} students={sessionStudents} setSelected={setSelectedDay}/>
                     {/* Chart */}
                     <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35}}>
-                        <Typography sx={{alignSelf: 'center', p: 1, width: 270}}>
+                        <Typography sx={{fontWeight: 'bold', alignSelf: 'center', p: 1, width: 270}}>
                             {getDates()}
                         </Typography>
                         <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1}}>
@@ -159,9 +159,9 @@ function Home(){
                         </Box>
                         <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
                     </Container> */}
-                    <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
+                    <Container sx={{ maxWidth: {xs: 600, md: 330, lg: 400}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                            <Typography sx={{typography: 'h5', px: 2}}>
+                            <Typography variant='h5' sx={{fontWeight: 'bold', px: 2}}>
                                 Pinboard
                             </Typography>
                             <CreatePinModal authorId={sessionUser.id}/>
@@ -170,9 +170,9 @@ function Home(){
                     </Container>
 
                     {/* Meetings */}
-                    <Container sx={{ maxWidth: {xs: 600, md: 650, lg: 700}, minWidth: {xs: 320, md: 570}, p: {xs: 0}, my: 2 }}>
+                    <Container sx={{ maxWidth: {xs: 600, md: 700, lg: 800}, minWidth: {xs: 320, md: 570}, p: {xs: 0}, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                            <Typography sx={{typography: 'h5', px: 2}}>
+                            <Typography variant='h5' sx={{fontWeight: 'bold', px: 2}}>
                                 Meetings
                             </Typography>
                             <CreateMeetingModal />
@@ -180,9 +180,6 @@ function Home(){
                         <Meetings meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
                     </Container>
                 </Box>
-            </Container>
-            <Box>
-                Footer
             </Box>
         </Box>
     )

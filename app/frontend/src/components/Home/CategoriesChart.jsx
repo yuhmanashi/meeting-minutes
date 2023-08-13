@@ -267,8 +267,6 @@ export default function CategoriesChart({ categories, meetings, selected, user, 
     const [count, setCount] = useState(handleCategoriesCount(categories, meetings))
     const [data, setData] = useState(createCategoriesData(count));
     const [max, setMax] = useState(getMax(count));
-    
-    console.log(categories);
 
     function handleCount(dates){
         switch(selected) {
