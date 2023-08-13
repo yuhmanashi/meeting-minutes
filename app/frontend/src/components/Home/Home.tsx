@@ -131,7 +131,7 @@ function Home(){
     
     return (
         <Box>
-            <Box sx={{ m: 2 }}>
+            <Box>
                 <Typography variant='h4' sx={{ m: 3, fontWeight: 'bold' }}>
                     Dashboard
                 </Typography>
@@ -148,7 +148,7 @@ function Home(){
                         </Box>
                     </Box>
                 </Box>
-                <Box sx={{ display: { xs:'block', md:'flex' }, m: 2 }}>
+                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', m: 2 }}>
                     {/* Watchlist */}
                     {/* <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
@@ -159,7 +159,8 @@ function Home(){
                         </Box>
                         <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
                     </Container> */}
-                    <Container sx={{ maxWidth: {xs: 600, md: 330, lg: 400}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
+                    {/* <Container sx={{ maxWidth: {xs: 600, md: 330, lg: 400}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, m: 2 }}> */}
+                    <Container sx={{width: {md: .35}}}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography variant='h5' sx={{fontWeight: 'bold', px: 2}}>
                                 Pinboard
@@ -170,7 +171,8 @@ function Home(){
                     </Container>
 
                     {/* Meetings */}
-                    <Container sx={{ maxWidth: {xs: 600, md: 700, lg: 800}, minWidth: {xs: 320, md: 570}, p: {xs: 0}, my: 2 }}>
+                    {/* <Container sx={{ maxWidth: {xs: 600, md: 700, lg: 800}, minWidth: {xs: 320, md: 570}, p: {xs: 0}, m: 2 }}> */}
+                    <Container sx={{my: {xs: 2, sm: 0}}}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography variant='h5' sx={{fontWeight: 'bold', px: 2}}>
                                 Meetings

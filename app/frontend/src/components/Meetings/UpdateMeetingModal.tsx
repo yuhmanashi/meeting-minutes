@@ -6,7 +6,7 @@ import * as meetingActions from '../../store/meetings';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Input from '@mui/material/Input';
+import TextField from '@mui/material/TextField';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -41,8 +41,8 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
     dispatch(sessionErrorActions.removeSessionErrors());
   };
   
-  // const [email, setEmail] = useState(meeting.studentEmail);
-  // const [name, setName] = useState(meeting.studentName);
+  const [email, setEmail] = useState(meeting.studentEmail);
+  const [name, setName] = useState(meeting.studentName);
   const [category, setCategory] = useState(meeting.category);
   const [problems, setProblems] = useState(meeting.problems);
   const [notes, setNotes] = useState(meeting.notes);
@@ -81,39 +81,25 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
                 : null 
               }
             </List>
-            {/* <Input 
-              placeholder='Email'
+            <TextField 
+              label='Email'
               defaultValue={email}
               onChange={e => setEmail(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
-              required
+              variant='standard' 
+              disabled
             />
-            <Input 
-              placeholder='Name'
+            <TextField 
+              label='Name'
               defaultValue={name}
               onChange={e => setName(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
-              required
-            /> */}
-            <Input 
-              placeholder='Category'
+              variant='standard' 
+              disabled
+            />
+            <TextField 
+              label='Category'
               defaultValue={category}
               onChange={e => setCategory(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
-              required
-            />
-            <Input 
-              placeholder='Problems'
-              defaultValue={problems}
-              onChange={e => setProblems(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
-              required
-            />
-            <Input 
-              placeholder='Notes'
-              defaultValue={notes}
-              onChange={e => setNotes(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
+              variant='standard' 
               required
             />
             <Button type='submit'>Update Meeting</Button>

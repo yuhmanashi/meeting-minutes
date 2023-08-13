@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 //MUI
 import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 //Components
 import GenericTable from '../CommonComponents/Table';
@@ -86,8 +86,8 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
 
   const details = [];
   return (
-    <Container>
+    <Box>
       <GenericTable list={updatedMeetings} values={values} rValues={responsiveValues} details={details} buttons={meetingButtons} page={page} setPage={setPage} />
-    </Container>
+    </Box>
   );
 }

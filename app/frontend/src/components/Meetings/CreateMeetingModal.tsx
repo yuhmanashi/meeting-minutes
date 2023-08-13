@@ -6,7 +6,7 @@ import * as meetingActions from '../../store/meetings';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Input from '@mui/material/Input';
+import TextField from '@mui/material/TextField';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -72,7 +72,7 @@ export default function CreateMeetingModal() {
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
-            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 300}}
+            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 250}}
           >
             {/* <SelectMenu name={'students'} options={[]} onChange={() => {}}/> */}
             <List>
@@ -83,41 +83,41 @@ export default function CreateMeetingModal() {
                 : null 
               }
             </List>
-            <Input 
-              placeholder='Email'
+            <TextField 
+              label='Email'
               defaultValue={email}
               onChange={e => setEmail(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
+              variant='standard'
               required
             />
-            <Input 
-              placeholder='Name'
+            <TextField 
+              label='Name'
               defaultValue={name}
               onChange={e => setName(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
+              variant='standard'
               required
             />
-            <Input 
-              placeholder='Category'
+            <TextField 
+              label='Category'
               defaultValue={category}
               onChange={e => setCategory(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
+              variant='standard'
               required
             />
-            <Input 
-              placeholder='Problems'
+            {/* <TextField 
+              label='Problems'
               defaultValue={problems}
               onChange={e => setProblems(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
+              variant='standard'
               required
             />
-            <Input 
-              placeholder='Notes'
+            <TextField 
+              label='Notes'
               defaultValue={notes}
               onChange={e => setNotes(e.target.value)} 
-              inputProps={{'aria-label': 'description'}} 
+              variant='standard'
               required
-            />
+            /> */}
             <Button type='submit'>Create Meeting</Button>
           </Box>
         </Box>
