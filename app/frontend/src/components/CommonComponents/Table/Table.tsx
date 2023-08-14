@@ -95,7 +95,7 @@ function GenericTableHead(props: GenericTableHeadProps){
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell sx={ buttons ? { display: 'block'} : { display: 'none' } }>
+        <TableCell key='button' sx={ buttons ? { display: 'block'} : { display: 'none' } }>
           <Box sx={{height: {xs: 25, md: 25.5}}}/>
         </TableCell>
       </TableRow>
@@ -210,7 +210,7 @@ export default function GenericTable({list, values, rValues, details, buttons, p
                 ? visibleRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : visibleRows
               ).map((row) => (
-                <GenericTableRow key={row.id} row={row} values={getRowValues(rValues)} details={details} buttons={buttons}/>
+                <GenericTableRow key={`r${row.id}`} row={row} values={getRowValues(rValues)} details={details} buttons={buttons}/>
               ))}
               {emptyRows > 0 && (
                 <TableRow

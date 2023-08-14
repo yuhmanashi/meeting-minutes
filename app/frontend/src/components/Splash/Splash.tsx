@@ -6,77 +6,27 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import Login from './Login';
 import * as sessionActions from '../../store/session';
 import { useAppDispatch } from '../../utils/hooks';
 
 function Splash(){
     const dispatch = useAppDispatch();
-
+    const listItems = [
+        'Store and organize meetings you have had or will have...',
+        'View and sort meetings with tables...',
+        'Preview your monthes with the calendar feature...',
+        'Data analytics with graphs and charts...',
+    ]
     function demoLogin(e){
         e.preventDefault();
         return dispatch(sessionActions.login({email:'demo@user.io', password:'password'}))
     }
 
     return (
-        // <Box sx={{ 
-        //         height: 4/5,
-        //         position: 'relative', 
-        //     }}>
-        //     <Container sx={{ 
-        //             display: 'flex', 
-        //             flexDirection: 'column', 
-        //             alignItems: 'center', 
-        //             position: 'relative',
-        //             mt: 2,
-        //         }}>
-        //         <Box sx={{display: 'flex'}}>
-        //             <Box sx={{ m: 2 }}>
-        //                 <Typography sx={{ typography: {xs: 'h4', sm: 'h3', md: 'h1'} }}>
-        //                     MeetingMinutes
-        //                 </Typography>
-        //                 <Typography sx={{ typography: {xs: 'h6', sm: 'h5', md: 'h4'}, m: 1 }}>
-        //                     Keep track of your meetings
-        //                 </Typography>
-        //                 <Typography variant="body1" sx={{ m: 1 }}>
-        //                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        //                 </Typography>
-        //             </Box>
-        //             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 2 }}>
-        //                 <Typography sx={{ typography: {xs: 'body1', sm: 'h6', md: 'h5'} }}>
-        //                     Log in or Sign Up to continue
-        //                 </Typography>
-        //                 <Box sx={{ display: 'flex' }}>
-        //                     <LoginModal/>
-        //                     <SignupModal/>
-        //                 </Box> 
-        //                 <Button onClick={demoLogin}>
-        //                     Demo
-        //                 </Button>
-        //             </Box>
-        //         </Box>
-                
-        //         <Box sx={{m: 4, p: 2, border: 1, height: 300, width: 600}}>
-        //             Images/Examples
-        //         </Box>
-        //     </Container>
-        // </Box>
-        // <Box>
-        //     <Box sx={{display: 'flex', flexDirection: {xs: 'column', sm: 'row'}, justifyContent: 'space-between'}}>
-        //         <Box sx={{p: 4}}>
-        //             <Typography sx={{ typography: {xs: 'h4', sm: 'h3', md: 'h2'} }}>
-        //                 MeetingMinutes
-        //             </Typography>
-        //             <Typography variant='h6' sx={{ m: 1 }}>
-        //                 Keep track of your meetings
-        //             </Typography>
-        //         </Box>
-        //         <Box sx={{p: 4}}>
-        //             <Login></Login>
-        //         </Box>
-        //     </Box>
-        // </Box>
         <Box sx={{ 
             height: 4/5,
             position: 'relative', 
@@ -86,37 +36,41 @@ function Splash(){
                     flexDirection: 'column', 
                     alignItems: 'center', 
                     position: 'relative',
-                    mt: 2,
+                    mt: 4,
                 }}>
-                <Box sx={{display: 'flex'}}>
-                    <Box sx={{ m: 2, width: .7 }}>
-                        <Typography sx={{ typography: {xs: 'h4', sm: 'h3', md: 'h2'} }}>
+                <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: .9}}>
+                    <Box sx={{ m: 2, width: .5 }}>
+                        <Typography variant='h4' sx={{ fontWeight: 'bold', m: 1 }}>
                             MeetingMinutes
                         </Typography>
                         <Typography variant='h5' sx={{ typography: {/*xs: 'h6', sm: 'h5', md: 'h4'*/}, m: 1 }}>
                             Keep track of your meetings
                         </Typography>
-                        <Typography variant="body1" sx={{ m: 1 }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </Typography>
+                        
+                        <List>
+                            {listItems.map(item => {
+                                return (
+                                    <ListItem key={item}>
+                                        <ListItemText>
+                                            {item}
+                                        </ListItemText>
+                                    </ListItem> 
+                                )
+                            })}
+                        </List>
                     </Box>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 2 }}>
-                        <Typography sx={{ typography: {xs: 'body1', sm: 'h6', md: 'h5'} }}>
-                            Log in or Sign Up to continue
+                    <Box sx={{ display: 'flex', justifyContent: 'space-evenly', flexDirection: 'column', alignItems: 'center', p: 2, width: .4, maxWidth: 300, maxHeight: 330, border: 1 }}>
+                        <Typography sx={{ typography: {/*xs: 'body1', sm: 'h6', md: 'h5'*/} }}>
+                            Log in to continue
                         </Typography>
-                        <Login></Login>
-                        {/* <Box sx={{ display: 'flex' }}>
-                            <LoginModal/>
+                        <Login/>
+                        <Box display={'flex'}>
                             <SignupModal/>
-                        </Box> 
-                        <Button onClick={demoLogin}>
-                            Demo
-                        </Button> */}
+                            <Button onClick={demoLogin}>
+                                Demo
+                            </Button>
+                        </Box>
                     </Box>
-                </Box>
-                
-                <Box sx={{m: 4, p: 2, border: 1, height: 300, width: 600}}>
-                    Images/Examples
                 </Box>
             </Container>
         </Box>

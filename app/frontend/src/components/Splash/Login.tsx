@@ -32,7 +32,7 @@ export default function Login() {
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
-            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 200, border: 1, p: 4}}
+            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 200}}
           >
             <List>
               { errors ? errors.map(error => 

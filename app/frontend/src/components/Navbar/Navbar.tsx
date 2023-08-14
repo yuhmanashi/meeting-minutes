@@ -114,7 +114,7 @@ function Navbar() {
             </Typography>
             
             {/* Menu */}
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <Box sx={ sessionUser ? { flexGrow: 1, display: { xs: 'flex', md: 'none' }} : { display: 'none' }}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -176,7 +176,7 @@ function Navbar() {
             </Typography>
             
             {/* Misc buttons for desktop */}
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={ sessionUser ? { flexGrow: 1, display: { xs: 'none', md: 'flex' } } : { display: 'none' }}>
               <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToHome}>Home</Button>
               {/* <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToStudents}>Students</Button> */}
               <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToHistory}>History</Button>

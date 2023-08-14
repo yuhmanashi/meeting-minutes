@@ -53,7 +53,7 @@ export default function History(){
     return (
         <Box>
             {/* Charts */}
-            <Container>
+            <Container sx={{mt: 4}}>
                 {/* Charts go here */}
                 {/* <GenericChart obj={} callback={} color={} type={} title={} ratio={}/> */}
                 <Typography>{selected}</Typography>

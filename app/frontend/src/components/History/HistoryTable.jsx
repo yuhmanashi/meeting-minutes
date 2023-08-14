@@ -105,6 +105,6 @@ export default function HistoryTable({meetings, selected}) {
     ];
     
     return (
-        <GenericTable list={filtered} values={values} rValues={responsiveValues} details={[]} buttons={() => {}} page={page} setPage={setPage}/> 
+        <GenericTable list={filtered} values={values} rValues={responsiveValues} details={[]} buttons={null} page={page} setPage={setPage}/> 
     )
 }

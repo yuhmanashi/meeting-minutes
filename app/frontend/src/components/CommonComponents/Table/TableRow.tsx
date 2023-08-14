@@ -41,7 +41,9 @@ export default function GenericTableRow(props){
             text-overflow: ellipsis;
         }
     `;
-        
+    
+    console.log(props)
+
     return (
         <React.Fragment>
             <TableRow>
@@ -53,7 +55,7 @@ export default function GenericTableRow(props){
                         <TableCell key={row[value]} sx={{width: '100%'}} colSpan={6}>{row[value]}</TableCell> 
                     )
                 })}
-                <TableCell sx={ buttons ? { display: 'block', height: {sm: 74, md: 74} } : { display: 'none' } }>
+                <TableCell key={row.id} sx={ buttons ? { display: 'block', height: {sm: 74, md: 74} } : { display: 'none' } }>
                     <GenericMenu props={buttons(row)}/>
                 </TableCell>
                 <TableCell sx={ collapse ? { display: 'block' } : { display: 'none' } } >
