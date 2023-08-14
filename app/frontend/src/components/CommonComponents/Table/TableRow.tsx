@@ -32,7 +32,7 @@ export default function GenericTableRow(props){
     const { row, values, details, buttons } = props
     const [open, setOpen] = useState(false);
     const collapse = details.length !== 0;
-    const rowButtons = buttons.length > 0 ? buttons(row) : null;
+    
     const TableCell = styled(MuiTableCell)`
         :last-of-type {
             width: 100;
@@ -42,21 +42,22 @@ export default function GenericTableRow(props){
         }
     `;
     
-    console.log(props)
+    const generateKey = (pre) => {
+        return `${ pre }_${ new Date().getTime() }`;
+    }
 
     return (
         <React.Fragment>
             <TableRow>
-                {/* <TableCell sx={{width: '100%'}} colSpan={6}>
-                    {row[values[0]]}
-                </TableCell> */}
                 {values.map(value => {
+                    const unique = generateKey(value);
+                    console.log(unique)
                     return (
-                        <TableCell key={row[value]} sx={{width: '100%'}} colSpan={6}>{row[value]}</TableCell> 
+                        <TableCell key={unique} sx={{width: '100%'}} colSpan={6}>{row[value]}</TableCell> 
                     )
                 })}
-                <TableCell key={row.id} sx={ buttons ? { display: 'block', height: {sm: 74, md: 74} } : { display: 'none' } }>
-                    <GenericMenu props={buttons(row)}/>
+                <TableCell sx={ buttons ? { display: 'block', height: {sm: 74, md: 74} } : { display: 'none' } }>
+                    <GenericMenu props={buttons ? buttons(row) : []}/>
                 </TableCell>
                 <TableCell sx={ collapse ? { display: 'block' } : { display: 'none' } } >
                     <IconButton
@@ -89,9 +90,6 @@ export default function GenericTableRow(props){
                                     )
                                 })}
                                 <Divider/>
-                                <ListItem sx={{py: 0}}>
-                                    {rowButtons}
-                                </ListItem>
                             </List>
                         </Box>
                     </Collapse>

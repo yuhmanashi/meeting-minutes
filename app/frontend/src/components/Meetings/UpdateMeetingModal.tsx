@@ -55,7 +55,7 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
     // }
     return dispatch(meetingActions.updateMeeting({ id, userId, studentId, category, problems, notes }))
   };
-  console.log(errors)
+
   return (
     <div>
       <Button size="small" onClick={handleOpen}>Edit</Button>

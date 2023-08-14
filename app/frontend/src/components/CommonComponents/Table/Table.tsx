@@ -70,13 +70,17 @@ function GenericTableHead(props: GenericTableHeadProps){
     (property: keyof any) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
+  
+  const generateKey = (pre) => {
+    return `${ pre }_${ new Date().getTime() }`;
+  }
 
   return (
     <TableHead>
       <TableRow>
         {values.map((value: GenericHeadCell) => (
           <TableCell
-            key={value.id}
+            key={generateKey(value.id)}
             colSpan={6}
             sortDirection={orderBy === value.id ? order : false}
             sx={{width: '100%'}}

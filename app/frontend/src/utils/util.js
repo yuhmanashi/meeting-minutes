@@ -7,3 +7,7 @@ export function headers() {
     // 'Access-Control-Allow-Methods':'POST, PATCH, OPTIONS'
   };
 }
+
+export function generateKey(pre) {
+  return `${ pre }_${ new Date().getTime() }`;
+}

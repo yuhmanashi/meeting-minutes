@@ -16,6 +16,10 @@ export default function GenericMenu({props}) {
     setAnchorEl(null);
   };
 
+  const generateKey = (pre) => {
+    return `${ pre }_${ new Date().getTime() }`;
+  }
+
   return (
     <div>
       <Button
@@ -36,9 +40,10 @@ export default function GenericMenu({props}) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {props.map((prop, i) => {
+        {props.map((prop, index) => {
+          const unique = generateKey(index);
             return (
-                <MenuItem key={i}>
+                <MenuItem key={unique}>
                     {prop}
                 </MenuItem>
             )
