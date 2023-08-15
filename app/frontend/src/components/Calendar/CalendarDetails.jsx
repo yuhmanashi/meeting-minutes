@@ -63,7 +63,7 @@ export default function CalendarDetails({date, meetings, students}){
                                             /> */}
                                             <ListItemText
                                                 primary={meeting.studentName}
-                                                secondary={`${meeting.category ? meeting.category : '-'} | ${timeString(meeting.date)}`}
+                                                secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
                                             />
                                         </ListItem>
                                     </React.Fragment> 

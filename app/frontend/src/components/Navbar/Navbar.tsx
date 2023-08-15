@@ -90,7 +90,7 @@ function Navbar() {
   return (
     <Box sx={{ display: 'flex'}}>
       <CssBaseline />
-      <AppBar component='nav' position="static">
+      <AppBar component='nav' position="fixed">
         <Box sx={{px: 2, maxWidth: .99}}>
           <Toolbar disableGutters>
             

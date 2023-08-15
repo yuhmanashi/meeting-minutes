@@ -44,7 +44,7 @@ export default function GenericMenu({props}) {
         {props.map((prop, index) => {
           const unique = generateKey(index);
             return (
-                <MenuItem key={unique}>
+                <MenuItem key={unique} onKeyDown={(e) => e.stopPropagation()}>
                     {prop}
                 </MenuItem>
             )
