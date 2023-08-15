@@ -49,6 +49,10 @@ export default function Calendar({meetings, user, students, setSelected}) {
   const [value, setValue] = useState(dayjs());
   const [highlightedDays, setHighlitedDays] = useState(handleDates(meetings));
 
+  useEffect(() => {
+    setHighlitedDays(handleDates(meetings))
+  }, [meetings])
+
   function sortDate(a, b) {
     return a < b ? -1 : a > b ? 1 : 0
   }
@@ -61,8 +65,6 @@ export default function Calendar({meetings, user, students, setSelected}) {
     setValue(newValue)
     setSelected(new Date(newValue.valueOf() + newValue.utcOffset()*60*1000))
   }
-
-  if (Object.keys(meetings).length < 1 || Object.keys(students).length < 1) return null;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

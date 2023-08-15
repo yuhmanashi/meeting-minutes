@@ -11,13 +11,15 @@ export default function CalendarDetails({date, meetings, students}){
     const updatedMeetings = meetings.map(meeting => {
         const student = students[meeting.studentId];
         const newMeeting = { ...meeting }
+        
         newMeeting['studentName'] = `${student.fullName}`;
         newMeeting['studentEmail'] = student.email;
+        
         return newMeeting;
     });
 
     function convertDate(date) {
-        const newDate = new Date(date.valueOf() + date.utcOffset()*60*1000);
+        const newDate = new Date(date.toISOString());
         return newDate;
     };
 

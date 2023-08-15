@@ -35,7 +35,7 @@ export default function CreateMeetingModal() {
 
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
+  // const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [category, setCategory] = useState("");
   const [problems, setProblems] = useState("");
@@ -44,7 +44,7 @@ export default function CreateMeetingModal() {
   function resetState(){
     setEmail('');
     setCategory('');
-    setDate('');
+    // setDate('');
     setTime('');
     setCategory('');
     setProblems('');
@@ -69,10 +69,12 @@ export default function CreateMeetingModal() {
     e.preventDefault();
     const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const studentId = findStudentId(email)
+    // if (date.length < 1) setDate(new Date().toISOString());
+    const date = new Date().toISOString()
     if (email.match(emailFormat) && studentId){
       handleClose();
     }
-    return dispatch(meetingActions.createMeeting({ userId, studentId, category, problems, notes }))
+    return dispatch(meetingActions.createMeeting({ userId, studentId, category, problems, notes, date }))
   };
 
   return (

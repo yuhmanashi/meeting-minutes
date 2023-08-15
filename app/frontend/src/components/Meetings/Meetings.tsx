@@ -29,10 +29,11 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
   const updatedMeetings = userMeetings.map(meeting => {
     const student = students[meeting.studentId];
     const newMeeting = { ...meeting };
-    const date = meeting.date ? new Date(meeting.date) : new Date();
+
     newMeeting['studentName'] = `${student.fullName}`;
     newMeeting['studentEmail'] = student.email;
-    newMeeting['date'] = date.toLocaleDateString();
+    newMeeting['date'] = new Date(meeting.date).toLocaleDateString();
+
     return newMeeting;
   });
   
