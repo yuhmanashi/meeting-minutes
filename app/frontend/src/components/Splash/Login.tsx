@@ -33,14 +33,15 @@ export default function Login() {
       sx={{
         display: 'flex', 
         flexDirection: 'column', 
-        justifyContent: 'space-between', 
-        height: 175,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        height: 200,
         width: 1
       }}
     >
-      <List>
+      <List sx={{p: 0}}>
         { errors ? errors.map(error => 
-          <ListItem>
+          <ListItem sx={{color: 'red'}}>
             <ListItemText primary={error} />
           </ListItem>)
           : null 
@@ -62,6 +63,7 @@ export default function Login() {
         onChange={e => setPassword(e.target.value)} 
         variant='outlined'
         size='small'
+        sx={{m: 2}}
         fullWidth
         required
       />

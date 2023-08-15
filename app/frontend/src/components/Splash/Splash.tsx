@@ -30,7 +30,7 @@ function Splash(){
     }
 
     return (
-        <Box sx={{height: .8}}>
+        <Box sx={{height: .8, border: 1}}>
             <Container sx={{ 
                     display: 'flex', 
                     flexDirection: 'column',
@@ -41,18 +41,20 @@ function Splash(){
                 {/* Info */}
                 <Box sx={{
                         display: 'flex', 
-                        justifyContent: 'space-evenly', 
-                        alignItems: 'center',
+                        justifyContent: 'space-evenly',
                         width: 1,
                     }}>
                     <Box sx={{
                             display: {
-                                xs: 'none', 
-                                sm: 'block'
+                                sm: 'none', 
+                                md: 'block'
                             },
-                            m: 2,
-                        }}>
-                        <Typography variant='h5' sx={{ typography: {/*xs: 'h6', sm: 'h5', md: 'h4'*/}, m: 1 }}>
+                            maxWidth: 500,
+                            p: 4,
+                            mt: 3
+                        }}
+                    >
+                        {/* <Typography variant='h5' sx={{ m: 1 }}>
                             Keep track of your meetings
                         </Typography>
                         
@@ -66,11 +68,55 @@ function Splash(){
                                     </ListItem> 
                                 )
                             })}
-                        </List>
+                        </List> */}
+                        <Typography 
+                            variant='h3' 
+                            sx={{ 
+                                fontWeight: 'bold',
+                                my: 2
+                            }}
+                        >
+                            Your meetings, your time
+                        </Typography>
+                        {/* <Typography variant='body1'>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Phasellus id dignissim justo. 
+                            Nulla ut facilisis ligula. 
+                            Interdum et malesuada fames ac ante ipsum primis in faucibus. 
+                            Sed malesuada lobortis pretium.
+                        </Typography> */}
+                        <Typography variant='body1'>
+                            Currently designed for my company and team for meeting management purposes.
+                            Store and organize meetings where is easily accessable.
+                            View meetings with tables, calendars, and more.
+                            Visualize statistics with charts and graphs.
+                            More features and practical applications to come...
+                        </Typography>
+                        {/* <List>
+                            {listItems.map(item => {
+                                return (
+                                    <ListItem key={item}>
+                                        <ListItemText>
+                                            {item}
+                                        </ListItemText>
+                                    </ListItem> 
+                                )
+                            })}
+                        </List> */}
+                        {/* <Box 
+                            sx={{
+                                display: {
+                                    sm: 'none',
+                                    md: 'block'
+                                }
+                            }}
+                        >
+                            <Carousel/>
+                        </Box> */}
                     </Box>
                     
                     {/* Login */}
-                    <Box>
+                    <Box sx={{p: 4}}>
                         <Box 
                             sx={{ 
                                 display: 'flex', 
@@ -85,7 +131,7 @@ function Splash(){
                                 variant='h4'
                                 sx={{
                                     m: 2,
-                                    pt: 4,
+                                    pt: 3,
                                     fontWeight: 'bold'
                                 }}
                             >
@@ -101,7 +147,9 @@ function Splash(){
                                     width: 1
                                 }}
                             >
-                                <Divider sx={{ mt: 1 }} flexItem >OR</Divider>
+                                <Divider sx={{ mt: 1 }} flexItem >
+                                    <Typography variant='caption'>OR</Typography>
+                                </Divider>
                                 <Button 
                                     onClick={demoLogin}
                                     size='small'

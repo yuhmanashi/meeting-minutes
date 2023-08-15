@@ -41,7 +41,7 @@ export default function Carousel() {
     setActiveStep(
       activeStep === images.length - 1 ? 0 : activeStep + 1
     );
-  }, 2000);
+  }, 4000);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
