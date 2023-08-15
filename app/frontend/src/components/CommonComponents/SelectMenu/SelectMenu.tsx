@@ -24,7 +24,7 @@ export default function SelectMenu({ name, options, defaultOption, onChange }: S
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ width: 1, my: 1 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">{name}</InputLabel>
         <Select

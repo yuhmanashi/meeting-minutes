@@ -27,7 +27,7 @@ const style = {
   p: 3,
 };
 
-export default function CreateMeetingModal() {
+export default function CreateMeetingModal({categories}) {
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
   const userId = useAppSelector(state => state.session.user.id);
@@ -60,7 +60,7 @@ export default function CreateMeetingModal() {
   
 
   function findStudentId(email){
-    const student = Object.values(students).filter((student: Student) => student.email === email);
+    const student: any = Object.values(students).filter((student: Student) => student.email === email);
     if (student.length < 1) return null;
     return student[0].id;
   }
@@ -100,7 +100,7 @@ export default function CreateMeetingModal() {
               flexDirection: 'column', 
               justifyContent: 'flex-end',
               alignItems: 'center', 
-              height: 190
+              height: 200
             }}
           >
             {/* <SelectMenu name={'students'} options={[]} onChange={() => {}}/> */}
@@ -112,6 +112,12 @@ export default function CreateMeetingModal() {
                 : null 
               }
             </List>
+            <SelectMenu 
+              name={'Category'}
+              options={categories} 
+              defaultOption={category} 
+              onChange={setCategory}
+            />
             <TextField 
               label="Student's Email"
               defaultValue={email}
@@ -122,7 +128,7 @@ export default function CreateMeetingModal() {
               fullWidth
               required
             />
-            <TextField 
+            {/* <TextField 
               label='Category'
               defaultValue={category}
               onChange={e => setCategory(e.target.value)} 
@@ -131,7 +137,7 @@ export default function CreateMeetingModal() {
               sx={{my: 1}}
               fullWidth
               required
-            />
+            /> */}
             {/* <TextField 
               label="Date"
               defaultValue={email}

@@ -12,6 +12,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Modal from '@mui/material/Modal';
 
+import SelectMenu from "../CommonComponents/SelectMenu";
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -26,9 +28,10 @@ const style = {
 
 type IMeeting = {
   meeting: MeetingWithStudent;
+  categories: string[];
 }
 
-export default function UpdateMeetingModal({ meeting }: IMeeting) {
+export default function UpdateMeetingModal({ meeting, categories }: IMeeting) {
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
   const userId = useAppSelector(state => state.session.user.id)
@@ -88,6 +91,12 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
                 : null 
               }
             </List>
+            <SelectMenu 
+              name={'Category'}
+              options={categories} 
+              defaultOption={category} 
+              onChange={setCategory}
+            />
             <TextField 
               label='Email'
               defaultValue={email}
@@ -98,7 +107,7 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
               fullWidth 
               disabled
             />
-            <TextField 
+            {/* <TextField 
               label='Category'
               defaultValue={category}
               onChange={e => setCategory(e.target.value)} 
@@ -107,7 +116,7 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
               sx={{my: 1}}
               fullWidth
               required
-            />
+            /> */}
             <Button type='submit'>Update Meeting</Button>
           </Box>
         </Box>

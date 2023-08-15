@@ -177,9 +177,9 @@ function Home(){
                             <Typography variant='h5' sx={{fontWeight: 'bold', px: 2}}>
                                 Meetings
                             </Typography>
-                            <CreateMeetingModal />
+                            <CreateMeetingModal categories={allCategories}/>
                         </Box>
-                        <Meetings meetings={sessionMeetings} user={sessionUser} students={sessionStudents}/>
+                        <Meetings meetings={sessionMeetings} user={sessionUser} students={sessionStudents} categories={allCategories}/>
                     </Container>
                 </Box>
             </Box>

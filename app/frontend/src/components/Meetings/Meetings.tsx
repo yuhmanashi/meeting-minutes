@@ -19,9 +19,10 @@ type IMeetings = {
   meetings: MeetingWithStudent[];
   students: Student[];
   user: User;
+  categories: string[]
 }
 
-export default function Meetings({ meetings, user, students }: IMeetings) {
+export default function Meetings({ meetings, user, students, categories }: IMeetings) {
   const userMeetings = Object.values(meetings).filter((meeting: MeetingWithStudent) => meeting.userId === user.id);
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(0);
@@ -40,7 +41,7 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
   const meetingButtons = (meeting) => {
     return (
       [
-        <UpdateMeetingModal meeting={meeting}/>,
+        <UpdateMeetingModal meeting={meeting} categories={categories}/>,
         <DeleteMeetingButton meeting={meeting}/>
       ]
     )
