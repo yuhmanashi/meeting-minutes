@@ -24,16 +24,22 @@ const style = {
   p: 3,
 };
 
-export default function SignupModal() {
+export default function SignupModal({ setModalOpen }) {
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   
   
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
+  const handleOpen = () => {
     dispatch(sessionErrorActions.removeSessionErrors());
+    setModalOpen(true);
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    dispatch(sessionErrorActions.removeSessionErrors());
+    setModalOpen(false)
+    setOpen(false);
   };
 
   const [email, setEmail] = useState("demo@user.io");
@@ -62,11 +68,18 @@ export default function SignupModal() {
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
-            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 300}}
+            sx={{
+              display: 'flex', 
+              flexDirection: 'column', 
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              height: 310,
+              width: 1
+            }}
           >
             <List>
               { errors ? errors.map(error => 
-                <ListItem>
+                <ListItem key={error} sx={{color: 'red'}}>
                   <ListItemText primary={error} />
                 </ListItem>)
                 : null 
@@ -76,28 +89,40 @@ export default function SignupModal() {
               label='First Name'
               defaultValue={firstName}
               onChange={e => setFirstName(e.target.value)} 
-              variant='standard' 
+              variant='outlined'
+              sx={{my: 1}}
+              size='small'
+              fullWidth 
               required
             />
             <TextField 
               label='Last Name'
               defaultValue={lastName}
               onChange={e => setLastName(e.target.value)} 
-              variant='standard' 
+              variant='outlined'
+              sx={{my: 1}}
+              size='small'
+              fullWidth 
               required
             />
             <TextField 
               label='Email'
               defaultValue={email}
               onChange={e => setEmail(e.target.value)} 
-              variant='standard' 
+              variant='outlined'
+              sx={{my: 1}}
+              size='small'
+              fullWidth 
               required
             />
             <TextField 
               label='Password'
               defaultValue={password}
               type='password' 
-              variant='standard'
+              variant='outlined'
+              sx={{my: 1}}
+              size='small'
+              fullWidth
               required
             />
             <Button type='submit'>Sign Up</Button>

@@ -12,7 +12,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Modal from '@mui/material/Modal';
 
-export default function Login() {
+export default function Login({open}) {
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
   
@@ -21,6 +21,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(sessionErrorActions.removeSessionErrors());
     return dispatch(sessionActions.login({ email, password }))
   }
 
@@ -39,14 +40,16 @@ export default function Login() {
         width: 1
       }}
     >
-      <List sx={{p: 0}}>
-        { errors ? errors.map(error => 
-          <ListItem key={error} sx={{color: 'red'}}>
-            <ListItemText primary={error} />
-          </ListItem>)
-          : null
-        }
-      </List>
+      { open ? null : 
+        <List sx={{p: 0}}>
+          { errors ? errors.map(error => 
+            <ListItem key={error} sx={{color: 'red'}}>
+              <ListItemText primary={error} />
+            </ListItem>)
+            : null
+          }
+        </List>
+      }
       <TextField 
         label='Email'
         defaultValue={email}

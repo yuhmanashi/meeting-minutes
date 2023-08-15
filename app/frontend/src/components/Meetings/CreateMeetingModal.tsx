@@ -33,25 +33,36 @@ export default function CreateMeetingModal() {
   const userId = useAppSelector(state => state.session.user.id);
   const students = useAppSelector(state => state.students);
 
-  const [open, setOpen] = React.useState(false);
-  
-  
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    dispatch(sessionErrorActions.removeSessionErrors());
-  };
-  
+  const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
   const [category, setCategory] = useState("");
   const [problems, setProblems] = useState("");
   const [notes, setNotes] = useState("");
 
+  function resetState(){
+    setEmail('');
+    setCategory('');
+    setDate('');
+    setTime('');
+    setCategory('');
+    setProblems('');
+    setNotes('');
+  }
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    resetState();
+    setOpen(false);
+    dispatch(sessionErrorActions.removeSessionErrors());
+  };
+  
+
   function findStudentId(email){
-   const student = Object.values(students).filter((student: Student) => student.email === email);
-   if (student.length < 1) return null;
-   return student[0].email;
+    const student = Object.values(students).filter((student: Student) => student.email === email);
+    if (student.length < 1) return null;
+    return student[0].id;
   }
 
   const handleSubmit = (e) => {
@@ -87,7 +98,7 @@ export default function CreateMeetingModal() {
               flexDirection: 'column', 
               justifyContent: 'flex-end',
               alignItems: 'center', 
-              height: 200
+              height: 190
             }}
           >
             {/* <SelectMenu name={'students'} options={[]} onChange={() => {}}/> */}
@@ -119,6 +130,26 @@ export default function CreateMeetingModal() {
               fullWidth
               required
             />
+            {/* <TextField 
+              label="Date"
+              defaultValue={email}
+              onChange={e => setDate(e.target.value)} 
+              variant='outlined'
+              size='small'
+              sx={{my: 1}}
+              fullWidth
+              required
+            />
+            <TextField 
+              label="Date"
+              defaultValue={email}
+              onChange={e => setTime(e.target.value)}
+              variant='outlined'
+              size='small'
+              sx={{my: 1}}
+              fullWidth
+              required
+            /> */}
             {/* <TextField 
               label='Problems'
               defaultValue={problems}

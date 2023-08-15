@@ -5,6 +5,7 @@ interface Meeting {
     category: string;
     problems: string;
     notes: string;
+    date: string;
     createdAt: string;
     updatedAt: string;
 }

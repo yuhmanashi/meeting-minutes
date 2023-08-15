@@ -28,10 +28,11 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
 
   const updatedMeetings = userMeetings.map(meeting => {
     const student = students[meeting.studentId];
-    const newMeeting = { ...meeting }
+    const newMeeting = { ...meeting };
+    const date = meeting.date ? new Date(meeting.date) : new Date();
     newMeeting['studentName'] = `${student.fullName}`;
     newMeeting['studentEmail'] = student.email;
-    newMeeting['createdAt'] = new Date(meeting.createdAt).toLocaleDateString()
+    newMeeting['date'] = date.toLocaleDateString();
     return newMeeting;
   });
   
@@ -59,7 +60,7 @@ export default function Meetings({ meetings, user, students }: IMeetings) {
     },
     {
       label: 'Date',
-      id: 'createdAt'
+      id: 'date'
     }
   ];
 

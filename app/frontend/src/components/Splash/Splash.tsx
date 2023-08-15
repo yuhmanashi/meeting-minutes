@@ -16,6 +16,8 @@ import * as sessionActions from '../../store/session';
 import { useAppDispatch } from '../../utils/hooks';
 
 function Splash(){
+    const [modalOpen, setModalOpen] = useState(false); 
+
     const dispatch = useAppDispatch();
     const listItems = [
         'Store and organize meetings you have had or will have...',
@@ -146,7 +148,7 @@ function Splash(){
                             >
                                 MeetingMinutes
                             </Typography>
-                            <Login/>
+                            <Login open={modalOpen}/>
                             <Box
                                 sx={{
                                     display: 'flex',
@@ -181,7 +183,7 @@ function Splash(){
                             <Typography variant='subtitle1'>
                                 Don't have an account?
                             </Typography>
-                            <SignupModal/>
+                            <SignupModal setModalOpen={setModalOpen} />
                         </Box>
                     </Box>
                 </Box>
