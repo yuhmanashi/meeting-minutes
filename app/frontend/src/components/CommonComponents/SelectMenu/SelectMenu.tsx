@@ -33,6 +33,7 @@ export default function SelectMenu({ name, options, defaultOption, onChange }: S
           value={option}
           label={name}
           onChange={handleChange}
+          required
         >
           {options.map(option => {
             return (

@@ -98,9 +98,8 @@ export default function CreatePinModal({ authorId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (title.length === 0 || body.length === 0) return;
+    if (title.length !== 0 || body.length !== 0) handleClose();
     
-    handleClose();
     return dispatch(pinsActions.createPin({ authorId, title, body }))
   };
 
@@ -122,11 +121,17 @@ export default function CreatePinModal({ authorId }) {
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
-            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 250}}
+            sx={{
+              display: 'flex', 
+              flexDirection: 'column', 
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              minHeight: 250
+            }}
           >
-            <List>
+            <List sx={{p: 0}}>
               { errors ? errors.map(error => 
-                <ListItem key={error}>
+                <ListItem key={error} sx={{color: 'red'}}>
                   <ListItemText primary={error} />
                 </ListItem>)
                 : null 
@@ -137,7 +142,10 @@ export default function CreatePinModal({ authorId }) {
                 label='Title'
                 defaultValue={title}
                 onChange={e => setTitle(e.target.value)} 
-                variant="standard"
+                variant='outlined'
+                size='small'
+                sx={{my: 1}}
+                fullWidth
                 required
               />
               <StyledTextarea

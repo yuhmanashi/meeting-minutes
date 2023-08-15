@@ -52,7 +52,7 @@ export default function GenericTableRow(props){
                 {values.map(value => {
                     const unique = generateKey(value);
                     return (
-                        <TableCell key={unique} sx={{width: '100%'}} colSpan={6}>{row[value]}</TableCell> 
+                        <TableCell key={unique} sx={{width: '100%'}} colSpan={6}>{row[value] ? row[value] : '-'}</TableCell> 
                     )
                 })}
                 <TableCell sx={ buttons ? { display: 'block', height: {sm: 74, md: 74} } : { display: 'none' } }>

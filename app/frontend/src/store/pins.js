@@ -56,8 +56,8 @@ export const createPin = (pin) => async dispatch => {
 };
 
 export const updatePin = (pin) => async dispatch => {
-    const { authorId, title, body } = pin;
-    const response = await fetch(`/api/pins/${pin.id}`, {
+    const { authorId, title, body, id } = pin;
+    const response = await fetch(`/api/pins/${id}`, {
         method: "PATCH",
         body: JSON.stringify({
             authorId, title, body

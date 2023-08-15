@@ -127,8 +127,12 @@ function Home(){
     }
 
     const meetingsForWeek = userMeetings.filter(byWeek)
-    const allCategories = Array.from(new Set(Object.values(sessionMeetings).map((meeting: Meeting) => meeting.category)));
-    
+    const allCategories = Array.from(new Set(
+        Object.values(sessionMeetings)
+            .map((meeting: Meeting) => meeting.category)
+            .filter((category: string) => category.length > 0)
+    ))
+
     return (
         <Box>
             <Box>

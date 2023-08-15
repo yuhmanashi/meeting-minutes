@@ -234,7 +234,7 @@ function handleCategoriesCount(categories, meetings){
     }
 
     for (let meeting of meetings){
-        count[meeting.category] += 1;
+        if (meeting.category.length > 0) count[meeting.category] += 1;
     }
 
     return count;
