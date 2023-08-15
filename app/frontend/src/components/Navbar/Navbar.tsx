@@ -142,6 +142,7 @@ function Navbar() {
                 sx={{
                   display: { xs: 'block', md: 'none' },
                 }}
+                disableScrollLock={true}
               >
               </Menu>
             </Box>

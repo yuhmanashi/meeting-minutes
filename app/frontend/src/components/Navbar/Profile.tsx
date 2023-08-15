@@ -88,6 +88,7 @@ export default function Profile({user}: profileProps) {
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        disableScrollLock={true}
       >
         {/* <MenuItem onClick={handleClose}>
           <Avatar /> Profile

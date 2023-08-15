@@ -50,6 +50,7 @@ export default function LoginModal() {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        disableScrollLock={true}
       >
         <Box sx={style}>
           <Box

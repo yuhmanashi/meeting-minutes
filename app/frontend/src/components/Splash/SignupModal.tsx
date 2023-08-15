@@ -48,12 +48,13 @@ export default function SignupModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Signup</Button>
+      <Button onClick={handleOpen} size='small'>Sign up</Button>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        disableScrollLock={true}
       >
         <Box sx={style}>
           <Box

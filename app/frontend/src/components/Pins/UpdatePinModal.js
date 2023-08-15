@@ -114,6 +114,7 @@ export default function UpdatePinModal({ pin }) {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        disableScrollLock={true}
       >
         <Box sx={style}>
           <Box

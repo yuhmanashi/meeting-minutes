@@ -53,32 +53,18 @@ export default function History(){
     return (
         <Box>
             {/* Charts */}
-            <Container sx={{mt: 4}}>
-                {/* Charts go here */}
-                {/* <GenericChart obj={} callback={} color={} type={} title={} ratio={}/> */}
-                <Typography>{selected}</Typography>
+            <Container sx={{my: 4}}>
+                <Typography variant='h5' sx={{my: 3, fontWeight: 'bold'}}>{selected === 'All' ? 'All Meetings To Date' : `Meetings For This ${selected}`}</Typography>
                 <HistoryChart meetings={userMeetings} selected={selected} user={sessionUser}/>
             </Container>
             {/* Data */}
-            <Container>
-                {/* AutoComplete for toggle */}
-                {/* 
-                    Time
-                        Week
-                        Month
-                        3 Monthes?
-                        Year
-                        All
-                */}
+            <Container sx={{mt: 2}}>
                 <Container>
                     <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setSelected}/>
-                    {/* <GenericAutocomplete/> */}
                 </Container>
                 {/* Table */}
                 <Container>
                     <HistoryTable meetings={userMeetingsByDate} selected={selected}/>
-                    {/* <GenericTable list={} values={} rValues={} details={} buttons={} page={} setPage={}/> */}
-                    {/* <GenericTable/> */}
                 </Container>
             </Container>
         </Box>

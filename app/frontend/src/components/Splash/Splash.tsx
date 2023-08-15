@@ -9,6 +9,8 @@ import TextField from '@mui/material/TextField';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import Carousel from '../CommonComponents/Carousel';
 import Login from './Login';
 import * as sessionActions from '../../store/session';
 import { useAppDispatch } from '../../utils/hooks';
@@ -21,28 +23,35 @@ function Splash(){
         'Preview your monthes with the calendar feature...',
         'Data analytics with graphs and charts...',
     ]
+
     function demoLogin(e){
         e.preventDefault();
         return dispatch(sessionActions.login({email:'demo@user.io', password:'password'}))
     }
 
     return (
-        <Box sx={{ 
-            height: 4/5,
-            position: 'relative', 
-        }}>
+        <Box sx={{height: .8}}>
             <Container sx={{ 
                     display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center', 
-                    position: 'relative',
-                    mt: 4,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: 1,
                 }}>
-                <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: .9}}>
-                    <Box sx={{ m: 2, width: .5 }}>
-                        <Typography variant='h4' sx={{ fontWeight: 'bold', m: 1 }}>
-                            MeetingMinutes
-                        </Typography>
+                {/* Info */}
+                <Box sx={{
+                        display: 'flex', 
+                        justifyContent: 'space-evenly', 
+                        alignItems: 'center',
+                        width: 1,
+                    }}>
+                    <Box sx={{
+                            display: {
+                                xs: 'none', 
+                                sm: 'block'
+                            },
+                            m: 2,
+                        }}>
                         <Typography variant='h5' sx={{ typography: {/*xs: 'h6', sm: 'h5', md: 'h4'*/}, m: 1 }}>
                             Keep track of your meetings
                         </Typography>
@@ -59,19 +68,67 @@ function Splash(){
                             })}
                         </List>
                     </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-evenly', flexDirection: 'column', alignItems: 'center', p: 2, width: .4, maxWidth: 300, maxHeight: 330, border: 1 }}>
-                        <Typography sx={{ typography: {/*xs: 'body1', sm: 'h6', md: 'h5'*/} }}>
-                            Log in to continue
-                        </Typography>
-                        <Login/>
-                        <Box display={'flex'}>
+                    
+                    {/* Login */}
+                    <Box>
+                        <Box 
+                            sx={{ 
+                                display: 'flex', 
+                                justifyContent: 'center', 
+                                flexDirection: 'column', 
+                                alignItems: 'center', 
+                                px: 4,
+                                border: 1, 
+                                borderColor: 'lightgray'
+                            }}>
+                            <Typography 
+                                variant='h4'
+                                sx={{
+                                    m: 2,
+                                    pt: 4,
+                                    fontWeight: 'bold'
+                                }}
+                            >
+                                MeetingMinutes
+                            </Typography>
+                            <Login/>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    m: 1,
+                                    width: 1
+                                }}
+                            >
+                                <Divider sx={{ mt: 1 }} flexItem >OR</Divider>
+                                <Button 
+                                    onClick={demoLogin}
+                                    size='small'
+                                >
+                                    Try Demo
+                                </Button>
+                            </Box>
+                        </Box>
+                        <Box 
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                p: 2,
+                                mt: 1,
+                                border: 1,
+                                borderColor: 'lightgrey'
+                            }}
+                        >
+                            <Typography variant='subtitle1'>
+                                Don't have an account?
+                            </Typography>
                             <SignupModal/>
-                            <Button onClick={demoLogin}>
-                                Demo
-                            </Button>
                         </Box>
                     </Box>
                 </Box>
+                {/* <Carousel /> */}
             </Container>
         </Box>
     )

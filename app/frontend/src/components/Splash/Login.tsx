@@ -25,40 +25,54 @@ export default function Login() {
   }
 
   return (
-
-
-          <Box
-            component='form'
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit}
-            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 200}}
-          >
-            <List>
-              { errors ? errors.map(error => 
-                <ListItem>
-                  <ListItemText primary={error} />
-                </ListItem>)
-                : null 
-              }
-            </List>
-            <TextField 
-              label='Email'
-              defaultValue={email}
-              onChange={e => setEmail(e.target.value)} 
-              variant='standard'
-              required
-            />
-            <TextField 
-              label='Password'
-              defaultValue={password}
-              type='password' 
-              onChange={e => setPassword(e.target.value)} 
-              variant='standard'
-              required
-            />
-            <Button type='submit'>Log In</Button>
-          </Box>
-
+    <Box
+      component='form'
+      noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit}
+      sx={{
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'space-between', 
+        height: 175,
+        width: 1
+      }}
+    >
+      <List>
+        { errors ? errors.map(error => 
+          <ListItem>
+            <ListItemText primary={error} />
+          </ListItem>)
+          : null 
+        }
+      </List>
+      <TextField 
+        label='Email'
+        defaultValue={email}
+        onChange={e => setEmail(e.target.value)} 
+        variant='outlined'
+        size='small'
+        fullWidth
+        required
+      />
+      <TextField 
+        label='Password'
+        defaultValue={password}
+        type='password' 
+        onChange={e => setPassword(e.target.value)} 
+        variant='outlined'
+        size='small'
+        fullWidth
+        required
+      />
+      <Button 
+        type='submit' 
+        variant='contained'
+        size='small'
+        fullWidth
+      >
+        Log In
+      </Button>
+    </Box>
   );
 }

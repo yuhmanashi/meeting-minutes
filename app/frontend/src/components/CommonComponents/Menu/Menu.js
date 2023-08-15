@@ -39,6 +39,7 @@ export default function GenericMenu({props}) {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
+        disableScrollLock={true}
       >
         {props.map((prop, index) => {
           const unique = generateKey(index);
