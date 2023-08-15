@@ -30,7 +30,9 @@ const style = {
 export default function CreateMeetingModal() {
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
-  const userId = useAppSelector(state => state.session.user.id)
+  const userId = useAppSelector(state => state.session.user.id);
+  const students = useAppSelector(state => state.students);
+
   const [open, setOpen] = React.useState(false);
   
   
@@ -46,13 +48,20 @@ export default function CreateMeetingModal() {
   const [problems, setProblems] = useState("");
   const [notes, setNotes] = useState("");
 
+  function findStudentId(email){
+   const student = Object.values(students).filter((student: Student) => student.email === email);
+   if (student.length < 1) return null;
+   return student[0].email;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (email.match(emailFormat)){
+    const studentId = findStudentId(email)
+    if (email.match(emailFormat) && studentId){
       handleClose();
     }
-    return dispatch(meetingActions.createMeeting({ userId, email, name, category, problems, notes }))
+    return dispatch(meetingActions.createMeeting({ userId, studentId, category, problems, notes }))
   };
 
   return (
@@ -73,36 +82,41 @@ export default function CreateMeetingModal() {
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
-            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 250}}
+            sx={{
+              display: 'flex', 
+              flexDirection: 'column', 
+              justifyContent: 'flex-end',
+              alignItems: 'center', 
+              height: 200
+            }}
           >
             {/* <SelectMenu name={'students'} options={[]} onChange={() => {}}/> */}
-            <List>
+            <List sx={{p: 0}}>
               { errors ? errors.map(error => 
-                <ListItem>
+                <ListItem key={error} sx={{color: 'red'}}>
                   <ListItemText primary={error} />
                 </ListItem>)
                 : null 
               }
             </List>
             <TextField 
-              label='Email'
+              label="Student's Email"
               defaultValue={email}
               onChange={e => setEmail(e.target.value)} 
-              variant='standard'
-              required
-            />
-            <TextField 
-              label='Name'
-              defaultValue={name}
-              onChange={e => setName(e.target.value)} 
-              variant='standard'
+              variant='outlined'
+              size='small'
+              sx={{my: 1}}
+              fullWidth
               required
             />
             <TextField 
               label='Category'
               defaultValue={category}
               onChange={e => setCategory(e.target.value)} 
-              variant='standard'
+              variant='outlined'
+              size='small'
+              sx={{my: 1}}
+              fullWidth
               required
             />
             {/* <TextField 

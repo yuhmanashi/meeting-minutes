@@ -48,7 +48,7 @@ export default function SignupModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen} size='small'>Sign up</Button>
+      <Button onClick={handleOpen} size='small' sx={{p: 0}}>Sign up</Button>
       <Modal
         open={open}
         onClose={handleClose}

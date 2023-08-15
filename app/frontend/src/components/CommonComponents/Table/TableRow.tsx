@@ -51,7 +51,6 @@ export default function GenericTableRow(props){
             <TableRow>
                 {values.map(value => {
                     const unique = generateKey(value);
-                    console.log(unique)
                     return (
                         <TableCell key={unique} sx={{width: '100%'}} colSpan={6}>{row[value]}</TableCell> 
                     )

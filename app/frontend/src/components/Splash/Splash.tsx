@@ -87,9 +87,17 @@ function Splash(){
                         </Typography> */}
                         <Typography variant='body1'>
                             Currently designed for my company and team for meeting management purposes.
+                        </Typography>
+                        <Typography variant='body1'>
                             Store and organize meetings where is easily accessable.
+                        </Typography>
+                        <Typography variant='body1'>
                             View meetings with tables, calendars, and more.
+                        </Typography>
+                        <Typography variant='body1'>
                             Visualize statistics with charts and graphs.
+                        </Typography>
+                        <Typography variant='body1'>
                             More features and practical applications to come...
                         </Typography>
                         {/* <List>
@@ -126,14 +134,15 @@ function Splash(){
                                 px: 4,
                                 border: 1, 
                                 borderColor: 'lightgray'
-                            }}>
+                            }}
+                        >
                             <Typography 
                                 variant='h4'
                                 sx={{
-                                    m: 2,
+                                    m: 1,
                                     pt: 3,
-                                    fontWeight: 'bold'
                                 }}
+                                fontFamily="'Bricolage Grotesque', sans-serif"
                             >
                                 MeetingMinutes
                             </Typography>

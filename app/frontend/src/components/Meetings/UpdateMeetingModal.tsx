@@ -72,11 +72,17 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
-            sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 300}}
+            sx={{
+              display: 'flex', 
+              flexDirection: 'column', 
+              justifyContent: 'flex-end',
+              alignItems: 'center', 
+              height: 200
+            }}
           >
             <List>
               { errors ? errors.map(error => 
-                <ListItem key={error}>
+                <ListItem key={error} sx={{color: 'red'}}>
                   <ListItemText primary={error} />
                 </ListItem>)
                 : null 
@@ -86,21 +92,20 @@ export default function UpdateMeetingModal({ meeting }: IMeeting) {
               label='Email'
               defaultValue={email}
               onChange={e => setEmail(e.target.value)} 
-              variant='standard' 
-              disabled
-            />
-            <TextField 
-              label='Name'
-              defaultValue={name}
-              onChange={e => setName(e.target.value)} 
-              variant='standard' 
+              variant='outlined'
+              size='small'
+              sx={{my: 1}}
+              fullWidth 
               disabled
             />
             <TextField 
               label='Category'
               defaultValue={category}
               onChange={e => setCategory(e.target.value)} 
-              variant='standard' 
+              variant='outlined'
+              size='small'
+              sx={{my: 1}}
+              fullWidth
               required
             />
             <Button type='submit'>Update Meeting</Button>

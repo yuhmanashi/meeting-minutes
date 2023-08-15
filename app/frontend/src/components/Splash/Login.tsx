@@ -41,10 +41,10 @@ export default function Login() {
     >
       <List sx={{p: 0}}>
         { errors ? errors.map(error => 
-          <ListItem sx={{color: 'red'}}>
+          <ListItem key={error} sx={{color: 'red'}}>
             <ListItemText primary={error} />
           </ListItem>)
-          : null 
+          : null
         }
       </List>
       <TextField 

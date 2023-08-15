@@ -42,11 +42,11 @@ export const fetchMeeting = (id) => async dispatch => {
 };
 
 export const createMeeting = (meeting) => async dispatch => {
-    const { userId, category, name, problems, notes, email } = meeting;
+    const { userId, studentId, category, problems, notes } = meeting;
     const response = await fetch("/api/meetings", {
         method: "POST",
         body: JSON.stringify({
-            userId, category, name, problems, notes, email
+            userId, studentId, category, problems, notes
         }),
         headers: Util.headers()
     })
