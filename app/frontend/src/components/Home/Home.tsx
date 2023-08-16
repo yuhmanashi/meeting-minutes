@@ -135,7 +135,7 @@ function Home(){
 
     return (
         <Box>
-            <Box>
+            <Box sx={{mt: 11}}>
                 <Typography variant='h4' sx={{ m: 3, fontWeight: 'bold' }}>
                     Dashboard
                 </Typography>
@@ -166,7 +166,7 @@ function Home(){
                     {/* <Container sx={{ maxWidth: {xs: 600, md: 330, lg: 400}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, m: 2 }}> */}
                     <Container sx={{maxWidth: {md: .35}}}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                            <Typography variant='h5' sx={{fontWeight: 'bold', px: 2}}>
+                            <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
                                 Pinboard
                             </Typography>
                             <CreatePinModal authorId={sessionUser.id}/>
@@ -178,7 +178,7 @@ function Home(){
                     {/* <Container sx={{ maxWidth: {xs: 600, md: 700, lg: 800}, minWidth: {xs: 320, md: 570}, p: {xs: 0}, m: 2 }}> */}
                     <Container sx={{my: {sm: 2, md: 0}}}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                            <Typography variant='h5' sx={{fontWeight: 'bold', px: 2}}>
+                            <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
                                 Meetings
                             </Typography>
                             <CreateMeetingModal categories={allCategories}/>

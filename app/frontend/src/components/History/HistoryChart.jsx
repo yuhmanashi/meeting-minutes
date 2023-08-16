@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import LineChart from '../CommonComponents/Chart/Charts/LineChart';
 
 function toDate(date) {
+    if (!date) return new Date();
     return new Date(date);
 }
 
@@ -204,7 +205,7 @@ function createData(obj){
     return ({
         labels: Object.keys(obj),
         datasets: [{
-            label: '#meetings',
+            label: '# meetings',
             data: Object.values(obj),
             borderColor: "black",
             tension: .1
@@ -218,8 +219,8 @@ function getMax(count){
 }
 
 export default function HistoryChart({meetings, selected, user, selectedDay = null}){
-    const sortedDates = meetings.map(meeting => meeting.date).sort(sortDate);
-    const [count, setCount] = useState(handleCount(sortedDates, selected, user, selectedDay))
+    const dates = meetings.map(meeting => meeting.date);
+    const [count, setCount] = useState(handleCount(dates, selected, user, selectedDay))
     const [data, setData] = useState(createData(count));
     const [max, setMax] = useState(getMax(count));
 
@@ -232,7 +233,7 @@ export default function HistoryChart({meetings, selected, user, selectedDay = nu
           case 'Year':
             return createYearCount(filterDates(dates, byThisYear))
           case 'All':
-            return createAllCount(dates.map(toDate), user)
+            return createAllCount(dates.map(toDate).sort(sortDate), user)
           default: 
             return createThisWeekCount(filterDates(dates, byThisWeek), selectedDay)
         }
@@ -259,7 +260,7 @@ export default function HistoryChart({meetings, selected, user, selectedDay = nu
     }
 
     useEffect(() => {
-        let currCount = handleCount(sortedDates)
+        let currCount = handleCount(dates)
         setCount(currCount);
         setData(createData(currCount));
         setMax(getMax(currCount));

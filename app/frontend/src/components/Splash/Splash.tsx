@@ -48,6 +48,7 @@ function Splash(){
                     }}>
                     <Box sx={{
                             display: {
+                                xs: 'none',
                                 sm: 'none', 
                                 md: 'block'
                             },

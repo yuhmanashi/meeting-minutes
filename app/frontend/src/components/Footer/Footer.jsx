@@ -19,27 +19,34 @@ export default function Footer(){
                     display: 'flex', 
                     justifyContent: 'space-between', 
                     alignItems: 'center',
-                    p: 3
+                    minHeight: 40,
+                    p: 4,
                 }}
             >
-                <Box sx={{ display: 'flex' }}>
-                    <Link underline='none'>
-                        <IconButton 
-                            sx={{p: 0}}
-                            onClick={() => {}}
+                <Box sx={{ display: {xs:'block', sm: 'flex'} }}>
+                    <Box sx={{ display: 'flex' }}>
+                        <Link
+                            href='https://github.com/yuhmanashi/meeting-minutes' 
+                            underline='none' 
+                            target="_blank" 
+                            rel="noopener"
                         >
-                            <AccessTimeFilledIcon fontSize='large'/>
-                        </IconButton>
-                    </Link>
-                    <Typography 
-                        variant='h6'
-                        fontFamily="'Bricolage Grotesque', sans-serif"
-                        sx={{
-                            mx: 1
-                        }}
-                    >
-                        MeetingMinutes
-                    </Typography>
+                            <IconButton 
+                                sx={{p: 0}}
+                            >
+                                <AccessTimeFilledIcon fontSize='large'/>
+                            </IconButton>
+                        </Link>
+                        <Typography 
+                            variant='h6'
+                            fontFamily="'Bricolage Grotesque', sans-serif"
+                            sx={{
+                                mx: 1
+                            }}
+                        >
+                            MeetingMinutes
+                        </Typography>
+                    </Box>
                     <Typography
                         variant='caption'
                         color='grey'
@@ -52,15 +59,36 @@ export default function Footer(){
                 </Box>
 
                 <Box sx={{display: 'flex'}}>
-                    <IconButton>
-                        <PersonIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <GitHubIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <LinkedInIcon/>
-                    </IconButton>
+                    <Link
+                        href='https://yaozxu.com' 
+                        underline='none' 
+                        target="_blank" 
+                        rel="noopener"
+                    >
+                        <IconButton>
+                            <PersonIcon/>
+                        </IconButton>
+                    </Link>
+                    <Link
+                        href='https://github.com/yuhmanashi' 
+                        underline='none' 
+                        target="_blank" 
+                        rel="noopener"
+                    >
+                        <IconButton>
+                            <GitHubIcon/>
+                        </IconButton>
+                    </Link>
+                    <Link
+                        href='https://linkedin.com/in/yaoxu03' 
+                        underline='none' 
+                        target="_blank" 
+                        rel="noopener"
+                    >
+                        <IconButton>
+                            <LinkedInIcon/>
+                        </IconButton>
+                    </Link>
                 </Box>
             </Container>
         </Box>

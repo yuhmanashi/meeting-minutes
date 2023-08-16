@@ -53,12 +53,12 @@ export default function History(){
     return (
         <Box>
             {/* Charts */}
-            <Container sx={{my: 4}}>
+            <Container sx={{mt: 10}}>
                 <Typography variant='h5' sx={{my: 3, fontWeight: 'bold'}}>{selected === 'All' ? 'All Meetings To Date' : `Meetings For This ${selected}`}</Typography>
                 <HistoryChart meetings={userMeetings} selected={selected} user={sessionUser}/>
             </Container>
             {/* Data */}
-            <Container sx={{mt: 2}}>
+            <Container sx={{my: 2}}>
                 <Container>
                     <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setSelected}/>
                 </Container>
