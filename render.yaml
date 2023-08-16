@@ -1,6 +1,5 @@
 databases:
   - name: MeetingMinutes
-    databaseName: MeetingMinutes
     user: MeetingMinutes
     plan: free
     region: oregon
