@@ -127,11 +127,18 @@ function Home(){
     }
 
     const meetingsForWeek = userMeetings.filter(byWeek)
-    const allCategories = Array.from(new Set(
-        Object.values(sessionMeetings)
-            .map((meeting: Meeting) => meeting.category)
-            .filter((category: string) => category.length > 0)
-    ))
+    // const allCategories = Array.from(new Set(
+    //     Object.values(sessionMeetings)
+    //         .map((meeting: Meeting) => meeting.category)
+    //         .filter((category: string) => category.length > 0)
+    // ))
+    const allCategories = [
+        'DS&A',
+        'Systems Design',
+        'Tech Trivia',
+        'Practical Skill',
+        'Other'
+    ]
 
     return (
         <Box>
@@ -144,7 +151,7 @@ function Home(){
                     <Calendar meetings={userMeetings} user={sessionUser} students={sessionStudents} setSelected={setSelectedDay}/>
                     {/* Chart */}
                     <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35}}>
-                        <Typography sx={{fontWeight: 'bold', alignSelf: 'center', p: 1, width: 280}}>
+                        <Typography sx={{fontWeight: 'bold', alignSelf: 'center', p: 1, width: 300}}>
                             {getDates()}
                         </Typography>
                         <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1}}>

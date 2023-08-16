@@ -7,6 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 #Destroy all tables without seeding
+
 # ApplicationRecord.transaction do
 #    puts "Destroying tables..."
 #    # Unnecessary if using `rails db:seed:replant`
@@ -66,10 +67,6 @@ ApplicationRecord.transaction do
     }
 
     puts "Creating categories..."
-    categories = []
-    10.times do
-      categories.push(Faker::Creature::Animal.name)
-    end
 
     puts "Creating first user..."
     # Create one user with an easy to remember username, email, and password:
@@ -114,8 +111,8 @@ ApplicationRecord.transaction do
     end
 
     firstUser.pins.create!(
-      title: 'first',
-      body: 'body body body'
+      title: 'first pin',
+      body: 'Wow these pins are so cool!'
     )
 
     puts "Creating more users..."

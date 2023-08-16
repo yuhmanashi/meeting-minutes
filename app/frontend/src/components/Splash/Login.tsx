@@ -16,8 +16,8 @@ export default function Login({open}) {
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
   
-  const [email, setEmail] = useState('demo3@user.io');
-  const [password, setPassword] = useState('password');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();

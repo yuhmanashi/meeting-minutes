@@ -42,10 +42,10 @@ export default function SignupModal({ setModalOpen }) {
     setOpen(false);
   };
 
-  const [email, setEmail] = useState("demo@user.io");
-  const [firstName, setFirstName] = useState("Demo");
-  const [lastName, setLastName] = useState("User");
-  const [password, setPassword] = useState("password");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -118,6 +118,7 @@ export default function SignupModal({ setModalOpen }) {
             <TextField 
               label='Password'
               defaultValue={password}
+              onChange={e => setPassword(e.target.value)} 
               type='password' 
               variant='outlined'
               sx={{my: 1}}
