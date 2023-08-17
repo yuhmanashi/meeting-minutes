@@ -46,8 +46,8 @@ function byThisMonth(meeting){
 
 /* This Year */
 function byThisYear(meeting){
-    const currentYear = new Date().getYear();
-    return new Date(meeting.date).getYear() === currentYear
+    const currentYear = new Date().getFullYear();
+    return new Date(meeting.date).getFullYear() === currentYear
 }
 
 function handleMeetings(meetings, selected){

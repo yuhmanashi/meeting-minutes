@@ -126,14 +126,14 @@ function Home(){
                 </Typography>
                 {/* Calendar */}
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', alignItems: "center", m: 2,  }}>
-                    <Calendar meetings={userMeetings} user={sessionUser} students={sessionStudents} setSelected={setSelectedDay}/>
+                    <Calendar meetings={userMeetings} students={sessionStudents} setSelected={setSelectedDay}/>
                     {/* Chart */}
                     <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35}}>
                         <Typography sx={{fontWeight: 'bold', alignSelf: 'center', p: 1, width: 300}}>
                             {getDates()}
                         </Typography>
                         <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1}}>
-                            <CategoriesChart categories={allCategories} meetings={meetingsForWeek} selected={'Week'} user={sessionUser} selectedDay={selectedDay} />
+                            <CategoriesChart categories={allCategories} meetings={meetingsForWeek} selected={'Week'} />
                         </Box>
                     </Box>
                 </Box>

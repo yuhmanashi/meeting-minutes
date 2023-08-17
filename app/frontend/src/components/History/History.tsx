@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 import Box from '@mui/material/Box';
@@ -16,7 +15,6 @@ import HistoryTable from './HistoryTable';
 
 export default function History(){
     const sessionUser = useAppSelector(state => state.session.user);
-    const sessionMeetings = useAppSelector((state) => state.meetings);
     const sessionStudents = useAppSelector((state) => state.students);
 
     const [selected, setSelected] = useState('Week');
@@ -24,20 +22,14 @@ export default function History(){
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(meetingActions.fetchMeetings());
         dispatch(studentActions.fetchStudents());
     }, [dispatch])
 
-    if (Object.keys(sessionMeetings).length < 1 || Object.keys(sessionStudents).length < 1) return null;
+    if (Object.keys(sessionStudents).length < 1) return null;
 
-    function userFilter(obj){
-        const userId = sessionUser.id
-        return Object.values(obj).filter(value => value.userId === userId)
-    }
+    const userMeetings = Object.values(sessionUser.meetings);
 
-    const userMeetings = userFilter(sessionMeetings);
-
-    const updatedMeetings = userMeetings.map(meeting => {
+    const updatedMeetings = userMeetings.map((meeting: Meeting) => {
         const student = sessionStudents[meeting.studentId];
         const newMeeting = { ...meeting }
         newMeeting['studentName'] = `${student.fullName}`;

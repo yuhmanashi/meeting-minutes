@@ -29,7 +29,6 @@ interface User {
     firstName: string;
     id: number;
     lastName: string;
-    // meetings: Record<number, Meeting>
 }
 
 interface Student {
@@ -39,7 +38,6 @@ interface Student {
     lastName: string;
     coach: string;
     fullName: string;
-    // meetings: Record<number, Meeting>
 }
 
 type Students = Student[];

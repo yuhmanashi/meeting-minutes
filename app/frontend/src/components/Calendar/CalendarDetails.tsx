@@ -48,19 +48,7 @@ export default function CalendarDetails({date, meetings, students}){
                             <List sx={{py: 0}}>
                                 {dateMeetings.map(meeting =>
                                     <React.Fragment key={`${meeting.id}`}>
-                                        
                                         <ListItem sx={{ py: 0}}>
-                                            {/* <ListItemText
-                                                primary={meeting.studentName}
-                                                secondary={
-                                                    <React.Fragment>
-                                                        <Typography component='span'>
-                                                            {meeting.category}
-                                                        </Typography>
-                                                        {timeString(meeting.date)}
-                                                    </React.Fragment>
-                                                }
-                                            /> */}
                                             <ListItemText
                                                 primary={meeting.studentName}
                                                 secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
