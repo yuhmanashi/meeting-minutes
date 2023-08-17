@@ -1,10 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { useSelector } from 'react-redux';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 
 import dayjs from "dayjs";
 import { styled } from "@mui/material/styles";
@@ -13,9 +9,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-
-import * as meetingActions from '../../store/meetings';
-import * as studentActions from '../../store/students';
 
 import CalendarDetails from './CalendarDetails';
 
@@ -26,7 +19,7 @@ const HighlightedDay = styled(PickersDay)(({ theme }) => ({
   },
 }));
 
-const ServerDay = (props) => {
+const ServerDay = (props: any) => {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
   
   const formattedDay = day.format("M/D/YYYY")
@@ -45,7 +38,7 @@ const ServerDay = (props) => {
   );
 };
 
-export default function Calendar({meetings, user, students, setSelected}) {
+export default function Calendar({meetings, students, setSelected}) {
   const [value, setValue] = useState(dayjs());
   const [highlightedDays, setHighlitedDays] = useState(handleDates(meetings));
 
@@ -79,7 +72,7 @@ export default function Calendar({meetings, user, students, setSelected}) {
           slotProps={{
             day: {
               highlightedDays,
-            },
+            } as any,
           }}
           sx={{width: 320}}
         />

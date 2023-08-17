@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import BarChart from '../CommonComponents/Chart/Charts/BarChart';
+import LineChart from '../CommonComponents/Chart/Charts/LineChart';
 
 function toDate(date) {
+    if (!date) return new Date();
     return new Date(date);
 }
 
@@ -30,8 +31,8 @@ function byThisMonth(date){
 }
 /* This Year */
 function byThisYear(date){
-    const currentYear = new Date().getYear();
-    return date.getYear() === currentYear
+    const currentYear = new Date().getFullYear();
+    return date.getFullYear() === currentYear
 }
 /* This Week */
 const days = {
@@ -167,10 +168,10 @@ function createYearCount(dates){
 
 function createAllCount(dates, user){
     const startDate = new Date(user.createdAt)
-    const startYr = startDate.getYear() - 100;
+    const startYr = startDate.getFullYear();
     const startMo = startDate.getMonth();
     const endDate = new Date(dates[dates.length - 1]);
-    const endYr = endDate.getYear() - 100;
+    const endYr = endDate.getFullYear();
     const endMo = endDate.getMonth() + 1;
 
     const count = {}
@@ -191,7 +192,7 @@ function createAllCount(dates, user){
     const filtered = dates.map(date => new Date(date))
     for (let data of filtered){
         const mo = data.getMonth();
-        const yr = data.getYear() - 100;
+        const yr = data.getFullYear();
         const date = `${mo + 1}-${yr}`;
         count[date] += 1;
     }
@@ -204,80 +205,36 @@ function createData(obj){
     return ({
         labels: Object.keys(obj),
         datasets: [{
-            label: '#meetings',
+            label: '# meetings',
             data: Object.values(obj),
-            backgroundColor: [
-                '#F8B195', 
-                '#F67280', 
-                '#CO6C84', 
-                '#6C5B7B', 
-                '#355C7D', 
-                '#A8E6CE', 
-                '#DCEDC2', 
-                '#FFD3B5', 
-                '#FFAAA6', 
-                '#FF8C94' 
-            ]
+            borderColor: "black",
+            tension: .1
         }]
     })
 }
 
 function getMax(count){
-    let max = Math.ceil(Math.max(...Object.values(count)) * 1.5)
+    const values: number[] = Object.values(count)
+    let max = Math.ceil(Math.max(...values) * 1.5)
     return max % 2 === 0 ? max : max + 1;
 }
 
-function handleCategoriesCount(categories, meetings){
-    const count = {};
-    for (let category of categories){
-        count[category] = 0;
-    }
-
-    for (let meeting of meetings){
-        if (meeting.category.length > 0) count[meeting.category] += 1;
-    }
-
-    return count;
-}
-
-function createCategoriesData(obj){
-    return ({
-        labels: Object.keys(obj),
-        datasets: [{
-            label: '#meetings',
-            data: Object.values(obj),
-            backgroundColor: [
-                '#F8B195', 
-                '#F67280', 
-                '#CO6C84', 
-                '#6C5B7B', 
-                '#355C7D', 
-                '#A8E6CE', 
-                '#DCEDC2', 
-                '#FFD3B5', 
-                '#FFAAA6', 
-                '#FF8C94' 
-            ]
-        }]
-    })
-}
-
-export default function CategoriesChart({ categories, meetings, selected, user, selectedDay = null}){
-    const sortedDates = meetings.map(meeting => meeting.date).sort(sortDate);
-    const [count, setCount] = useState(handleCategoriesCount(categories, meetings))
-    const [data, setData] = useState(createCategoriesData(count));
+export default function HistoryChart({meetings, selected, user, selectedDay = null}){
+    const dates = meetings.map(meeting => meeting.date);
+    const [count, setCount] = useState(handleCount(dates))
+    const [data, setData] = useState(createData(count));
     const [max, setMax] = useState(getMax(count));
 
     function handleCount(dates){
         switch(selected) {
           case 'Week':
-            return createCategoriesCount(filterDates(dates, byThisWeek), selectedDay)
+            return createThisWeekCount(filterDates(dates, byThisWeek), selectedDay)
           case 'Month':
             return createMonthCount(filterDates(dates, byThisMonth))
           case 'Year':
             return createYearCount(filterDates(dates, byThisYear))
           case 'All':
-            return createAllCount(dates.map(toDate), user)
+            return createAllCount(dates.map(toDate).sort(sortDate), user)
           default: 
             return createThisWeekCount(filterDates(dates, byThisWeek), selectedDay)
         }
@@ -304,13 +261,13 @@ export default function CategoriesChart({ categories, meetings, selected, user, 
     }
 
     useEffect(() => {
-        let currCount = handleCategoriesCount(categories, meetings)
+        let currCount = handleCount(dates)
         setCount(currCount);
-        setData(createCategoriesData(currCount));
+        setData(createData(currCount));
         setMax(getMax(currCount));
     }, [meetings, selected]);
 
     return (
-        <BarChart chartData={data} max={max}/>
+        <LineChart chartData={data} title={''} max={max}/>
     )
 }

@@ -20,8 +20,8 @@ export default function LineChart({ chartData, title, max }) {
           y: {
             max: max <= 10 ? max += 1 : max,
             ticks: {
-              beginAtZero: true,
-              callback: function(value) {
+              
+              callback: function(value: number) {
                 if (value % 1 === 0) return value;
               }
             }
