@@ -1,5 +1,4 @@
 # MeetingMinutes
-![logo](https://creazilla-store.fra1.digitaloceanspaces.com/icons/3430540/clock-icon-md.png)
 
 MeetingMeetings is an application designed for my team and I to better manage, organize, and view our meetings. As meetings are the key focus, users can create, update, and delete meetings. The meetings can then be viewed in ways such as a table, a calendar, and more. There are also graphs and charts available for data analytic purposes, such as the frequency of meetings or the frequency of meeting categories.
 
@@ -39,15 +38,15 @@ The following technologies were used for this project:
 * Ruby on Rails: Backend
 * React, Redux: Frontend
 * PostgreSQL: Database
-* MUI: Styling
+* Material UI: Styling
 * Chart.js: Charts
-* React on Rails, Webpack, Babel: Bundling and transpiling javascript code
+* Webpack, Babel, React on Rails: Bundling and transpiling javascript code
 * Node.js: Managing project dependencies
 
 ## Future
 
 -------------------------------------------------------------
 
-* Dragging?
 * More customization (charts, categories, etc)
 * More practical applications
+* Draggable components (pins)

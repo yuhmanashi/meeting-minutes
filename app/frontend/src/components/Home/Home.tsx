@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import './Home.css';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 import Box from '@mui/material/Box';
@@ -9,10 +7,7 @@ import Typography from '@mui/material/Typography';
 
 import Meetings from '../Meetings/Meetings';
 
-import * as meetingActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
-import * as pinActions from '../../store/pins';
-import * as watchlistActions from '../../store/watchlists';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 import CreatePinModal from '../Pins/CreatePinModal';
@@ -24,30 +19,18 @@ function Home(){
     const [selectedDay, setSelectedDay] = useState(null);
 
     const sessionUser = useAppSelector(state => state.session.user);
-    const sessionMeetings = useAppSelector((state) => state.meetings);
     const sessionStudents = useAppSelector((state) => state.students);
-    const sessionWatchlists = useAppSelector(state => state.watchlists);
-    const sessionPins = useAppSelector(state => state.pins);
+    const userMeetings: Meeting[] = Object.values(sessionUser.meetings);
+    const userPins: Pin[] = Object.values(sessionUser.pins);
+
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(meetingActions.fetchMeetings());
         dispatch(studentActions.fetchStudents());
-        dispatch(watchlistActions.fetchWatchlists());
-        dispatch(pinActions.fetchPins());
     }, [dispatch])
 
-    if (Object.keys(sessionMeetings).length < 1 || Object.keys(sessionStudents).length < 1 || Object.keys(sessionWatchlists).length < 1) return null;
+    if (Object.keys(sessionStudents).length < 1) return null;
 
-    //data for graph
-    function userFilter(obj){
-        const userId = sessionUser.id
-        return Object.values(obj).filter((value: any) => value.userId === userId)
-    }
-
-    const userMeetings = userFilter(sessionMeetings);
-    const userPins = Object.values(sessionPins).filter((pin: Pin) => pin.authorId === sessionUser.id);
-    
     function byWeek(meeting){
         const days = {
             0: 31,
@@ -127,11 +110,6 @@ function Home(){
     }
 
     const meetingsForWeek = userMeetings.filter(byWeek)
-    // const allCategories = Array.from(new Set(
-    //     Object.values(sessionMeetings)
-    //         .map((meeting: Meeting) => meeting.category)
-    //         .filter((category: string) => category.length > 0)
-    // ))
     const allCategories = [
         'DS&A',
         'Systems Design',
@@ -160,17 +138,6 @@ function Home(){
                     </Box>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', m: 2 }}>
-                    {/* Watchlist */}
-                    {/* <Container sx={{ maxWidth: {xs: 600, md: 330}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, my: 2 }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                            <Typography sx={{typography: 'h5', px: 2}}>
-                                Watchlists
-                            </Typography>
-                            <CreateWatchlistModal watchlists={userWatchlists} students={sessionStudents} />
-                        </Box>
-                        <Watchlists watchlists={userWatchlists} students={sessionStudents}/>
-                    </Container> */}
-                    {/* <Container sx={{ maxWidth: {xs: 600, md: 330, lg: 400}, minWidth: {xs: 320, md: 280, lg: 340}, minHeight: {xs: 380}, maxHeight: {xs: 320, md: 490}, p: {xs: 0}, m: 2 }}> */}
                     <Container sx={{maxWidth: {md: .35}}}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
@@ -182,7 +149,6 @@ function Home(){
                     </Container>
 
                     {/* Meetings */}
-                    {/* <Container sx={{ maxWidth: {xs: 600, md: 700, lg: 800}, minWidth: {xs: 320, md: 570}, p: {xs: 0}, m: 2 }}> */}
                     <Container sx={{my: {sm: 2, md: 0}}}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
@@ -190,7 +156,7 @@ function Home(){
                             </Typography>
                             <CreateMeetingModal categories={allCategories}/>
                         </Box>
-                        <Meetings meetings={sessionMeetings} user={sessionUser} students={sessionStudents} categories={allCategories}/>
+                        <Meetings meetings={userMeetings} students={sessionStudents} categories={allCategories}/>
                     </Container>
                 </Box>
             </Box>

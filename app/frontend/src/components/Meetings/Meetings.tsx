@@ -16,18 +16,15 @@ import * as meetingsActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
 
 type IMeetings = {
-  meetings: MeetingWithStudent[];
+  meetings: Meeting[];
   students: Student[];
-  user: User;
-  categories: string[]
+  categories: string[];
 }
 
-export default function Meetings({ meetings, user, students, categories }: IMeetings) {
-  const userMeetings = Object.values(meetings).filter((meeting: MeetingWithStudent) => meeting.userId === user.id);
-  const dispatch = useAppDispatch();
+export default function Meetings({ meetings, students, categories }: IMeetings) {
   const [page, setPage] = useState(0);
 
-  const updatedMeetings = userMeetings.map(meeting => {
+  const updatedMeetings = meetings.map(meeting => {
     const student = students[meeting.studentId];
     const newMeeting = { ...meeting };
 

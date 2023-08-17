@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Profile from './Profile';
-import './Navbar.css'
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
