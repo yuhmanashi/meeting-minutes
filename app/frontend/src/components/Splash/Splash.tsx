@@ -32,12 +32,11 @@ function Splash(){
     }
 
     return (
-        <Box sx={{mt: 8, height: .8}}>
+        <Box sx={{my: 14}}>
             <Container sx={{ 
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    height: 1,
                 }}>
                 {/* Info */}
                 <Box sx={{
