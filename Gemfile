@@ -42,11 +42,12 @@ gem "bootsnap", require: false
 gem "react_on_rails", "= 13.3"
 gem "shakapacker", "= 6.6"
 gem 'foreman', '~> 0.87.2'
+gem 'faker'
+gem 'pry-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
-  gem 'faker'
 end
 
 group :development do
@@ -59,7 +60,6 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   gem 'annotate'
-  gem 'pry-rails'
   gem 'better_errors', '!= 2.10.0'
   gem 'binding_of_caller'
 end
