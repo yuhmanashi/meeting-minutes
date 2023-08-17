@@ -26,6 +26,8 @@
 #    puts "Done!"
 # end
 
+require 'faker'
+
 ApplicationRecord.transaction do 
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
