@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { logger } from 'redux-logger';
 import { sessionReducer } from './session';
 import { sessionErrorReducer } from './session_errors';
 import meetingsReducer from './meetings';
@@ -16,9 +15,16 @@ const rootReducer = {
     pins: pinsReducer,
 };
 
+const middlewares = []
+
+if (process.env.NODE_ENV !== "production") {
+    const { logger } = require("redux-logger");
+    middlewares.push(logger);
+}
+
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middlewares),
     devTools: process.env.NODE_ENV === 'production'
 })
 

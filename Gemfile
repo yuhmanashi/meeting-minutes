@@ -41,6 +41,7 @@ gem "bootsnap", require: false
 
 gem "react_on_rails", "= 13.3"
 gem "shakapacker", "= 6.6"
+gem 'foreman', '~> 0.87.2'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
