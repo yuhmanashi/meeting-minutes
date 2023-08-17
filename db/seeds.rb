@@ -69,6 +69,13 @@ ApplicationRecord.transaction do
     }
 
     puts "Creating categories..."
+    categories = [
+      'DS&A',
+      'Systems Design',
+      'Tech Trivia',
+      'Practical Skill',
+      'Other'
+    ]
 
     puts "Creating first user..."
     # Create one user with an easy to remember username, email, and password:
