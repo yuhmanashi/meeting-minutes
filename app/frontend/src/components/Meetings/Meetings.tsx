@@ -9,11 +9,9 @@ import Box from '@mui/material/Box';
 //Components
 import GenericTable from '../CommonComponents/Table';
 import UpdateMeetingModal from './UpdateMeetingModal';
-import DeleteMeetingButton from './DeleteMeetingButton';
 
 //Misc
 import * as meetingsActions from '../../store/meetings';
-import * as studentActions from '../../store/students';
 
 type IMeetings = {
   meetings: Meeting[];
@@ -35,11 +33,17 @@ export default function Meetings({ meetings, students, categories }: IMeetings) 
     return newMeeting;
   });
   
+  const dispatch = useAppDispatch();
+
+  function handleDelete(meeting) {
+    return dispatch(meetingsActions.deleteMeeting(meeting.id))
+  }
+
   const meetingButtons = (meeting) => {
     return (
       [
         <UpdateMeetingModal meeting={meeting} categories={categories}/>,
-        <DeleteMeetingButton meeting={meeting}/>
+        <Button size="small" onClick={() => handleDelete(meeting)}>Delete</Button>
       ]
     )
   };

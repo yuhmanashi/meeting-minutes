@@ -2,6 +2,8 @@
 
 MeetingMeetings is an application designed for my team and I to better manage, organize, and view our meetings. As meetings are the key focus, users can create, update, and delete meetings. The meetings can then be viewed in ways such as a table, a calendar, and more. There are also graphs and charts available for data analytic purposes, such as the frequency of meetings or the frequency of meeting categories.
 
+Disclaimer: The public version is seeded with fake data for purposes of a demo to respect privacy of AppAcademy and its affiliates. 
+
 ### [Live link](https://meeting-minutes-95bb945cb360.herokuapp.com/)
 
 ## Features
@@ -34,14 +36,14 @@ Visualization of meeting data was another part of the project. One way to do so 
 
 The following technologies were used for this project:
 
-* Ruby, JavaScript, TypeScript: Languages
-* Ruby on Rails: Backend
-* React, Redux: Frontend
-* PostgreSQL: Database
-* Material UI: Styling
-* Chart.js: Charts
-* Webpack, Babel, React on Rails: Bundling and transpiling javascript code
-* Node.js: Managing project dependencies
+* **TypeScript, Ruby, JavaScript**: Languages
+* **Ruby on Rails**: Backend
+* **React, Redux**: Frontend
+* **PostgreSQL**: Database
+* **Material UI**: Styling
+* **Chart.js**: Charts
+* **Webpack, Babel, React on Rails**: Bundling and transpiling javascript code
+* **Node.js**: Managing project dependencies
 
 ## Future
 

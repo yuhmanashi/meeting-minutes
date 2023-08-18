@@ -43,13 +43,49 @@ function createCategoriesData(obj){
     })
 }
 
-export default function CategoriesChart({ categories, meetings, selected }){
-    const [count, setCount] = useState(handleCategoriesCount(categories, meetings))
+export default function CategoriesChart({ categories, meetings, selected, selectedDay }){
+    const meetingsForWeek = meetings.filter(byWeek)
+    const [count, setCount] = useState(handleCategoriesCount(categories, meetingsForWeek))
     const [data, setData] = useState(createCategoriesData(count));
     const [max, setMax] = useState(getMax(count));
 
+    function byWeek(meeting){
+        const days = {
+            0: 31,
+            1: 28,
+            2: 31,
+            3: 30,
+            4: 31,
+            5: 30,
+            6: 31,
+            7: 31,
+            8: 30,
+            9: 31,
+            10: 30,
+            11: 31
+        }
+    
+        const today = selectedDay ? selectedDay : new Date();
+        const day = today.getDay();
+        const monthDay = today.getDate();
+        const month = today.getMonth();
+    
+        const max = 6 - day;
+        let maxDay = monthDay + max;
+        let minDay = monthDay - day;
+    
+        const tDay = new Date(meeting.date).getDate();
+        const tMonth = new Date(meeting.date).getMonth();
+    
+        if (tMonth === month && tDay >= minDay && tDay <= maxDay) return true;
+    
+        if (maxDay > days[month]) return tMonth === month + 1 && tDay <= maxDay - days[month];
+    
+        if (minDay < 0) return tMonth === month - 1 && tDay >= days[month - 1] + minDay;
+    }
+
     useEffect(() => {
-        let currCount = handleCategoriesCount(categories, meetings)
+        let currCount = handleCategoriesCount(categories, meetingsForWeek)
         setCount(currCount);
         setData(createCategoriesData(currCount));
         setMax(getMax(currCount));

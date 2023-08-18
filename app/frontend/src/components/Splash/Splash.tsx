@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import LoginModal from './LoginModal';
 import SignupModal from './SignupModal';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
