@@ -16,18 +16,19 @@ import HistoryTable from './HistoryTable';
 export default function History(){
     const sessionUser = useAppSelector(state => state.session.user);
     const sessionStudents = useAppSelector((state) => state.students);
-
+    const sessionMeetings = useAppSelector(state => state.meetings);
     const [selected, setSelected] = useState('Week');
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(studentActions.fetchStudents());
+        dispatch(meetingActions.fetchMeetings());
     }, [dispatch])
 
     if (Object.keys(sessionStudents).length < 1) return null;
 
-    const userMeetings = Object.values(sessionUser.meetings);
+    const userMeetings = Object.values(sessionMeetings).filter((meeting: Meeting) => meeting.userId === sessionUser.id);
 
     const updatedMeetings = userMeetings.map((meeting: Meeting) => {
         const student = sessionStudents[meeting.studentId];
