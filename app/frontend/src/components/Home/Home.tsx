@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import Meetings from '../Meetings/Meetings';
 
 import * as studentActions from '../../store/students';
+import * as meetingActions from '../../store/meetings';
+import * as pinActions from '../../store/pins';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 import CreatePinModal from '../Pins/CreatePinModal';
@@ -19,52 +21,27 @@ function Home(){
     const [selectedDay, setSelectedDay] = useState(null);
 
     const sessionUser = useAppSelector(state => state.session.user);
-    const sessionStudents = useAppSelector((state) => state.students);
-    const userMeetings: Meeting[] = Object.values(sessionUser.meetings);
-    const userPins: Pin[] = Object.values(sessionUser.pins);
+    const sessionStudents = useAppSelector(state => state.students);
+    const sessionMeetings = useAppSelector(state => state.meetings);
+    const sessionPins = useAppSelector(state => state.pins);
+
+    function userFilter(obj){
+        const values = Object.values(obj);
+        return values.filter((value: any) => value.userId ? value.userId === sessionUser.id : value.authorId === sessionUser.id)
+    };
+
+    const userMeetings: any = userFilter(sessionMeetings);
+    const userPins: any = userFilter(sessionPins);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(studentActions.fetchStudents());
+        dispatch(meetingActions.fetchMeetings());
+        dispatch(pinActions.fetchPins())
     }, [dispatch])
 
     if (Object.keys(sessionStudents).length < 1) return null;
-
-    function byWeek(meeting){
-        const days = {
-            0: 31,
-            1: 28,
-            2: 31,
-            3: 30,
-            4: 31,
-            5: 30,
-            6: 31,
-            7: 31,
-            8: 30,
-            9: 31,
-            10: 30,
-            11: 31
-        }
-
-        const today = selectedDay ? selectedDay : new Date();
-        const day = today.getDay();
-        const monthDay = today.getDate();
-        const month = today.getMonth();
-    
-        const max = 6 - day;
-        let maxDay = monthDay + max;
-        let minDay = monthDay - day;
-    
-        const tDay = new Date(meeting.date).getDate();
-        const tMonth = new Date(meeting.date).getMonth();
-
-        if (tMonth === month && tDay >= minDay && tDay <= maxDay) return true;
-    
-        if (maxDay > days[month]) return tMonth === month + 1 && tDay <= maxDay - days[month];
-    
-        if (minDay < 0) return tMonth === month - 1 && tDay >= days[month - 1] + minDay;
-    }
 
     function getDates(){
         const days = {
@@ -109,7 +86,6 @@ function Home(){
         return 'Categories for Week of ' + minDate.join('/') + ' - ' + maxDate.join('/')
     }
 
-    const meetingsForWeek = userMeetings.filter(byWeek)
     const allCategories = [
         'DS&A',
         'Systems Design',
@@ -133,7 +109,7 @@ function Home(){
                             {getDates()}
                         </Typography>
                         <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1}}>
-                            <CategoriesChart categories={allCategories} meetings={meetingsForWeek} selected={'Week'} />
+                            <CategoriesChart categories={allCategories} meetings={userMeetings} selected={'Week'} selectedDay={selectedDay} />
                         </Box>
                     </Box>
                 </Box>

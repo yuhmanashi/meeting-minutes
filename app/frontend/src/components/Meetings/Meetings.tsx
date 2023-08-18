@@ -35,11 +35,17 @@ export default function Meetings({ meetings, students, categories }: IMeetings) 
     return newMeeting;
   });
   
+  const dispatch = useAppDispatch();
+
+  function handleDelete(meeting) {
+    return dispatch(meetingsActions.deleteMeeting(meeting.id))
+  }
+
   const meetingButtons = (meeting) => {
     return (
       [
         <UpdateMeetingModal meeting={meeting} categories={categories}/>,
-        <DeleteMeetingButton meeting={meeting}/>
+        <Button size="small" onClick={() => handleDelete(meeting)}>Delete</Button>
       ]
     )
   };

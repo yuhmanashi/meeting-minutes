@@ -18,7 +18,7 @@ export default function LineChart({ chartData, title, max }) {
         },
         scales: {
           y: {
-            max: max <= 10 ? max += 1 : max,
+            max: max,
             ticks: {
               
               callback: function(value: number) {
