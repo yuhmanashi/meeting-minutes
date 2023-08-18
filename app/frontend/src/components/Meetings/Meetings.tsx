@@ -9,11 +9,9 @@ import Box from '@mui/material/Box';
 //Components
 import GenericTable from '../CommonComponents/Table';
 import UpdateMeetingModal from './UpdateMeetingModal';
-import DeleteMeetingButton from './DeleteMeetingButton';
 
 //Misc
 import * as meetingsActions from '../../store/meetings';
-import * as studentActions from '../../store/students';
 
 type IMeetings = {
   meetings: Meeting[];
