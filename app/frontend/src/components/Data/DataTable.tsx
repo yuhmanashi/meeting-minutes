@@ -65,7 +65,7 @@ function handleMeetings(meetings, selected){
       }
 }
 
-export default function HistoryTable({meetings, selected}) {
+export default function DataTable({meetings, selected}) {
     const [page, setPage] = useState(0);
     const [filtered, setFiltered] = useState(handleMeetings(meetings, selected))
 

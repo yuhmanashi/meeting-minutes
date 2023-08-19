@@ -10,15 +10,15 @@ import * as studentActions from '../../store/students';
 
 import SelectMenu from '../CommonComponents/SelectMenu';
 
-import HistoryChart from './HistoryChart';
-import HistoryTable from './HistoryTable';
+import DataChart from './DataChart';
+import DataTable from './DataTable';
 
-export default function History(){
+export default function Data(){
     const sessionUser = useAppSelector(state => state.session.user);
     const sessionStudents = useAppSelector((state) => state.students);
     const sessionMeetings = useAppSelector(state => state.meetings);
-    const [selected, setSelected] = useState('Week');
-
+    const [time, setTime] = useState('Week');
+    const [data, setData] = useState('Meeting');
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -47,17 +47,18 @@ export default function History(){
         <Box>
             {/* Charts */}
             <Container sx={{mt: 10}}>
-                <Typography variant='h5' sx={{my: 3, fontWeight: 'bold'}}>{selected === 'All' ? 'All Meetings To Date' : `Meetings For This ${selected}`}</Typography>
-                <HistoryChart meetings={userMeetings} selected={selected} user={sessionUser}/>
+                <Typography variant='h5' sx={{my: 3, fontWeight: 'bold'}}>{time === 'All' ? 'All Meetings To Date' : `Meetings For This ${time}`}</Typography>
+                <DataChart meetings={userMeetings} selected={[data, time]} user={sessionUser}/>
             </Container>
             {/* Data */}
             <Container sx={{my: 2}}>
-                <Container>
-                    <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setSelected}/>
+                <Container sx={{display: 'flex'}}>
+                    <SelectMenu name={'Data'} options={['Meeting', 'Category']} defaultOption={'Meeting'} onChange={setData}/>
+                    <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setTime}/>
                 </Container>
                 {/* Table */}
                 <Container>
-                    <HistoryTable meetings={userMeetingsByDate} selected={selected}/>
+                    <DataTable meetings={userMeetingsByDate} selected={time}/>
                 </Container>
             </Container>
         </Box>

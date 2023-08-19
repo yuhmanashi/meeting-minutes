@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import LineChart from '../CommonComponents/Chart/Charts/LineChart';
+import BarChart from '../CommonComponents/Chart/Charts/BarChart';
+
+import SelectMenu from '../CommonComponents/SelectMenu';
+
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 
 function toDate(date) {
     if (!date) return new Date();
@@ -19,21 +25,6 @@ function sortDate(a, b) {
     return a < b ? -1 : a > b ? 1 : 0
 }
 
-//filters
-function filterDates(dates, callback) {
-    const filteredDates = dates.map(toDate).filter(callback);
-    return filteredDates;
-}
-/* This Month */
-function byThisMonth(date){
-    const currentMonth = new Date().getMonth();
-    return date.getMonth() === currentMonth
-}
-/* This Year */
-function byThisYear(date){
-    const currentYear = new Date().getFullYear();
-    return date.getFullYear() === currentYear
-}
 /* This Week */
 const days = {
     0: 31,
@@ -48,22 +39,6 @@ const days = {
     9: 31,
     10: 30,
     11: 31
-}
-
-/* 3 Monthes */
-function by3Monthes(date){
-    const currentMonth = new Date().getMonth();
-    const month = date.getMonth()
-    return month === currentMonth || month === currentMonth - 1 || month === currentMonth + 1;
-}
-
-function byDays(date){
-    return date.getDate()
-}
-
-function byMonthes(date){
-    const month = date.getMonth();
-    return month
 }
 
 function createMonthCount(dates){ 
@@ -98,7 +73,7 @@ const monthes = [
     'Dec'
 ]
 
-function createThisWeekCount(dates, selectedDay){
+function createThisWeekCount(dates){
     const count = {};
     
     const dateStrings = dates.map(date => {
@@ -106,7 +81,7 @@ function createThisWeekCount(dates, selectedDay){
         return dateString;
     });
 
-    const today = selectedDay ? selectedDay : new Date();
+    const today = new Date();
 
     const day = today.getDay(); //0-6
     const monthDay = today.getDate();//1-31
@@ -201,13 +176,12 @@ function createAllCount(dates, user){
 }
 
 function createData(obj){
-
     return ({
         labels: Object.keys(obj),
         datasets: [{
-            label: '# meetings',
             data: Object.values(obj),
-            borderColor: "black",
+            backgroundColor: 'black',
+            borderColor: 'black',
             tension: .1
         }]
     })
@@ -219,55 +193,50 @@ function getMax(count){
     return max % 2 === 0 ? max : max + 1;
 }
 
-export default function HistoryChart({meetings, selected, user, selectedDay = null}){
-    const dates = meetings.map(meeting => meeting.date);
-    const [count, setCount] = useState(handleCount(dates))
+export default function MeetingsChart({meetings, time, user}){
+    const dates = meetings.map(meeting => new Date(meeting.date));
+    const [count, setCount] = useState(handleMeetingsCount(dates))
     const [data, setData] = useState(createData(count));
     const [max, setMax] = useState(getMax(count));
-
-    function handleCount(dates){
-        switch(selected) {
-          case 'Week':
-            return createThisWeekCount(filterDates(dates, byThisWeek), selectedDay)
-          case 'Month':
-            return createMonthCount(filterDates(dates, byThisMonth))
-          case 'Year':
-            return createYearCount(filterDates(dates, byThisYear))
-          case 'All':
-            return createAllCount(dates.map(toDate).sort(sortDate), user)
-          default: 
-            return createThisWeekCount(filterDates(dates, byThisWeek), selectedDay)
-        }
-    }
-
-    function byThisWeek(date){
-        const today = selectedDay ? selectedDay : new Date();
-        const day = today.getDay();
-        const monthDay = today.getDate();
-        const month = today.getMonth();
-    
-        const max = 6 - day;
-        let maxDay = monthDay + max;
-        let minDay = monthDay - day;
-    
-        const tDay = date.getDate();
-        const tMonth = date.getMonth();
-    
-        if (tMonth === month && tDay >= minDay && tDay <= maxDay) return true;
-    
-        if (maxDay > days[month]) return tMonth === month + 1 && tDay <= maxDay - days[month];
-    
-        if (minDay < 0) return tMonth === month - 1 && tDay >= days[month - 1] + minDay;
-    }
+    const [chart, setChart] = useState('Line');
 
     useEffect(() => {
-        let currCount = handleCount(dates)
+        let currCount = handleMeetingsCount(dates)
         setCount(currCount);
         setData(createData(currCount));
         setMax(getMax(currCount));
-    }, [meetings, selected]);
+    }, [meetings]);
+
+    function handleMeetingsCount(dates){
+        switch(time) {
+          case 'Week':
+            return createThisWeekCount(dates);
+          case 'Month':
+            return createMonthCount(dates);
+          case 'Year':
+            return createYearCount(dates);
+          case 'All':
+            return createAllCount(dates.sort(sortDate), user);
+          default:
+            return createThisWeekCount(dates);
+        }
+    }
+
+    function handleChart(){
+        switch(chart){
+            case 'Line':
+                return <LineChart chartData={data} max={max} />
+            case 'Bar':
+                return <BarChart chartData={data} max={max}/>
+            default:
+                return <LineChart chartData={data} max={max} />
+        }
+    }
 
     return (
-        <LineChart chartData={data} title={''} max={max}/>
-    )
+        <Container>
+            {handleChart()}
+            <SelectMenu name={'Chart'} options={['Line', 'Bar']} defaultOption={'Line'} onChange={setChart}/> 
+        </Container>
+    );
 }

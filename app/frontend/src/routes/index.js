@@ -5,7 +5,7 @@ import Home from '../components/Home';
 import Splash from '../components/Splash';
 import AllMeetings from "../components/Meetings";
 import Students from "../components/Students";
-import History from "../components/History";
+import Data from "../components/Data";
 import Test from "../components/Test";
 import Calendar from "../components/Calendar";
 import { AuthRoute, ProtectedRoute } from "../utils/route_util";
@@ -40,29 +40,14 @@ function AppRoutes() {
         }
       />
       <Route
-        path="history"
+        path="data"
         element={
           <ProtectedRoute>
-            <History/>
+            <Data/>
           </ProtectedRoute>
         }
       />
-      <Route
-        path="students"
-        element={
-          <ProtectedRoute>
-            <Students/>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="calendar"
-        element={
-          <ProtectedRoute>
-            <Calendar/>
-          </ProtectedRoute>
-        }
-      />
+      
       <Route
         path="test"
         element={
