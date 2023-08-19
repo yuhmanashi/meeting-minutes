@@ -7,11 +7,7 @@ import SelectMenu from '../CommonComponents/SelectMenu';
 
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-
-function toDate(date) {
-    if (!date) return new Date();
-    return new Date(date);
-}
+import Typography from '@mui/material/Typography';
 
 function toDateString(date) {
     return new Date(date).toDateString()
@@ -179,6 +175,7 @@ function createData(obj){
     return ({
         labels: Object.keys(obj),
         datasets: [{
+            label: ' count',
             data: Object.values(obj),
             backgroundColor: 'black',
             borderColor: 'black',
@@ -198,7 +195,7 @@ export default function MeetingsChart({meetings, time, user}){
     const [count, setCount] = useState(handleMeetingsCount(dates))
     const [data, setData] = useState(createData(count));
     const [max, setMax] = useState(getMax(count));
-    const [chart, setChart] = useState('Line');
+    const [chart, setChart] = useState('Bar');
 
     useEffect(() => {
         let currCount = handleMeetingsCount(dates)
@@ -224,19 +221,20 @@ export default function MeetingsChart({meetings, time, user}){
 
     function handleChart(){
         switch(chart){
-            case 'Line':
-                return <LineChart chartData={data} max={max} />
             case 'Bar':
                 return <BarChart chartData={data} max={max}/>
-            default:
+            case 'Line':
                 return <LineChart chartData={data} max={max} />
+            default:
+                return <BarChart chartData={data} max={max}/>
         }
     }
 
     return (
         <Container>
+            <Typography variant='h5' sx={{my: 3, fontWeight: 'bold'}}>{time === 'All' ? 'Meetings To Date' : `Meetings For This ${time}`}</Typography>
             {handleChart()}
-            <SelectMenu name={'Chart'} options={['Line', 'Bar']} defaultOption={'Line'} onChange={setChart}/> 
+            <SelectMenu name={'Chart'} options={['Bar', 'Line']} defaultOption={'Bar'} onChange={setChart}/> 
         </Container>
     );
 }

@@ -25,7 +25,7 @@ function createCategoriesData(obj){
     return ({
         labels: Object.keys(obj),
         datasets: [{
-
+            label: ' count',
             data: Object.values(obj),
             backgroundColor: [
                 '#F8B195', 

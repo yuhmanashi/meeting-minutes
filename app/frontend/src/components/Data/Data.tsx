@@ -46,8 +46,7 @@ export default function Data(){
     return (
         <Box>
             {/* Charts */}
-            <Container sx={{mt: 10}}>
-                <Typography variant='h5' sx={{my: 3, fontWeight: 'bold'}}>{time === 'All' ? 'All Meetings To Date' : `Meetings For This ${time}`}</Typography>
+            <Container sx={{mt: 11}}>
                 <DataChart meetings={userMeetings} selected={[data, time]} user={sessionUser}/>
             </Container>
             {/* Data */}
