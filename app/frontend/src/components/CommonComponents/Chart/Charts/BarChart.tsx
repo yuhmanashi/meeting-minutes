@@ -18,13 +18,14 @@ export default function BarChart({ chartData, max }) {
         },
         scales: {
           y: {
+            min: 0,
             max: max,
             ticks: {
-              
               callback: function(value: number) {
                 if (value % 1 === 0) return value;
+              }
             }
-          }}
+          }
         }
       }}
     />

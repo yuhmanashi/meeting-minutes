@@ -51,9 +51,9 @@ function Navbar() {
     navigate('/home');
   };
 
-  function navToHistory(e){
+  function navToData(e){
     e.preventDefault();
-    navigate('/history');
+    navigate('/data');
   };
 
   function navToCalendar(e){
@@ -73,7 +73,7 @@ function Navbar() {
           <Button onClick={navToStudents}>Students</Button>
         </ListItem> */}
         <ListItem sx={{ justifyContent: 'center' }}>
-          <Button onClick={navToHistory}>History</Button>
+          <Button onClick={navToData}>Data</Button>
         </ListItem>
         {/* <ListItem sx={{ justifyContent: 'center' }}>
           <Button onClick={navToCalendar}>Calendar</Button>
@@ -179,7 +179,7 @@ function Navbar() {
             <Box sx={ sessionUser ? { flexGrow: 1, display: { xs: 'none', md: 'flex' } } : { display: 'none' }}>
               <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToHome}>Home</Button>
               {/* <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToStudents}>Students</Button> */}
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToHistory}>History</Button>
+              <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToData}>Data</Button>
               {/* <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToCalendar}>Calendar</Button> */}
               {/* {pages.map((page) => (
                 <Button
