@@ -35,7 +35,7 @@ export default function CalendarDetails({date, meetings, students}){
     }
 
     return (
-        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: {xs: 240, sm: 200, md: 160}, width: {sm: .3, md: .35}, border: 1, px: 1, py: 1 }}>
+        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: {xs: 240, sm: 200, md: 160}, width: {sm: .3, md: .35}, border: 1, px: 2, py: 1 }}>
                 <Typography variant='subtitle1' sx={{fontWeight:'bold'}}>
                     Meetings for
                 </Typography>

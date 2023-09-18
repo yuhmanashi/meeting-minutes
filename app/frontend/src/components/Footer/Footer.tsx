@@ -14,7 +14,7 @@ export default function Footer(){
     return (
         <Box>
             {/* <Divider/> */}
-            <Container 
+            <Box 
                 sx={{
                     display: 'flex', 
                     justifyContent: 'space-between', 
@@ -90,7 +90,7 @@ export default function Footer(){
                         </IconButton>
                     </Link>
                 </Box>
-            </Container>
+            </Box>
         </Box>
     )
 }
