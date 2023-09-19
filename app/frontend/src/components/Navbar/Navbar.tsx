@@ -56,9 +56,9 @@ function Navbar() {
     navigate('/data');
   };
 
-  function navToCalendar(e){
+  function navToTest(e){
     e.preventDefault();
-    navigate('/calendar');
+    navigate('/test');
   }
 
   //sliding sidebar
@@ -75,9 +75,9 @@ function Navbar() {
         <ListItem sx={{ justifyContent: 'center' }}>
           <Button onClick={navToData}>Data</Button>
         </ListItem>
-        {/* <ListItem sx={{ justifyContent: 'center' }}>
-          <Button onClick={navToCalendar}>Calendar</Button>
-        </ListItem> */}
+        <ListItem sx={{ justifyContent: 'center' }}>
+          <Button onClick={navToTest}>Test</Button>
+        </ListItem>
 
       </List>
     </Box>
@@ -177,10 +177,10 @@ function Navbar() {
             
             {/* Misc buttons for desktop */}
             <Box sx={ sessionUser ? { flexGrow: 1, display: { xs: 'none', md: 'flex' } } : { display: 'none' }}>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToHome}>Home</Button>
+              <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={navToHome}>Home</Button>
               {/* <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToStudents}>Students</Button> */}
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToData}>Data</Button>
-              {/* <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToCalendar}>Calendar</Button> */}
+              <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={navToData}>Data</Button>
+              <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={navToTest}>Test</Button>
               {/* {pages.map((page) => (
                 <Button
                   key={page}
