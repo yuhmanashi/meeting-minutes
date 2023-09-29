@@ -35,28 +35,31 @@ export default function CalendarDetails({date, meetings, students}){
     }
 
     return (
-        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: {xs: 240, sm: 200, md: 160}, width: {sm: .3, md: .35}, border: 1, px: 2, py: 1 }}>
-                <Typography variant='subtitle1' sx={{fontWeight:'bold'}}>
+        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: {xs: 240, sm: 200, md: 160}, width: {sm: .3, md: .35}, border: 1, py: 1 }}>
+                <Typography variant='subtitle1' sx={{px: 2, fontWeight:'bold'}}>
                     Meetings for
                 </Typography>
-                <Typography variant='h6' sx={{fontWeight:'bold'}}>
+                <Typography variant='h6' sx={{px: 2, fontWeight:'bold'}}>
                     {dateString}
                 </Typography>
                 <Box sx={{}}>
                     {
                         dateMeetings.length > 0 ? 
-                            <List sx={{py: 0}}>
+                            <List sx={{my: 1, py: 0}}>
                                 {dateMeetings.map(meeting =>
-                                    <ListItem key={`${meeting.id}`} sx={{ py: 0}}>
-                                        <ListItemText
-                                            primary={meeting.studentName}
-                                            secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
-                                        />
-                                    </ListItem>
+                                    <React.Fragment>
+                                        <Divider variant='fullWidth' />
+                                        <ListItem key={`${meeting.id}`} sx={{ py: 0}}>
+                                            <ListItemText
+                                                primary={meeting.studentName}
+                                                secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
+                                            />
+                                        </ListItem>
+                                    </React.Fragment>
                                 )}
                             </List>
                         : 
-                            <Typography textAlign='center' sx={{mt: 1}}>
+                            <Typography textAlign='center' sx={{mt: 2}}>
                                 {'No meetings on this day'}
                             </Typography>
                     }

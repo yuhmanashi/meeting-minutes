@@ -47,7 +47,7 @@ export default function Profile({user}: profileProps) {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>D</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }} />
           </IconButton>
         </Tooltip>
       </Box>

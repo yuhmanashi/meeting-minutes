@@ -30,7 +30,6 @@ function createCategoriesData(obj){
             backgroundColor: [
                 '#F8B195', 
                 '#F67280', 
-                '#CO6C84', 
                 '#6C5B7B', 
                 '#355C7D', 
                 '#A8E6CE', 

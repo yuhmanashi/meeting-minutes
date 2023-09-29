@@ -13,7 +13,7 @@ import Divider from '@mui/material/Divider';
 export default function Footer(){
     return (
         <Box>
-            {/* <Divider/> */}
+            <Divider />
             <Box 
                 sx={{
                     display: 'flex', 
