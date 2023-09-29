@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import BarChart from '../CommonComponents/Chart/Charts/BarChart';
 
-function getMax(count){
+function getMax(count = {}){
     const values: number[] = Object.values(count)
     let max = Math.ceil(Math.max(...values) * 1.5)
     return max % 2 === 0 ? max : max + 1;
