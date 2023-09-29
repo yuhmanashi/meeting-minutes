@@ -101,23 +101,24 @@ function Home(){
                     Dashboard
                 </Typography>
                 {/* Calendar */}
-                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', alignItems: "center", m: 2,  }}>
+                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'space-evenly', alignItems: "center", m: 2}}>
                     <Calendar meetings={userMeetings} students={sessionStudents} setSelected={setSelectedDay}/>
                     {/* Chart */}
-                    <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35}}>
+                    <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35, border: 1, borderColor: 'lightgray'}}>
                         <Typography sx={{fontWeight: 'bold', alignSelf: 'center', p: 1, width: 300}}>
-                            {getDates()}
+                            {/* {getDates()} */}
+                            to do list for day of
                         </Typography>
                         <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1}}>
-                            <CategoriesChart categories={allCategories} meetings={userMeetings} selected={'Week'} selectedDay={selectedDay} />
+                            {/* <CategoriesChart categories={allCategories} meetings={userMeetings} selected={'Week'} selectedDay={selectedDay} /> */}
                         </Box>
                     </Box>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', m: 2 }}>
-                    <Container sx={{maxWidth: {md: .35}}}>
+                    <Container sx={{}}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
-                                Pinboard
+                                Notes
                             </Typography>
                             <CreatePinModal authorId={sessionUser.id}/>
                         </Box>
@@ -125,14 +126,20 @@ function Home(){
                     </Container>
 
                     {/* Meetings */}
-                    <Container sx={{my: {sm: 2, md: 0}}}>
+                    <Container sx={{my: {sm: 2, md: 0}, }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
                             <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
                                 Meetings
                             </Typography>
                             <CreateMeetingModal categories={allCategories}/>
                         </Box>
-                        <Meetings meetings={userMeetings} students={sessionStudents} categories={allCategories}/>
+                        <Box sx={{border: 1, borderColor: 'lightgray'}}>
+                            <Typography sx={{border: 1, borderColor: 'lightgray'}}>
+                                change this shit to something else, meetings are redundant
+                            </Typography>
+                        </Box >
+
+                        {/* <Meetings meetings={userMeetings} students={sessionStudents} categories={allCategories}/> */}
                     </Container>
                 </Box>
             </Box>

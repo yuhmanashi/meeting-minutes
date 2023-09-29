@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import BarChart from '../CommonComponents/Chart/Charts/BarChart';
 
+import { Box } from '@mui/material';
+
 function getMax(count = {}){
     const values: number[] = Object.values(count)
     let max = Math.ceil(Math.max(...values) * 1.5)
@@ -91,6 +93,7 @@ export default function CategoriesChart({ categories, meetings, selected, select
     }, [meetings, selected]);
 
     return (
-        <BarChart chartData={data} max={max}/>
+        // <BarChart chartData={data} max={max}/>
+        null
     )
 }

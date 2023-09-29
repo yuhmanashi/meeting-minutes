@@ -35,7 +35,7 @@ export default function CalendarDetails({date, meetings, students}){
     }
 
     return (
-        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: {xs: 240, sm: 200, md: 160}, width: {sm: .3, md: .35}, border: 1, py: 1 }}>
+        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: {xs: 240, sm: 200, md: 160}, width: {sm: .3, md: .35}, border: 1, borderColor: 'lightgray', py: 1 }}>
                 <Typography variant='subtitle1' sx={{px: 2, fontWeight:'bold'}}>
                     Meetings for
                 </Typography>
@@ -49,7 +49,7 @@ export default function CalendarDetails({date, meetings, students}){
                                 {dateMeetings.map(meeting =>
                                     <React.Fragment>
                                         <Divider variant='fullWidth' />
-                                        <ListItem key={`${meeting.id}`} sx={{ py: 0}}>
+                                        <ListItem key={`${meeting.id}`} sx={{ py: 0, }}>
                                             <ListItemText
                                                 primary={meeting.studentName}
                                                 secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}

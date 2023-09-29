@@ -29,15 +29,15 @@
 require 'faker'
 
 ApplicationRecord.transaction do 
-    puts "Destroying tables..."
+    # puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
-    User.destroy_all
-    Student.destroy_all
-    Meeting.destroy_all
-    Watchlist.destroy_all
-    Pin.destroy_all
+    # User.destroy_all
+    # Student.destroy_all
+    # Meeting.destroy_all
+    # Watchlist.destroy_all
+    # Pin.destroy_all
 
-    puts "Resetting primary keys..."
+    # puts "Resetting primary keys..."
     # For easy testing, so that after seeding, the first `User` has `id` of 1
     ApplicationRecord.connection.reset_pk_sequence!('users')
     ApplicationRecord.connection.reset_pk_sequence!('meetings')
@@ -87,7 +87,7 @@ ApplicationRecord.transaction do
     )
 
     puts "Creating meetings for first user..."
-    30.times do
+    100.times do
       firstUser.meetings.create!(
         category: categories[rand(0..(categories.length - 1))],
         student_id: rand(1..num_students),

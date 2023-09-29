@@ -56,7 +56,7 @@ export default function Pin({ pin }) {
         //         </ListItem>
         //     </List>
         // </Box>
-        <Card sx={{ m: {xs: 1}, width: {sm: '45%', md: '95%'}, backgroundColor: 'lightyellow' }}>
+        <Card sx={{ m: {xs: 1}, width: .45, backgroundColor: 'lightyellow' }}>
             <CardHeader
                 action={<GenericMenu props={pinButtons()}/>}
                 title={title}
