@@ -35,13 +35,13 @@ export default function CalendarDetails({date, meetings, students}){
     }
 
     return (
-        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: {xs: 240, sm: 200, md: 160}, width: {sm: .3, md: .35}, border: 1, borderColor: 'lightgray', py: 1 }}>
+        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: {xs: 240, sm: 200, md: 160}, width: 300, border: 1, borderColor: 'lightgray', py: 1 }}>
                 <Typography variant='subtitle1' sx={{px: 2, fontWeight:'bold'}}>
-                    Meetings for
+                    Meetings for {dateString}
                 </Typography>
-                <Typography variant='h6' sx={{px: 2, fontWeight:'bold'}}>
+                {/* <Typography variant='h6' sx={{px: 2, fontWeight:'bold'}}>
                     {dateString}
-                </Typography>
+                </Typography> */}
                 <Box sx={{}}>
                     {
                         dateMeetings.length > 0 ? 

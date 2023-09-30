@@ -43,8 +43,8 @@ export default function Pins({ pins }){
             "&::-webkit-scrollbar-thumb:hover": {
                     background: "grey",
                 },
-            }}>
-            <Masonry sx={{m: 'auto'}} columns={{xs: 1, sm: 2, md: 1, lg: 1, xl: 2}} spacing={2}>
+        }}>
+            <Masonry sx={{m: 'auto'}} columns={{xs: 1, sm: 2, md: 1, lg: 2, xl: 2}} spacing={2}>
                 {pins.map((pin) => {
                     return <Pin key={pin.id} pin={pin} />
                 })}

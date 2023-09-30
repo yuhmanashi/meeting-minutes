@@ -15,6 +15,7 @@ import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 import CreatePinModal from '../Pins/CreatePinModal';
 import Pins from '../Pins';
 import Calendar from '../Calendar';
+
 import CategoriesChart from './CategoriesChart';
 
 function Home(){
@@ -104,15 +105,14 @@ function Home(){
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'space-evenly', alignItems: "center", m: 2}}>
                     <Calendar meetings={userMeetings} students={sessionStudents} setSelected={setSelectedDay}/>
                     {/* Chart */}
-                    <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35, border: 1, borderColor: 'lightgray'}}>
+                    {/* <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35, border: 1, borderColor: 'lightgray'}}>
                         <Typography sx={{fontWeight: 'bold', alignSelf: 'center', p: 1, width: 300}}>
-                            {/* {getDates()} */}
-                            to do list for day of
+                            {getDates()}
                         </Typography>
                         <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1}}>
-                            {/* <CategoriesChart categories={allCategories} meetings={userMeetings} selected={'Week'} selectedDay={selectedDay} /> */}
+                            <CategoriesChart categories={allCategories} meetings={userMeetings} selected={'Week'} selectedDay={selectedDay} />
                         </Box>
-                    </Box>
+                    </Box> */}
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', m: 2 }}>
                     <Container sx={{}}>
