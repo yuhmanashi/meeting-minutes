@@ -89,7 +89,7 @@ export default function Calendar({meetings, students, setSelected}) {
             borderColor: 'lightgray',
           }}
         />
-        <WeekOverview />
+        <WeekOverview date={value} meetings={meetings} students={students}/>
       </Box>
     </LocalizationProvider>
   );
