@@ -35,35 +35,45 @@ export default function CalendarDetails({date, meetings, students}){
     }
 
     return (
-        <Box sx={{ display: {xs: 'none', sm:'block'}, minWidth: {xs: 240, sm: 200, md: 160}, width: 300, border: 1, borderColor: 'lightgray', py: 1 }}>
-                <Typography variant='subtitle1' sx={{px: 2, fontWeight:'bold'}}>
-                    Meetings for {dateString}
-                </Typography>
-                {/* <Typography variant='h6' sx={{px: 2, fontWeight:'bold'}}>
-                    {dateString}
-                </Typography> */}
-                <Box sx={{}}>
-                    {
-                        dateMeetings.length > 0 ? 
-                            <List sx={{my: 1, py: 0}}>
-                                {dateMeetings.map(meeting =>
-                                    <React.Fragment>
-                                        <Divider variant='fullWidth' />
-                                        <ListItem key={`${meeting.id}`} sx={{ py: 0, }}>
-                                            <ListItemText
-                                                primary={meeting.studentName}
-                                                secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
-                                            />
-                                        </ListItem>
-                                    </React.Fragment>
-                                )}
-                            </List>
+        <Box 
+            sx={{ 
+                display: {
+                    xs: 'none',
+                    sm:'block'
+                },
+                width: 320,
+                border: 1,
+                borderColor: 'lightgray',
+                py: 1
+            }}
+        >
+            <Typography variant='h6' sx={{ px: 2, fontWeight:'bold' }}>
+                Meetings for {dateString}
+            </Typography>
+            {/* <Typography variant='h6' sx={{px: 2, fontWeight:'bold'}}>
+                {dateString}
+            </Typography> */}
+            <Box sx={{}}>                    
+                { dateMeetings.length > 0 ? 
+                    <List sx={{ my: 1, py: 0 }}>
+                        { dateMeetings.map(meeting => (
+                            <React.Fragment>
+                                <Divider variant='fullWidth' />
+                                <ListItem key={`${meeting.id}`} sx={{ py: 0 }}>
+                                    <ListItemText
+                                        primary={meeting.studentName}
+                                        secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
+                                    />
+                                </ListItem>
+                            </React.Fragment>
+                        ))}
+                    </List>
                         : 
-                            <Typography textAlign='center' sx={{mt: 2}}>
-                                {'No meetings on this day'}
-                            </Typography>
-                    }
-                </Box>
+                    <Typography textAlign='center' sx={{ mt: 2 }}>
+                        {'No meetings on this day'}
+                    </Typography>
+                }
+            </Box>
             
         </Box>        
     )

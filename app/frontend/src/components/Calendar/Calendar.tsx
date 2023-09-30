@@ -11,7 +11,7 @@ import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
 import CalendarDetails from './CalendarDetails';
-import Todo from './Todo';
+import WeekOverview from './WeekOverview';
 
 const HighlightedDay = styled(PickersDay)(({ theme }) => ({
   "&.Mui-selected": {
@@ -62,11 +62,13 @@ export default function Calendar({meetings, students, setSelected}) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box sx={{
-        display: 'flex', 
-        justifyContent: 'space-evenly', 
-        width: .9, 
-      }}>
+      <Box 
+        sx={{
+          display: 'flex', 
+          justifyContent: 'space-evenly', 
+          width: .9
+        }}
+      >
         <CalendarDetails date={value} meetings={meetings} students={students}/>
         <DateCalendar
           value={value} 
@@ -80,13 +82,14 @@ export default function Calendar({meetings, students, setSelected}) {
             } as any,
           }}
           sx={{
+            minWidth: 320,
             width: 320,
             m: 0,
             border: 1,
             borderColor: 'lightgray',
           }}
         />
-        {/* <Todo /> */}
+        <WeekOverview />
       </Box>
     </LocalizationProvider>
   );
