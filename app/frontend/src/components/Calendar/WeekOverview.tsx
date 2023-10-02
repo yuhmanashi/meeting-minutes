@@ -48,8 +48,45 @@ export default function WeekOverview({setValue, meetings, students, date}){
     }
 
     const filtered = filterMeetings(meetings, byThisWeek); //returns arr of meetings for this week
-    console.log(filtered.map(meeting => meeting.date));
-    console.log(date);
+    
+    function createWeek(date){
+        const today = new Date();
+        const day = today.getDay();
+        const monthDay = today.getDate();
+        const month = today.getMonth();
+
+        const max = 6 - day;
+        let maxDay = monthDay + max;
+        let minDay = monthDay - day;
+        
+        const tDate = new Date(date);
+        let tMonth = tDate.getMonth();
+        let tDay = tDate.getDate();
+        let tWeekday = tDate.getDay();
+
+        const week = {};
+        for (let i = 0; i < 7; i++){
+            week[i] = null;
+        }
+
+        // days after today
+        for (let i = tWeekday; i < 7; i++){
+            if (maxDay > days[month]){
+                
+            } return tMonth === month + 1 && tDay <= maxDay - days[month];
+            
+        }
+
+        for (let i = tWeekday; i >= 0; i--){
+            if (minDay < 0){
+
+            } return tMonth === month - 1 && tDay >= days[month - 1] + minDay;
+        }
+
+        return [tMonth, tDay, tWeekday];
+    }
+
+    createWeek(date);
 
     return (
         <Box sx={{
