@@ -57,7 +57,7 @@ export default function CalendarDetails({date, meetings, students}){
                 { dateMeetings.length > 0 ? 
                     <List sx={{ my: 1, py: 0 }}>
                         { dateMeetings.map(meeting => (
-                            <React.Fragment>
+                            <React.Fragment key={meeting}>
                                 <Divider variant='fullWidth' />
                                 <ListItem key={`${meeting.id}`} sx={{ py: 0 }}>
                                     <ListItemText
