@@ -1,36 +1,55 @@
 import React, {useState, useEffect} from 'react';
 
 import Box from '@mui/material/Box';
-import { Typography, Divider } from '@mui/material';
+import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
-export default function WeekOverview({date, meetings, students}){
-    const updatedMeetings = meetings.map(meeting => {
-        const student = students[meeting.studentId];
-        const newMeeting = { ...meeting }
-        
-        newMeeting['studentName'] = `${student.fullName}`;
-        newMeeting['studentEmail'] = student.email;
-        
-        return newMeeting;
-    });
+const days = {
+    0: 31,
+    1: 28,
+    2: 31,
+    3: 30,
+    4: 31,
+    5: 30,
+    6: 31,
+    7: 31,
+    8: 30,
+    9: 31,
+    10: 30,
+    11: 31
+}
 
-    function convertDate(date) {
-        const newDate = new Date(date.toISOString());
-        return newDate;
-    };
-
-    const adjustedDate = convertDate(date);
-    let dateArr = adjustedDate.toDateString().split(' ');
-    const dateString = dateArr[0] + ', ' + dateArr.slice(1).join(' ');
-
-    const dateMeetings = updatedMeetings.filter(meeting => new Date(meeting.date).toLocaleDateString() === adjustedDate.toLocaleDateString());
-
-    function timeString(date){
-        const time = new Date(date).toLocaleTimeString();
-        return time.slice(0, 4) + time.slice(7)
+export default function WeekOverview({setValue, meetings, students, date}){    
+    // filter meetings for week
+    function filterMeetings(meetings, callback){
+        const filteredMeetings = meetings.filter(meeting => callback(new Date(meeting.date)));
+        return filteredMeetings;
     }
 
-    //
+    function byThisWeek(date){
+        const today = new Date();
+        const day = today.getDay();
+        const monthDay = today.getDate();
+        const month = today.getMonth();
+    
+        const max = 6 - day;
+        let maxDay = monthDay + max;
+        let minDay = monthDay - day;
+        
+        const tDay = date.getDate();
+        const tMonth = date.getMonth();
+    
+        if (tMonth === month && tDay >= minDay && tDay <= maxDay) return true;
+    
+        if (maxDay > days[month]) return tMonth === month + 1 && tDay <= maxDay - days[month];
+    
+        if (minDay < 0) return tMonth === month - 1 && tDay >= days[month - 1] + minDay;
+    }
+
+    const filtered = filterMeetings(meetings, byThisWeek); //returns arr of meetings for this week
+    console.log(filtered.map(meeting => meeting.date));
+    console.log(date);
 
     return (
         <Box sx={{
@@ -44,16 +63,20 @@ export default function WeekOverview({date, meetings, students}){
             py: 1
         }}>
             <Typography variant='h6' sx={{ px: 2, pb: 1, fontWeight:'bold' }}>
-                Weekly Overview
+                This Week's Overview
+            </Typography>
+            <Typography>
+                {}
             </Typography>
             <Divider variant='fullWidth' />
-            <Box 
+            <Container 
                 sx={{ 
-                    p: 2
+                    p: 2,
+                    border: 1,
                 }}
             >
                 {}
-            </Box>
+            </Container>
         </Box>
     )
 }

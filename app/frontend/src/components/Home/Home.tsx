@@ -95,6 +95,15 @@ function Home(){
         'Other'
     ]
 
+    const updatedMeetings = userMeetings.map((meeting: Meeting) => {
+        const student = sessionStudents[meeting.studentId];
+        const newMeeting = { ...meeting }
+        newMeeting['studentName'] = `${student.fullName}`;
+        newMeeting['studentEmail'] = student.email;
+        newMeeting['createdAt'] = new Date(meeting.createdAt).toLocaleDateString()
+        return newMeeting;
+    });
+    
     return (
         <Box>
             <Box sx={{mt: 11}}>
@@ -103,7 +112,7 @@ function Home(){
                 </Typography>
                 {/* Calendar */}
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'space-evenly', alignItems: "center", m: 2}}>
-                    <Calendar meetings={userMeetings} students={sessionStudents} setSelected={setSelectedDay}/>
+                    <Calendar meetings={updatedMeetings} students={sessionStudents} setSelected={setSelectedDay}/>
                     {/* Chart */}
                     {/* <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35, border: 1, borderColor: 'lightgray'}}>
                         <Typography sx={{fontWeight: 'bold', alignSelf: 'center', p: 1, width: 300}}>

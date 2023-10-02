@@ -59,7 +59,7 @@ export default function Calendar({meetings, students, setSelected}) {
     setValue(newValue)
     setSelected(new Date(newValue.valueOf() + newValue.utcOffset()*60*1000))
   }
-
+  
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box 
@@ -69,6 +69,7 @@ export default function Calendar({meetings, students, setSelected}) {
           width: .9
         }}
       >
+        <WeekOverview date={value} meetings={meetings} students={students} setValue={setValue}/>
         <CalendarDetails date={value} meetings={meetings} students={students}/>
         <DateCalendar
           value={value} 
@@ -89,7 +90,6 @@ export default function Calendar({meetings, students, setSelected}) {
             borderColor: 'lightgray',
           }}
         />
-        <WeekOverview date={value} meetings={meetings} students={students}/>
       </Box>
     </LocalizationProvider>
   );
