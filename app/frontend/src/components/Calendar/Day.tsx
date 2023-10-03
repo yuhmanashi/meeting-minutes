@@ -28,35 +28,27 @@ export default function Day({ day, handleChange, meetings }){
 
     const dateMeetings = meetings.filter(meeting => new Date(meeting.date).toLocaleDateString() === adjustedDate.toLocaleDateString());
 
+    const date = [day.month() + 1, day.date()].join('/')
+
     return (
-        <Box>
+
             <Button 
                 sx={{
-                    border: 1,
-                    borderColor: 'lightgray',
+                    mb: .5,
                     display: 'flex',
                     justifyContent: 'space-between',
                     width: 150,
-                    backgroundColor: '#1976d2'
                 }}
+                variant="contained"
                 size='small'
                 onClick={() => handleChange(day)}
             >
-                <Typography variant='button' color='white'>
+                <Typography variant='button'>
                     {days[weekday]}
                 </Typography>
-                <Typography variant='button' color='white'>
+                <Typography variant='button'>
                     {dateMeetings.length}
                 </Typography>
             </Button>
-            {/* <Typography>
-                {days[weekday]}
-            </Typography> */}
-        </Box>
-        //single day should have
-            //day of week
-            //date
-            //# of meetings
-                // if clicked, meeting details
     )
 }

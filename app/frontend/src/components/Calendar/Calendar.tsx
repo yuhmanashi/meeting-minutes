@@ -87,8 +87,7 @@ export default function Calendar({meetings, students, setSelected}) {
             width: 320,
             m: 0,
             border: 2,
-            borderColor: '#1976d2',
-            borderRadius: 2
+            borderColor: '#1976d2'
           }}
         />
       </Box>

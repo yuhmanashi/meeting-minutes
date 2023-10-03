@@ -7,6 +7,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
+const days = {
+    0: 'Sunday',
+    1: 'Monday',
+    2: 'Tuesday',
+    3: 'Wednesday',
+    4: 'Thursday',
+    5: 'Friday',
+    6: 'Saturday'
+}
+
 export default function CalendarDetails({date, meetings, students}){
     // const updatedMeetings = meetings.map(meeting => {
     //     const student = students[meeting.studentId];
@@ -22,6 +32,10 @@ export default function CalendarDetails({date, meetings, students}){
         const newDate = new Date(date.toISOString());
         return newDate;
     };
+    
+    function getString(day){
+        return days[day.day()] + ', ' + [day.month() + 1, day.date(), day.year() % 100].join('/')
+    }
 
     const adjustedDate = convertDate(date);
     let dateArr = adjustedDate.toDateString().split(' ');
@@ -41,39 +55,39 @@ export default function CalendarDetails({date, meetings, students}){
                     xs: 'none',
                     sm:'block'
                 },
-                width: 210,
+                width: 360,
                 border: 2,
-                borderColor: '#1976d2',
-                borderRadius: 2
+                borderColor: '#1976d2'
             }}
         >
-            <Box sx={{ p: 1, backgroundColor: '#1976d2'}}>
+            <Box sx={{ p: 1, backgroundColor: '#1976d2' }}>
                 <Typography color='white' variant='h6' sx={{ px: 1 }}>
-                    Meetings for
+                    Meetings for {getString(date)}
                 </Typography>
-                <Typography color='white' variant='subtitle1' sx={{ px: 1 }}>
-                    {dateString}
-                </Typography>
+                {/* <Typography color='white' variant='subtitle1' sx={{ px: 1 }}>
+                    {getString(date)}
+                </Typography> */}
             </Box>
             <Box sx={{}}>                    
                 { dateMeetings.length > 0 ? 
                     <List sx={{ py: 0 }}>
                         { dateMeetings.map(meeting => (
                             <React.Fragment key={`${meeting.id}`}>
-                                <Divider variant='fullWidth' />
                                 <ListItem sx={{ py: 0 }}>
                                     <ListItemText
                                         primary={meeting.studentName}
                                         secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
+
                                     />
                                 </ListItem>
+                                <Divider variant='fullWidth' sx={{ backgroundColor: '#1976d2' }} />
                             </React.Fragment>
                         ))}
                     </List>
                         : 
                     <React.Fragment>
-                        <Divider variant='fullWidth'/>
-                        <Typography textAlign='center' sx={{ my: 1 }}>
+                        {/* <Divider variant='fullWidth'/> */}
+                        <Typography textAlign='center' sx={{ my: 2 }}>
                             {'No meetings on this day'}
                         </Typography>
                     </React.Fragment>

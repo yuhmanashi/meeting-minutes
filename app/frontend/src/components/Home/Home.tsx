@@ -126,7 +126,7 @@ function Home(){
                 <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', m: 2 }}>
                     <Container sx={{}}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                            <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
+                            <Typography variant='h5' sx={{ fontWeight: 'bold', p: 2 }}>
                                 Notes
                             </Typography>
                             <CreatePinModal authorId={sessionUser.id}/>

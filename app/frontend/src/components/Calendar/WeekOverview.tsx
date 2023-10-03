@@ -82,48 +82,31 @@ export default function WeekOverview({handleChange, meetings, students, date}){
         return [getString(first), getString(last)].join(' - ');
     }
 
-    function convertDate(date) {
-        const newDate = new Date(date.toISOString());
-        return newDate;
-    };
-
-    const adjustedDate = convertDate(date);
-    let dateArr = adjustedDate.toDateString().split(' ');
-    const dateString = dateArr[0] + ', ' + dateArr.slice(1).join(' ');
-
-    const dateMeetings = filtered.filter(meeting => new Date(meeting.date).toLocaleDateString() === adjustedDate.toLocaleDateString());
-
-    function timeString(date){
-        const time = new Date(date).toLocaleTimeString();
-        return time.slice(0, 4) + time.slice(7)
-    }
-
     return (
         <Box sx={{
             display: {
                 xs: 'none', 
                 sm: 'block'
             },
-            width: 220, 
+            width: 200, 
             border: 2,
-            borderColor: '#1976d2',
-            borderRadius: 2
+            borderColor: '#1976d2'
         }}>
             <Box sx={{ p: 1, backgroundColor: '#1976d2' }}>
-                <Typography color='white' variant='h6' sx={{  }}>
-                    Overview for Week of
+                <Typography color='white' variant='h6' textAlign='center'>
+                    Weekly Overview
                 </Typography>
-                <Typography color='white' variant='subtitle1' sx={{  }}>
+                <Typography color='white' variant='subtitle1' textAlign='center'>
                     {getWeek()}
                 </Typography>
             </Box>
             <Divider variant='fullWidth' />
             <Box 
                 sx={{ 
-                    p: 1.5,
+                    p: 1,
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'center'
+                    alignItems: 'center',
                 }}
             >
                 {week.map(day => 

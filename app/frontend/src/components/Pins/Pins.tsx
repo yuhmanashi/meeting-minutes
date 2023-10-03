@@ -31,8 +31,8 @@ export default function Pins({ pins }){
             // backgroundRepeat: "no-repeat", 
             // border: 5, 
             // borderColor: '#EFD0B5',
-            border: 1,
-            borderColor: 'lightgray',
+            border: 2,
+            borderColor: '#1976d2',
             "&::-webkit-scrollbar": {
                     width: "3px",
                 },
