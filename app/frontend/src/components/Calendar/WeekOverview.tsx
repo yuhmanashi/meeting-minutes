@@ -104,14 +104,13 @@ export default function WeekOverview({handleChange, meetings, students, date}){
                 xs: 'none', 
                 sm: 'block'
             },
-            width: 320, 
+            width: 210, 
             border: 1, 
             borderColor: 'lightgray',
-            py: 1
         }}>
-            <Box sx={{ px: 2, pb: 1 }}>
+            <Box sx={{ p: 1 }}>
                 <Typography variant='h6' sx={{ fontWeight:'bold' }}>
-                    Overview For Week of
+                    Overview for Week of
                 </Typography>
                 <Typography variant='subtitle1' sx={{ fontWeight:'bold' }}>
                     {getWeek()}
@@ -120,8 +119,10 @@ export default function WeekOverview({handleChange, meetings, students, date}){
             <Divider variant='fullWidth' />
             <Box 
                 sx={{ 
-                    p: 2,
-                    border: 1,
+                    p: 1.5,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
                 }}
             >
                 {week.map(day => 

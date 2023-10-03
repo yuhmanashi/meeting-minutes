@@ -41,18 +41,18 @@ export default function CalendarDetails({date, meetings, students}){
                     xs: 'none',
                     sm:'block'
                 },
-                width: 320,
+                width: 200,
                 border: 1,
                 borderColor: 'lightgray',
                 py: 1
             }}
         >
             <Typography variant='h6' sx={{ px: 2, fontWeight:'bold' }}>
-                Meetings for {dateString}
+                Meetings for
             </Typography>
-            {/* <Typography variant='h6' sx={{px: 2, fontWeight:'bold'}}>
+            <Typography variant='subtitle1' sx={{px: 2, fontWeight:'bold'}}>
                 {dateString}
-            </Typography> */}
+            </Typography>
             <Box sx={{}}>                    
                 { dateMeetings.length > 0 ? 
                     <List sx={{ my: 1, py: 0 }}>
@@ -69,9 +69,12 @@ export default function CalendarDetails({date, meetings, students}){
                         ))}
                     </List>
                         : 
-                    <Typography textAlign='center' sx={{ mt: 2 }}>
-                        {'No meetings on this day'}
-                    </Typography>
+                    <React.Fragment>
+                        <Divider variant='fullWidth' sx={{ my: 1 }}/>
+                        <Typography textAlign='center' sx={{ my: 1 }}>
+                            {'No meetings on this day'}
+                        </Typography>
+                    </React.Fragment>
                 }
             </Box>
             

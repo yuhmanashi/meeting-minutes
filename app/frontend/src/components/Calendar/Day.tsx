@@ -30,8 +30,24 @@ export default function Day({ day, handleChange, meetings }){
 
     return (
         <Box>
-            <Button onClick={() => handleChange(day)}>
-                {days[weekday]} - {dateMeetings.length}
+            <Button 
+                sx={{
+                    border: 1,
+                    borderColor: 'lightgray',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: 150,
+                    backgroundColor: '#1976d2'
+                }}
+                size='small'
+                onClick={() => handleChange(day)}
+            >
+                <Typography variant='button' color='white'>
+                    {days[weekday]}
+                </Typography>
+                <Typography variant='button' color='white'>
+                    {dateMeetings.length}
+                </Typography>
             </Button>
             {/* <Typography>
                 {days[weekday]}
