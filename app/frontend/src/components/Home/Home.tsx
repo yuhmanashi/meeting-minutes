@@ -103,7 +103,7 @@ function Home(){
         newMeeting['createdAt'] = new Date(meeting.createdAt).toLocaleDateString()
         return newMeeting;
     });
-    
+
     return (
         <Box>
             <Box sx={{mt: 11}}>

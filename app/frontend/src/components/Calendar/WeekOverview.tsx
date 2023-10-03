@@ -22,7 +22,7 @@ const days = {
     11: 31
 }
 
-export default function WeekOverview({setValue, meetings, students, date}){    
+export default function WeekOverview({handleChange, meetings, students, date}){    
     // filter meetings for week
     function filterMeetings(meetings, callback){
         const filteredMeetings = meetings.filter(meeting => callback(new Date(meeting.date)));
@@ -125,7 +125,7 @@ export default function WeekOverview({setValue, meetings, students, date}){
                 }}
             >
                 {week.map(day => 
-                    <Day key={day} day={day}/>
+                    <Day key={day.date()} day={day} handleChange={handleChange} meetings={meetings}/>
                 )}
             </Box>
         </Box>

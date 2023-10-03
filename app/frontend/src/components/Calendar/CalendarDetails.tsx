@@ -8,15 +8,15 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
 export default function CalendarDetails({date, meetings, students}){
-    const updatedMeetings = meetings.map(meeting => {
-        const student = students[meeting.studentId];
-        const newMeeting = { ...meeting }
+    // const updatedMeetings = meetings.map(meeting => {
+    //     const student = students[meeting.studentId];
+    //     const newMeeting = { ...meeting }
         
-        newMeeting['studentName'] = `${student.fullName}`;
-        newMeeting['studentEmail'] = student.email;
+    //     newMeeting['studentName'] = `${student.fullName}`;
+    //     newMeeting['studentEmail'] = student.email;
         
-        return newMeeting;
-    });
+    //     return newMeeting;
+    // });
 
     function convertDate(date) {
         const newDate = new Date(date.toISOString());
@@ -27,7 +27,7 @@ export default function CalendarDetails({date, meetings, students}){
     let dateArr = adjustedDate.toDateString().split(' ');
     const dateString = dateArr[0] + ', ' + dateArr.slice(1).join(' ');
 
-    const dateMeetings = updatedMeetings.filter(meeting => new Date(meeting.date).toLocaleDateString() === adjustedDate.toLocaleDateString());
+    const dateMeetings = meetings.filter(meeting => new Date(meeting.date).toLocaleDateString() === adjustedDate.toLocaleDateString());
 
     function timeString(date){
         const time = new Date(date).toLocaleTimeString();
@@ -57,9 +57,9 @@ export default function CalendarDetails({date, meetings, students}){
                 { dateMeetings.length > 0 ? 
                     <List sx={{ my: 1, py: 0 }}>
                         { dateMeetings.map(meeting => (
-                            <React.Fragment key={meeting}>
+                            <React.Fragment key={`${meeting.id}`}>
                                 <Divider variant='fullWidth' />
-                                <ListItem key={`${meeting.id}`} sx={{ py: 0 }}>
+                                <ListItem sx={{ py: 0 }}>
                                     <ListItemText
                                         primary={meeting.studentName}
                                         secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}

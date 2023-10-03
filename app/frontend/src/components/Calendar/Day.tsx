@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 const days = {
     0: 'Sunday',
@@ -15,17 +16,26 @@ const days = {
     6: 'Saturday'
 }
 
-export default function Day({day}){
-    const [date, setDate] = useState('date');
-    const [meetings, setMeetings] = useState('meetings');
-
+export default function Day({ day, handleChange, meetings }){
     const weekday = day.day();
+
+    function convertDate(date) {
+        const newDate = new Date(date.toISOString());
+        return newDate;
+    };
+
+    const adjustedDate = convertDate(day);
+
+    const dateMeetings = meetings.filter(meeting => new Date(meeting.date).toLocaleDateString() === adjustedDate.toLocaleDateString());
 
     return (
         <Box>
-            <Typography>
+            <Button onClick={() => handleChange(day)}>
+                {days[weekday]} - {dateMeetings.length}
+            </Button>
+            {/* <Typography>
                 {days[weekday]}
-            </Typography>
+            </Typography> */}
         </Box>
         //single day should have
             //day of week
