@@ -41,21 +41,23 @@ export default function CalendarDetails({date, meetings, students}){
                     xs: 'none',
                     sm:'block'
                 },
-                width: 200,
-                border: 1,
-                borderColor: 'lightgray',
-                py: 1
+                width: 210,
+                border: 2,
+                borderColor: '#1976d2',
+                borderRadius: 2
             }}
         >
-            <Typography variant='h6' sx={{ px: 2, fontWeight:'bold' }}>
-                Meetings for
-            </Typography>
-            <Typography variant='subtitle1' sx={{px: 2, fontWeight:'bold'}}>
-                {dateString}
-            </Typography>
+            <Box sx={{ p: 1, backgroundColor: '#1976d2'}}>
+                <Typography color='white' variant='h6' sx={{ px: 1 }}>
+                    Meetings for
+                </Typography>
+                <Typography color='white' variant='subtitle1' sx={{ px: 1 }}>
+                    {dateString}
+                </Typography>
+            </Box>
             <Box sx={{}}>                    
                 { dateMeetings.length > 0 ? 
-                    <List sx={{ my: 1, py: 0 }}>
+                    <List sx={{ py: 0 }}>
                         { dateMeetings.map(meeting => (
                             <React.Fragment key={`${meeting.id}`}>
                                 <Divider variant='fullWidth' />
@@ -70,7 +72,7 @@ export default function CalendarDetails({date, meetings, students}){
                     </List>
                         : 
                     <React.Fragment>
-                        <Divider variant='fullWidth' sx={{ my: 1 }}/>
+                        <Divider variant='fullWidth'/>
                         <Typography textAlign='center' sx={{ my: 1 }}>
                             {'No meetings on this day'}
                         </Typography>

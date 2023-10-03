@@ -104,15 +104,16 @@ export default function WeekOverview({handleChange, meetings, students, date}){
                 xs: 'none', 
                 sm: 'block'
             },
-            width: 210, 
-            border: 1, 
-            borderColor: 'lightgray',
+            width: 220, 
+            border: 2,
+            borderColor: '#1976d2',
+            borderRadius: 2
         }}>
-            <Box sx={{ p: 1 }}>
-                <Typography variant='h6' sx={{ fontWeight:'bold' }}>
+            <Box sx={{ p: 1, backgroundColor: '#1976d2' }}>
+                <Typography color='white' variant='h6' sx={{  }}>
                     Overview for Week of
                 </Typography>
-                <Typography variant='subtitle1' sx={{ fontWeight:'bold' }}>
+                <Typography color='white' variant='subtitle1' sx={{  }}>
                     {getWeek()}
                 </Typography>
             </Box>

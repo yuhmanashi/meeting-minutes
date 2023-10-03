@@ -65,7 +65,7 @@ export default function Calendar({meetings, students, setSelected}) {
       <Box 
         sx={{
           display: 'flex', 
-          justifyContent: 'space-evenly', 
+          justifyContent: 'space-evenly',
           width: .9
         }}
       >
@@ -86,8 +86,9 @@ export default function Calendar({meetings, students, setSelected}) {
             minWidth: 320,
             width: 320,
             m: 0,
-            border: 1,
-            borderColor: 'lightgray',
+            border: 2,
+            borderColor: '#1976d2',
+            borderRadius: 2
           }}
         />
       </Box>
