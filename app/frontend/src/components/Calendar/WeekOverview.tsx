@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import Day from './Day';
 import WeeklyAccordions from './WeeklyAccordions';
 
+import dayjs from "dayjs";
+
 const days = {
     0: 31,
     1: 28,
@@ -23,7 +25,7 @@ const days = {
     11: 31
 }
 
-export default function WeekOverview({handleChange, meetings, students, date}){    
+export default function WeekOverview({ meetings }){    
     // filter meetings for week
     function filterMeetings(meetings, callback){
         const filteredMeetings = meetings.filter(meeting => callback(new Date(meeting.date)));
@@ -70,7 +72,7 @@ export default function WeekOverview({handleChange, meetings, students, date}){
         return week;
     }
 
-    const week = createWeek(date)
+    const week = createWeek(dayjs())
     //gets first and last day of the week in string format
     function getWeek(){
         const first = week[0];
@@ -84,14 +86,13 @@ export default function WeekOverview({handleChange, meetings, students, date}){
     }
 
     return (
-        <Box sx={{display: 'flex'}}>
+        <Box sx={{}}>
             {/* Boxes */}
             <Box sx={{
-                display: {
-                    xs: 'none', 
-                    sm: 'block'
-                },
-                width: 180, 
+                // display: {
+                //     xs: 'none', 
+                //     sm: 'block'
+                // },
                 border: 2,
                 borderColor: '#1976d2'
             }}>
@@ -106,19 +107,20 @@ export default function WeekOverview({handleChange, meetings, students, date}){
                 <Divider variant='fullWidth' />
                 <Box 
                     sx={{ 
-                        p: 1,
+                        
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    {week.map(day => 
+                    <WeeklyAccordions meetings={filtered} week={week} />
+                    {/* {week.map(day => 
                         <Day key={day.date()} day={day} handleChange={handleChange} meetings={meetings}/>
-                    )}
+                    )} */}
                 </Box>
             </Box>
             <Box>
-                <WeeklyAccordions meetings={filtered} week={week} selectedDate={date}/>
+                {/* <WeeklyAccordions meetings={filtered} week={week} selectedDate={date}/> */}
             </Box>
         </Box>
     )

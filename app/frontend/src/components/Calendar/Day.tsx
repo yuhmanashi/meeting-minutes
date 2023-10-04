@@ -32,23 +32,31 @@ export default function Day({ day, handleChange, meetings }){
 
     return (
 
-            <Button 
-                sx={{
-                    mb: .5,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    width: 150,
-                }}
-                variant="contained"
-                size='small'
-                onClick={() => handleChange(day)}
-            >
-                <Typography variant='button'>
-                    {days[weekday]}
-                </Typography>
-                <Typography variant='button'>
-                    {dateMeetings.length}
-                </Typography>
-            </Button>
+            // <Button 
+            //     sx={{
+            //         mb: .5,
+            //         display: 'flex',
+            //         justifyContent: 'space-between',
+            //         width: 150,
+            //     }}
+            //     variant="contained"
+            //     size='small'
+            //     onClick={() => handleChange(day)}
+            // >
+            //     <Typography variant='button'>
+            //         {days[weekday]}
+            //     </Typography>
+            //     <Typography variant='button'>
+            //         {dateMeetings.length}
+            //     </Typography>
+            // </Button>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: 175 }}>
+            <Typography variant='button'>
+                {days[weekday]}
+            </Typography>
+            <Typography variant='button'>
+                {meetings.length}
+            </Typography>
+        </Box>
     )
 }

@@ -66,11 +66,12 @@ export default function Calendar({meetings, students, setSelected}) {
         sx={{
           display: 'flex', 
           justifyContent: 'space-between',
-          width: .9
+          width: .9,
+          height: 360
         }}
       >
-        <WeekOverview date={value} meetings={meetings} students={students} handleChange={handleChange}/>
-        {/* <CalendarDetails date={value} meetings={meetings} students={students}/>
+        <WeekOverview meetings={meetings} />
+        <CalendarDetails date={value} meetings={meetings} students={students}/>
         <DateCalendar
           value={value} 
           onChange={newValue => handleChange(newValue)}
@@ -89,7 +90,7 @@ export default function Calendar({meetings, students, setSelected}) {
             border: 2,
             borderColor: '#1976d2'
           }}
-        /> */}
+        />
       </Box>
     </LocalizationProvider>
   );

@@ -1,11 +1,56 @@
 import * as React from 'react';
 
-import Box from '@mui/material/Box';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
+import { styled } from '@mui/material/styles';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
+import MuiAccordionSummary, {
+  AccordionSummaryProps,
+} from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+
+import Day from './Day'
+
+const Accordion = styled((props: AccordionProps) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  '&:not(:last-child)': {
+    borderBottom: 0,
+  },
+  '&:before': {
+    display: 'none',
+  },
+}));
+
+const AccordionSummary = styled((props: AccordionSummaryProps) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === 'dark'
+      ? 'rgba(255, 255, 255, .05)'
+      : 'rgba(0, 0, 0, .03)',
+  flexDirection: 'row-reverse',
+  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+    transform: 'rotate(90deg)',
+  },
+  '& .MuiAccordionSummary-content': {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: '1px solid rgba(0, 0, 0, .125)',
+}));
 
 const days = {
   0: 'Sunday',
@@ -17,34 +62,67 @@ const days = {
   6: 'Saturday'
 }
 
-export default function WeeklyAccordions({ meetings, week, selectedDate }) {
+export default function WeeklyAccordions({ meetings, week }) {
   const [expanded, setExpanded] = React.useState<number | false>(false);
 
   const handleChange =
     (day: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? day : false);
     };
+  
+  function convertDate(date) {
+    const newDate = new Date(date.toISOString());
+    return newDate;
+  };
+  
+  function getDateMeetings(day) {
+    const adjustedDate = convertDate(day);
+    return meetings.filter(meeting => new Date(meeting.date).toLocaleDateString() === adjustedDate.toLocaleDateString());
+  }
 
-  console.log(meetings, selectedDate, week);
+  function timeString(date){
+    const time = new Date(date).toLocaleTimeString();
+    return time.slice(0, 4) + time.slice(7)
+  }
 
   function createAccordion(day){
     const weekday = day.day();
+    const dateMeetings = getDateMeetings(day);
 
     return (
       <Accordion expanded={expanded === weekday} onChange={handleChange(weekday)}>
-         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls={`${weekday}-content`}
-          id={`${weekday}-header`}
-        >
+         <AccordionSummary aria-controls={`${weekday}-content`} id={`${weekday}-header`}>
           {/* <Typography sx={{ width: '33%', flexShrink: 0 }}>
             General settings
           </Typography>
           <Typography sx={{ color: 'text.secondary' }}>I am an accordion</Typography> */}
-          <Typography>{days[weekday]}</Typography>
+          {/* <Typography>{days[weekday]}</Typography> */}
+          <Day day={day} handleChange={handleChange} meetings={dateMeetings}/>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>{day.toString()}</Typography>
+          { dateMeetings.length > 0 ? 
+                    <List sx={{ py: 0 }}>
+                        { dateMeetings.map(meeting => (
+                            <React.Fragment key={`${meeting.id}`}>
+                                <ListItem sx={{ py: 0 }}>
+                                    <ListItemText
+                                        primary={meeting.studentName}
+                                        secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
+
+                                    />
+                                </ListItem>
+                                {/* <Divider variant='fullWidth' sx={{ backgroundColor: '#1976d2' }} /> */}
+                            </React.Fragment>
+                        ))}
+                    </List>
+                        : 
+                    <React.Fragment>
+                        {/* <Divider variant='fullWidth'/> */}
+                        <Typography textAlign='center' sx={{ my: 2 }}>
+                            {'No meetings on this day'}
+                        </Typography>
+                    </React.Fragment>
+                }
           {/* <Typography>
             Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
             Aliquam eget maximus est, id dignissim quam.
