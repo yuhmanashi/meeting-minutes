@@ -137,9 +137,9 @@ function Home(){
                             </Box>
                             <Pins pins={userPins}/>
                         </Box>
-                        <Box sx={{ border: 2, borderColor: '#1976d2', width: .4 }}>
+                        {/* <Box sx={{ border: 2, borderColor: '#1976d2', width: .4 }}>
                             
-                        </Box>
+                        </Box> */}
                         {/* Chart */}
                         {/* <Box 
                             sx={{

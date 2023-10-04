@@ -6,6 +6,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
 import Day from './Day';
+import WeeklyAccordions from './WeeklyAccordions';
 
 const days = {
     0: 31,
@@ -83,35 +84,41 @@ export default function WeekOverview({handleChange, meetings, students, date}){
     }
 
     return (
-        <Box sx={{
-            display: {
-                xs: 'none', 
-                sm: 'block'
-            },
-            width: 180, 
-            border: 2,
-            borderColor: '#1976d2'
-        }}>
-            <Box sx={{ p: 1, backgroundColor: '#1976d2' }}>
-                <Typography color='white' variant='h6' textAlign='center'>
-                    Weekly Overview
-                </Typography>
-                <Typography color='white' variant='subtitle1' textAlign='center'>
-                    {getWeek()}
-                </Typography>
+        <Box sx={{display: 'flex'}}>
+            {/* Boxes */}
+            <Box sx={{
+                display: {
+                    xs: 'none', 
+                    sm: 'block'
+                },
+                width: 180, 
+                border: 2,
+                borderColor: '#1976d2'
+            }}>
+                <Box sx={{ p: 1, backgroundColor: '#1976d2' }}>
+                    <Typography color='white' variant='h6' textAlign='center'>
+                        Weekly Overview
+                    </Typography>
+                    <Typography color='white' variant='subtitle1' textAlign='center'>
+                        {getWeek()}
+                    </Typography>
+                </Box>
+                <Divider variant='fullWidth' />
+                <Box 
+                    sx={{ 
+                        p: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    {week.map(day => 
+                        <Day key={day.date()} day={day} handleChange={handleChange} meetings={meetings}/>
+                    )}
+                </Box>
             </Box>
-            <Divider variant='fullWidth' />
-            <Box 
-                sx={{ 
-                    p: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
-                {week.map(day => 
-                    <Day key={day.date()} day={day} handleChange={handleChange} meetings={meetings}/>
-                )}
+            <Box>
+                <WeeklyAccordions meetings={filtered} week={week} selectedDate={date}/>
             </Box>
         </Box>
     )
