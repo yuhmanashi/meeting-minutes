@@ -93,7 +93,6 @@ export default function CategoriesChart({ categories, meetings, selected, select
     }, [meetings, selected]);
 
     return (
-        // <BarChart chartData={data} max={max}/>
-        null
+        <BarChart chartData={data} max={max}/>
     )
 }

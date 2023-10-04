@@ -65,7 +65,7 @@ export default function Calendar({meetings, students, setSelected}) {
       <Box 
         sx={{
           display: 'flex', 
-          justifyContent: 'space-evenly',
+          justifyContent: 'space-between',
           width: .9
         }}
       >

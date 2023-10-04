@@ -106,7 +106,7 @@ export default function CreatePinModal({ authorId }) {
   return (
     <div>
       <Button onClick={handleOpen}>
-        <AddIcon/>
+        <AddIcon sx={{ color: 'white' }}/>
       </Button>
       <Modal
         open={open}

@@ -106,50 +106,86 @@ function Home(){
 
     return (
         <Box>
-            <Box sx={{mt: 11}}>
-                <Typography variant='h4' sx={{ m: 3, fontWeight: 'bold' }}>
-                    Dashboard
-                </Typography>
-                {/* Calendar */}
-                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'space-evenly', alignItems: "center", m: 2}}>
-                    <Calendar meetings={updatedMeetings} students={sessionStudents} setSelected={setSelectedDay}/>
-                    {/* Chart */}
-                    {/* <Box sx={{display: {xs: 'none', sm: 'none', md: 'flex'}, flexDirection: 'column', alignSelf: 'stretch', width: .35, border: 1, borderColor: 'lightgray'}}>
-                        <Typography sx={{fontWeight: 'bold', alignSelf: 'center', p: 1, width: 300}}>
-                            {getDates()}
+            <Box sx={{ mt: 9, p: 4 }}>
+                <Box sx={{ }}>
+                    <Box sx ={{}}>
+                        <Typography variant='h4' sx={{ fontWeight: 'bold' }}>
+                            Dashboard
                         </Typography>
-                        <Box position='relative' sx={{display: 'flex', alignItems: 'center', height: 1, width: 1}}>
-                            <CategoriesChart categories={allCategories} meetings={userMeetings} selected={'Week'} selectedDay={selectedDay} />
-                        </Box>
-                    </Box> */}
-                </Box>
-                <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', m: 2 }}>
-                    <Container sx={{}}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                            <Typography variant='h5' sx={{ fontWeight: 'bold', p: 2 }}>
-                                Notes
-                            </Typography>
-                            <CreatePinModal authorId={sessionUser.id}/>
-                        </Box>
-                        <Pins pins={userPins}/>
-                    </Container>
+                    </Box>
+                    {/* Calendar */}
+                    <Box sx={{ py: 4, display: 'flex', justifyContent: 'space-evenly' }}>
+                        <Calendar meetings={updatedMeetings} students={sessionStudents} setSelected={setSelectedDay}/>
+                    </Box>
 
-                    {/* Meetings */}
-                    <Container sx={{my: {sm: 2, md: 0}, }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                            <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
-                                Meetings
-                            </Typography>
-                            <CreateMeetingModal categories={allCategories}/>
+                    {/* Bottom */}
+                    <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                        {/* Notes */}
+                        <Box sx={{ border: 2, borderColor: '#1976d2', width: .5 }}>
+                            <Box 
+                                sx={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    justifyContent: 'space-between', 
+                                    backgroundColor: '#1976d2'
+                                }}
+                            >
+                                <Typography variant='h5' sx={{ color: 'white', p: 2 }}>
+                                    Notes
+                                </Typography>
+                                <CreatePinModal authorId={sessionUser.id}/>
+                            </Box>
+                            <Pins pins={userPins}/>
                         </Box>
-                        <Box sx={{border: 1, borderColor: 'lightgray'}}>
-                            <Typography sx={{border: 1, borderColor: 'lightgray'}}>
-                                change this shit to something else, meetings are redundant
-                            </Typography>
-                        </Box >
+                        <Box sx={{ border: 2, borderColor: '#1976d2', width: .4 }}>
+                            
+                        </Box>
+                        {/* Chart */}
+                        {/* <Box 
+                            sx={{
+                                display: 'flex', 
+                                flexDirection: 'column', 
+                                alignSelf: 'stretch', 
+                                width: .5, 
+                                border: 2, 
+                                borderColor: '#1976d2'
+                            }}
+                        >   
+                            <Box sx={{ p: 2, width: 1, backgroundColor: '#1976d2'}}>
+                                <Typography sx={{ color: 'white' }}>
+                                    {getDates()}
+                                </Typography>
+                            </Box>
+                            <Box 
+                                position='relative' 
+                                sx={{
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    height: 1, 
+                                    width: 1,
+                                    p: 2
+                                }}
+                            >
+                                <CategoriesChart categories={allCategories} meetings={userMeetings} selected={'Week'} selectedDay={selectedDay} />
+                            </Box>
+                        </Box> */}
+                        {/* Meetings */}
+                        {/* <Container sx={{my: {sm: 2, md: 0}, }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
+                                <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
+                                    Meetings
+                                </Typography>
+                                <CreateMeetingModal categories={allCategories}/>
+                            </Box>
+                            <Box sx={{border: 1, borderColor: 'lightgray'}}>
+                                <Typography sx={{border: 1, borderColor: 'lightgray'}}>
+                                    change this shit to something else, meetings are redundant
+                                </Typography>
+                            </Box >
 
-                        {/* <Meetings meetings={userMeetings} students={sessionStudents} categories={allCategories}/> */}
-                    </Container>
+                            <Meetings meetings={userMeetings} students={sessionStudents} categories={allCategories}/>
+                        </Container> */}
+                    </Box>
                 </Box>
             </Box>
         </Box>

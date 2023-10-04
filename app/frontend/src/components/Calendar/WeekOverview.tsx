@@ -88,7 +88,7 @@ export default function WeekOverview({handleChange, meetings, students, date}){
                 xs: 'none', 
                 sm: 'block'
             },
-            width: 200, 
+            width: 180, 
             border: 2,
             borderColor: '#1976d2'
         }}>
