@@ -15,6 +15,7 @@ import CreateMeetingModal from '../Meetings/CreateMeetingModal';
 import CreatePinModal from '../Pins/CreatePinModal';
 import Pins from '../Pins';
 import Calendar from '../Calendar';
+import WeekOverview from '../Calendar/WeekOverview';
 
 import CategoriesChart from './CategoriesChart';
 
@@ -120,9 +121,79 @@ function Home(){
         return days[today.getDay()] + ', ' + today.toLocaleDateString();
     }
 
+    const notes = 
+        <Box sx={{ border: 2, borderColor: '#1976d2' }}>
+            <Box 
+                sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between', 
+                    backgroundColor: '#1976d2'
+                }}
+            >
+                <Typography variant='h5' sx={{ color: 'white', p: 2 }}>
+                    Notes
+                </Typography>
+                <CreatePinModal authorId={sessionUser.id}/>
+            </Box>
+            <Pins pins={userPins}/>
+        </Box>
+    
+    const bottom = 
+        <Box sx={{ display: 'flex', my: 4, width: .8, border: 1 }}>
+            {notes}
+        </Box>
+
+    const chart = 
+        <Box 
+            sx={{
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignSelf: 'stretch', 
+                width: .5, 
+                border: 2, 
+                borderColor: '#1976d2'
+            }}
+        >   
+            <Box sx={{ p: 2, width: 1, backgroundColor: '#1976d2'}}>
+                <Typography sx={{ color: 'white' }}>
+                    {getDates()}
+                </Typography>
+            </Box>
+            <Box 
+                position='relative' 
+                sx={{
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    height: 1, 
+                    width: 1,
+                    p: 2
+                }}
+            >
+                <CategoriesChart categories={allCategories} meetings={userMeetings} selected={'Week'} selectedDay={selectedDay} />
+            </Box>
+        </Box>
+
+    const meetingsComponent = 
+        <Container sx={{my: {sm: 2, md: 0}, }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
+                <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
+                    Meetings
+                </Typography>
+                <CreateMeetingModal categories={allCategories}/>
+            </Box>
+            <Box sx={{border: 1, borderColor: 'lightgray'}}>
+                <Typography sx={{border: 1, borderColor: 'lightgray'}}>
+                    change this shit to something else, meetings are redundant
+                </Typography>
+            </Box >
+
+            <Meetings meetings={userMeetings} students={sessionStudents} categories={allCategories}/>
+        </Container>
+
     return (
         <Box>
-            <Box sx={{ mt: 8, border: 1 }}>
+            <Box sx={{ mt: 8 }}>
                 <Box sx={{ p: 4 }}>
                     <Box sx ={{ display: 'flex', alignItems: 'center' }}>
                         {/* <Typography variant='h4' fontWeight= 'bold' sx={{  }}>
@@ -153,10 +224,7 @@ function Home(){
 
                     {/* <Box sx={{ mt: 2, display: 'flex', }}>
                         <Typography 
-                            sx={{
-                                backgroundColor: '#1976d2', 
-                                p: 2,
-                            }}
+                            sx={{ backgroundColor: '#1976d2', p: 2, }}
                             color='white'
                             variant='h5'
                         >
@@ -164,78 +232,14 @@ function Home(){
                         </Typography>
                     </Box> */}
                     {/* Calendar */}
-                    <Box sx={{ display: 'flex', my: 4, border: 1 }}>
-                        <Calendar meetings={updatedMeetings} students={sessionStudents} setSelected={setSelectedDay}/>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', m: 4, border: 1, }}>
+                        
+                        <WeekOverview meetings={updatedMeetings} />
+                        <Calendar meetings={updatedMeetings} students={sessionStudents} setSelected={setSelectedDay} />
+                        {/* {notes} */}
                     </Box>
 
                     {/* Bottom */}
-                    <Box sx={{ display: 'flex', my: 4, border: 1 }}>
-                        {/* Notes */}
-                        <Box sx={{ border: 2, borderColor: '#1976d2', width: .4 }}>
-                            <Box 
-                                sx={{ 
-                                    display: 'flex', 
-                                    alignItems: 'center', 
-                                    justifyContent: 'space-between', 
-                                    backgroundColor: '#1976d2'
-                                }}
-                            >
-                                <Typography variant='h5' sx={{ color: 'white', p: 2 }}>
-                                    Notes
-                                </Typography>
-                                <CreatePinModal authorId={sessionUser.id}/>
-                            </Box>
-                            <Pins pins={userPins}/>
-                        </Box>
-                        {/* <Box sx={{ border: 2, borderColor: '#1976d2', width: .4 }}>
-                            
-                        </Box> */}
-                        {/* Chart */}
-                        {/* <Box 
-                            sx={{
-                                display: 'flex', 
-                                flexDirection: 'column', 
-                                alignSelf: 'stretch', 
-                                width: .5, 
-                                border: 2, 
-                                borderColor: '#1976d2'
-                            }}
-                        >   
-                            <Box sx={{ p: 2, width: 1, backgroundColor: '#1976d2'}}>
-                                <Typography sx={{ color: 'white' }}>
-                                    {getDates()}
-                                </Typography>
-                            </Box>
-                            <Box 
-                                position='relative' 
-                                sx={{
-                                    display: 'flex', 
-                                    alignItems: 'center', 
-                                    height: 1, 
-                                    width: 1,
-                                    p: 2
-                                }}
-                            >
-                                <CategoriesChart categories={allCategories} meetings={userMeetings} selected={'Week'} selectedDay={selectedDay} />
-                            </Box>
-                        </Box> */}
-                        {/* Meetings */}
-                        {/* <Container sx={{my: {sm: 2, md: 0}, }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                                <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
-                                    Meetings
-                                </Typography>
-                                <CreateMeetingModal categories={allCategories}/>
-                            </Box>
-                            <Box sx={{border: 1, borderColor: 'lightgray'}}>
-                                <Typography sx={{border: 1, borderColor: 'lightgray'}}>
-                                    change this shit to something else, meetings are redundant
-                                </Typography>
-                            </Box >
-
-                            <Meetings meetings={userMeetings} students={sessionStudents} categories={allCategories}/>
-                        </Container> */}
-                    </Box>
                 </Box>
             </Box>
         </Box>

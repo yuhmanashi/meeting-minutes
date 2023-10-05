@@ -5,7 +5,6 @@ import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
-import Day from './Day';
 import WeeklyAccordions from './WeeklyAccordions';
 
 import dayjs from "dayjs";
@@ -63,7 +62,7 @@ export default function WeekOverview({ meetings }){
             week.push(currentDay);
         }
 
-        for (let i = 0; i <= 6-day; i++){ //gets today and days after;
+        for (let i = 0; i <= 6 - day; i++){ //gets today and days after;
             const currentDay = date.add(i, 'day');
             week.push(currentDay);
         }
@@ -87,15 +86,7 @@ export default function WeekOverview({ meetings }){
 
     return (
         <Box sx={{}}>
-            {/* Boxes */}
-            <Box sx={{
-                // display: {
-                //     xs: 'none', 
-                //     sm: 'block'
-                // },
-                border: 2,
-                borderColor: '#1976d2'
-            }}>
+            <Box sx={{ border: 2, borderColor: '#1976d2' }}>
                 <Box sx={{ p: 1, backgroundColor: '#1976d2' }}>
                     <Typography color='white' variant='h6' textAlign='center'>
                         Weekly Overview
@@ -105,22 +96,9 @@ export default function WeekOverview({ meetings }){
                     </Typography>
                 </Box>
                 <Divider variant='fullWidth' />
-                <Box 
-                    sx={{ 
-                        
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <WeeklyAccordions meetings={filtered} week={week} />
-                    {/* {week.map(day => 
-                        <Day key={day.date()} day={day} handleChange={handleChange} meetings={meetings}/>
-                    )} */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <WeeklyAccordions meetings={filtered} week={week}/>
                 </Box>
-            </Box>
-            <Box>
-                {/* <WeeklyAccordions meetings={filtered} week={week} selectedDate={date}/> */}
             </Box>
         </Box>
     )

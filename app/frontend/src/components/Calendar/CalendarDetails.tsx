@@ -52,7 +52,9 @@ export default function CalendarDetails({date, meetings, students}){
         <Box 
             sx={{ 
                 border: 2,
-                borderColor: '#1976d2'
+                borderColor: '#1976d2',
+                height: 358,
+                mx: 2
             }}
         >
             <Box sx={{ p: 1, backgroundColor: '#1976d2' }}>

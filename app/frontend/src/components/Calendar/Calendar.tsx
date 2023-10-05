@@ -67,12 +67,11 @@ export default function Calendar({meetings, students, setSelected}) {
         sx={{
           display: 'flex', 
           justifyContent: 'space-between',
-          width: 1,
-          height: 358
         }}
       >
 
-        <WeekOverview meetings={meetings} />
+        <CalendarDetails date={value} meetings={meetings} students={students}/>
+
         <DateCalendar
           value={value} 
           onChange={newValue => handleChange(newValue)}
@@ -84,14 +83,10 @@ export default function Calendar({meetings, students, setSelected}) {
               highlightedDays,
             } as any,
           }}
-          sx={{
-            m: 0,
-            border: 2,
-            borderColor: '#1976d2'
-          }}
+          sx={{ border: 2, borderColor: '#1976d2' }}
         />
 
-        <CalendarDetails date={value} meetings={meetings} students={students}/>
+
       </Box>
     </LocalizationProvider>
   );
