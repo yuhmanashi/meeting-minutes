@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { styled } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
@@ -15,7 +16,7 @@ import WeekOverview from './WeekOverview';
 
 const HighlightedDay = styled(PickersDay)(({ theme }) => ({
   "&.Mui-selected": {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.light,
     color: theme.palette.primary.contrastText,
   },
 }));
@@ -66,12 +67,12 @@ export default function Calendar({meetings, students, setSelected}) {
         sx={{
           display: 'flex', 
           justifyContent: 'space-between',
-          width: .9,
-          height: 360
+          width: 1,
+          height: 358
         }}
       >
+
         <WeekOverview meetings={meetings} />
-        <CalendarDetails date={value} meetings={meetings} students={students}/>
         <DateCalendar
           value={value} 
           onChange={newValue => handleChange(newValue)}
@@ -84,13 +85,13 @@ export default function Calendar({meetings, students, setSelected}) {
             } as any,
           }}
           sx={{
-            minWidth: 320,
-            width: 320,
             m: 0,
             border: 2,
             borderColor: '#1976d2'
           }}
         />
+
+        <CalendarDetails date={value} meetings={meetings} students={students}/>
       </Box>
     </LocalizationProvider>
   );

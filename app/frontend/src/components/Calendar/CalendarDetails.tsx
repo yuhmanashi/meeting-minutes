@@ -7,16 +7,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
-const days = {
-    0: 'Sunday',
-    1: 'Monday',
-    2: 'Tuesday',
-    3: 'Wednesday',
-    4: 'Thursday',
-    5: 'Friday',
-    6: 'Saturday'
-}
-
 export default function CalendarDetails({date, meetings, students}){
     // const updatedMeetings = meetings.map(meeting => {
     //     const student = students[meeting.studentId];
@@ -34,7 +24,17 @@ export default function CalendarDetails({date, meetings, students}){
     };
     
     function getString(day){
-        return days[day.day()] + ', ' + [day.month() + 1, day.date(), day.year() % 100].join('/')
+        const days = {
+            0: 'Sunday',
+            1: 'Monday',
+            2: 'Tuesday',
+            3: 'Wednesday',
+            4: 'Thursday',
+            5: 'Friday',
+            6: 'Saturday'
+        }
+        
+        return days[day.day()] + ', ' + [day.month() + 1, day.date(), day.year()].join('/')
     }
 
     const adjustedDate = convertDate(date);
@@ -51,11 +51,6 @@ export default function CalendarDetails({date, meetings, students}){
     return (
         <Box 
             sx={{ 
-                display: {
-                    xs: 'none',
-                    sm:'block'
-                },
-                width: 360,
                 border: 2,
                 borderColor: '#1976d2'
             }}
@@ -73,11 +68,11 @@ export default function CalendarDetails({date, meetings, students}){
                     <List sx={{ py: 0 }}>
                         { dateMeetings.map(meeting => (
                             <React.Fragment key={`${meeting.id}`}>
-                                <ListItem sx={{ py: 0 }}>
+                                <ListItem sx={{ p: 1, px: 3 }}>
                                     <ListItemText
                                         primary={meeting.studentName}
                                         secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
-
+                                        // primaryTypographyProps={{variant: 'subtitle1'}}
                                     />
                                 </ListItem>
                                 <Divider variant='fullWidth' sx={{ backgroundColor: '#1976d2' }} />

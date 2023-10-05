@@ -104,24 +104,74 @@ function Home(){
         return newMeeting;
     });
 
+    function getToday(){
+        const days = {
+            0: 'Sunday',
+            1: 'Monday',
+            2: 'Tuesday',
+            3: 'Wednesday',
+            4: 'Thursday',
+            5: 'Friday',
+            6: 'Saturday'
+        }
+
+        const today = new Date();
+        
+        return days[today.getDay()] + ', ' + today.toLocaleDateString();
+    }
+
     return (
         <Box>
-            <Box sx={{ mt: 9, p: 4 }}>
-                <Box sx={{ }}>
-                    <Box sx ={{}}>
-                        <Typography variant='h4' sx={{ fontWeight: 'bold' }}>
+            <Box sx={{ mt: 8, border: 1 }}>
+                <Box sx={{ p: 4 }}>
+                    <Box sx ={{ display: 'flex', alignItems: 'center' }}>
+                        {/* <Typography variant='h4' fontWeight= 'bold' sx={{  }}>
+                            Dashboard
+                        </Typography> */}
+                        <Typography 
+                            sx={{
+                                backgroundColor: '#1976d2', 
+                                p: 2,
+                            }}
+                            color='white'
+                            variant='h4'
+                        >
                             Dashboard
                         </Typography>
+                        <Typography 
+                            sx={{
+                                backgroundColor: '#1976d2', 
+                                p: 2,
+                                ml: 4
+                            }}
+                            color='white'
+                            variant='h4'
+                        >
+                            {getToday()}
+                        </Typography>
                     </Box>
+
+                    {/* <Box sx={{ mt: 2, display: 'flex', }}>
+                        <Typography 
+                            sx={{
+                                backgroundColor: '#1976d2', 
+                                p: 2,
+                            }}
+                            color='white'
+                            variant='h5'
+                        >
+                            {getToday()}
+                        </Typography>
+                    </Box> */}
                     {/* Calendar */}
-                    <Box sx={{ py: 4, display: 'flex', justifyContent: 'space-evenly' }}>
+                    <Box sx={{ display: 'flex', my: 4, border: 1 }}>
                         <Calendar meetings={updatedMeetings} students={sessionStudents} setSelected={setSelectedDay}/>
                     </Box>
 
                     {/* Bottom */}
-                    <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                    <Box sx={{ display: 'flex', my: 4, border: 1 }}>
                         {/* Notes */}
-                        <Box sx={{ border: 2, borderColor: '#1976d2', width: .5 }}>
+                        <Box sx={{ border: 2, borderColor: '#1976d2', width: .4 }}>
                             <Box 
                                 sx={{ 
                                     display: 'flex', 
