@@ -88,10 +88,11 @@ export default function WeeklyAccordions({ meetings, week }) {
   function createAccordion(day){
     const weekday = day.day();
     const dateMeetings = getDateMeetings(day);
+    const key = new Date().toISOString();
 
     return (
       <Accordion expanded={expanded === weekday} onChange={handleChange(weekday)}>
-         <AccordionSummary aria-controls={`${weekday}-content`} id={`${weekday}-header`}>
+        <AccordionSummary aria-controls={`${weekday}-content`} id={`${weekday}-header`}>
           {/* <Typography sx={{ width: '33%', flexShrink: 0 }}>
             General settings
           </Typography>
@@ -101,28 +102,27 @@ export default function WeeklyAccordions({ meetings, week }) {
         </AccordionSummary>
         <AccordionDetails>
           { dateMeetings.length > 0 ? 
-                    <List sx={{ py: 0 }}>
-                        { dateMeetings.map(meeting => (
-                            <React.Fragment key={`${meeting.id}`}>
-                                <ListItem sx={{ py: 0 }}>
-                                    <ListItemText
-                                        primary={meeting.studentName}
-                                        secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
-
-                                    />
-                                </ListItem>
-                                {/* <Divider variant='fullWidth' sx={{ backgroundColor: '#1976d2' }} /> */}
-                            </React.Fragment>
-                        ))}
-                    </List>
-                        : 
-                    <React.Fragment>
-                        {/* <Divider variant='fullWidth'/> */}
-                        <Typography textAlign='center' sx={{ my: 2 }}>
-                            {'No meetings on this day'}
-                        </Typography>
+            <List sx={{ py: 0 }}>
+                { dateMeetings.map(meeting => (
+                    <React.Fragment key={`${meeting.createdAt}`}>
+                        <ListItem sx={{ py: 0 }}>
+                            <ListItemText
+                              primary={meeting.studentName}
+                              secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
+                            />
+                        </ListItem>
+                        {/* <Divider variant='fullWidth' sx={{ backgroundColor: '#1976d2' }} /> */}
                     </React.Fragment>
-                }
+                ))}
+            </List>
+                : 
+            <React.Fragment>
+                {/* <Divider variant='fullWidth'/> */}
+                <Typography textAlign='center' sx={{ my: 2 }}>
+                    {'No meetings on this day'}
+                </Typography>
+            </React.Fragment>
+          }
           {/* <Typography>
             Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
             Aliquam eget maximus est, id dignissim quam.
@@ -134,7 +134,11 @@ export default function WeeklyAccordions({ meetings, week }) {
 
   return (
     <Box>
-      {week.map(day => { return createAccordion(day) })}
+      {week.map(day => 
+        <React.Fragment key={day.day()}>
+          {createAccordion(day)}
+        </React.Fragment>  
+      )}
     </Box>
     // <React.Fragment>
     //   <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>

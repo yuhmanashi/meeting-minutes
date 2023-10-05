@@ -58,7 +58,8 @@ export default function Calendar({meetings, students, setSelected}) {
 
   function handleChange(newValue){
     setValue(newValue)
-    setSelected(new Date(newValue.valueOf() + newValue.utcOffset()*60*1000))
+    // setSelected(new Date(newValue.valueOf() + newValue.utcOffset()*60*1000))
+    setSelected(newValue)
   }
 
   return (
@@ -69,8 +70,6 @@ export default function Calendar({meetings, students, setSelected}) {
           justifyContent: 'space-between',
         }}
       >
-
-        <CalendarDetails date={value} meetings={meetings} students={students}/>
 
         <DateCalendar
           value={value} 

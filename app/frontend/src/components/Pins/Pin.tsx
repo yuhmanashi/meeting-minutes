@@ -12,12 +12,29 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 
-import GenericList from '../CommonComponents/List';
 import GenericMenu from '../CommonComponents/Menu';
 
 import * as pinsActions from '../../store/pins';
 
 import UpdatePinModal from './UpdatePinModal';
+
+const colors = [
+    '#fbe3e6',
+    '#fbf5ce',
+    '#ebd6e7',
+    '#f5d6dc',
+    '#fee2cc',
+    '#ddd9e6',
+    '#d9ecd8',
+    '#e1e7d2'
+]
+
+function generateColor(){
+    const idx = Math.floor(Math.random() * colors.length);
+    return colors[idx];
+}
+
+console.log(generateColor())
 
 export default function Pin({ pin }) {
     const {id, title, body, createdAt} = pin;
@@ -56,7 +73,7 @@ export default function Pin({ pin }) {
         //         </ListItem>
         //     </List>
         // </Box>
-        <Card sx={{ m: {xs: 1}, width: .45, backgroundColor: 'lightyellow' }}>
+        <Card sx={{ m: 1, width: .45, backgroundColor: '#fbe3e6' }}>
             <CardHeader
                 action={<GenericMenu props={pinButtons()}/>}
                 title={title}

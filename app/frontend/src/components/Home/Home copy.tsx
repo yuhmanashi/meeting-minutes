@@ -16,11 +16,8 @@ import CreatePinModal from '../Pins/CreatePinModal';
 import Pins from '../Pins';
 import Calendar from '../Calendar';
 import WeekOverview from '../Calendar/WeekOverview';
-import CalendarDetails from '../Calendar/CalendarDetails';
 
 import CategoriesChart from './CategoriesChart';
-import dayjs from 'dayjs';
-import { notInitialized } from 'react-redux/es/utils/useSyncExternalStore';
 
 function Home(){
     const [selectedDay, setSelectedDay] = useState(null);
@@ -91,13 +88,13 @@ function Home(){
     //     return 'Categories for Week of ' + minDate.join('/') + ' - ' + maxDate.join('/')
     // }
 
-    // const allCategories = [
-    //     'DS&A',
-    //     'Systems Design',
-    //     'Tech Trivia',
-    //     'Practical Skill',
-    //     'Other'
-    // ]
+    const allCategories = [
+        'DS&A',
+        'Systems Design',
+        'Tech Trivia',
+        'Practical Skill',
+        'Other'
+    ]
 
     const updatedMeetings = userMeetings.map((meeting: Meeting) => {
         const student = sessionStudents[meeting.studentId];
@@ -143,7 +140,7 @@ function Home(){
         </Box>
     
     const bottom = 
-        <Box sx={{ display: 'flex', my: 4, width: .8, border: 1, }}>
+        <Box sx={{ display: 'flex', my: 4, width: .8, border: 1 }}>
             {notes}
         </Box>
 
@@ -236,14 +233,13 @@ function Home(){
                     </Box> */}
                     {/* Calendar */}
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', m: 4, border: 1, }}>
-                        <WeekOverview meetings={updatedMeetings}/>
-                        <CalendarDetails selectedDay={selectedDay === null ? dayjs() : selectedDay} meetings={updatedMeetings}/>
+                        
+                        <WeekOverview meetings={updatedMeetings} />
                         <Calendar meetings={updatedMeetings} students={sessionStudents} setSelected={setSelectedDay} />
-                        {notes}
+                        {/* {notes} */}
                     </Box>
 
                     {/* Bottom */}
-                    {/* {bottom} */}
                 </Box>
             </Box>
         </Box>
