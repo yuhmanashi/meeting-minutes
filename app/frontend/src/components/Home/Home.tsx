@@ -122,15 +122,15 @@ function Home(){
         
         return days[today.getDay()] + ', ' + today.toLocaleDateString();
     }
-
+    // minWidth: 270, maxWidth: 350
     const notes = 
-        <Box sx={{ border: 2, borderColor: '#1976d2', minWidth: .25, maxWidth: 350, height: 428, }}>
+        <Box sx={{ border: 2, borderColor: 'primary.main', width: {xs: 1, lg: 290}, height: 428, }}>
             <Box 
                 sx={{ 
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'space-between', 
-                    backgroundColor: '#1976d2'
+                    backgroundColor: 'primary.main'
                 }}
             >
                 <Typography variant='h5' sx={{ color: 'white', p: 2 }}>
@@ -142,7 +142,7 @@ function Home(){
         </Box>
     
     const bottom = 
-        <Box sx={{ display: 'flex', my: 4, width: .8, border: 1, }}>
+        <Box sx={{ display: {xs: 'flex', lg: 'none'}, my: {xs: 4, sm: 8}, border: 1, mx: {xs: 4, sm: 0}}}>
             {notes}
         </Box>
 
@@ -196,29 +196,29 @@ function Home(){
     return (
         <Box>
             <Box sx={{ mt: 8 }}>
-                <Box sx={{ p: 4 }}>
+                <Box sx={{ p: {xs: 2, sm: 4} }}>
                     <Box sx ={{ display: 'flex', alignItems: 'center' }}>
                         {/* <Typography variant='h4' fontWeight= 'bold' sx={{  }}>
                             Dashboard
                         </Typography> */}
                         <Typography 
                             sx={{
-                                backgroundColor: '#1976d2', 
+                                backgroundColor: 'primary.main',
                                 p: 2,
+                                typography: {xs: 'h5', md: 'h4'}
                             }}
                             color='white'
-                            variant='h4'
                         >
                             Dashboard
                         </Typography>
                         <Typography 
                             sx={{
-                                backgroundColor: '#1976d2', 
+                                backgroundColor: 'primary.main',
                                 p: 2,
-                                ml: 4
+                                ml: 4,
+                                typography: {xs: 'h5', md: 'h4'}
                             }}
                             color='white'
-                            variant='h4'
                         >
                             {getToday()}
                         </Typography>
@@ -234,15 +234,26 @@ function Home(){
                         </Typography>
                     </Box> */}
                     {/* Calendar */}
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', m: 4, p: 1, border: 1, }}>
+                    <Box sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'row'}, justifyContent: 'space-between', my: 4, }}>
                         <Calendar meetings={updatedMeetings} setSelected={setSelectedDay} />
-                        <CalendarDetails selectedDay={selectedDay === null ? dayjs() : selectedDay} meetings={updatedMeetings}/>
-                        <WeekOverview meetings={updatedMeetings}/>
-                        {notes}
+                        <Box sx={{ display: { xs: 'none', sm: 'block'}, width: {sm: .4, md: 220}, }}>
+                            <CalendarDetails selectedDay={selectedDay === null ? dayjs() : selectedDay} meetings={updatedMeetings}/>
+                        </Box>
+                        {/* <CalendarDetails selectedDay={selectedDay === null ? dayjs() : selectedDay} meetings={updatedMeetings}/> */}
+                        <Box sx={{ display: { xs: 'none', md: 'block'}}}>
+                            <WeekOverview meetings={updatedMeetings}/>
+                        </Box>
+                        <Box sx={{ display: {xs: 'flex', sm: 'none'}, justifyContent: 'space-evenly', mt: 4 }}>
+                            <CalendarDetails selectedDay={selectedDay === null ? dayjs() : selectedDay} meetings={updatedMeetings}/>
+                            <WeekOverview meetings={updatedMeetings}/>
+                        </Box>
+                        <Box sx={{ display: {xs: 'none', lg: 'block'} }}>
+                            {notes}
+                        </Box>
                     </Box>
 
                     {/* Bottom */}
-                    {/* {bottom} */}
+                    {bottom}
                 </Box>
             </Box>
         </Box>

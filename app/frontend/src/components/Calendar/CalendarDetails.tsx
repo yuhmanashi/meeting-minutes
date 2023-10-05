@@ -53,13 +53,13 @@ export default function CalendarDetails({ selectedDay, meetings }){
         <Box 
             sx={{ 
                 border: 2,
-                borderColor: '#1976d2',
-                height: 428,
-                minWidth: 220,
+                borderColor: 'primary.main',
+                height: {xs: 428, sm: 374, md: 428},
+                minWidth: 220
                 // mx: 4
             }}
         >
-            <Box sx={{ p: 1, backgroundColor: '#1976d2' }}>
+            <Box sx={{ p: 1, backgroundColor: 'primary.main' }}>
                 <Typography color='white' variant='h6' sx={{ px: 1 }} >
                     Meetings 
                 </Typography>

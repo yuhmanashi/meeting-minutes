@@ -30,27 +30,32 @@ const HighlightedDay = styled(PickersDay)(({theme}) => ({
   
 }))
 
+// good pink scheme: '#eedde5' '#ddbbcb' '#cb99b1'
+// good orange scheme: '#ffd6c7' '#ffbfa5'/'#fec1ab' '#fead8f' '#ff9f79'
+// good orange scheme:
+
 const test = createTheme({
   components: {
     MuiPickersDay: {
       styleOverrides: {
         root: {
+          ":hover": {
+            backgroundColor: '#fffe99'
+          },
           ":focus": {
-
+            backgroundColor: '#fdff66'
           },
           "&.Mui-selected": {
-            backgroundColor: '#eedde5'
+            backgroundColor: '#fffecc',
+            color: 'black',
+            ":hover": {
+              backgroundColor: '#fffe99'
+            },
+            ":focus": {
+              backgroundColor: '#fdff66'
+            }
           },
-          "&.Mui-selected:hover": {}
         },
-        today: {
-          ":focus": {
-            
-          },
-          "&.Mui-selected": {
-            backgroundColor: '#eedde5'
-          }
-        }
       }
     },
     MuiDateCalendar: {
@@ -69,13 +74,14 @@ const ServerDay = (props: any) => {
     highlightedDays.includes(formattedDay);
 
   return (
-    <HighlightedDay
-      {...other}
-      theme={test}
-      outsideCurrentMonth={outsideCurrentMonth}
-      day={day}
-      selected={isSelected}
-    />
+    <ThemeProvider theme={test}>
+      <HighlightedDay
+        {...other}
+        outsideCurrentMonth={outsideCurrentMonth}
+        day={day}
+        selected={isSelected}
+      />
+    </ThemeProvider>
   );
 };
 
@@ -105,10 +111,13 @@ export default function Calendar({meetings, setSelected}) {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box 
         sx={{
-          
+          width: 320,
+          display: {xs: 'flex', sm: 'block'},
+          flexDirection: 'column',
+          alignSelf: 'center'
         }}
       >
-        <Typography variant='h5' sx={{ color: 'white', p: 2, backgroundColor: '#ef5350' }}>
+        <Typography variant='h5' sx={{ color: 'white', p: 2, backgroundColor: 'primary.main' }}>
           Calendar
         </Typography>
         <DateCalendar
@@ -123,7 +132,7 @@ export default function Calendar({meetings, setSelected}) {
             } as any,
           }}
           sx={{
-            border: 2, borderColor: '#ef5350', height: 310
+            border: 2, borderColor: 'primary.main', height: 310
           }}
         />
 

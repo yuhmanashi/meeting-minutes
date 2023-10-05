@@ -73,7 +73,7 @@ export default function Pin({ pin }) {
         //         </ListItem>
         //     </List>
         // </Box>
-        <Card sx={{ m: 1, pl: 1, backgroundColor: color, maxWidth: 300 }}>
+        <Card sx={{ m: 1, backgroundColor: color, maxWidth: 330 }}>
             <CardHeader
                 action={<GenericMenu options={pinButtons()} buttonColor='black'/>}
                 title={title}

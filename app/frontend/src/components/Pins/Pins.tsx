@@ -25,7 +25,7 @@ export default function Pins({ pins }){
             overflowX: 'hidden', 
             overflowY: 'auto',
             height: 360,
-            maxWidth: 360,
+            
             // backgroundImage: `url(${corkboard})`, 
             // backgroundSize: "cover", 
             // backgroundRepeat: "no-repeat", 
@@ -34,17 +34,20 @@ export default function Pins({ pins }){
             // border: 2,
             // borderColor: '#1976d2',
             "&::-webkit-scrollbar": {
-                    width: "3px",
+                    width: "3px"
+                },
+            '&::-webkit-scrollbar-track': {
+                    borderRadius: "5px"
                 },
             "&::-webkit-scrollbar-thumb": {
                     background: 'darkgray',
-                    borderRadius: "10px",
+                    borderRadius: "5px",
                 },
             "&::-webkit-scrollbar-thumb:hover": {
                     background: "grey",
                 },
         }}>
-            <Masonry sx={{ m: 'auto' }} columns={1} spacing={2}>
+            <Masonry sx={{ m: 'auto', alignContent: 'center' }} columns={{xs: 1, sm: 2, md: 3, lg: 1}} spacing={2}>
 
                 {pins.map((pin) => {
                     return <Pin key={pin.id} pin={pin} />
