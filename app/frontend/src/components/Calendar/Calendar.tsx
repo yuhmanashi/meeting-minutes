@@ -1,25 +1,63 @@
 import React, {useState, useEffect} from 'react';
 
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import dayjs from "dayjs";
-import { styled } from "@mui/material/styles";
+import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import type {} from '@mui/x-date-pickers/themeAugmentation';
 
 import CalendarDetails from './CalendarDetails';
 import WeekOverview from './WeekOverview';
 
-const HighlightedDay = styled(PickersDay)(({ theme }) => ({
-  "&.Mui-selected": {
-    backgroundColor: theme.palette.primary.light,
-    color: theme.palette.primary.contrastText,
-  },
-}));
+// const HighlightedDay = styled(PickersDay)(({ theme }) => ({
+//   "&.Mui-selected": {
+//     backgroundColor: '#eedde5',
+//     color: 'black'
+//   },
+//   "&.Mui-selected:hover": {
+//     backgroundColor: '#cb99b1',
+//     color: '#fff'
+//   }
+// }));
+const HighlightedDay = styled(PickersDay)(({theme}) => ({
+  
+}))
+
+const test = createTheme({
+  components: {
+    MuiPickersDay: {
+      styleOverrides: {
+        root: {
+          ":focus": {
+
+          },
+          "&.Mui-selected": {
+            backgroundColor: '#eedde5'
+          },
+          "&.Mui-selected:hover": {}
+        },
+        today: {
+          ":focus": {
+            
+          },
+          "&.Mui-selected": {
+            backgroundColor: '#eedde5'
+          }
+        }
+      }
+    },
+    MuiDateCalendar: {
+
+    }
+  }
+})
 
 const ServerDay = (props: any) => {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
@@ -33,6 +71,7 @@ const ServerDay = (props: any) => {
   return (
     <HighlightedDay
       {...other}
+      theme={test}
       outsideCurrentMonth={outsideCurrentMonth}
       day={day}
       selected={isSelected}
@@ -40,8 +79,8 @@ const ServerDay = (props: any) => {
   );
 };
 
-export default function Calendar({meetings, students, setSelected}) {
-  const [value, setValue] = useState(dayjs());
+export default function Calendar({meetings, setSelected}) {
+  const [value, setValue] = useState(dayjs().add(2, 'day'));
   const [highlightedDays, setHighlitedDays] = useState(handleDates(meetings));
 
   useEffect(() => {
@@ -66,11 +105,12 @@ export default function Calendar({meetings, students, setSelected}) {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box 
         sx={{
-          display: 'flex', 
-          justifyContent: 'space-between',
+          
         }}
       >
-
+        <Typography variant='h5' sx={{ color: 'white', p: 2, backgroundColor: '#ef5350' }}>
+          Calendar
+        </Typography>
         <DateCalendar
           value={value} 
           onChange={newValue => handleChange(newValue)}
@@ -82,7 +122,9 @@ export default function Calendar({meetings, students, setSelected}) {
               highlightedDays,
             } as any,
           }}
-          sx={{ border: 2, borderColor: '#1976d2' }}
+          sx={{
+            border: 2, borderColor: '#ef5350', height: 310
+          }}
         />
 
 

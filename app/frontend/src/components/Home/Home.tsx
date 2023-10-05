@@ -20,7 +20,6 @@ import CalendarDetails from '../Calendar/CalendarDetails';
 
 import CategoriesChart from './CategoriesChart';
 import dayjs from 'dayjs';
-import { notInitialized } from 'react-redux/es/utils/useSyncExternalStore';
 
 function Home(){
     const [selectedDay, setSelectedDay] = useState(null);
@@ -125,7 +124,7 @@ function Home(){
     }
 
     const notes = 
-        <Box sx={{ border: 2, borderColor: '#1976d2' }}>
+        <Box sx={{ border: 2, borderColor: '#1976d2', minWidth: .25, maxWidth: 350, height: 428, }}>
             <Box 
                 sx={{ 
                     display: 'flex', 
@@ -235,10 +234,10 @@ function Home(){
                         </Typography>
                     </Box> */}
                     {/* Calendar */}
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', m: 4, border: 1, }}>
-                        <WeekOverview meetings={updatedMeetings}/>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', m: 4, p: 1, border: 1, }}>
+                        <Calendar meetings={updatedMeetings} setSelected={setSelectedDay} />
                         <CalendarDetails selectedDay={selectedDay === null ? dayjs() : selectedDay} meetings={updatedMeetings}/>
-                        <Calendar meetings={updatedMeetings} students={sessionStudents} setSelected={setSelectedDay} />
+                        <WeekOverview meetings={updatedMeetings}/>
                         {notes}
                     </Box>
 

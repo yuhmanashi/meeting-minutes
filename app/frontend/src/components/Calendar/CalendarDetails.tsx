@@ -54,16 +54,16 @@ export default function CalendarDetails({ selectedDay, meetings }){
             sx={{ 
                 border: 2,
                 borderColor: '#1976d2',
-                height: 358,
+                height: 428,
                 minWidth: 220,
                 // mx: 4
             }}
         >
             <Box sx={{ p: 1, backgroundColor: '#1976d2' }}>
-                <Typography color='white' variant='h6' sx={{ px: 1 }} textAlign='center'>
+                <Typography color='white' variant='h6' sx={{ px: 1 }} >
                     Meetings 
                 </Typography>
-                <Typography color='white' variant='subtitle1' sx={{ px: 1 }} textAlign='center'>
+                <Typography color='white' variant='subtitle1' sx={{ px: 1 }} >
                     {getString()}
                 </Typography>
             </Box>

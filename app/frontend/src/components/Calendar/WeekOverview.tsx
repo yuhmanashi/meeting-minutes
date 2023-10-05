@@ -88,10 +88,10 @@ export default function WeekOverview({ meetings }){
         <Box sx={{}}>
             <Box sx={{ border: 2, borderColor: '#1976d2' }}>
                 <Box sx={{ p: 1, backgroundColor: '#1976d2' }}>
-                    <Typography color='white' variant='h6' textAlign='center'>
-                        Weekly Overview
+                    <Typography color='white' variant='h6' sx={{ px: 1 }}>
+                        Week Overview
                     </Typography>
-                    <Typography color='white' variant='subtitle1' textAlign='center'>
+                    <Typography color='white' variant='subtitle1' sx={{ px: 1 }}>
                         {getWeek()}
                     </Typography>
                 </Box>

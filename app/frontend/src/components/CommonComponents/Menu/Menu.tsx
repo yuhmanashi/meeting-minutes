@@ -4,10 +4,10 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-export default function GenericMenu({props}) {
+export default function GenericMenu({options, buttonColor = null}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -23,13 +23,16 @@ export default function GenericMenu({props}) {
   return (
     <div>
       <Button
-        id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <MoreHorizIcon/>
+        {buttonColor ? 
+          <MoreHorizIcon sx={{color: buttonColor}}/>
+            :
+          <MoreHorizIcon />
+        }
       </Button>
       <Menu
         id="basic-menu"
@@ -41,11 +44,11 @@ export default function GenericMenu({props}) {
         }}
         disableScrollLock={true}
       >
-        {props.map((prop, index) => {
+        {options.map((option, index) => {
           const unique = generateKey(index);
             return (
                 <MenuItem key={unique} onKeyDown={(e) => e.stopPropagation()}>
-                    {prop}
+                    {option}
                 </MenuItem>
             )
         })}

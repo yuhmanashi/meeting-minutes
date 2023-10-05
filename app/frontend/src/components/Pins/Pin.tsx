@@ -19,22 +19,20 @@ import * as pinsActions from '../../store/pins';
 import UpdatePinModal from './UpdatePinModal';
 
 const colors = [
-    '#fbe3e6',
-    '#fbf5ce',
-    '#ebd6e7',
-    '#f5d6dc',
-    '#fee2cc',
-    '#ddd9e6',
-    '#d9ecd8',
-    '#e1e7d2'
+    '#fbe3e6', //light pink
+    '#ebd6e7', // light pink
+    '#f5d6dc', // light red
+    '#ddd9e6', // light purple
+    '#d6f8ff', // light blue
+    '#faedd7', // light orange
+    '#d0ecea', // light green
+    '#fbfbde', // light yellow
 ]
 
 function generateColor(){
     const idx = Math.floor(Math.random() * colors.length);
     return colors[idx];
 }
-
-console.log(generateColor())
 
 export default function Pin({ pin }) {
     const {id, title, body, createdAt} = pin;
@@ -52,6 +50,8 @@ export default function Pin({ pin }) {
             </Button>
         ]
     };
+
+    const color = generateColor()
 
     return (
         // <Box sx={{ m: {xs: 1}, width: {sm: '45%', md: '95%', backgroundColor: 'yellow'} }}>
@@ -73,9 +73,9 @@ export default function Pin({ pin }) {
         //         </ListItem>
         //     </List>
         // </Box>
-        <Card sx={{ m: 1, width: .45, backgroundColor: '#fbe3e6' }}>
+        <Card sx={{ m: 1, pl: 1, backgroundColor: color, maxWidth: 300 }}>
             <CardHeader
-                action={<GenericMenu props={pinButtons()}/>}
+                action={<GenericMenu options={pinButtons()} buttonColor='black'/>}
                 title={title}
                 subheader={new Date(createdAt).toLocaleDateString()}
                 subheaderTypographyProps={{variant: 'subtitle2'}}
