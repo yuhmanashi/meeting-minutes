@@ -94,13 +94,14 @@ export default function UpdatePinModal({ pin }) {
   const [title, setTitle] = useState(pin.title);
   const [body, setBody] = useState(pin.body);
   const [authorId, setAuthorId] = useState(pin.authorId);
+  const [color, setColor] = useState(pin.color);
   const id = pin.id
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
     if (title.length !== 0 && body.length !== 0) handleClose();
-    return dispatch(pinsActions.updatePin({ id, authorId, title, body }))
+    return dispatch(pinsActions.updatePin({ id, authorId, title, body, color }))
   };
 
   return (

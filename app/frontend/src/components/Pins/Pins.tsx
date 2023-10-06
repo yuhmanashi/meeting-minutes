@@ -24,8 +24,7 @@ export default function Pins({ pins }){
             flexWrap: 'wrap', 
             overflowX: 'hidden', 
             overflowY: 'auto',
-            height: 360,
-            
+            height: {xs: 360, lg: 300},
             // backgroundImage: `url(${corkboard})`, 
             // backgroundSize: "cover", 
             // backgroundRepeat: "no-repeat", 
@@ -48,7 +47,6 @@ export default function Pins({ pins }){
                 },
         }}>
             <Masonry sx={{ m: 'auto', alignContent: 'center' }} columns={{xs: 1, sm: 2, md: 3, lg: 1}} spacing={2}>
-
                 {pins.map((pin) => {
                     return <Pin key={pin.id} pin={pin} />
                 })}

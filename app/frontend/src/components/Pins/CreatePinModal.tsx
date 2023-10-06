@@ -15,6 +15,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Modal from '@mui/material/Modal';
 import AddIcon from '@mui/icons-material/Add';
 
+import SelectMenu from "../CommonComponents/SelectMenu";
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -79,6 +81,17 @@ const StyledTextarea = styled(TextareaAutosize)(
   `,
 );
 
+const colors = [
+  '#fbfbde', // light yellow
+  '#faedd7', // light orange
+  '#fbe3e6', //light pink
+  '#f5d6dc', // light red
+  '#ebd6e7', // light pink
+  '#ddd9e6', // light purple
+  '#d0ecea', // light green
+  '#d6f8ff', // light blue
+]
+
 export default function CreatePinModal({ authorId }) {
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
@@ -89,19 +102,31 @@ export default function CreatePinModal({ authorId }) {
     setOpen(false);
     setTitle('');
     setBody('');
+    setColor('');
     dispatch(sessionErrorActions.removeSessionErrors());
   };
   
   const [title, setTitle] = useState("");
-  const [body, setBody] = useState("")
+  const [body, setBody] = useState("");
+  const [color, setColor] = useState('#f5d6dc');
   
+  function createPaletteOptions(){
+    return (
+      colors.map((color, i) => 
+        <Typography key={i} textAlign='center' sx={{ backgroundColor: color, border: 1, borderColor: 'lightgrey', height: 25, width: 1 }}>Sample Text</Typography>
+      )
+    )
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     
     if (title.length !== 0 || body.length !== 0) handleClose();
-    
-    return dispatch(pinsActions.createPin({ authorId, title, body }))
+
+    return dispatch(pinsActions.createPin({ authorId, title, body, color }));
   };
+
+  const options = createPaletteOptions();
 
   return (
     <div>
@@ -148,6 +173,7 @@ export default function CreatePinModal({ authorId }) {
                 fullWidth
                 required
               />
+              {/* <SelectMenu name={'color'} options={options} defaultOption={options[0]} onChange={setColor}/> */}
               <StyledTextarea
                 defaultValue={body}
                 placeholder="Type here"

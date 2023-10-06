@@ -50,11 +50,11 @@ export default function Day({ day, handleChange, meetings }){
             //         {dateMeetings.length}
             //     </Typography>
             // </Button>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: 175 }}>
-            <Typography variant='button'>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: .9}}>
+            <Typography variant='button' >
                 {days[weekday]}
             </Typography>
-            <Typography variant='button'>
+            <Typography variant='button' >
                 {meetings.length}
             </Typography>
         </Box>

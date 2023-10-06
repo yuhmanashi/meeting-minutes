@@ -27,6 +27,7 @@
 # end
 
 require 'faker'
+require 'date'
 
 ApplicationRecord.transaction do 
     # puts "Destroying tables..."
@@ -58,24 +59,28 @@ ApplicationRecord.transaction do
       |n| 
       first_name = Faker::Name.first_name
       last_name = Faker::Name.last_name
-      
+      full_name = first_name + ' ' + last_name
       Student.create!(
         first_name: first_name,
         last_name: last_name,
-        full_name: first_name + ' ' + last_name,
-        email: Faker::Verb.base + n.to_s + '@student.io',
+        full_name: full_name,
+        email: Faker::Internet.email(name: full_name),
         coach: coaches[rand(0..9)]
       )
     }
 
     puts "Creating categories..."
-    categories = [
-      'DS&A',
-      'Systems Design',
-      'Tech Trivia',
-      'Practical Skill',
-      'Other'
-    ]
+    # categories = [
+    #   'DS&A',
+    #   'Systems Design',
+    #   'Tech Trivia',
+    #   'Practical Skill',
+    #   'Other'
+    # ]
+    categories = []
+    rand(5..8).times do
+      categories.push(Faker::Science.unique.science)
+    end
 
     puts "Creating first user..."
     # Create one user with an easy to remember username, email, and password:
@@ -87,11 +92,13 @@ ApplicationRecord.transaction do
     )
 
     puts "Creating meetings for first user..."
-    100.times do
+    200.times do
       firstUser.meetings.create!(
         category: categories[rand(0..(categories.length - 1))],
         student_id: rand(1..num_students),
-        date: Date.new(2023, rand(8..12), rand(1..30))
+        date: DateTime.new(2023, rand(8..12), rand(1..30) + rand().round(1)),
+        notes: Faker::Lorem.sentences(number: rand(1..3)).join(' '),
+        problems: Faker::Lorem.word
       )
     end
 
@@ -100,7 +107,7 @@ ApplicationRecord.transaction do
     
     set = Set.new
 
-    rand(10..20).times do
+    5.times do
       student_id = rand(1..num_students);
       tag = tags[rand(0..(tags.length - 1))];
       val = student_id.to_s + tag;
@@ -119,11 +126,25 @@ ApplicationRecord.transaction do
       )
     end
 
-    firstUser.pins.create!(
-      title: 'first pin',
-      body: 'Wow these pins are so cool!'
-    )
+    colors = [
+      '#fbe3e6',
+      '#ebd6e7',
+      '#f5d6dc',
+      '#ddd9e6',
+      '#d6f8ff',
+      '#faedd7',
+      '#d0ecea',
+      '#fbfbde',
+    ]
 
+    rand(10..20).times do 
+      firstUser.pins.create!(
+        title: Faker::Lorem.words.join(" "),
+        body: Faker::Lorem.sentence(word_count: 1, supplemental: false, random_words_to_add: 50),
+        color: colors[rand(0..(colors.length - 1))],
+      )
+    end
+    
     puts "Creating more users..."
     # More users
     10.times {
@@ -164,7 +185,8 @@ ApplicationRecord.transaction do
       Pin.create!(
         author_id: user.id,
         title: user.first_name,
-        body: user.last_name
+        body: user.last_name,
+        color: 'red'
       )
     }
 

@@ -103,9 +103,17 @@ function Home(){
         const newMeeting = { ...meeting }
         newMeeting['studentName'] = `${student.fullName}`;
         newMeeting['studentEmail'] = student.email;
-        newMeeting['createdAt'] = new Date(meeting.createdAt).toLocaleDateString()
+        
         return newMeeting;
     });
+    
+    function sortDate(a, b) {
+        return a < b ? -1 : a > b ? 1 : 0
+    }
+
+    const sortedMeetings = updatedMeetings.sort((a, b) => sortDate(a.date, b.date));
+
+    // console.log(sortedMeetings);
 
     function getToday(){
         const days = {
@@ -124,13 +132,13 @@ function Home(){
     }
     // minWidth: 270, maxWidth: 350
     const notes = 
-        <Box sx={{ border: 2, borderColor: 'primary.main', width: {xs: 1, lg: 290}, height: 428, }}>
+        <Box sx={{ border: 2, borderColor: '#ff9f79', width: {xs: 320, sm: 1, lg: 290}, height: {xs: 440, lg: 374}, }}>
             <Box 
                 sx={{ 
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'space-between', 
-                    backgroundColor: 'primary.main'
+                    backgroundColor: '#ff9f79'
                 }}
             >
                 <Typography variant='h5' sx={{ color: 'white', p: 2 }}>
@@ -142,7 +150,7 @@ function Home(){
         </Box>
     
     const bottom = 
-        <Box sx={{ display: {xs: 'flex', lg: 'none'}, my: {xs: 4, sm: 8}, border: 1, mx: {xs: 4, sm: 0}}}>
+        <Box sx={{ display: {xs: 'flex', lg: 'none'}, my: 2, justifyContent: 'center' }}>
             {notes}
         </Box>
 
@@ -203,9 +211,10 @@ function Home(){
                         </Typography> */}
                         <Typography 
                             sx={{
+                                display: {xs: 'none', sm: 'block'},
                                 backgroundColor: 'primary.main',
                                 p: 2,
-                                typography: {xs: 'h5', md: 'h4'}
+                                typography: { sm: 'h5', md: 'h4' }
                             }}
                             color='white'
                         >
@@ -215,8 +224,8 @@ function Home(){
                             sx={{
                                 backgroundColor: 'primary.main',
                                 p: 2,
-                                ml: 4,
-                                typography: {xs: 'h5', md: 'h4'}
+                                typography: { xs: 'h5', md: 'h4' },
+                                mx: {xs: 'auto', sm: 4}
                             }}
                             color='white'
                         >
@@ -234,19 +243,16 @@ function Home(){
                         </Typography>
                     </Box> */}
                     {/* Calendar */}
-                    <Box sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'row'}, justifyContent: 'space-between', my: 4, }}>
-                        <Calendar meetings={updatedMeetings} setSelected={setSelectedDay} />
-                        <Box sx={{ display: { xs: 'none', sm: 'block'}, width: {sm: .4, md: 220}, }}>
-                            <CalendarDetails selectedDay={selectedDay === null ? dayjs() : selectedDay} meetings={updatedMeetings}/>
+                    <Box sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'row'}, alignItems: {xs: 'center', sm: 'normal'}, justifyContent: 'space-between', my: 4, }}>
+                        <Calendar meetings={sortedMeetings} setSelected={setSelectedDay} />
+                        <Box sx={{ width: {xs: 320, sm: .4, md: 220}, mt: {xs: 4, sm: 0}}}>
+                            <CalendarDetails selectedDay={selectedDay === null ? dayjs() : selectedDay} meetings={sortedMeetings}/>
                         </Box>
                         {/* <CalendarDetails selectedDay={selectedDay === null ? dayjs() : selectedDay} meetings={updatedMeetings}/> */}
-                        <Box sx={{ display: { xs: 'none', md: 'block'}}}>
-                            <WeekOverview meetings={updatedMeetings}/>
+                        <Box sx={{ width: 220, display: { xs: 'none', md: 'block' }}}>
+                            <WeekOverview meetings={sortedMeetings} selectedDay={selectedDay === null ? dayjs() : selectedDay}/>
                         </Box>
-                        <Box sx={{ display: {xs: 'flex', sm: 'none'}, justifyContent: 'space-evenly', mt: 4 }}>
-                            <CalendarDetails selectedDay={selectedDay === null ? dayjs() : selectedDay} meetings={updatedMeetings}/>
-                            <WeekOverview meetings={updatedMeetings}/>
-                        </Box>
+                        
                         <Box sx={{ display: {xs: 'none', lg: 'block'} }}>
                             {notes}
                         </Box>

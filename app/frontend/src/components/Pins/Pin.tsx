@@ -12,6 +12,8 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 
+import Divider from '@mui/material/Divider';
+
 import GenericMenu from '../CommonComponents/Menu';
 
 import * as pinsActions from '../../store/pins';
@@ -35,7 +37,7 @@ function generateColor(){
 }
 
 export default function Pin({ pin }) {
-    const {id, title, body, createdAt} = pin;
+    const {id, title, body, createdAt, color} = pin;
     const dispatch = useAppDispatch();
 
     function handleDelete(id){
@@ -51,7 +53,7 @@ export default function Pin({ pin }) {
         ]
     };
 
-    const color = generateColor()
+    const handleColor = color.length > 1 ? color : '#fbfbde';
 
     return (
         // <Box sx={{ m: {xs: 1}, width: {sm: '45%', md: '95%', backgroundColor: 'yellow'} }}>
@@ -73,13 +75,14 @@ export default function Pin({ pin }) {
         //         </ListItem>
         //     </List>
         // </Box>
-        <Card sx={{ m: 1, backgroundColor: color, maxWidth: 330 }}>
+        <Card sx={{ m: 1, backgroundColor: handleColor, maxWidth: 330 }}>
             <CardHeader
                 action={<GenericMenu options={pinButtons()} buttonColor='black'/>}
                 title={title}
                 subheader={new Date(createdAt).toLocaleDateString()}
                 subheaderTypographyProps={{variant: 'subtitle2'}}
             />
+            <Divider variant='fullWidth' />
             <CardContent >
                 <Typography>
                     {body}

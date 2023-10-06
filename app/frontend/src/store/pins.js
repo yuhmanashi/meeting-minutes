@@ -41,11 +41,12 @@ export const fetchPin = (id) => async dispatch => {
 };
 
 export const createPin = (pin) => async dispatch => {
-    const { authorId, title, body } = pin;
+    const { authorId, title, body, color } = pin;
+    
     const response = await fetch("/api/pins", {
         method: "POST",
         body: JSON.stringify({
-            authorId, title, body
+            authorId, title, body, color
         }),
         headers: Util.headers()
     })
@@ -56,11 +57,11 @@ export const createPin = (pin) => async dispatch => {
 };
 
 export const updatePin = (pin) => async dispatch => {
-    const { authorId, title, body, id } = pin;
+    const { authorId, title, body, id, color } = pin;
     const response = await fetch(`/api/pins/${id}`, {
         method: "PATCH",
         body: JSON.stringify({
-            authorId, title, body
+            authorId, title, body, color
         }),
         headers: Util.headers()
     })

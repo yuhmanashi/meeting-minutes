@@ -53,21 +53,37 @@ export default function CalendarDetails({ selectedDay, meetings }){
         <Box 
             sx={{ 
                 border: 2,
-                borderColor: 'primary.main',
-                height: {xs: 428, sm: 374, md: 428},
-                minWidth: 220
-                // mx: 4
+                borderColor: '#cb99b1',
+                height: {xs: 300, sm: 374},
             }}
         >
-            <Box sx={{ p: 1, backgroundColor: 'primary.main' }}>
-                <Typography color='white' variant='h6' sx={{ px: 1 }} >
+            <Box sx={{ p: 1, backgroundColor: '#cb99b1' }}>
+                <Typography color='white' variant='h6' textAlign='center' sx={{ px: 1 }} >
                     Meetings 
                 </Typography>
-                <Typography color='white' variant='subtitle1' sx={{ px: 1 }} >
+                <Typography color='white' variant='subtitle1' textAlign='center' sx={{ px: 1 }} >
                     {getString()}
                 </Typography>
             </Box>
-            <Box sx={{}}>                    
+            <Box 
+                sx={{
+                    height: {xs: 220, sm: 290}, 
+                    overflowY: 'auto',
+                    "&::-webkit-scrollbar": {
+                        width: "3px"
+                    },
+                    '&::-webkit-scrollbar-track': {
+                        borderRadius: "5px"
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                        background: 'darkgray',
+                        borderRadius: "5px",
+                    },
+                    "&::-webkit-scrollbar-thumb:hover": {
+                        background: "grey",
+                    }, 
+                }}
+            >                    
                 { dateMeetings.length > 0 ? 
                     <List sx={{ py: 0 }}>
                         { dateMeetings.map(meeting => (

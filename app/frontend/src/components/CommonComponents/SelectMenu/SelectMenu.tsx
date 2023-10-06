@@ -7,7 +7,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 type SelectProps = {
   name: string;
-  options: string[];
+  options: any;
   defaultOption: any;
   onChange: (option: string) => void;
 }
@@ -20,7 +20,7 @@ export default function SelectMenu({ name, options, defaultOption, onChange }: S
   }, [option])
 
   const handleChange = (event: SelectChangeEvent) => {
-    setOption(event.target.value as string);
+    setOption(event.target.value as any);
   };
 
   return (

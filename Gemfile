@@ -60,6 +60,6 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   gem 'annotate'
-  gem 'better_errors', '!= 2.10.0'
+  # gem 'better_errors', '!= 2.10.0'
   gem 'binding_of_caller'
 end

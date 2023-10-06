@@ -100,18 +100,18 @@ export default function WeeklyAccordions({ meetings, week }) {
           {/* <Typography>{days[weekday]}</Typography> */}
           <Day day={day} handleChange={handleChange} meetings={dateMeetings}/>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails sx={{ p: 0 }}>
           { dateMeetings.length > 0 ? 
-            <List sx={{ py: 0 }}>
+            <List sx={{ p: 0 }}>
                 { dateMeetings.map(meeting => (
-                    <React.Fragment key={`${meeting.createdAt}`}>
-                        <ListItem sx={{ py: 0 }}>
+                    <React.Fragment key={`${meeting.date}`}>
+                        <ListItem sx={{  }}>
                             <ListItemText
                               primary={meeting.studentName}
                               secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
                             />
                         </ListItem>
-                        {/* <Divider variant='fullWidth' sx={{ backgroundColor: '#1976d2' }} /> */}
+                        <Divider variant='fullWidth' />
                     </React.Fragment>
                 ))}
             </List>

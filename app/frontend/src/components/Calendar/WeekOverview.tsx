@@ -24,7 +24,7 @@ const days = {
     11: 31
 }
 
-export default function WeekOverview({ meetings }){    
+export default function WeekOverview({ meetings, selectedDay }){    
     // filter meetings for week
     function filterMeetings(meetings, callback){
         const filteredMeetings = meetings.filter(meeting => callback(new Date(meeting.date)));
@@ -32,7 +32,7 @@ export default function WeekOverview({ meetings }){
     }
 
     function byThisWeek(date){
-        const today = new Date();
+        const today = new Date(selectedDay);
         const day = today.getDay();
         const monthDay = today.getDate();
         const month = today.getMonth();
@@ -71,7 +71,7 @@ export default function WeekOverview({ meetings }){
         return week;
     }
 
-    const week = createWeek(dayjs())
+    const week = createWeek(selectedDay)
     //gets first and last day of the week in string format
     function getWeek(){
         const first = week[0];
@@ -85,18 +85,49 @@ export default function WeekOverview({ meetings }){
     }
 
     return (
-        <Box >
-            <Box sx={{ border: 2, borderColor: 'primary.main' }}>
-                <Box sx={{ p: 1, backgroundColor: 'primary.main' }}>
-                    <Typography color='white' variant='h6' sx={{ px: 1 }}>
+        <Box>
+            <Box 
+                sx={{ 
+                    border: 2, 
+                    borderColor: '#cb99b1',
+                }}
+            >
+                <Box 
+                    sx={{ 
+                        p: 1, 
+                        backgroundColor: '#cb99b1',
+                    }}
+                >
+                    <Typography color='white' variant='h6' textAlign='center' sx={{ px: 1 }}>
                         Week Overview
                     </Typography>
-                    <Typography color='white' variant='subtitle1' sx={{ px: 1 }}>
+                    <Typography color='white' variant='subtitle1' textAlign='center' sx={{ px: 1 }}>
                         {getWeek()}
                     </Typography>
                 </Box>
                 <Divider variant='fullWidth' />
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Box 
+                    sx={{ 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center',
+                        height: 293, 
+                        overflowY: 'auto',
+                        "&::-webkit-scrollbar": {
+                            width: "3px"
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            borderRadius: "5px"
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                            background: 'darkgray',
+                            borderRadius: "5px",
+                        },
+                        "&::-webkit-scrollbar-thumb:hover": {
+                            background: "grey",
+                        }, 
+                    }}
+                >
                     <WeeklyAccordions meetings={filtered} week={week}/>
                 </Box>
             </Box>
