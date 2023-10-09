@@ -89,13 +89,13 @@ export default function WeekOverview({ meetings, selectedDay }){
             <Box 
                 sx={{ 
                     border: 2, 
-                    borderColor: '#cb99b1',
+                    borderColor: 'primary.main',
                 }}
             >
                 <Box 
                     sx={{ 
                         p: 1, 
-                        backgroundColor: '#cb99b1',
+                        backgroundColor: 'primary.main',
                     }}
                 >
                     <Typography color='white' variant='h6' textAlign='center' sx={{ px: 1 }}>
