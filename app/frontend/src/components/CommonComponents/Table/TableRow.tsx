@@ -56,7 +56,7 @@ export default function GenericTableRow(props){
                     )
                 })}
                 <TableCell sx={ buttons ? { display: 'block', height: {sm: 74, md: 74} } : { display: 'none' } }>
-                    <GenericMenu props={buttons ? buttons(row) : []}/>
+                    <GenericMenu options={buttons ? buttons(row) : []}/>
                 </TableCell>
                 <TableCell sx={ collapse ? { display: 'block' } : { display: 'none' } } >
                     <IconButton

@@ -115,11 +115,12 @@ interface GenericTableProps {
   buttons: any;
   page: number;
   setPage: any;
+  defaultSort: number;
 }
 
-export default function GenericTable({list, values, rValues, details, buttons, page, setPage}: GenericTableProps) {
+export default function GenericTable({list, values, rValues, defaultSort = 0, details, buttons, page, setPage}: GenericTableProps) {
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof any>(values[0].id);
+  const [orderBy, setOrderBy] = React.useState<keyof any>(values[defaultSort].id);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (

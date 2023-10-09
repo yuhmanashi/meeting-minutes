@@ -70,41 +70,41 @@ export default function DataTable({meetings, selected}) {
     const [filtered, setFiltered] = useState(handleMeetings(meetings, selected))
 
     useEffect(() => {
-        let newSelected = handleMeetings(meetings, selected)
-        setFiltered(newSelected)
+      let newSelected = handleMeetings(meetings, selected)
+      setFiltered(newSelected)
     }, [selected])
 
     const values = [
-        {
-          label: 'Name',
-          id: 'studentName'
-        },
-        {
-          label: 'Email',
-          id: 'studentEmail'
-        },
-        {
-          label: 'Category',
-          id: 'category'
-        },
-        {
-          label: 'Date',
-          id: 'date'
-        }
+      {
+        label: 'Name',
+        id: 'studentName'
+      },
+      {
+        label: 'Email',
+        id: 'studentEmail'
+      },
+      {
+        label: 'Category',
+        id: 'category'
+      },
+      {
+        label: 'Date',
+        id: 'date'
+      }
     ];
 
     const responsiveValues = [
-        {
-          label: 'Name',
-          id: 'studentName'
-        },
-        {
-          label: 'Category',
-          id: 'category'
-        },
+      {
+        label: 'Name',
+        id: 'studentName'
+      },
+      {
+        label: 'Category',
+        id: 'category'
+      },
     ];
 
     return (
-      <GenericTable list={filtered} values={values} rValues={responsiveValues} details={[]} buttons={null} page={page} setPage={setPage}/> 
+      <GenericTable list={filtered} values={values} rValues={responsiveValues} defaultSort={3} details={[]} buttons={null} page={page} setPage={setPage}/> 
     )
 }

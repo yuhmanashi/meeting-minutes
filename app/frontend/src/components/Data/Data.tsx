@@ -35,9 +35,20 @@ export default function Data(){
 
     const userMeetings: any = userFilter(sessionMeetings);
 
+    function handleDateString(date){
+        const dateString = new Date(date).toLocaleDateString();
+        if (dateString.length === 10) return dateString;
+        const strs = dateString.split('/');
+        if (strs[0].length < 2) strs[0] = '0' + strs[0];
+        if (strs[1].length < 2) strs[1] = '0' + strs[1]; 
+        return strs.join('/');
+    }
+
     const updatedMeetings = userMeetings.map((meeting: Meeting) => {
         const student = sessionStudents[meeting.studentId];
         const newMeeting = { ...meeting }
+        newMeeting.date = handleDateString(meeting.date);
+
         newMeeting['studentName'] = `${student.fullName}`;
         newMeeting['studentEmail'] = student.email;
 
@@ -62,10 +73,10 @@ export default function Data(){
                 </Container> */}
                 {/* Data */}
                 <Container sx={{my: 2}}>
-                    {/* <Container sx={{display: 'flex'}}>
+                    <Container sx={{display: 'flex'}}>
                         <SelectMenu name={'Data'} options={['Meeting', 'Category']} defaultOption={'Meeting'} onChange={setData}/>
                         <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setTime}/>
-                    </Container> */}
+                    </Container>
                     {/* Table */}
                     <Container>
                         <DataTable meetings={sortedMeetings} selected={time}/>
