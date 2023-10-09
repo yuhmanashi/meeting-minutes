@@ -89,7 +89,7 @@ export default function DataTable({meetings, selected}) {
         },
         {
           label: 'Date',
-          id: 'createdAt'
+          id: 'date'
         }
     ];
 
@@ -103,8 +103,8 @@ export default function DataTable({meetings, selected}) {
           id: 'category'
         },
     ];
-    
+
     return (
-        <GenericTable list={filtered} values={values} rValues={responsiveValues} details={[]} buttons={null} page={page} setPage={setPage}/> 
+      <GenericTable list={filtered} values={values} rValues={responsiveValues} details={[]} buttons={null} page={page} setPage={setPage}/> 
     )
 }

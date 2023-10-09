@@ -26,40 +26,52 @@ export default function Data(){
         dispatch(meetingActions.fetchMeetings());
     }, [dispatch])
 
-    if (Object.keys(sessionStudents).length < 1) return null;
+    if (Object.keys(sessionStudents).length < 1 || Object.keys(sessionMeetings).length < 1) return null;
 
-    const userMeetings = Object.values(sessionMeetings).filter((meeting: Meeting) => meeting.userId === sessionUser.id);
+    function userFilter(obj){
+        const values = Object.values(obj);
+        return values.filter((value: any) => value.userId ? value.userId === sessionUser.id : value.authorId === sessionUser.id)
+    };
+
+    const userMeetings: any = userFilter(sessionMeetings);
 
     const updatedMeetings = userMeetings.map((meeting: Meeting) => {
         const student = sessionStudents[meeting.studentId];
         const newMeeting = { ...meeting }
         newMeeting['studentName'] = `${student.fullName}`;
         newMeeting['studentEmail'] = student.email;
-        newMeeting['createdAt'] = new Date(meeting.createdAt).toLocaleDateString()
+
         return newMeeting;
     });
 
-    const userMeetingsByDate = updatedMeetings.sort((a, b) => 
-        a.date < b.date ? -1 : a.date > b.date ? 1 : 0
-    )
+    function sortDate(a, b) {
+        return a < b ? -1 : a > b ? 1 : 0
+    }
+
+    const sortedMeetings = updatedMeetings.sort((a, b) => sortDate(a.date, b.date));
 
     return (
-        <Box>
-            {/* Charts */}
-            <Container sx={{mt: 11}}>
-                <DataChart meetings={userMeetings} selected={[data, time]} user={sessionUser}/>
-            </Container>
-            {/* Data */}
-            <Container sx={{my: 2}}>
-                <Container sx={{display: 'flex'}}>
-                    <SelectMenu name={'Data'} options={['Meeting', 'Category']} defaultOption={'Meeting'} onChange={setData}/>
-                    <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setTime}/>
+        <Box sx={{mt: 8, minHeight: 720}}>
+            <Box sx={{p: 2}}>
+                <Box>
+
+                </Box>
+                {/* Charts */}
+                {/* <Container sx={{mt: 11}}>
+                    <DataChart meetings={userMeetings} selected={[data, time]} user={sessionUser}/>
+                </Container> */}
+                {/* Data */}
+                <Container sx={{my: 2}}>
+                    {/* <Container sx={{display: 'flex'}}>
+                        <SelectMenu name={'Data'} options={['Meeting', 'Category']} defaultOption={'Meeting'} onChange={setData}/>
+                        <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setTime}/>
+                    </Container> */}
+                    {/* Table */}
+                    <Container>
+                        <DataTable meetings={sortedMeetings} selected={time}/>
+                    </Container>
                 </Container>
-                {/* Table */}
-                <Container>
-                    <DataTable meetings={userMeetingsByDate} selected={time}/>
-                </Container>
-            </Container>
+            </Box>
         </Box>
     )
 };
