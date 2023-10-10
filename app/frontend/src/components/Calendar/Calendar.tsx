@@ -43,10 +43,10 @@ const test = createTheme({
             border: '1px solid black'
           },
           ":hover": {
-            backgroundColor: '#fead8f'
+            backgroundColor: '#ffbfa5'
           },
           ":focus": {
-            backgroundColor: '#cb99b1'
+            backgroundColor: '#fead8f'
           },
           "&.Mui-selected": {
             backgroundColor: '#ffd6c7',

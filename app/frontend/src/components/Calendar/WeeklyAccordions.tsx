@@ -91,7 +91,7 @@ export default function WeeklyAccordions({ meetings, week }) {
     const key = new Date().toISOString();
 
     return (
-      <Accordion expanded={expanded === weekday} onChange={handleChange(weekday)}>
+      <Accordion sx={{width: 210}} expanded={expanded === weekday} onChange={handleChange(weekday)}>
         <AccordionSummary aria-controls={`${weekday}-content`} id={`${weekday}-header`}>
           {/* <Typography sx={{ width: '33%', flexShrink: 0 }}>
             General settings
@@ -102,9 +102,9 @@ export default function WeeklyAccordions({ meetings, week }) {
         </AccordionSummary>
         <AccordionDetails sx={{ p: 0 }}>
           { dateMeetings.length > 0 ? 
-            <List sx={{ p: 0 }}>
+            <List sx={{  }}>
                 { dateMeetings.map(meeting => (
-                    <React.Fragment key={`${meeting.date}`}>
+                    <React.Fragment key={`${meeting.date} ${meeting.createdAt}`}>
                         <ListItem sx={{  }}>
                             <ListItemText
                               primary={meeting.studentName}

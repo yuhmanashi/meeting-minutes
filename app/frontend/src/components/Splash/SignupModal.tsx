@@ -73,7 +73,6 @@ export default function SignupModal({ setModalOpen }) {
               flexDirection: 'column', 
               justifyContent: 'flex-end',
               alignItems: 'center',
-              height: 310,
               width: 1
             }}
           >

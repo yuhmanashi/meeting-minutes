@@ -214,7 +214,7 @@ function Home(){
                                 // backgroundColor: 'primary.main',
                                 // p: 2,
                                 // typography: { sm: 'h5', md: 'h4' }
-                                mt: {lg: 6}
+                                
                             }}
                             
                             // color='white'
