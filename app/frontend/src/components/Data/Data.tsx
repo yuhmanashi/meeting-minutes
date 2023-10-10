@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 import * as meetingActions from '../../store/meetings';
 import * as studentActions from '../../store/students';
@@ -14,7 +15,7 @@ import DataChart from './DataChart';
 import DataTable from './DataTable';
 
 import CreateMeetingModal from '../Meetings/CreateMeetingModal';
-
+import UpdateMeetingModal from '../Meetings/UpdateMeetingModal';
 export default function Data(){
     const sessionUser = useAppSelector(state => state.session.user);
     const sessionStudents = useAppSelector((state) => state.students);
@@ -73,11 +74,26 @@ export default function Data(){
         return Object.keys(categories);
     }
 
+    function handleDelete(id){
+        return dispatch(meetingActions.deleteMeeting(id))
+    }
+
+    function createButtons(meeting) {
+        return [
+            <UpdateMeetingModal meeting={meeting} categories={getCategories()}/>,
+            <Button size='small' onClick={() => handleDelete(meeting.id)}>
+                Delete
+            </Button>
+        ]
+    };
+
     return (
         <Box sx={{mt: 8, minHeight: 720}}>
             <Box sx={{p: 2}}>
                 <Box>
-
+                    <Typography variant='h4' sx={{fontWeight: 'bold', p: 2}}>
+                        Meetings
+                    </Typography>
                 </Box>
                 {/* Charts */}
                 {/* <Container sx={{mt: 11}}>
@@ -85,20 +101,20 @@ export default function Data(){
                 </Container> */}
                 {/* Data */}
                 <Container sx={{my: 2}}>
-                    <Container sx={{display: 'flex'}}>
-                        {/* <SelectMenu name={'Data'} options={['Meeting', 'Category']} defaultOption={'Meeting'} onChange={setData}/> */}
-                        <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setTime}/>
-                    </Container>
-                    {/* Table */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-                        <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        {/* <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
                             Meetings
-                        </Typography>
+                        </Typography> */}
                         <CreateMeetingModal categories={getCategories()}/>
                     </Box>
-                    <Container>
-                        <DataTable meetings={sortedMeetings} selected={time}/>
-                    </Container>
+                    <Box sx={{ display: 'flex', p: 1 }}>
+                        {/* <SelectMenu name={'Data'} options={['Meeting', 'Category']} defaultOption={'Meeting'} onChange={setData}/> */}
+                        <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setTime}/>
+                    </Box>
+                    {/* Table */}
+                    <Box sx={{ px: 1 }}>
+                        <DataTable meetings={sortedMeetings} selected={time} createButtons={createButtons}/>
+                    </Box>
                 </Container>
             </Box>
         </Box>

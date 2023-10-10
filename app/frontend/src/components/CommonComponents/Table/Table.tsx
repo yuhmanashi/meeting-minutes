@@ -61,11 +61,10 @@ interface GenericTableHeadProps {
   orderBy: keyof any;
   rowCount: number;
   values: GenericHeadCell[];
-  buttons: any;
 }
 
 function GenericTableHead(props: GenericTableHeadProps){
-  const { order, orderBy, onRequestSort, values, buttons } = props;
+  const { order, orderBy, onRequestSort, values } = props;
   const createSortHandler =
     (property: keyof any) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
@@ -92,14 +91,15 @@ function GenericTableHead(props: GenericTableHeadProps){
             >
               {value.label}
               {orderBy === value.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </Box>
+                ) : null
+              }
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell key='button' sx={ buttons ? { display: 'block'} : { display: 'none' } }>
+        <TableCell key='empty'>
           <Box sx={{height: {xs: 25, md: 25.5}}}/>
         </TableCell>
       </TableRow>
@@ -112,13 +112,13 @@ interface GenericTableProps {
   values: GenericHeadCell[];
   rValues: GenericHeadCell[];
   details: any;
-  buttons: any;
+  createButtons: any;
   page: number;
   setPage: any;
   defaultSort: number;
 }
 
-export default function GenericTable({list, values, rValues, defaultSort = 0, details, buttons, page, setPage}: GenericTableProps) {
+export default function GenericTable({list, values, rValues, defaultSort = 0, details, createButtons, page, setPage}: GenericTableProps) {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof any>(values[defaultSort].id);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -163,8 +163,8 @@ export default function GenericTable({list, values, rValues, defaultSort = 0, de
   }
 
   return (
-    <Box sx={{}}>
-      <Paper sx={{  mb: 2 }}>
+    <Box sx={{border: 1, borderColor: 'lightgrey', borderRadius: 1}}>
+      <Paper sx={{ }}>
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
@@ -177,14 +177,13 @@ export default function GenericTable({list, values, rValues, defaultSort = 0, de
               onRequestSort={handleRequestSort}
               rowCount={visibleRows.length}
               values={values}
-              buttons={buttons}
             />
             <TableBody>
               {(rowsPerPage > 0 
                 ? visibleRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : visibleRows
               ).map((row) => (
-                <GenericTableRow key={row.id} row={row} values={getRowValues(values)} details={details} buttons={buttons}/>
+                <GenericTableRow key={row.id} row={row} values={getRowValues(values)} details={details} buttons={createButtons(row)}/>
               ))}
               {emptyRows > 0 && (
                 <TableRow
@@ -208,14 +207,13 @@ export default function GenericTable({list, values, rValues, defaultSort = 0, de
               onRequestSort={handleRequestSort}
               rowCount={visibleRows.length}
               values={rValues}
-              buttons={buttons}
             />
             <TableBody>
               {(rowsPerPage > 0 
                 ? visibleRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : visibleRows
               ).map((row) => (
-                <GenericTableRow key={`r${row.id}`} row={row} values={getRowValues(rValues)} details={details} buttons={buttons}/>
+                <GenericTableRow key={`r${row.id}`} row={row} values={getRowValues(rValues)} details={details} buttons={createButtons(row)}/>
               ))}
               {emptyRows > 0 && (
                 <TableRow

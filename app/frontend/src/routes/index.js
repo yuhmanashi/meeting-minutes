@@ -32,15 +32,7 @@ function AppRoutes() {
         }
       />
       <Route
-        path="meetings"
-        element={
-          <ProtectedRoute>
-            <AllMeetings/>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="data"
+        path="Meetings"
         element={
           <ProtectedRoute>
             <Data/>

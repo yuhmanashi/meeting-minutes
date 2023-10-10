@@ -32,7 +32,7 @@ export default function GenericTableRow(props){
     const { row, values, details, buttons } = props
     const [open, setOpen] = useState(false);
     const collapse = details.length !== 0;
-    
+
     const TableCell = styled(MuiTableCell)`
         :last-of-type {
             width: 100;
@@ -55,10 +55,10 @@ export default function GenericTableRow(props){
                         <TableCell key={unique} sx={{width: '100%'}} colSpan={6}>{row[value] ? row[value] : '-'}</TableCell> 
                     )
                 })}
-                <TableCell sx={ buttons ? { display: 'block', height: {sm: 74, md: 74} } : { display: 'none' } }>
+                {/* <TableCell sx={ buttons ? { display: 'block', height: {sm: 74, md: 74} } : { display: 'none' } }>
                     <GenericMenu options={buttons ? buttons(row) : []}/>
-                </TableCell>
-                <TableCell sx={ collapse ? { display: 'block' } : { display: 'none' } } >
+                </TableCell> */}
+                <TableCell  >
                     <IconButton
                         aria-label="expand row"
                         size="small"
@@ -69,10 +69,18 @@ export default function GenericTableRow(props){
                 </TableCell>
             </TableRow>
             <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
+                <TableCell sx={{ p: 0 }} colSpan={3}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box>
-                            <Typography variant="h6" gutterBottom component="div">
+                        <Box sx={{ display: 'flex' }}>
+                            {buttons.map((button, i) => {
+                                    return (
+                                        <Box key={generateKey(`${row.id} ${i}`)}>
+                                            {button}
+                                        </Box>
+                                    )
+                                })
+                            }
+                            {/* <Typography variant="h6" gutterBottom component="div">
                                 Details
                             </Typography>
                             <List sx={{py: 0}}>
@@ -89,7 +97,7 @@ export default function GenericTableRow(props){
                                     )
                                 })}
                                 <Divider/>
-                            </List>
+                            </List> */}
                         </Box>
                     </Collapse>
                 </TableCell>

@@ -65,7 +65,9 @@ function handleMeetings(meetings, selected){
       }
 }
 
-export default function DataTable({meetings, selected}) {
+export default function DataTable(props) {
+    const {meetings, selected, createButtons} = props;
+  
     const [page, setPage] = useState(0);
     const [filtered, setFiltered] = useState(handleMeetings(meetings, selected));
 
@@ -102,9 +104,13 @@ export default function DataTable({meetings, selected}) {
         label: 'Category',
         id: 'category'
       },
+      {
+        label: 'Date',
+        id: 'date'
+      }
     ];
 
     return (
-      <GenericTable list={filtered} values={values} rValues={responsiveValues} defaultSort={3} details={[]} buttons={null} page={page} setPage={setPage}/> 
+      <GenericTable list={filtered} values={values} rValues={responsiveValues} defaultSort={3} details={[]} createButtons={createButtons} page={page} setPage={setPage}/> 
     )
 }

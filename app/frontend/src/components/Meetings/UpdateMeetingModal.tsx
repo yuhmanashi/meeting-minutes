@@ -61,7 +61,7 @@ export default function UpdateMeetingModal({ meeting, categories }: IMeeting) {
 
   return (
     <div>
-      <Button size="small" onClick={handleOpen}>Edit</Button>
+      <Button size='small' onClick={handleOpen}>Edit</Button>
       <Modal
         open={open}
         onClose={handleClose}

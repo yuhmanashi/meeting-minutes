@@ -40,10 +40,12 @@ export default function CreateMeetingModal({categories}) {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("mikki_larkin@example.com");
   const [category, setCategory] = useState("");
-  const [problems, setProblems] = useState("");
-  const [notes, setNotes] = useState("");
   const [day, setDay] = useState(dayjs());
   const [time, setTime] = useState(dayjs());
+  
+  // const [problems, setProblems] = useState("");
+  // const [notes, setNotes] = useState("");
+  
 
 
   function resetState(){
@@ -52,8 +54,8 @@ export default function CreateMeetingModal({categories}) {
     setDay(dayjs());
     setTime(dayjs());
     setCategory('');
-    setProblems('');
-    setNotes('');
+    // setProblems('');
+    // setNotes('');
   }
 
   const handleOpen = () => setOpen(true);
@@ -85,13 +87,16 @@ export default function CreateMeetingModal({categories}) {
       handleClose();
     }
     
-    return dispatch(meetingActions.createMeeting({ userId, studentId, category, problems, notes, date }))
+    return dispatch(meetingActions.createMeeting({ userId, studentId, category, date }))
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Button onClick={handleOpen}>
-        <AddIcon/>
+        {/* <AddIcon/> */}
+        <Typography color='white' variant='button' sx={{backgroundColor: 'primary.main', p: 1, borderRadius: 1}}>
+          New meeting
+        </Typography>
       </Button>
       <Modal
         open={open}
