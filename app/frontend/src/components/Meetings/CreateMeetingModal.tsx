@@ -38,7 +38,7 @@ export default function CreateMeetingModal({categories}) {
   const students = useAppSelector(state => state.students);
 
   const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState("mikki_larkin@example.com");
+  const [email, setEmail] = useState("");
   const [category, setCategory] = useState("");
   const [day, setDay] = useState(dayjs());
   const [time, setTime] = useState(dayjs());
@@ -46,10 +46,8 @@ export default function CreateMeetingModal({categories}) {
   // const [problems, setProblems] = useState("");
   // const [notes, setNotes] = useState("");
   
-
-
   function resetState(){
-    setEmail("mikki_larkin@example.com");
+    setEmail("");
     setCategory('');
     setDay(dayjs());
     setTime(dayjs());
@@ -80,7 +78,7 @@ export default function CreateMeetingModal({categories}) {
     e.preventDefault();
     const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const studentId = findStudentId(email)
-    // if (date.length < 1) setDate(new Date().toISOString());
+    
     const date = day.toISOString().slice(0, 10) + time.toISOString().slice(10);
     
     if (email.match(emailFormat) && studentId){
@@ -89,6 +87,19 @@ export default function CreateMeetingModal({categories}) {
     
     return dispatch(meetingActions.createMeeting({ userId, studentId, category, date }))
   };
+
+  const sampleStudentEmail = students[1].email
+
+  function getRandomValidEmail(){
+    const numStudents = Object.values(students).length;
+    const randomNumber = 1 + Math.floor(Math.random() * (numStudents - 1));
+    
+    return students[randomNumber].email
+  } 
+
+  function handleRandom(){
+    setEmail(getRandomValidEmail())
+  }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -127,28 +138,22 @@ export default function CreateMeetingModal({categories}) {
                 : null 
               }
             </List>
-            {/* <Box 
-              sx={{
-                // display: 'flex'
-              }}
-            > */}
-              <DateField
-                label='Date'
-                maxDate={dayjs().add(2, 'year')}
-                minDate={dayjs()}
-                value={day}
-                onChange={(newDay) => setDay(newDay)}
-                fullWidth
-                sx={{my: 1}}
-              />
-              <TimeField
-                label="Time"
-                value={time}
-                onChange={(newTime) => setTime(newTime)}
-                fullWidth
-                sx={{my: 1}}
-              />
-            {/* </Box> */}
+            <DateField
+              label='Date'
+              maxDate={dayjs().add(2, 'year')}
+              minDate={dayjs()}
+              value={day}
+              onChange={(newDay) => setDay(newDay)}
+              fullWidth
+              sx={{my: 1}}
+            />
+            <TimeField
+              label="Time"
+              value={time}
+              onChange={(newTime) => setTime(newTime)}
+              fullWidth
+              sx={{my: 1}}
+            />
             <SelectMenu 
               name={'Category'}
               options={categories} 
@@ -157,7 +162,7 @@ export default function CreateMeetingModal({categories}) {
             />
             <TextField 
               label="Student's Email"
-              defaultValue={email}
+              value={email}
               onChange={e => setEmail(e.target.value)} 
               variant='outlined'
               size='small'
@@ -165,50 +170,9 @@ export default function CreateMeetingModal({categories}) {
               fullWidth
               required
             />
-            {/* <TextField 
-              label='Category'
-              defaultValue={category}
-              onChange={e => setCategory(e.target.value)} 
-              variant='outlined'
-              size='small'
-              sx={{my: 1}}
-              fullWidth
-              required
-            /> */}
-            {/* <TextField 
-              label="Date"
-              defaultValue={email}
-              onChange={e => setDate(e.target.value)} 
-              variant='outlined'
-              size='small'
-              sx={{my: 1}}
-              fullWidth
-              required
-            />
-            <TextField 
-              label="Date"
-              defaultValue={email}
-              onChange={e => setTime(e.target.value)}
-              variant='outlined'
-              size='small'
-              sx={{my: 1}}
-              fullWidth
-              required
-            /> */}
-            {/* <TextField 
-              label='Problems'
-              defaultValue={problems}
-              onChange={e => setProblems(e.target.value)} 
-              variant='standard'
-              required
-            />
-            <TextField 
-              label='Notes'
-              defaultValue={notes}
-              onChange={e => setNotes(e.target.value)} 
-              variant='standard'
-              required
-            /> */}
+            <Button onClick={handleRandom}>
+              don't have email?
+            </Button>
             <Button type='submit'>Create Meeting</Button>
           </Box>
         </Box>

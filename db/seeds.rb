@@ -147,7 +147,7 @@ ApplicationRecord.transaction do
     
     puts "Creating more users..."
     # More users
-    10.times {
+    5.times {
       |n| 
       user = User.create!(
         first_name: 'Demo',

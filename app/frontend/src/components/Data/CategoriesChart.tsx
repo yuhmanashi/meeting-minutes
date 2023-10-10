@@ -36,7 +36,7 @@ function getMax(count){
     return max % 2 === 0 ? max : max + 1;
 }
 
-export default function CategoriesChart({ meetings, time }){
+export default function CategoriesChart({ meetings, time, categories }){
     const [count, setCount] = useState(handleCount())
     const [data, setData] = useState(createData(count));
     const [max, setMax] = useState(getMax(count));
@@ -50,26 +50,20 @@ export default function CategoriesChart({ meetings, time }){
     }, [meetings]);
 
     function handleCount(){
-        const categories = [
-            'DS&A',
-            'Systems Design',
-            'Tech Trivia',
-            'Practical Skill',
-            'Other'
-        ]
-
         const count = {};
         for (let category of categories){
-            count[category] = 0;
+            const catString = category === '' ? 'Other' : category;
+            count[catString] = 0;
         }
 
         for (let meeting of meetings){
-            count[meeting.category] += 1;
+            const catString = meeting.category === '' ? 'Other' : meeting.category;
+            count[catString] += 1;
         }
 
         return count;
     }
-
+    
     function handleChart(){
         switch(chart){
             case 'Bar':
@@ -81,13 +75,11 @@ export default function CategoriesChart({ meetings, time }){
         }
     }
 
-    console.log(data);
-
     return (
-        <Container>
+        <Box sx={{  }}>
             <Typography variant='h5' sx={{my: 3, fontWeight: 'bold'}}>{time === 'All' ? 'Categories To Date' : `Categories For This ${time}`}</Typography>
             {handleChart()}
             <SelectMenu name={'Chart'} options={['Bar', 'Donut']} defaultOption={'Bar'} onChange={setChart}/>
-        </Container>
+        </Box>
     );
 }

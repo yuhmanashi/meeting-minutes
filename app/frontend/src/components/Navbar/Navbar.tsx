@@ -56,9 +56,9 @@ function Navbar() {
     navigate('/meetings');
   };
 
-  function navToTest(e){
+  function navToCharts(e){
     e.preventDefault();
-    navigate('/test');
+    navigate('/charts');
   }
 
   //sliding sidebar
@@ -76,7 +76,7 @@ function Navbar() {
           <Button onClick={navToMeetings}>Meetings</Button>
         </ListItem>
         <ListItem sx={{ justifyContent: 'center' }}>
-          <Button onClick={navToTest}>Test</Button>
+          <Button onClick={navToCharts}>Charts</Button>
         </ListItem>
 
       </List>
@@ -180,7 +180,7 @@ function Navbar() {
               <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={navToHome}>Home</Button>
               {/* <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToStudents}>Students</Button> */}
               <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={navToMeetings}>Meetings</Button>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={navToTest}>Test</Button>
+              <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={navToCharts}>Charts</Button>
               {/* {pages.map((page) => (
                 <Button
                   key={page}

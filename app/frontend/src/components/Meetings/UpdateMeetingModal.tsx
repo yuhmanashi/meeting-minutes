@@ -12,6 +12,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Modal from '@mui/material/Modal';
 
+import { LocalizationProvider, DateField, TimeField } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import dayjs from "dayjs";
+
 import SelectMenu from "../CommonComponents/SelectMenu";
 
 const style = {
@@ -36,19 +40,18 @@ export default function UpdateMeetingModal({ meeting, categories }: IMeeting) {
   const errors = useAppSelector(state => state.errors);
   const userId = useAppSelector(state => state.session.user.id)
   const [open, setOpen] = React.useState(false);
-  const id = meeting.id;
-  const studentId = meeting.studentId;
+  const [dateTime, setDateTime] = useState(dayjs(meeting.dateString));
+  const [category, setCategory] = useState(meeting.category);
+  const [email, setEmail] = useState(meeting.studentEmail);
+  
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     dispatch(sessionErrorActions.removeSessionErrors());
   };
-  
-  const [email, setEmail] = useState(meeting.studentEmail);
-  const [name, setName] = useState(meeting.studentName);
-  const [category, setCategory] = useState(meeting.category);
-  const [problems, setProblems] = useState(meeting.problems);
-  const [notes, setNotes] = useState(meeting.notes);
+
+  // const [problems, setProblems] = useState(meeting.problems);
+  // const [notes, setNotes] = useState(meeting.notes);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,11 +59,14 @@ export default function UpdateMeetingModal({ meeting, categories }: IMeeting) {
     // if (emailFormat.test(email)){
     //   handleClose();
     // }
-    return dispatch(meetingActions.updateMeeting({ id, userId, studentId, category, problems, notes }))
+    const id = meeting.id;
+    const studentId = meeting.studentId;
+    const date = dateTime.toISOString();
+    return dispatch(meetingActions.updateMeeting({ id, userId, studentId, category, date }))
   };
 
   return (
-    <div>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Button size='small' onClick={handleOpen}>Edit</Button>
       <Modal
         open={open}
@@ -80,10 +86,9 @@ export default function UpdateMeetingModal({ meeting, categories }: IMeeting) {
               flexDirection: 'column', 
               justifyContent: 'flex-end',
               alignItems: 'center', 
-              height: 200
             }}
           >
-            <List>
+            <List sx={{p: 0}}>
               { errors ? errors.map(error => 
                 <ListItem key={error} sx={{color: 'red'}}>
                   <ListItemText primary={error} />
@@ -91,6 +96,22 @@ export default function UpdateMeetingModal({ meeting, categories }: IMeeting) {
                 : null 
               }
             </List>
+            <DateField
+              label='Date'
+              maxDate={dayjs().add(2, 'year')}
+              minDate={dayjs()}
+              value={dateTime}
+              onChange={(newDay) => setDateTime(newDay)}
+              fullWidth
+              sx={{my: 1}}
+            />
+            <TimeField
+              label="Time"
+              value={dateTime}
+              onChange={(newTime) => setDateTime(newTime)}
+              fullWidth
+              sx={{my: 1}}
+            />
             <SelectMenu 
               name={'Category'}
               options={categories} 
@@ -121,6 +142,6 @@ export default function UpdateMeetingModal({ meeting, categories }: IMeeting) {
           </Box>
         </Box>
       </Modal>
-    </div>
+    </LocalizationProvider>
   );
 }

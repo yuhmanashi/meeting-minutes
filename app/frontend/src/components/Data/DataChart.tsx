@@ -35,7 +35,7 @@ const days = {
     11: 31
 }
 
-export default function DataChart({meetings, selected, user, selectedDay = null}){
+export default function DataChart({meetings, selected, user, categories, selectedDay = null}){
     const [data, time] = selected;
 
     function byThisWeek(date){
@@ -75,10 +75,10 @@ export default function DataChart({meetings, selected, user, selectedDay = null}
 
     switch(data){
         case 'Category':
-            return <CategoriesChart meetings={handleMeetings()} time={time} />
+            return <CategoriesChart meetings={handleMeetings()} time={time} categories={categories} />
         case 'Meeting':
-            return <MeetingsChart meetings={handleMeetings()} time={time} user={user} />
+            return <MeetingsChart meetings={handleMeetings()} time={time} />
         default:
-            return <MeetingsChart meetings={handleMeetings()} time={time} user={user} />
+            return <MeetingsChart meetings={handleMeetings()} time={time} />
     }
 }

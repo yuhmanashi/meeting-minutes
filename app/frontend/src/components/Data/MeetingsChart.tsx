@@ -137,11 +137,45 @@ function createYearCount(dates){
     return count;
 }
 
-function createAllCount(dates, user){
-    const startDate = new Date(user.createdAt)
+// function createAllCount(dates, user){
+//     const startDate = new Date(user.createdAt)
+//     const startYr = startDate.getFullYear();
+//     const startMo = startDate.getMonth();
+//     const endDate = new Date(dates[dates.length - 1]);
+//     const endYr = endDate.getFullYear();
+//     const endMo = endDate.getMonth() + 1;
+
+//     const count = {}
+
+//     let currMo = startMo;
+//     let currYr = startYr;
+
+//     while (currMo !== endMo || currYr !== endYr){
+//         if (currMo > 11){
+//             currMo = 0;
+//             currYr += 1;
+//         }
+//         const date = `${currMo + 1}-${currYr}`
+//         count[date] = 0;
+//         currMo += 1;
+//     }
+
+//     const filtered = dates.map(date => new Date(date))
+//     for (let data of filtered){
+//         const mo = data.getMonth();
+//         const yr = data.getFullYear();
+//         const date = `${mo + 1}-${yr}`;
+//         count[date] += 1;
+//     }
+
+//     return count;
+// }
+
+function createAllCount(dates){
+    const startDate = dates[0];
     const startYr = startDate.getFullYear();
     const startMo = startDate.getMonth();
-    const endDate = new Date(dates[dates.length - 1]);
+    const endDate = dates[dates.length - 1];
     const endYr = endDate.getFullYear();
     const endMo = endDate.getMonth() + 1;
 
@@ -160,14 +194,15 @@ function createAllCount(dates, user){
         currMo += 1;
     }
 
-    const filtered = dates.map(date => new Date(date))
-    for (let data of filtered){
+    for (let data of dates){
         const mo = data.getMonth();
         const yr = data.getFullYear();
         const date = `${mo + 1}-${yr}`;
         count[date] += 1;
     }
 
+    // console.log(startYr, startMo, endYr, endMo);
+    console.log(dates[dates.length - 1]);
     return count;
 }
 
@@ -175,9 +210,19 @@ function createData(obj){
     return ({
         labels: Object.keys(obj),
         datasets: [{
-            label: ' count',
+            label: ' # meetings',
             data: Object.values(obj),
-            backgroundColor: 'black',
+            backgroundColor: [
+                '#F8B195', 
+                '#F67280', 
+                '#6C5B7B', 
+                '#355C7D', 
+                '#A8E6CE', 
+                '#DCEDC2', 
+                '#FFD3B5', 
+                '#FFAAA6', 
+                '#FF8C94' 
+            ],
             borderColor: 'black',
             tension: .1
         }]
@@ -190,8 +235,9 @@ function getMax(count){
     return max % 2 === 0 ? max : max + 1;
 }
 
-export default function MeetingsChart({meetings, time, user}){
+export default function MeetingsChart({meetings, time}){
     const dates = meetings.map(meeting => new Date(meeting.date));
+    console.log(meetings);
     const [count, setCount] = useState(handleMeetingsCount(dates))
     const [data, setData] = useState(createData(count));
     const [max, setMax] = useState(getMax(count));
@@ -213,11 +259,13 @@ export default function MeetingsChart({meetings, time, user}){
           case 'Year':
             return createYearCount(dates);
           case 'All':
-            return createAllCount(dates.sort(sortDate), user);
+            return createAllCount(dates);
           default:
             return createThisWeekCount(dates);
         }
     }
+
+    console.log();
 
     function handleChart(){
         switch(chart){
@@ -231,10 +279,10 @@ export default function MeetingsChart({meetings, time, user}){
     }
 
     return (
-        <Container>
+        <Box sx={{  }}>
             <Typography variant='h5' sx={{my: 3, fontWeight: 'bold'}}>{time === 'All' ? 'Meetings To Date' : `Meetings For This ${time}`}</Typography>
             {handleChart()}
             <SelectMenu name={'Chart'} options={['Bar', 'Line']} defaultOption={'Bar'} onChange={setChart}/> 
-        </Container>
+        </Box>
     );
 }

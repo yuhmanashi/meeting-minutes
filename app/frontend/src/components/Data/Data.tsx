@@ -51,6 +51,9 @@ export default function Data(){
         const student = sessionStudents[meeting.studentId];
         const newMeeting = { ...meeting }
         newMeeting.date = handleDateString(meeting.date);
+        newMeeting['dateString'] = new Date(meeting.date).toISOString();
+        // newMeeting['day'] = newDate.slice(0, 10);
+        // newMeeting['time'] = newDate.slice(10);
         newMeeting['studentName'] = `${student.fullName}`;
         newMeeting['studentEmail'] = student.email;
 
@@ -90,28 +93,19 @@ export default function Data(){
     return (
         <Box sx={{mt: 8, minHeight: 720}}>
             <Box sx={{p: 2}}>
-                <Box>
+                <Box sx={{mb: 2}}>
                     <Typography variant='h4' sx={{fontWeight: 'bold', p: 2}}>
                         Meetings
                     </Typography>
                 </Box>
-                {/* Charts */}
-                {/* <Container sx={{mt: 11}}>
-                    <DataChart meetings={userMeetings} selected={[data, time]} user={sessionUser}/>
-                </Container> */}
-                {/* Data */}
-                <Container sx={{my: 2}}>
+                
+                <Container sx={{}}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        {/* <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
-                            Meetings
-                        </Typography> */}
                         <CreateMeetingModal categories={getCategories()}/>
                     </Box>
                     <Box sx={{ display: 'flex', p: 1 }}>
-                        {/* <SelectMenu name={'Data'} options={['Meeting', 'Category']} defaultOption={'Meeting'} onChange={setData}/> */}
                         <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setTime}/>
                     </Box>
-                    {/* Table */}
                     <Box sx={{ px: 1 }}>
                         <DataTable meetings={sortedMeetings} selected={time} createButtons={createButtons}/>
                     </Box>

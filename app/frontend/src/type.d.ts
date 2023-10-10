@@ -45,6 +45,7 @@ type Students = Student[];
 interface MeetingWithStudent extends Meeting {
   studentName: string;
   studentEmail: string;
+  dateString: string;
 }
 
 interface Session { 

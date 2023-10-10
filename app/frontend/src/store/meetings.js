@@ -57,11 +57,11 @@ export const createMeeting = (meeting) => async dispatch => {
 };
 
 export const updateMeeting = (meeting) => async dispatch => {
-    const { userId, category, name, problems, notes, email } = meeting;
+    const { userId, studentId, category, problems, notes, date } = meeting;
     const response = await fetch(`/api/meetings/${meeting.id}`, {
         method: "PATCH",
         body: JSON.stringify({
-            userId, category, name, problems, notes, email
+            userId, studentId, category, problems, notes, date
         }),
         headers: Util.headers()
     })

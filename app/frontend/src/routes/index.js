@@ -16,6 +16,14 @@ function AppRoutes() {
       {/* <AuthRoute path='/' exact component={Splash}/>
       <ProtectedRoute path='/home' component={Home}/> */}
       <Route
+        path="*"
+        element={
+          <ProtectedRoute>
+            <Home/>
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/"
         element={
           <AuthRoute>
@@ -32,7 +40,7 @@ function AppRoutes() {
         }
       />
       <Route
-        path="Meetings"
+        path="meetings"
         element={
           <ProtectedRoute>
             <Data/>
@@ -41,7 +49,7 @@ function AppRoutes() {
       />
       
       <Route
-        path="test"
+        path="charts"
         element={
           <ProtectedRoute>
             <Test/>
