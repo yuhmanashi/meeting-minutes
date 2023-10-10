@@ -13,6 +13,8 @@ import SelectMenu from '../CommonComponents/SelectMenu';
 import DataChart from './DataChart';
 import DataTable from './DataTable';
 
+import CreateMeetingModal from '../Meetings/CreateMeetingModal';
+
 export default function Data(){
     const sessionUser = useAppSelector(state => state.session.user);
     const sessionStudents = useAppSelector((state) => state.students);
@@ -48,7 +50,6 @@ export default function Data(){
         const student = sessionStudents[meeting.studentId];
         const newMeeting = { ...meeting }
         newMeeting.date = handleDateString(meeting.date);
-
         newMeeting['studentName'] = `${student.fullName}`;
         newMeeting['studentEmail'] = student.email;
 
@@ -60,6 +61,17 @@ export default function Data(){
     }
 
     const sortedMeetings = updatedMeetings.sort((a, b) => sortDate(a.date, b.date));
+
+    function getCategories(){
+        const categories = {};
+
+        for (let meeting of userMeetings){
+            const category = meeting.category;
+            if (!categories[category]) categories[category] = 1;
+        }
+
+        return Object.keys(categories);
+    }
 
     return (
         <Box sx={{mt: 8, minHeight: 720}}>
@@ -74,10 +86,16 @@ export default function Data(){
                 {/* Data */}
                 <Container sx={{my: 2}}>
                     <Container sx={{display: 'flex'}}>
-                        <SelectMenu name={'Data'} options={['Meeting', 'Category']} defaultOption={'Meeting'} onChange={setData}/>
+                        {/* <SelectMenu name={'Data'} options={['Meeting', 'Category']} defaultOption={'Meeting'} onChange={setData}/> */}
                         <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setTime}/>
                     </Container>
                     {/* Table */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
+                        <Typography variant='h5' sx={{fontWeight: 'bold', p: 2}}>
+                            Meetings
+                        </Typography>
+                        <CreateMeetingModal categories={getCategories()}/>
+                    </Box>
                     <Container>
                         <DataTable meetings={sortedMeetings} selected={time}/>
                     </Container>

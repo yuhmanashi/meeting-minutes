@@ -13,6 +13,10 @@ import ListItemText from '@mui/material/ListItemText';
 import AddIcon from '@mui/icons-material/Add';
 import Modal from '@mui/material/Modal';
 
+import { LocalizationProvider, DateField, TimeField } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import dayjs from "dayjs";
+
 import SelectMenu from "../CommonComponents/SelectMenu";
 
 const style = {
@@ -34,18 +38,19 @@ export default function CreateMeetingModal({categories}) {
   const students = useAppSelector(state => state.students);
 
   const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  // const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [email, setEmail] = useState("mikki_larkin@example.com");
   const [category, setCategory] = useState("");
   const [problems, setProblems] = useState("");
   const [notes, setNotes] = useState("");
+  const [day, setDay] = useState(dayjs());
+  const [time, setTime] = useState(dayjs());
+
 
   function resetState(){
-    setEmail('');
+    setEmail("mikki_larkin@example.com");
     setCategory('');
-    // setDate('');
-    setTime('');
+    setDay(dayjs());
+    setTime(dayjs());
     setCategory('');
     setProblems('');
     setNotes('');
@@ -58,6 +63,10 @@ export default function CreateMeetingModal({categories}) {
     dispatch(sessionErrorActions.removeSessionErrors());
   };
   
+  const testDate = day.toISOString().slice(0, 10);
+  const testTime = time.toISOString().slice(10);
+
+  // console.log(testDate + testTime);
 
   function findStudentId(email){
     const student: any = Object.values(students).filter((student: Student) => student.email === email);
@@ -70,15 +79,17 @@ export default function CreateMeetingModal({categories}) {
     const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const studentId = findStudentId(email)
     // if (date.length < 1) setDate(new Date().toISOString());
-    const date = new Date().toISOString()
+    const date = day.toISOString().slice(0, 10) + time.toISOString().slice(10);
+    
     if (email.match(emailFormat) && studentId){
       handleClose();
     }
+    
     return dispatch(meetingActions.createMeeting({ userId, studentId, category, problems, notes, date }))
   };
 
   return (
-    <div>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Button onClick={handleOpen}>
         <AddIcon/>
       </Button>
@@ -99,8 +110,7 @@ export default function CreateMeetingModal({categories}) {
               display: 'flex', 
               flexDirection: 'column', 
               justifyContent: 'flex-end',
-              alignItems: 'center', 
-              height: 200
+              alignItems: 'center',
             }}
           >
             {/* <SelectMenu name={'students'} options={[]} onChange={() => {}}/> */}
@@ -112,6 +122,28 @@ export default function CreateMeetingModal({categories}) {
                 : null 
               }
             </List>
+            {/* <Box 
+              sx={{
+                // display: 'flex'
+              }}
+            > */}
+              <DateField
+                label='Date'
+                maxDate={dayjs().add(2, 'year')}
+                minDate={dayjs()}
+                value={day}
+                onChange={(newDay) => setDay(newDay)}
+                fullWidth
+                sx={{my: 1}}
+              />
+              <TimeField
+                label="Time"
+                value={time}
+                onChange={(newTime) => setTime(newTime)}
+                fullWidth
+                sx={{my: 1}}
+              />
+            {/* </Box> */}
             <SelectMenu 
               name={'Category'}
               options={categories} 
@@ -176,6 +208,6 @@ export default function CreateMeetingModal({categories}) {
           </Box>
         </Box>
       </Modal>
-    </div>
+    </LocalizationProvider>
   );
 }

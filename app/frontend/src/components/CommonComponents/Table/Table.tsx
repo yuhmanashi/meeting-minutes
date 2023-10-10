@@ -230,7 +230,7 @@ export default function GenericTable({list, values, rValues, defaultSort = 0, de
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[5, 10]}
           component="div"
           count={visibleRows.length}
           rowsPerPage={rowsPerPage}

@@ -67,12 +67,12 @@ function handleMeetings(meetings, selected){
 
 export default function DataTable({meetings, selected}) {
     const [page, setPage] = useState(0);
-    const [filtered, setFiltered] = useState(handleMeetings(meetings, selected))
+    const [filtered, setFiltered] = useState(handleMeetings(meetings, selected));
 
     useEffect(() => {
       let newSelected = handleMeetings(meetings, selected)
       setFiltered(newSelected)
-    }, [selected])
+    }, [meetings, selected])
 
     const values = [
       {
