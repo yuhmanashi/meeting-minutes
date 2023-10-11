@@ -37,7 +37,6 @@ export default function SignupModal({ setModalOpen }) {
   }
 
   const handleClose = () => {
-    dispatch(sessionErrorActions.removeSessionErrors());
     setModalOpen(false)
     setOpen(false);
   };
@@ -49,6 +48,7 @@ export default function SignupModal({ setModalOpen }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(sessionErrorActions.removeSessionErrors());
     return dispatch(sessionActions.signup({ email, firstName, lastName, password }))
   };
 
