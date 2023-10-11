@@ -52,6 +52,16 @@ export default function Charts(){
         return Object.keys(categories);
     }
 
+    const categories = [
+        'DS&A',
+        'Systems Design',
+        'Tech Trivia',
+        'Practical Skill',
+        'Debugging',
+        'Walkthrough',
+        'Other'
+    ]
+
     return (
         <Box sx={{mt: 8, minHeight: 720}}>
             <Box sx={{p: 2}}>
@@ -63,7 +73,7 @@ export default function Charts(){
 
                 <Container sx={{}}>
                     <Box sx={{px: 1}}>
-                        <DataChart meetings={sortedMeetings} selected={[data, time]} categories={getCategories()}/>
+                        <DataChart meetings={sortedMeetings} selected={[data, time]} categories={categories}/>
                     </Box>
                     <Box sx={{ display: 'flex', p: 1 }}>
                         <SelectMenu name={'Data'} options={['Meeting', 'Category']} defaultOption={'Meeting'} onChange={setData}/>
