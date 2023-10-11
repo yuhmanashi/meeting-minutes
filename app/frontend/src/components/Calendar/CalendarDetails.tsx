@@ -6,19 +6,9 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import dayjs from 'dayjs';
+
 
 export default function CalendarDetails({ selectedDay, meetings }){
-    // const updatedMeetings = meetings.map(meeting => {
-    //     const student = students[meeting.studentId];
-    //     const newMeeting = { ...meeting }
-        
-    //     newMeeting['studentName'] = `${student.fullName}`;
-    //     newMeeting['studentEmail'] = student.email;
-        
-    //     return newMeeting;
-    // });
-
     function convertDate() {
         const newDate = new Date(selectedDay.toISOString());
         return newDate;
@@ -40,7 +30,6 @@ export default function CalendarDetails({ selectedDay, meetings }){
 
     const adjustedDate = convertDate();
     let dateArr = adjustedDate.toDateString().split(' ');
-    const dateString = dateArr[0] + ', ' + dateArr.slice(1).join(' ');
 
     const dateMeetings = meetings.filter(meeting => new Date(meeting.date).toLocaleDateString() === adjustedDate.toLocaleDateString());
 
@@ -92,7 +81,6 @@ export default function CalendarDetails({ selectedDay, meetings }){
                                     <ListItemText
                                         primary={meeting.studentName}
                                         secondary={`${timeString(meeting.date)} | ${meeting.category ? meeting.category : '-'}`}
-                                        // primaryTypographyProps={{variant: 'subtitle1'}}
                                     />
                                 </ListItem>
                                 <Divider variant='fullWidth' sx={{ backgroundColor: '#1976d2' }} />

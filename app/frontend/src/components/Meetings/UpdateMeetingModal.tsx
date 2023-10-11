@@ -50,9 +50,6 @@ export default function UpdateMeetingModal({ meeting, categories }: IMeeting) {
     dispatch(sessionErrorActions.removeSessionErrors());
   };
 
-  // const [problems, setProblems] = useState(meeting.problems);
-  // const [notes, setNotes] = useState(meeting.notes);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // const emailFormat = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
@@ -128,16 +125,6 @@ export default function UpdateMeetingModal({ meeting, categories }: IMeeting) {
               fullWidth 
               disabled
             />
-            {/* <TextField 
-              label='Category'
-              defaultValue={category}
-              onChange={e => setCategory(e.target.value)} 
-              variant='outlined'
-              size='small'
-              sx={{my: 1}}
-              fullWidth
-              required
-            /> */}
             <Button type='submit'>Update Meeting</Button>
           </Box>
         </Box>

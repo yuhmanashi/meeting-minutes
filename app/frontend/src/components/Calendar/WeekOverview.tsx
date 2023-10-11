@@ -7,8 +7,6 @@ import Typography from '@mui/material/Typography';
 
 import WeeklyAccordions from './WeeklyAccordions';
 
-import dayjs from "dayjs";
-
 const days = {
     0: 31,
     1: 28,
@@ -25,7 +23,6 @@ const days = {
 }
 
 export default function WeekOverview({ meetings, selectedDay }){    
-    // filter meetings for week
     function filterMeetings(meetings, callback){
         const filteredMeetings = meetings.filter(meeting => callback(new Date(meeting.date)));
         return filteredMeetings;

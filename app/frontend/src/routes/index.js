@@ -3,10 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import Home from '../components/Home';
 import Splash from '../components/Splash';
-import AllMeetings from "../components/Meetings";
 import Students from "../components/Students";
-import Data from "../components/Data";
-import Test from "../components/Test";
+import Meetings from "../components/Meetings";
+import Charts from "../components/Charts";
 import Calendar from "../components/Calendar";
 import { AuthRoute, ProtectedRoute } from "../utils/route_util";
 
@@ -43,7 +42,7 @@ function AppRoutes() {
         path="meetings"
         element={
           <ProtectedRoute>
-            <Data/>
+            <Meetings/>
           </ProtectedRoute>
         }
       />
@@ -52,7 +51,7 @@ function AppRoutes() {
         path="charts"
         element={
           <ProtectedRoute>
-            <Test/>
+            <Charts/>
           </ProtectedRoute>
         }
       />

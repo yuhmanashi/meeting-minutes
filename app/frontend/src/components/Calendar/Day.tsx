@@ -26,30 +26,7 @@ export default function Day({ day, handleChange, meetings }){
 
     const adjustedDate = convertDate(day);
 
-    const dateMeetings = meetings.filter(meeting => new Date(meeting.date).toLocaleDateString() === adjustedDate.toLocaleDateString());
-
-    const date = [day.month() + 1, day.date()].join('/')
-
     return (
-
-            // <Button 
-            //     sx={{
-            //         mb: .5,
-            //         display: 'flex',
-            //         justifyContent: 'space-between',
-            //         width: 150,
-            //     }}
-            //     variant="contained"
-            //     size='small'
-            //     onClick={() => handleChange(day)}
-            // >
-            //     <Typography variant='button'>
-            //         {days[weekday]}
-            //     </Typography>
-            //     <Typography variant='button'>
-            //         {dateMeetings.length}
-            //     </Typography>
-            // </Button>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: .9}}>
             <Typography variant='button' >
                 {days[weekday]}

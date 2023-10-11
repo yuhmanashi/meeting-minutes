@@ -107,24 +107,24 @@ ApplicationRecord.transaction do
     
     set = Set.new
 
-    5.times do
-      student_id = rand(1..num_students);
-      tag = tags[rand(0..(tags.length - 1))];
-      val = student_id.to_s + tag;
+    # 5.times do
+    #   student_id = rand(1..num_students);
+    #   tag = tags[rand(0..(tags.length - 1))];
+    #   val = student_id.to_s + tag;
 
-      while set.include?(val) do
-        student_id = rand(1..num_students);
-        tag = tags[rand(0..(tags.length - 1))];
-        val = student_id.to_s + tag;
-      end
+    #   while set.include?(val) do
+    #     student_id = rand(1..num_students);
+    #     tag = tags[rand(0..(tags.length - 1))];
+    #     val = student_id.to_s + tag;
+    #   end
 
-      set.add(val)
+    #   set.add(val)
 
-      firstUser.watchlists.create!(
-        student_id: student_id,
-        tag: tag
-      )
-    end
+    #   firstUser.watchlists.create!(
+    #     student_id: student_id,
+    #     tag: tag
+    #   )
+    # end
 
     colors = [
       '#fbe3e6',
@@ -157,30 +157,30 @@ ApplicationRecord.transaction do
       )
       
       set = Set.new
-      5.times do
-        user.meetings.create!(
-          category: categories[rand(0..(categories.length - 1))],
-          student_id: rand(1..num_students),
-          date: Date.new(2023, rand(8..12), rand(2..30))
-        )
+      # 5.times do
+      #   user.meetings.create!(
+      #     category: categories[rand(0..(categories.length - 1))],
+      #     student_id: rand(1..num_students),
+      #     date: Date.new(2023, rand(8..12), rand(2..30))
+      #   )
         
-        student_id = rand(1..num_students);
-        tag = tags[rand(0..(tags.length - 1))];
-        val = student_id.to_s + tag;
+      #   student_id = rand(1..num_students);
+      #   tag = tags[rand(0..(tags.length - 1))];
+      #   val = student_id.to_s + tag;
 
-        while set.include?(val) do
-          student_id = rand(1..num_students);
-          tag = tags[rand(0..(tags.length - 1))];
-          val = student_id.to_s + tag;
-        end
+      #   while set.include?(val) do
+      #     student_id = rand(1..num_students);
+      #     tag = tags[rand(0..(tags.length - 1))];
+      #     val = student_id.to_s + tag;
+      #   end
 
-        set.add(val)
+      #   set.add(val)
 
-        user.watchlists.create!(
-          student_id: student_id,
-          tag: tag
-        )
-      end
+        # user.watchlists.create!(
+        #   student_id: student_id,
+        #   tag: tag
+        # )
+      # end
 
       Pin.create!(
         author_id: user.id,

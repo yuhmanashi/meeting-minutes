@@ -54,21 +54,6 @@ function Splash(){
                             mt: 3
                         }}
                     >
-                        {/* <Typography variant='h5' sx={{ m: 1 }}>
-                            Keep track of your meetings
-                        </Typography>
-                        
-                        <List>
-                            {listItems.map(item => {
-                                return (
-                                    <ListItem key={item}>
-                                        <ListItemText>
-                                            {item}
-                                        </ListItemText>
-                                    </ListItem> 
-                                )
-                            })}
-                        </List> */}
                         <Typography 
                             variant='h3' 
                             sx={{ 
@@ -78,13 +63,6 @@ function Splash(){
                         >
                             Your meetings, your time
                         </Typography>
-                        {/* <Typography variant='body1'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Phasellus id dignissim justo. 
-                            Nulla ut facilisis ligula. 
-                            Interdum et malesuada fames ac ante ipsum primis in faucibus. 
-                            Sed malesuada lobortis pretium.
-                        </Typography> */}
                         <Typography variant='body1'>
                             Currently designed for my company and team for meeting management purposes.
                         </Typography>
@@ -100,27 +78,6 @@ function Splash(){
                         <Typography variant='body1'>
                             More features and practical applications to come...
                         </Typography>
-                        {/* <List>
-                            {listItems.map(item => {
-                                return (
-                                    <ListItem key={item}>
-                                        <ListItemText>
-                                            {item}
-                                        </ListItemText>
-                                    </ListItem> 
-                                )
-                            })}
-                        </List> */}
-                        {/* <Box 
-                            sx={{
-                                display: {
-                                    sm: 'none',
-                                    md: 'block'
-                                }
-                            }}
-                        >
-                            <Carousel/>
-                        </Box> */}
                     </Box>
                     
                     {/* Login */}

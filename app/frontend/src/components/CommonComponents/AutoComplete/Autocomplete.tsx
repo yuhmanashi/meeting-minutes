@@ -2,11 +2,6 @@ import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
-interface OptionType {
-  inputValue?: string;
-  title: string;
-}
-
 const filter = createFilterOptions<any>();
 
 export default function GenericAutocomplete({options, label, onChange}: any) {

@@ -17,10 +17,6 @@ function toLocaleDateString(date) {
     return new Date(date).toLocaleDateString()
 }
 
-function sortDate(a, b) {
-    return a < b ? -1 : a > b ? 1 : 0
-}
-
 /* This Week */
 const days = {
     0: 31,
@@ -137,40 +133,6 @@ function createYearCount(dates){
     return count;
 }
 
-// function createAllCount(dates, user){
-//     const startDate = new Date(user.createdAt)
-//     const startYr = startDate.getFullYear();
-//     const startMo = startDate.getMonth();
-//     const endDate = new Date(dates[dates.length - 1]);
-//     const endYr = endDate.getFullYear();
-//     const endMo = endDate.getMonth() + 1;
-
-//     const count = {}
-
-//     let currMo = startMo;
-//     let currYr = startYr;
-
-//     while (currMo !== endMo || currYr !== endYr){
-//         if (currMo > 11){
-//             currMo = 0;
-//             currYr += 1;
-//         }
-//         const date = `${currMo + 1}-${currYr}`
-//         count[date] = 0;
-//         currMo += 1;
-//     }
-
-//     const filtered = dates.map(date => new Date(date))
-//     for (let data of filtered){
-//         const mo = data.getMonth();
-//         const yr = data.getFullYear();
-//         const date = `${mo + 1}-${yr}`;
-//         count[date] += 1;
-//     }
-
-//     return count;
-// }
-
 function createAllCount(dates){
     const startDate = dates[0];
     const startYr = startDate.getFullYear();
@@ -201,8 +163,6 @@ function createAllCount(dates){
         count[date] += 1;
     }
 
-    // console.log(startYr, startMo, endYr, endMo);
-    console.log(dates[dates.length - 1]);
     return count;
 }
 
@@ -237,7 +197,6 @@ function getMax(count){
 
 export default function MeetingsChart({meetings, time}){
     const dates = meetings.map(meeting => new Date(meeting.date));
-    console.log(meetings);
     const [count, setCount] = useState(handleMeetingsCount(dates))
     const [data, setData] = useState(createData(count));
     const [max, setMax] = useState(getMax(count));
@@ -265,7 +224,8 @@ export default function MeetingsChart({meetings, time}){
         }
     }
 
-    console.log();
+    //fix meetings stats
+    console.log(createThisWeekCount(dates));
 
     function handleChart(){
         switch(chart){

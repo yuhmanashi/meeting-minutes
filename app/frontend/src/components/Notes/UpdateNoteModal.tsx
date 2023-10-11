@@ -13,7 +13,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Modal from '@mui/material/Modal';
-import AddIcon from '@mui/icons-material/Add';
 
 import SelectMenu from "./SelectMenu";
 
@@ -92,35 +91,37 @@ const colors = [
   '#d6f8ff', // light blue
 ]
 
-export default function CreatePinModal({ authorId }) {
+const colorKey = {}
+for (let i = 0; i < colors.length; i++){
+  colorKey[colors[i]] = i;
+}
+
+export default function UpdatePinModal({ pin }) {
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
   
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setTitle('');
-    setBody('');
-    setColorIdx(0);
     dispatch(sessionErrorActions.removeSessionErrors());
   };
   
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [colorIdx, setColorIdx] = useState(0);
+  const [title, setTitle] = useState(pin.title);
+  const [body, setBody] = useState(pin.body);
+  const [colorIdx, setColorIdx] = useState(colorKey[pin.color]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    if (title.length !== 0 || body.length !== 0) handleClose();
-    
+
+    if (title.length !== 0 && body.length !== 0) handleClose();
+
+    const id = pin.id
+    const authorId = pin.authorId;
     const color = colors[colorIdx];
 
-    return dispatch(pinsActions.createPin({ authorId, title, body, color }));
+    return dispatch(pinsActions.updatePin({ id, authorId, title, body, color }))
   };
-
-  // const options = createPaletteOptions();
 
   const options = []
   for (let i = 0; i < colors.length; i++){
@@ -130,7 +131,7 @@ export default function CreatePinModal({ authorId }) {
   return (
     <div>
       <Button onClick={handleOpen}>
-        <AddIcon sx={{ color: 'white' }}/>
+        Update
       </Button>
       <Modal
         open={open}
@@ -167,18 +168,18 @@ export default function CreatePinModal({ authorId }) {
                 sx={{my: 1}}
                 fullWidth
                 required
-              />
-              <SelectMenu name={'Color'} options={options} defaultValue={0} onChange={setColorIdx}/>
-              <StyledTextarea
+            />
+            <SelectMenu name={'Color'} options={options} defaultValue={colorIdx} onChange={setColorIdx}/>
+            <StyledTextarea
                 defaultValue={body}
                 placeholder="Type here"
                 onChange={e => setBody(e.target.value)}
                 minRows={4}
                 maxRows={4}
                 required
-              />
-            
-            <Button type='submit'>Add Pin</Button>
+            />
+
+            <Button type='submit'>Update Note</Button>
           </Box>
         </Box>
       </Modal>

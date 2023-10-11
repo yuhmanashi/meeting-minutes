@@ -7,17 +7,12 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Masonry from '@mui/lab/Masonry';
-import Pin from './Pin';
+import Pin from './Note';
 
 export default function Pins({ pins }){
 
 
     return (
-        // <Box sx={{p: 2, minHeight: {xs: 320}, maxHeight: {xs: 260, md: 380 }, display: {sm: 'flex', md: 'block' }, flexWrap: 'wrap', overflowX: 'hidden', overflowY: 'auto', backgroundImage: `url(${corkboard})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", border: 5, borderColor: '#EFD0B5'}}>
-        //     {pins.map((pin) => {
-        //         return <Pin key={pin.id} pin={pin} />
-        //     })}
-        // </Box>
         <Box sx={{
             p: 2,
             display: 'flex',
@@ -25,13 +20,6 @@ export default function Pins({ pins }){
             overflowX: 'hidden', 
             overflowY: 'auto',
             height: {xs: 360, lg: 300},
-            // backgroundImage: `url(${corkboard})`, 
-            // backgroundSize: "cover", 
-            // backgroundRepeat: "no-repeat", 
-            // border: 5, 
-            // borderColor: '#EFD0B5',
-            // border: 2,
-            // borderColor: '#1976d2',
             "&::-webkit-scrollbar": {
                     width: "3px"
                 },
@@ -46,7 +34,7 @@ export default function Pins({ pins }){
                     background: "grey",
                 },
         }}>
-            <Masonry sx={{ m: 'auto', alignContent: 'center' }} columns={{xs: 1, sm: 2, md: 3, lg: 1}} spacing={2}>
+            <Masonry sx={{ m: 'auto', alignContent: 'center' }} columns={{xs: 1, sm: 2, md: 3, lg: 1}} defaultHeight={300} spacing={2}>
                 {pins.map((pin) => {
                     return <Pin key={pin.id} pin={pin} />
                 })}

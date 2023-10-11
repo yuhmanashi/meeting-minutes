@@ -11,10 +11,9 @@ import * as studentActions from '../../store/students';
 
 import SelectMenu from '../CommonComponents/SelectMenu';
 
-import DataChart from '../Data/DataChart';
-import DataTable from '../Data/DataTable';
+import DataChart from '../Meetings/DataChart';
 
-export default function Test(){
+export default function Charts(){
     const sessionUser = useAppSelector(state => state.session.user);
     const sessionStudents = useAppSelector((state) => state.students);
     const sessionMeetings = useAppSelector(state => state.meetings);
@@ -35,31 +34,6 @@ export default function Test(){
     };
 
     const userMeetings: any = userFilter(sessionMeetings);
-
-    function handleDateString(date){
-        const dateString = new Date(date).toLocaleDateString();
-        if (dateString.length === 10) return dateString;
-        const strs = dateString.split('/');
-        if (strs[0].length < 2) strs[0] = '0' + strs[0];
-        if (strs[1].length < 2) strs[1] = '0' + strs[1]; 
-        return strs.join('/');
-    }
-
-    const updatedMeetings = userMeetings;
-
-    // const updatedMeetings = userMeetings.map((meeting: Meeting) => {
-    //     const newMeeting = { ...meeting }
-    //     newMeeting.date = handleDateString(meeting.date);
-    //     newMeeting['dateString'] = new Date(meeting.date).toISOString();
-
-    //     return newMeeting;
-    // });
-
-    function sortDate(a, b) {
-        return a < b ? -1 : a > b ? 1 : 0
-    }
-
-    const sortedMeetings = updatedMeetings.sort((a, b) => sortDate(a.date, b.date));
 
     function getCategories(){
         const categories = {};

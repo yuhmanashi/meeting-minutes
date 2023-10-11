@@ -18,23 +18,7 @@ import GenericMenu from '../CommonComponents/Menu';
 
 import * as pinsActions from '../../store/pins';
 
-import UpdatePinModal from './UpdatePinModal';
-
-const colors = [
-    '#fbe3e6', //light pink
-    '#ebd6e7', // light pink
-    '#f5d6dc', // light red
-    '#ddd9e6', // light purple
-    '#d6f8ff', // light blue
-    '#faedd7', // light orange
-    '#d0ecea', // light green
-    '#fbfbde', // light yellow
-]
-
-function generateColor(){
-    const idx = Math.floor(Math.random() * colors.length);
-    return colors[idx];
-}
+import UpdatePinModal from './UpdateNoteModal';
 
 export default function Pin({ pin }) {
     const {id, title, body, createdAt, color} = pin;
@@ -56,31 +40,13 @@ export default function Pin({ pin }) {
     const handleColor = color.length > 1 ? color : '#fbfbde';
 
     return (
-        // <Box sx={{ m: {xs: 1}, width: {sm: '45%', md: '95%', backgroundColor: 'yellow'} }}>
-        //     <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-        //         <Typography sx={{ typography: 'h6', px: 2 }}>
-        //             {title}
-        //         </Typography>
-        //         <GenericMenu props={pinModals()}/>
-        //     </Box>
-        //     <Divider/>
-        //     <List sx={{py: {xs: 0}}}>
-        //         <ListItem sx={{display: 'flex', flexDirection: 'column', py: {xs: 0}}}>
-        //             <ListItemText sx={{alignSelf: 'flex-start', px: 1}}>
-        //                 {body}
-        //             </ListItemText>
-        //             <ListItemText sx={{alignSelf: 'flex-end'}}>
-        //                 {`${createdAt.slice(5, 10)}-${createdAt.slice(2, 4)}`}
-        //             </ListItemText>
-        //         </ListItem>
-        //     </List>
-        // </Box>
         <Card sx={{ m: 1, backgroundColor: handleColor, maxWidth: 330 }}>
             <CardHeader
                 action={<GenericMenu options={pinButtons()} buttonColor='black'/>}
                 title={title}
                 subheader={new Date(createdAt).toLocaleDateString()}
                 subheaderTypographyProps={{variant: 'subtitle2'}}
+                sx={{wordBreak: 'break-word'}}
             />
             <Divider variant='fullWidth' />
             <CardContent >

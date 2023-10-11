@@ -53,13 +53,11 @@ export default function SignupModal({ setModalOpen }) {
   };
 
   return (
-    <div>
+    <Box>
       <Button onClick={handleOpen} size='small' sx={{p: 0}}>Sign up</Button>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
         disableScrollLock={true}
       >
         <Box sx={style}>
@@ -129,6 +127,6 @@ export default function SignupModal({ setModalOpen }) {
           </Box>
         </Box>
       </Modal>
-    </div>
+    </Box>
   );
 }

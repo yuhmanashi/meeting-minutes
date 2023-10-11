@@ -43,17 +43,12 @@ export default function CreateMeetingModal({categories}) {
   const [day, setDay] = useState(dayjs());
   const [time, setTime] = useState(dayjs());
   
-  // const [problems, setProblems] = useState("");
-  // const [notes, setNotes] = useState("");
-  
   function resetState(){
     setEmail("");
     setCategory('');
     setDay(dayjs());
     setTime(dayjs());
     setCategory('');
-    // setProblems('');
-    // setNotes('');
   }
 
   const handleOpen = () => setOpen(true);
@@ -62,11 +57,6 @@ export default function CreateMeetingModal({categories}) {
     setOpen(false);
     dispatch(sessionErrorActions.removeSessionErrors());
   };
-  
-  const testDate = day.toISOString().slice(0, 10);
-  const testTime = time.toISOString().slice(10);
-
-  // console.log(testDate + testTime);
 
   function findStudentId(email){
     const student: any = Object.values(students).filter((student: Student) => student.email === email);
@@ -88,8 +78,6 @@ export default function CreateMeetingModal({categories}) {
     return dispatch(meetingActions.createMeeting({ userId, studentId, category, date }))
   };
 
-  const sampleStudentEmail = students[1].email
-
   function getRandomValidEmail(){
     const numStudents = Object.values(students).length;
     const randomNumber = 1 + Math.floor(Math.random() * (numStudents - 1));
@@ -104,7 +92,6 @@ export default function CreateMeetingModal({categories}) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Button onClick={handleOpen}>
-        {/* <AddIcon/> */}
         <Typography color='white' variant='button' sx={{backgroundColor: 'primary.main', p: 1, borderRadius: 1}}>
           New meeting
         </Typography>
@@ -129,7 +116,6 @@ export default function CreateMeetingModal({categories}) {
               alignItems: 'center',
             }}
           >
-            {/* <SelectMenu name={'students'} options={[]} onChange={() => {}}/> */}
             <List sx={{p: 0}}>
               { errors ? errors.map(error => 
                 <ListItem key={error} sx={{color: 'red'}}>

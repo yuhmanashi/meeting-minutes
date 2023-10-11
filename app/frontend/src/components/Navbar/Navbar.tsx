@@ -14,7 +14,6 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import FunctionsIcon from '@mui/icons-material/Functions';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 
 import List from '@mui/material/List';
@@ -26,11 +25,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { useNavigate } from "react-router-dom";
 
-const pages = ['Filler', 'More Filler', 'Filled'];
-const fillers = ['Filler', 'Something', 'Placehold', 'Stuff'];
-
 const drawerWidth = 150;
-const navItems = ['Home', 'About', 'Contact'];
 
 function Navbar() {
   const sessionUser = useAppSelector(state => state.session.user);
@@ -39,11 +34,6 @@ function Navbar() {
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-  };
-
-  function navToStudents(e){
-    e.preventDefault();
-    navigate('/students');
   };
 
   function navToHome(e){
@@ -65,26 +55,20 @@ function Navbar() {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <List>
-
         <ListItem sx={{ justifyContent: 'center' }}>
           <Button onClick={navToHome}>Home</Button>
         </ListItem>
-        {/* <ListItem sx={{ justifyContent: 'center' }}>
-          <Button onClick={navToStudents}>Students</Button>
-        </ListItem> */}
         <ListItem sx={{ justifyContent: 'center' }}>
           <Button onClick={navToMeetings}>Meetings</Button>
         </ListItem>
         <ListItem sx={{ justifyContent: 'center' }}>
           <Button onClick={navToCharts}>Charts</Button>
         </ListItem>
-
       </List>
     </Box>
   );
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   return (
     <Box sx={{ display: 'flex'}}>
@@ -116,16 +100,12 @@ function Navbar() {
             <Box sx={ sessionUser ? { flexGrow: 1, display: { xs: 'flex', md: 'none' }} : { display: 'none' }}>
               <IconButton
                 size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
                 onClick={handleDrawerToggle}
                 color="inherit"
               >
                 <MenuIcon/>
               </IconButton>
               <Menu
-                id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
                   vertical: 'bottom',
@@ -178,18 +158,8 @@ function Navbar() {
             {/* Misc buttons for desktop */}
             <Box sx={ sessionUser ? { flexGrow: 1, display: { xs: 'none', md: 'flex' } } : { display: 'none' }}>
               <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={navToHome}>Home</Button>
-              {/* <Button sx={{ my: 2, color: 'white', display: 'block' }}onClick={navToStudents}>Students</Button> */}
               <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={navToMeetings}>Meetings</Button>
               <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={navToCharts}>Charts</Button>
-              {/* {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleDrawerToggle}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </Button>
-              ))} */}
             </Box>
             
             {/* Profile */}
@@ -207,7 +177,7 @@ function Navbar() {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: 'block', sm: 'block', md: 'none' },

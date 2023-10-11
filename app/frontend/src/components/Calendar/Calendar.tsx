@@ -9,23 +9,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
-import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import type {} from '@mui/x-date-pickers/themeAugmentation';
 
-import CalendarDetails from './CalendarDetails';
-import WeekOverview from './WeekOverview';
-
-// const HighlightedDay = styled(PickersDay)(({ theme }) => ({
-//   "&.Mui-selected": {
-//     backgroundColor: '#eedde5',
-//     color: 'black'
-//   },
-//   "&.Mui-selected:hover": {
-//     backgroundColor: '#cb99b1',
-//     color: '#fff'
-//   }
-// }));
 const HighlightedDay = styled(PickersDay)(({theme}) => ({
   
 }))
@@ -102,7 +88,6 @@ export default function Calendar({meetings, setSelected}) {
 
   function handleChange(newValue){
     setValue(newValue)
-    // setSelected(new Date(newValue.valueOf() + newValue.utcOffset()*60*1000))
     setSelected(newValue)
   }
 
@@ -131,7 +116,6 @@ export default function Calendar({meetings, setSelected}) {
             border: 2, borderColor: '#e54444', height: 310
           }}
         />
-
 
       </Box>
     </LocalizationProvider>
