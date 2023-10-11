@@ -70,17 +70,19 @@ ApplicationRecord.transaction do
     }
 
     puts "Creating categories..."
-    # categories = [
-    #   'DS&A',
-    #   'Systems Design',
-    #   'Tech Trivia',
-    #   'Practical Skill',
-    #   'Other'
-    # ]
-    categories = []
-    rand(5..8).times do
-      categories.push(Faker::Science.unique.science)
-    end
+    categories = [
+      'DS&A',
+      'Systems Design',
+      'Tech Trivia',
+      'Practical Skill',
+      'Debugging',
+      'Walkthrough',
+      'Other'
+    ]
+    # categories = []
+    # rand(5..8).times do
+    #   categories.push(Faker::Science.unique.science)
+    # end
 
     puts "Creating first user..."
     # Create one user with an easy to remember username, email, and password:

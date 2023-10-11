@@ -157,7 +157,7 @@ export default function CreateMeetingModal({categories}) {
               required
             />
             <Button onClick={handleRandom}>
-              don't have email?
+              don't know an email?
             </Button>
             <Button type='submit'>Create Meeting</Button>
           </Box>

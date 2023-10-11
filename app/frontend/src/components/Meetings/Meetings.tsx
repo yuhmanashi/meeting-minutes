@@ -74,13 +74,23 @@ export default function Meetings(){
         return Object.keys(categories);
     }
 
+    const categories = [
+        'DS&A',
+        'Systems Design',
+        'Tech Trivia',
+        'Practical Skill',
+        'Debugging',
+        'Walkthrough',
+        'Other'
+    ]
+
     function handleDelete(id){
         return dispatch(meetingActions.deleteMeeting(id))
     }
 
     function createButtons(meeting) {
         return [
-            <UpdateMeetingModal meeting={meeting} categories={getCategories()}/>,
+            <UpdateMeetingModal meeting={meeting} categories={categories}/>,
             <Button size='small' onClick={() => handleDelete(meeting.id)}>
                 Delete
             </Button>
@@ -98,7 +108,7 @@ export default function Meetings(){
                 
                 <Container sx={{}}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <CreateMeetingModal categories={getCategories()}/>
+                        <CreateMeetingModal categories={categories}/>
                     </Box>
                     <Box sx={{ display: 'flex', p: 1 }}>
                         <SelectMenu name={'Time'} options={['Week', 'Month', 'Year', 'All']} defaultOption={'Week'} onChange={setTime}/>
