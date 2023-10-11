@@ -56,7 +56,7 @@ export default function SignupModal({ setModalOpen }) {
     const checkPassword = password.length > 7 && password.length < 255
 
     if (email.match(emailFormat) && checkFirstName && checkLastName && checkPassword ){
-      handleClose();
+      dispatch(sessionErrorActions.removeSessionErrors());
     }
 
     return dispatch(sessionActions.signup({ email, firstName, lastName, password }))
