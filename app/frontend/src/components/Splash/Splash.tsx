@@ -12,6 +12,7 @@ import Divider from '@mui/material/Divider';
 import Carousel from '../CommonComponents/Carousel';
 import Login from './Login';
 import * as sessionActions from '../../store/session';
+import * as sessionErrorActions from '../../store/session_errors';
 import { useAppDispatch } from '../../utils/hooks';
 
 function Splash(){
@@ -27,7 +28,8 @@ function Splash(){
 
     function demoLogin(e){
         e.preventDefault();
-        return dispatch(sessionActions.login({email:'demo@user.io', password:'password'}))
+        dispatch(sessionErrorActions.removeSessionErrors());
+        return dispatch(sessionActions.login({email:'demo@user.io', password:'password'}));
     }
 
     return (

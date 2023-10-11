@@ -12,7 +12,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Modal from '@mui/material/Modal';
 
-export default function Login({open}) {
+export default function Login({ open }) {
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
   

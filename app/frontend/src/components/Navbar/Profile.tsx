@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Logout from '@mui/icons-material/Logout';
 import { useAppDispatch } from "../../utils/hooks";
 import * as sessionActions from '../../store/session';
-
+import * as sessionErrorActions from '../../store/session_errors';
 type profileProps = {
   user: User
 }
@@ -29,6 +29,7 @@ export default function Profile({user}: profileProps) {
 
   const logout = (e) => {
     e.preventDefault();
+    dispatch(sessionErrorActions.removeSessionErrors());
     dispatch(sessionActions.logout());
   };
 

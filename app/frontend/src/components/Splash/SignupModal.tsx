@@ -37,8 +37,9 @@ export default function SignupModal({ setModalOpen }) {
   }
 
   const handleClose = () => {
-    setModalOpen(false)
+    setModalOpen(false);
     setOpen(false);
+    dispatch(sessionErrorActions.removeSessionErrors());
   };
 
   const [email, setEmail] = useState("");
@@ -48,7 +49,16 @@ export default function SignupModal({ setModalOpen }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(sessionErrorActions.removeSessionErrors());
+    
+    const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const checkFirstName = firstName.length > 0 && firstName.length <= 50
+    const checkLastName = lastName.length > 0 && lastName.length <= 50
+    const checkPassword = password.length > 7 && password.length < 255
+
+    if (email.match(emailFormat) && checkFirstName && checkLastName && checkPassword ){
+      handleClose();
+    }
+
     return dispatch(sessionActions.signup({ email, firstName, lastName, password }))
   };
 
