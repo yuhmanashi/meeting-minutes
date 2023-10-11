@@ -77,7 +77,10 @@ export default function CategoriesChart({ meetings, time, categories }){
 
     return (
         <Box sx={{  }}>
-            <Typography variant='h5' sx={{mt: 1, mb: 4, fontWeight: 'bold'}}>{time === 'All' ? 'Categories To Date' : `Categories For This ${time}`}</Typography>
+            <Box sx={{ display: 'flex', mt: 1, mb: 2, flexDirection: 'column' }}>
+                <Typography variant='h5' textAlign='center' sx={{mb: 1, backgroundColor: '#F8B195', color: 'white', maxWidth: 240, p: 1, borderRadius: 1}}>Category Frequency</Typography>
+                <Typography variant='h5'  sx={{fontWeight: 'bold', maxWidth: 200, p: 1, borderRadius: 1}}>{time === 'All' ? 'All Time' : `This ${time}`}</Typography>
+            </Box>
             {handleChart()}
             <Box sx={{ mt: 4 }}>
                 <SelectMenu name={'Chart'} options={['Bar', 'Donut']} defaultOption={'Bar'} onChange={setChart}/>

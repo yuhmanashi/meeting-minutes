@@ -35,7 +35,7 @@ const days = {
     11: 31
 }
 
-export default function DataChart({meetings, selected, user, categories, selectedDay = null}){
+export default function DataChart({meetings, selected, categories, selectedDay = null}){
     const [data, time] = selected;
 
     function byThisWeek(date){

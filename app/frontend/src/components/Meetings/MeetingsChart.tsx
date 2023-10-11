@@ -33,23 +33,6 @@ const days = {
     11: 31
 }
 
-function createMonthCount(dates){ 
-    const count = {};
-    const month = new Date().getMonth();
-
-    for (let i = 1; i <= days[month]; i++){
-      count[`${month+1}/${i}`] = 0;
-    }
-
-    const filtered = dates.map(date => toLocaleDateString(date).split('/').slice(0, 2).join('/'));
-      
-    for (let data of filtered){
-      count[data] += 1;
-    }
-
-    return count;
-}
-
 const monthes = [
     'Jan', 
     'Feb', 
@@ -65,12 +48,19 @@ const monthes = [
     'Dec'
 ]
 
+function fixDate(str){
+    return str.length > 1 ? str : '0' + str;
+}
+
 function createThisWeekCount(dates){
     const count = {};
     
     const dateStrings = dates.map(date => {
         const dateString = toLocaleDateString(date).split('/').slice(0, 2).join('/')
-        return dateString;
+        const month = dateString.slice(0, 2);
+        const day = dateString.slice(3);
+
+        return fixDate(month) + '/' + fixDate(day);
     });
 
     const today = new Date();
@@ -104,13 +94,43 @@ function createThisWeekCount(dates){
             currMonth += 1;
         }
 
-        const date = `${currMonth + 1}/${currDay}`
+        const newDay = `${currDay}`.length < 2 ? '0' + `${currDay}` : `${currDay}`;
+        const adjustedMo = `${currMonth + 1}`
+        const newMo = adjustedMo.length < 2 ? '0' + adjustedMo : adjustedMo;
+        const date = newMo + '/' + newDay
+
         count[date] = 0;
 
         currDay++;
         i++;
     }
 
+    for (let date of dateStrings){
+      count[date] += 1;
+    }
+
+    return count;
+}
+
+function createMonthCount(dates){ 
+    const count = {};
+    const month = new Date().getMonth();
+
+    for (let i = 1; i <= days[month]; i++){
+        const mo = fixDate(`${month + 1}`);
+        const day = fixDate(`${i}`)
+        count[mo + '/' + day] = 0;
+    }
+
+    const dateStrings = dates.map(date => {
+        const dateString = toLocaleDateString(date).split('/').slice(0, 2).join('/')
+
+        const month = dateString.slice(0, 2);
+        const day = dateString.slice(3);
+
+        return fixDate(month) + '/' + fixDate(day);
+    });
+     
     for (let date of dateStrings){
       count[date] += 1;
     }
@@ -151,7 +171,11 @@ function createAllCount(dates){
             currMo = 0;
             currYr += 1;
         }
-        const date = `${currMo + 1}-${currYr}`
+
+        const yr = `${currYr}`.slice(2);
+        const mo = fixDate(`${currMo + 1}`);
+        const date = mo + '-' + yr
+
         count[date] = 0;
         currMo += 1;
     }
@@ -159,7 +183,10 @@ function createAllCount(dates){
     for (let data of dates){
         const mo = data.getMonth();
         const yr = data.getFullYear();
-        const date = `${mo + 1}-${yr}`;
+     
+        const fixMo = fixDate(`${mo + 1}`);
+        const date = fixMo + '-' + `${yr}`.slice(2)
+
         count[date] += 1;
     }
 
@@ -225,7 +252,6 @@ export default function MeetingsChart({meetings, time}){
     }
 
     //fix meetings stats
-    console.log(createThisWeekCount(dates));
 
     function handleChart(){
         switch(chart){
@@ -240,7 +266,10 @@ export default function MeetingsChart({meetings, time}){
 
     return (
         <Box sx={{  }}>
-            <Typography variant='h5' sx={{mt: 1, mb: 4, fontWeight: 'bold'}}>{time === 'All' ? 'Meetings To Date' : `Meetings For This ${time}`}</Typography>
+            <Box sx={{ display: 'flex', mt: 1, mb: 2, flexDirection: 'column' }}>
+                <Typography variant='h5' textAlign='center' sx={{mb: 1, backgroundColor: '#F67280', color: 'white', maxWidth: 200, p: 1, borderRadius: 1}}>Meetings Count</Typography>
+                <Typography variant='h5' sx={{fontWeight: 'bold', maxWidth: 200, p: 1, borderRadius: 1}}>{time === 'All' ? 'All Time' : `This ${time}`}</Typography>
+            </Box>
             {handleChart()}
             <Box sx={{ mt: 4 }}>
                 <SelectMenu name={'Chart'} options={['Bar', 'Line']} defaultOption={'Bar'} onChange={setChart}/> 

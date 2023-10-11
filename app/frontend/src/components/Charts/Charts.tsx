@@ -35,6 +35,12 @@ export default function Charts(){
 
     const userMeetings: any = userFilter(sessionMeetings);
 
+    function sortDate(a, b) {
+        return a < b ? -1 : a > b ? 1 : 0
+    }
+
+    const sortedMeetings = userMeetings.sort((a, b) => sortDate(a.date, b.date));
+
     function getCategories(){
         const categories = {};
 
@@ -57,7 +63,7 @@ export default function Charts(){
 
                 <Container sx={{}}>
                     <Box sx={{px: 1}}>
-                        <DataChart meetings={userMeetings} selected={[data, time]} user={sessionUser} categories={getCategories()}/>
+                        <DataChart meetings={sortedMeetings} selected={[data, time]} categories={getCategories()}/>
                     </Box>
                     <Box sx={{ display: 'flex', p: 1 }}>
                         <SelectMenu name={'Data'} options={['Meeting', 'Category']} defaultOption={'Meeting'} onChange={setData}/>

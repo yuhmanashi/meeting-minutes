@@ -92,7 +92,7 @@ ApplicationRecord.transaction do
     )
 
     puts "Creating meetings for first user..."
-    200.times do
+    150.times do
       firstUser.meetings.create!(
         category: categories[rand(0..(categories.length - 1))],
         student_id: rand(1..num_students),
@@ -102,10 +102,20 @@ ApplicationRecord.transaction do
       )
     end
 
-    puts "Creating watchlist for first user..."
-    tags = ['a', 'b', 'c', 'd', 'e']
+    50.times do
+      firstUser.meetings.create!(
+        category: categories[rand(0..(categories.length - 1))],
+        student_id: rand(1..num_students),
+        date: DateTime.new(2024, rand(1..2), rand(1..30) + rand().round(1)),
+        notes: Faker::Lorem.sentences(number: rand(1..3)).join(' '),
+        problems: Faker::Lorem.word
+      )
+    end
+
+    # puts "Creating watchlist for first user..."
+    # tags = ['a', 'b', 'c', 'd', 'e']
     
-    set = Set.new
+    # set = Set.new
 
     # 5.times do
     #   student_id = rand(1..num_students);
