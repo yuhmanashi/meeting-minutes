@@ -14,7 +14,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Modal from '@mui/material/Modal';
 
-import GenericAutocomplete from "../CommonComponents/AutoComplete";
+import SelectMenu from "./SelectMenu";
 
 const style = {
   position: 'absolute',
@@ -80,6 +80,22 @@ const StyledTextarea = styled(TextareaAutosize)(
   `,
 );
 
+const colors = [
+  '#fbfbde', // light yellow
+  '#faedd7', // light orange
+  '#f5d6dc', // light red
+  '#fbe3e6', //light pink
+  '#ebd6e7', // light pink
+  '#ddd9e6', // light purple
+  '#d0ecea', // light green
+  '#d6f8ff', // light blue
+]
+
+const colorKey = {}
+for (let i = 0; i < colors.length; i++){
+  colorKey[colors[i]] = i;
+}
+
 export default function UpdatePinModal({ pin }) {
   const dispatch = useAppDispatch();
   const errors = useAppSelector(state => state.errors);
@@ -93,16 +109,24 @@ export default function UpdatePinModal({ pin }) {
   
   const [title, setTitle] = useState(pin.title);
   const [body, setBody] = useState(pin.body);
-  const [authorId, setAuthorId] = useState(pin.authorId);
-  const [color, setColor] = useState(pin.color);
-  const id = pin.id
+  const [colorIdx, setColorIdx] = useState(colorKey[pin.color]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (title.length !== 0 && body.length !== 0) handleClose();
+
+    const id = pin.id
+    const authorId = pin.authorId;
+    const color = colors[colorIdx];
+
     return dispatch(pinsActions.updatePin({ id, authorId, title, body, color }))
   };
+
+  const options = []
+  for (let i = 0; i < colors.length; i++){
+    options.push(i);
+  }
 
   return (
     <div>
@@ -112,8 +136,6 @@ export default function UpdatePinModal({ pin }) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
         disableScrollLock={true}
       >
         <Box sx={style}>
@@ -127,7 +149,6 @@ export default function UpdatePinModal({ pin }) {
               flexDirection: 'column', 
               justifyContent: 'flex-end',
               alignItems: 'center',
-              minHeight: 250
             }}
           >
             <List sx={{p: 0}}>
@@ -138,7 +159,6 @@ export default function UpdatePinModal({ pin }) {
                 : null 
               }
             </List>
-
             <TextField
                 label='Title'
                 defaultValue={title}
@@ -149,6 +169,7 @@ export default function UpdatePinModal({ pin }) {
                 fullWidth
                 required
             />
+            <SelectMenu name={'Color'} options={options} defaultValue={colorIdx} onChange={setColorIdx}/>
             <StyledTextarea
                 defaultValue={body}
                 placeholder="Type here"

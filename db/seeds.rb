@@ -64,7 +64,7 @@ ApplicationRecord.transaction do
         first_name: first_name,
         last_name: last_name,
         full_name: full_name,
-        email: Faker::Internet.email(name: full_name),
+        email: Faker::Internet.email(name: full_name, domain: 'example.com'),
         coach: coaches[rand(0..9)]
       )
     }
@@ -139,8 +139,8 @@ ApplicationRecord.transaction do
 
     rand(10..20).times do 
       firstUser.pins.create!(
-        title: Faker::Lorem.words.join(" "),
-        body: Faker::Lorem.sentence(word_count: 1, supplemental: false, random_words_to_add: 50),
+        title: Faker::Company.bs,
+        body: Faker::Quote.matz,
         color: colors[rand(0..(colors.length - 1))],
       )
     end
@@ -157,7 +157,7 @@ ApplicationRecord.transaction do
       )
       
       set = Set.new
-      rand(1..10).times do
+      5.times do
         user.meetings.create!(
           category: categories[rand(0..(categories.length - 1))],
           student_id: rand(1..num_students),

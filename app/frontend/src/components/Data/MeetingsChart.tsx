@@ -280,9 +280,11 @@ export default function MeetingsChart({meetings, time}){
 
     return (
         <Box sx={{  }}>
-            <Typography variant='h5' sx={{my: 3, fontWeight: 'bold'}}>{time === 'All' ? 'Meetings To Date' : `Meetings For This ${time}`}</Typography>
+            <Typography variant='h5' sx={{mt: 1, mb: 4, fontWeight: 'bold'}}>{time === 'All' ? 'Meetings To Date' : `Meetings For This ${time}`}</Typography>
             {handleChart()}
-            <SelectMenu name={'Chart'} options={['Bar', 'Line']} defaultOption={'Bar'} onChange={setChart}/> 
+            <Box sx={{ mt: 4 }}>
+                <SelectMenu name={'Chart'} options={['Bar', 'Line']} defaultOption={'Bar'} onChange={setChart}/> 
+            </Box>
         </Box>
     );
 }

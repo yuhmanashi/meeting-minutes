@@ -15,7 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Modal from '@mui/material/Modal';
 import AddIcon from '@mui/icons-material/Add';
 
-import SelectMenu from "../CommonComponents/SelectMenu";
+import SelectMenu from "./SelectMenu";
 
 const style = {
   position: 'absolute',
@@ -84,8 +84,8 @@ const StyledTextarea = styled(TextareaAutosize)(
 const colors = [
   '#fbfbde', // light yellow
   '#faedd7', // light orange
-  '#fbe3e6', //light pink
   '#f5d6dc', // light red
+  '#fbe3e6', //light pink
   '#ebd6e7', // light pink
   '#ddd9e6', // light purple
   '#d0ecea', // light green
@@ -102,31 +102,30 @@ export default function CreatePinModal({ authorId }) {
     setOpen(false);
     setTitle('');
     setBody('');
-    setColor('');
+    setColorIdx(0);
     dispatch(sessionErrorActions.removeSessionErrors());
   };
   
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [color, setColor] = useState('#f5d6dc');
-  
-  function createPaletteOptions(){
-    return (
-      colors.map((color, i) => 
-        <Typography key={i} textAlign='center' sx={{ backgroundColor: color, border: 1, borderColor: 'lightgrey', height: 25, width: 1 }}>Sample Text</Typography>
-      )
-    )
-  }
+  const [colorIdx, setColorIdx] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
     if (title.length !== 0 || body.length !== 0) handleClose();
+    
+    const color = colors[colorIdx];
 
     return dispatch(pinsActions.createPin({ authorId, title, body, color }));
   };
 
-  const options = createPaletteOptions();
+  // const options = createPaletteOptions();
+
+  const options = []
+  for (let i = 0; i < colors.length; i++){
+    options.push(i);
+  }
 
   return (
     <div>
@@ -136,8 +135,6 @@ export default function CreatePinModal({ authorId }) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
         disableScrollLock={true}
       >
         <Box sx={style}>
@@ -151,7 +148,6 @@ export default function CreatePinModal({ authorId }) {
               flexDirection: 'column', 
               justifyContent: 'flex-end',
               alignItems: 'center',
-              minHeight: 250
             }}
           >
             <List sx={{p: 0}}>
@@ -162,8 +158,7 @@ export default function CreatePinModal({ authorId }) {
                 : null 
               }
             </List>
-            
-              <TextField
+            <TextField
                 label='Title'
                 defaultValue={title}
                 onChange={e => setTitle(e.target.value)} 
@@ -173,7 +168,7 @@ export default function CreatePinModal({ authorId }) {
                 fullWidth
                 required
               />
-              {/* <SelectMenu name={'color'} options={options} defaultOption={options[0]} onChange={setColor}/> */}
+              <SelectMenu name={'Color'} options={options} defaultValue={0} onChange={setColorIdx}/>
               <StyledTextarea
                 defaultValue={body}
                 placeholder="Type here"
